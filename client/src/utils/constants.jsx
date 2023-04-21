@@ -14,6 +14,13 @@ export const documentNames = {
     },
 };
 
+export const bprDocumentTypes = {
+    ID_CARD: 'ID քարտ',
+    NON_BIOMETRIC_PASSPORT: 'ՀՀ անձնագիր',
+    BIOMETRIC_PASSPORT: 'Կենսաչափ․ անձնագիր',
+    BIRTH_CERTIFICATE: 'Ծննդյան․ վկ․',
+};
+
 export const fakeData = [
     {
         id: 1,
@@ -625,10 +632,10 @@ export const fakeData = [
                     Last_Name: 'ՍԱՀԱԿՅԱՆ',
                     First_Name: 'ՎԱՐԴԱՆՈՒՇ',
                     Patronymic_Name: 'ՍԱՀԱԿԻ',
-                    Birth_Date: '20/06/1978',
+                    Birth_Date: '20/06/2021',
                     Genus: 'F',
-                    English_Last_Name: 'YERANYAN',
-                    English_First_Name: 'TIGRAN',
+                    English_Last_Name: 'SAHAKYAN',
+                    English_First_Name: 'VARDANUSH',
                     English_Patronymic_Name: 'SAHAKI',
                     Birth_Country: {
                         CountryName: 'ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ',

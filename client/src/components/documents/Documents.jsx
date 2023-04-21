@@ -2,11 +2,11 @@ import { Box } from '@mui/material';
 import AddressTable from '../addressTable/AddressTable';
 import PassportTable from '../passportTable/PassportTable';
 
-const Documents = () => {
+const Documents = ({ documents, addresses }) => {
     return (
         <Box>
-            <PassportTable />
-            <AddressTable />
+            <PassportTable documents={documents} />
+            <AddressTable addresses={addresses} />
         </Box>
     );
 };

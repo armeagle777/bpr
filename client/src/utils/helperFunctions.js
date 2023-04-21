@@ -100,8 +100,6 @@ export const searchRowPersonData = (documents) => {
 };
 
 export const formatPersonData = (personInfo) => {
-    console.log('personInfo::::::', personInfo);
-
     const { addresses, documents, ...unChangedData } = personInfo;
 
     const currentAddressObj = findCurrentAddress(addresses);
@@ -139,5 +137,31 @@ export const formatPersonData = (personInfo) => {
             birthRegion: Birth_Region,
             ...unChangedData,
         },
+        addresses,
+        documents,
     };
+};
+
+export const filterImageSrcs = (docs, gender, birthDate) => {
+    const images = docs.reduce((acc, doc) => {
+        doc.Photo_ID && acc.push(`data:image/jpeg;base64,${doc.Photo_ID}`);
+
+        return acc;
+    }, []);
+
+    if (images.length > 0) {
+        return images;
+    }
+    console.log('gender::::::', gender);
+
+    const birthYear = birthDate.split('/')[2];
+    const age = new Date().getFullYear() - birthYear;
+    const noImageSrc =
+        age < 18
+            ? '../public/baby.png'
+            : gender === 'ԱՐԱԿԱՆ'
+            ? '../public/male.png'
+            : '../public/female.png';
+
+    return [noImageSrc];
 };

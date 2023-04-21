@@ -18,6 +18,7 @@ import TabPanel from '../tabPanel/TabPanel';
 import PersonalInfoRow from './PersonalInfoRow';
 
 import {
+    filterImageSrcs,
     formatCountryName,
     formatPersonData,
 } from '../../utils/helperFunctions';
@@ -30,8 +31,6 @@ const PersonInfoPage = ({ personInfo }) => {
             PNum,
             Certificate_Number,
             Citizenship_StoppedDate,
-            documents,
-            addresses,
             IsDead,
             DeathDate,
             birthDate,
@@ -60,7 +59,11 @@ const PersonInfoPage = ({ personInfo }) => {
             Foreign_Country,
             Foreign_Region,
         },
+        addresses,
+        documents,
     } = formatPersonData(personInfo);
+
+    const images = filterImageSrcs(documents, gender, birthDate);
 
     const navigate = useNavigate();
 
@@ -104,8 +107,15 @@ const PersonInfoPage = ({ personInfo }) => {
                 </Button>
             </Stack>
             <Stack direction='row' sx={{ mt: 2 }}>
-                <Box sx={{ width: '30%', padding: 2 }}>
-                    <PhotoSlider />
+                <Box
+                    sx={{
+                        width: '20%',
+                        minWidth: 200,
+                        maxWidth: 300,
+                        padding: 2,
+                    }}
+                >
+                    <PhotoSlider images={images} />
                 </Box>
                 <Stack direction='row' sx={{ width: '70%', padding: 2 }}>
                     <Stack
@@ -221,7 +231,7 @@ const PersonInfoPage = ({ personInfo }) => {
             </Stack>
             <Box sx={{ pb: 3 }}>
                 <TabPanel value={value} index={0}>
-                    <Documents />
+                    <Documents documents={documents} addresses={addresses} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <Finances />
