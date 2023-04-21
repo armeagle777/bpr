@@ -1,0 +1,27 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "db": "json-server -w ../data/data.json -p 8000",
+        "dev": "nodemon ./src/index"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "json-server": "^0.17.2",
+        "nodemon": "^2.0.21",
+        "prisma": "^4.13.0"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.13.0",
+        "axios": "^1.3.4",
+        "chalk": "^5.2.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "morgan": "^1.10.0"
+    }
+}

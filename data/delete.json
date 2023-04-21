@@ -1,0 +1,858 @@
+{
+    "status": "ok",
+    "code": "avv.200",
+    "result": [
+        {
+            "PNum": "1209000555",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AR0293779",
+                        "Other_DocumentType": null,
+                        "Document_Department": "001",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AP0222801",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՐՄԱՆԻ",
+                            "Birth_Date": "02/09/2000",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "ARMANI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԱՐՄԱՎԻՐ",
+                            "Birth_Community": "ՎԱՂԱՐՇԱՊԱՏ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "17/05/2017",
+                            "Passport_Validity_Date": "01/11/2018",
+                            "Passport_Validity_Date_FC": "01/11/2018",
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AP0222801",
+                        "Other_DocumentType": null,
+                        "Document_Department": "057",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "1",
+                            "Basic_Document_Name": "ՀՀ ԾՆՆԴՅԱՆ ՎԿԱՅԱԿԱՆ",
+                            "Basic_Document_Number": "ԱԱ255298",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՐՄԱՆԻ",
+                            "Birth_Date": "02/09/2000",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "ARMANI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԱՐՄԱՎԻՐ",
+                            "Birth_Community": "ՎԱՂԱՐՇԱՊԱՏ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "29/04/2014",
+                            "Passport_Validity_Date": "29/04/2017",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "AR0293779",
+                            "Related_Document_Date": "17/05/2017",
+                            "Related_Document_Department": "001"
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "VALID",
+                        "Document_Type": "BIRTH_CERTIFICATE",
+                        "Document_Number": "ԱԱ255298",
+                        "Other_DocumentType": null,
+                        "Document_Department": "057",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": null,
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՐՄԱՆԻ",
+                            "Birth_Date": "02/09/2000",
+                            "Genus": "M",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԱՐՄԱՎԻՐ",
+                            "Birth_Community": "ՎԱՂԱՐՇԱՊԱՏ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "04/09/2000",
+                            "Passport_Validity_Date": null,
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "Postal_Index": null,
+                            "Foreign_Country": {
+                                "CountryName": "ՌՈՒՍԱՍՏԱՆԻ ԴԱՇՆՈՒԹՅՈՒՆ",
+                                "CountryCode": "643",
+                                "CountryShortName": "RUS"
+                            },
+                            "Foreign_Region": "ՏՎԵՐԻ ՄԱՐԶ",
+                            "Foreign_Community": "Գ.ՍՊԱԼԿՈՎՈ Տ.37Ա",
+                            "Foreign_Address": null
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": "001",
+                            "Registration_Date": "16/05/2017",
+                            "Registration_Type": "CURRENT",
+                            "Registration_Status": "A",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": {
+                                "AimName": "Այլ",
+                                "AimCode": "Յ"
+                            },
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
+        },
+        {
+            "PNum": "2701850401",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "ID_CARD",
+                        "Document_Number": "010558633",
+                        "Other_DocumentType": null,
+                        "Document_Department": "012",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AN0483658",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՇՈՏԻ",
+                            "Birth_Date": "17/01/1985",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "ASHOTI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "27/08/2018",
+                            "Passport_Validity_Date": "27/08/2028",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AV0506594",
+                        "Other_DocumentType": null,
+                        "Document_Department": "012",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AN0483658",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՇՈՏԻ",
+                            "Birth_Date": "17/01/1985",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "ASHOTI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "07/11/2022",
+                            "Passport_Validity_Date": "07/11/2032",
+                            "Passport_Validity_Date_FC": "10/11/2024",
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AF0257843",
+                        "Other_DocumentType": null,
+                        "Document_Department": "008",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՇՈՏԻ",
+                            "Birth_Date": "17/01/1985",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "ASHOTI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "22/03/2001",
+                            "Passport_Validity_Date": "22/03/2016",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": "069",
+                            "Related_Document_Number": "AN0483658",
+                            "Related_Document_Date": "21/05/2013",
+                            "Related_Document_Department": "069"
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AN0483658",
+                        "Other_DocumentType": null,
+                        "Document_Department": "069",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AF0257843",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ԱՇՈՏԻ",
+                            "Birth_Date": "17/01/1985",
+                            "Genus": "M",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "21/05/2013",
+                            "Passport_Validity_Date": "21/05/2023",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "AV0506594",
+                            "Related_Document_Date": "07/11/2022",
+                            "Related_Document_Department": "012"
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100100",
+                            "Postal_Index": "0078",
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ԱՋԱՓՆՅԱԿ",
+                            "Street": "ԲԱՇԻՆՋԱՂՅԱՆ Փ.",
+                            "Building": "6",
+                            "Building_Type": "Շ",
+                            "Apartment": "26"
+                        },
+                        "ResidenceDocument": {
+                            "Residence_Document_Type": "ՍԵՓԱԿԱՆԱՏԻՐՈՋ ՀԱՄԱՁԱՅՆԱԳԻՐ",
+                            "Residence_Document_Number": "17112016-01-0147",
+                            "Residence_Document_Department": null,
+                            "Residence_Document_Date": "17/11/2016",
+                            "Residence_Document_Validity_Date": null
+                        },
+                        "RegistrationData": {
+                            "Registration_Department": "012",
+                            "Registration_Date": "14/12/2017",
+                            "Registration_Type": "CURRENT",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": {
+                                "AimName": "Հասցեի փոփոխություն",
+                                "AimCode": "Փ"
+                            },
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
+        },
+        {
+            "PNum": "3014780278",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "ID_CARD",
+                        "Document_Number": "012295952",
+                        "Other_DocumentType": null,
+                        "Document_Department": "011",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "A",
+                            "Basic_Document_Name": "ՆՈՒՅՆԱԿԱՆԱՑՄԱՆ ՔԱՐՏ",
+                            "Basic_Document_Number": "002173045",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ՍԱՀԱԿԻ",
+                            "Birth_Date": "20/06/1978",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "SAHAKI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "08/04/2021",
+                            "Passport_Validity_Date": "08/04/2031",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AU0226873",
+                        "Other_DocumentType": null,
+                        "Document_Department": "011",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AK0494323",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ՍԱՀԱԿԻ",
+                            "Birth_Date": "20/06/1978",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "SAHAKI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "09/04/2021",
+                            "Passport_Validity_Date": "09/04/2031",
+                            "Passport_Validity_Date_FC": "14/04/2023",
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AA0223277",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ՍԱՀԱԿԻ",
+                            "Birth_Date": "20/06/1978",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "SAHAKI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "10/06/1995",
+                            "Passport_Validity_Date": "10/06/2010",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": "006",
+                            "Related_Document_Number": "AK0494323",
+                            "Related_Document_Date": "03/05/2010",
+                            "Related_Document_Department": "006"
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "INVALID",
+                        "Document_Type": "ID_CARD",
+                        "Document_Number": "002173045",
+                        "Other_DocumentType": null,
+                        "Document_Department": "001",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AK0494323",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ՍԱՀԱԿԻ",
+                            "Birth_Date": "20/06/1978",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "SAHAKI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "12/05/2014",
+                            "Passport_Validity_Date": "12/05/2024",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "012295952",
+                            "Related_Document_Date": "27/04/2021",
+                            "Related_Document_Department": "011"
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/",
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AK0494323",
+                        "Other_DocumentType": null,
+                        "Document_Department": "006",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AA0223277",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԵՐԱՆՅԱՆ",
+                            "First_Name": "ՏԻԳՐԱՆ",
+                            "Patronymic_Name": "ՍԱՀԱԿԻ",
+                            "Birth_Date": "20/06/1978",
+                            "Genus": "M",
+                            "English_Last_Name": "YERANYAN",
+                            "English_First_Name": "TIGRAN",
+                            "English_Patronymic_Name": "SAHAKI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք. ԵՐԵՎԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "03/05/2010",
+                            "Passport_Validity_Date": "03/05/2020",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "AU0226873",
+                            "Related_Document_Date": "09/04/2021",
+                            "Related_Document_Department": "011"
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100200",
+                            "Postal_Index": "0022",
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ԱՎԱՆ",
+                            "Street": "ԱՎԱՆ ԱՌԻՆՋ 2 ՄԿՐՇ.",
+                            "Building": "1/1",
+                            "Building_Type": "Շ",
+                            "Apartment": "9"
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": "005",
+                            "Registration_Date": "10/06/1995",
+                            "Registration_Type": "CURRENT",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": {
+                                "AimName": "ՀՀ-ում հաշվառում առաջին անգամ",
+                                "AimCode": "Հ"
+                            },
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
+        }
+    ]
+}

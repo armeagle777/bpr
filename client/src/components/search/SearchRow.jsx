@@ -1,0 +1,113 @@
+import InfoIcon from '@mui/icons-material/Info';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
+
+import { formatAddressString } from '../../utils/helperFunctions';
+import { searchRowPersonData } from '../../utils/helperFunctions';
+
+const SearchRow = ({ personInfo }) => {
+    const { PNum, addresses, documents } = personInfo;
+    const navigate = useNavigate();
+
+    const addressLine = formatAddressString(addresses);
+    const {
+        gender,
+        avatar,
+        department,
+        docNum,
+        issueDate,
+        validDate,
+        firstName,
+        lastName,
+        middleName,
+        birthDate,
+    } = searchRowPersonData(documents);
+
+    const noImageSrc =
+        gender === 'M' ? './src/assets/male.png' : './src/assets/female.png';
+    const infoClickHandler = () => {
+        navigate(`/search/${PNum}`, {
+            state: { personInfo },
+        });
+    };
+
+    return (
+        <Stack
+            direction='row'
+            sx={{
+                width: '100%',
+                height: '100px',
+            }}
+        >
+            <CardMedia
+                sx={{ height: '100%', width: '100px', bgcolor: '#ccc' }}
+                image={avatar ? `data:image/jpeg;base64,${avatar}` : noImageSrc}
+                title='green iguana'
+            />
+            <Stack direction='column' px={2}>
+                <Stack direction='column'>
+                    <Stack direction='row' spacing={2} alignItems='center'>
+                        <Typography gutterBottom variant='h6' component='span'>
+                            {`${firstName} ${lastName} ${middleName}`}
+                        </Typography>
+                        <Tooltip title='Ծննդ․ ամսաթիվ' placement='top'>
+                            <Typography component='span'>
+                                {birthDate}
+                            </Typography>
+                        </Tooltip>
+                        <Tooltip title='ՀԾՀ' placement='top'>
+                            <Typography component='span'>{PNum}</Typography>
+                        </Tooltip>
+                        <Tooltip title='Փաստաթղթի համար' placement='top'>
+                            <Typography component='span'>{docNum}</Typography>
+                        </Tooltip>
+                        <Tooltip title='Փ/թ մարմին' placement='top'>
+                            <Typography component='span'>
+                                {department}
+                            </Typography>
+                        </Tooltip>
+                        <Tooltip title='Փ/թ վավերականություն' placement='top'>
+                            <Typography component='span'>
+                                {issueDate} - {validDate}
+                            </Typography>
+                        </Tooltip>
+                    </Stack>
+                    <Typography
+                        gutterBottom
+                        component='div'
+                        variant='body2'
+                        color='text.secondary'
+                        sx={{ width: '100%' }}
+                    >
+                        <small>ԳՐԱՆՑՄԱՆ ՀԱՍՑԵ : </small> {addressLine}
+                    </Typography>
+                </Stack>
+                <Stack spacing={1} direction='row'>
+                    <Button
+                        size='medium'
+                        variant='outlined'
+                        color='error'
+                        endIcon={<PictureAsPdfIcon />}
+                    >
+                        Արտահանել
+                    </Button>
+                    <Button
+                        onClick={infoClickHandler}
+                        size='medium'
+                        variant='outlined'
+                        endIcon={<InfoIcon />}
+                    >
+                        Մանրամասն
+                    </Button>
+                </Stack>
+            </Stack>
+        </Stack>
+    );
+};
+
+export default SearchRow;
