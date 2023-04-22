@@ -19,6 +19,10 @@ export const bprDocumentTypes = {
     NON_BIOMETRIC_PASSPORT: 'ՀՀ անձնագիր',
     BIOMETRIC_PASSPORT: 'Կենսաչափ․ անձնագիր',
     BIRTH_CERTIFICATE: 'Ծննդյան․ վկ․',
+    TRAVEL_DOCUMENT: 'Ճամփորդական փ/թ',
+    FOREIGN_PASSPORT: 'Օտարերկրյա անձ․',
+    RESIDENCE_CARD: 'Կացության քարտ',
+    OTHER: 'Այլ',
 };
 
 export const fakeData = [

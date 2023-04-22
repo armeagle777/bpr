@@ -7,8 +7,6 @@ import TableBody from './TableBody';
 import TableHead from './TableHead';
 
 const PassportTable = ({ documents }) => {
-    console.log('documents:::::: ', documents);
-
     return (
         <Stack spacing={1} sx={{ mb: 2 }}>
             <Typography variant='body2' component='span'>

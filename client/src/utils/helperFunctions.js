@@ -152,16 +152,15 @@ export const filterImageSrcs = (docs, gender, birthDate) => {
     if (images.length > 0) {
         return images;
     }
-    console.log('gender::::::', gender);
 
     const birthYear = birthDate.split('/')[2];
     const age = new Date().getFullYear() - birthYear;
     const noImageSrc =
         age < 18
-            ? '../public/baby.png'
+            ? '../baby.png'
             : gender === 'ԱՐԱԿԱՆ'
-            ? '../public/male.png'
-            : '../public/female.png';
+            ? '../male.png'
+            : '../female.png';
 
     return [noImageSrc];
 };
