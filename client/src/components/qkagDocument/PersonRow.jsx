@@ -5,18 +5,37 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
-const PersonRow = ({ role = 'male', imageSrc }) => {
+import { qkagDocumentTypes } from '../../utils/constants';
+import { formatDates } from '../../utils/helperFunctions';
+
+const PersonRow = ({ role, person, imageSrc }) => {
+    const {
+        psn,
+        id_type,
+        id_number,
+        citizenship,
+        id_department,
+        id_issue_date,
+        id_expirey_date,
+        new_last_name,
+        base_info: { name, last_name, fathers_name, birth_date },
+        resident: { region, community, street, house_type, house },
+    } = person;
     return (
         <ListItemButton sx={{ pl: 4 }}>
             <ListItem alignItems='flex-start'>
                 <ListItemAvatar>
                     <Avatar
-                        alt='Վազգեն Մանուկյան'
+                        alt={`${name} ${last_name} ${
+                            new_last_name ? ` (${new_last_name})` : ''
+                        }`}
                         src={imageSrc || `../src/assets/${role}.png`}
                     />
                 </ListItemAvatar>
                 <ListItemText
-                    primary='Վազգեն Մանուկյան'
+                    primary={`${last_name} ${name}${
+                        fathers_name ? ` ${fathers_name}` : ''
+                    }`}
                     secondary={
                         <>
                             <Typography
@@ -25,9 +44,15 @@ const PersonRow = ({ role = 'male', imageSrc }) => {
                                 variant='body2'
                                 color='text.primary'
                             >
-                                Նույնականացման քարտ ։
+                                {id_type
+                                    ? `${qkagDocumentTypes[id_type]} ։`
+                                    : ''}
                             </Typography>
-                            {' 010558633 012 2018-08-27 ; '}
+                            {id_number
+                                ? `${id_number} ${id_department} ${formatDates(
+                                      id_issue_date
+                                  )} ; `
+                                : ''}
                             <Typography
                                 sx={{ display: 'inline' }}
                                 component='span'
@@ -36,7 +61,11 @@ const PersonRow = ({ role = 'male', imageSrc }) => {
                             >
                                 Հասցե։
                             </Typography>
-                            {' AM ԵՐԵՎԱՆ ԵՐԵՎԱՆ ԲԱՇԻՆՋԱՂՅԱՆ Փ. Շ. 4'}
+                            {` ${citizenship} ${
+                                region === community
+                                    ? region
+                                    : `${region}, ${community}`
+                            } ${street} ${house_type} ${house}`}
                         </>
                     }
                 />

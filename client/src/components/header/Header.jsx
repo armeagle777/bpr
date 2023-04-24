@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
+import { CardMedia } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -11,14 +13,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 const settings = ['Profile', 'Users', 'Logout'];
 
 const Header = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -36,8 +37,14 @@ const Header = () => {
         <AppBar position='sticky'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
-                    <AdbIcon
+                    {/* <AdbIcon
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                    /> */}
+                    <CardMedia
+                        component='img'
+                        sx={{ width: 50 }}
+                        image='/logo.png'
+                        alt='logo'
                     />
                     <Typography
                         variant='h6'
@@ -45,16 +52,15 @@ const Header = () => {
                         component='a'
                         href='/'
                         sx={{
+                            width: 400,
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 300,
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        ՀՀ Միգրացիոն ծառայություն
                     </Typography>
                     <Box
                         sx={{

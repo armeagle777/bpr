@@ -6,7 +6,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { Box, Button, Container, Stack } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Documents from '../documents/Documents';
@@ -61,7 +61,7 @@ const PersonInfoPage = ({ personInfo }) => {
         },
         addresses,
         documents,
-    } = formatPersonData(personInfo);
+    } = useMemo(() => formatPersonData(personInfo), [personInfo]);
 
     const images = filterImageSrcs(documents, gender, birthDate);
 
@@ -237,7 +237,7 @@ const PersonInfoPage = ({ personInfo }) => {
                     <Finances />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <Family />
+                    <Family ssn={PNum || Certificate_Number} />
                 </TabPanel>
             </Box>
             <SpeedDialButton />

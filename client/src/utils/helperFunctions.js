@@ -164,3 +164,7 @@ export const filterImageSrcs = (docs, gender, birthDate) => {
 
     return [noImageSrc];
 };
+
+export const formatDates = (date) => {
+    return date;
+};

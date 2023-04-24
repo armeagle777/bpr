@@ -1,19 +1,30 @@
-import { useState } from 'react';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import { useState } from 'react';
 
-import PersonRow from './PersonRow';
 import { documentNames } from '../../utils/constants';
+import { formatDates } from '../../utils/helperFunctions';
+import PersonRow from './PersonRow';
 
-const QkagDocument = ({ type }) => {
+const QkagDocument = ({ document }) => {
     const [open, setOpen] = useState(false);
+    const {
+        type,
+        office_name,
+        cert_num,
+        cert_num2,
+        cert_date,
+        person,
+        person2,
+        child,
+        children,
+    } = document;
 
     const handleClick = () => {
         setOpen(!open);
@@ -23,23 +34,27 @@ const QkagDocument = ({ type }) => {
         <List
             sx={{ width: '100%' }}
             component='nav'
-            aria-labelledby='marriage-document'
+            aria-labelledby={type}
             subheader={
-                <ListSubheader component='div' id='marriage-document'>
+                <ListSubheader component='div' id={type}>
                     {documentNames[type]['name']}
                 </ListSubheader>
             }
         >
             <ListItemButton onClick={handleClick}>
                 <ListItemIcon>{documentNames[type]['icon']}</ListItemIcon>
-                <ListItemText primary='ԱԲ337854 | 2014-05-12' />
+                <ListItemText
+                    primary={`${cert_num}${
+                        cert_num2 ? `-${cert_num2}` : ''
+                    } | ${formatDates(cert_date)} | ${office_name}`}
+                />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout='auto' unmountOnExit>
                 <List component='div' disablePadding>
-                    <PersonRow role='male' />
-                    <PersonRow role='female' />
-                    {type === 'birth' && <PersonRow role='baby' />}
+                    <PersonRow role='male' person={person} />
+                    <PersonRow role='female' person={person2} />
+                    {child && <PersonRow role='baby' person={child} />}
                 </List>
             </Collapse>
         </List>

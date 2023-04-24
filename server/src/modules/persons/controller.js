@@ -1,10 +1,19 @@
-const { getUserBySsnDb } = require('./services');
+const { getPersonBySsnDb, getDocumentsBySsn } = require('./services');
 
 const getPersonBySsn = async (req, res, next) => {
     try {
-        const person = await getUserBySsnDb(req.params);
+        const person = await getPersonBySsnDb(req.params);
 
         res.status(200).json(person);
+    } catch (err) {
+        next(err);
+    }
+};
+const getQkagInfoBySsn = async (req, res, next) => {
+    try {
+        const documents = await getDocumentsBySsn(req.params);
+
+        res.status(200).json(documents);
     } catch (err) {
         next(err);
     }
@@ -63,4 +72,4 @@ const getPersonBySsn = async (req, res, next) => {
 //     }
 // }
 
-module.exports = { getPersonBySsn };
+module.exports = { getPersonBySsn, getQkagInfoBySsn };
