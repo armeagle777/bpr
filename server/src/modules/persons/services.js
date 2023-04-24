@@ -22,9 +22,8 @@ const getPersonBySsnDb = async (params) => {
     return person;
 };
 
-const getDocumentsBySsn = async (params) => {
+const getDocumentsBySsnDb = async (ssn, firstName, lastName) => {
     const qkagUrl = process.env.QKAG_URL;
-    const { ssn } = params;
 
     const { data } = await axios.get(`${qkagUrl}?PNum=${ssn}`);
 
@@ -38,7 +37,24 @@ const getDocumentsBySsn = async (params) => {
     return documentsData;
 };
 
+const getTaxBySsnDb = async (ssn) => {
+    const taxUrl = process.env.TAX_URL;
+
+    const { data } = await axios.get(`${taxUrl}`, { ssn });
+
+    if (!data[0].taxPayersInfo) {
+        throw ApiError.NotFound('Եկամուտների վերաբերյալ տվյալներ չեն գտնվել');
+    }
+
+    const {
+        taxPayersInfo: { taxPayerInfo },
+    } = data[0];
+
+    return taxPayerInfo;
+};
+
 module.exports = {
     getPersonBySsnDb,
-    getDocumentsBySsn,
+    getDocumentsBySsnDb,
+    getTaxBySsnDb,
 };

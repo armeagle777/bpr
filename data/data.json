@@ -2147,5 +2147,115 @@
                 }
             }
         }
+    ],
+    "tax": [
+        {
+            "responseStatus": {
+                "statuscode": 1,
+                "statustext": "հաջող ավարտ"
+            },
+            "taxPayersInfo": {
+                "taxPayerInfo": [
+                    {
+                        "taxpayerid": "02814678",
+                        "personInfoPeriods": {
+                            "personInfoPeriod": [
+                                {
+                                    "date": "2022-11",
+                                    "personInfo": {
+                                        "incomeTax": 2632,
+                                        "socialpayments": 564,
+                                        "socialpaymentspaid": 564,
+                                        "workinghours": 8,
+                                        "salaryEquivPayments": 12538,
+                                        "civilLowContractPayments": 0
+                                    }
+                                },
+                                {
+                                    "date": "2022-12",
+                                    "personInfo": {
+                                        "incomeTax": 57926,
+                                        "socialpayments": 12412,
+                                        "socialpaymentspaid": 0,
+                                        "workinghours": 175,
+                                        "salaryEquivPayments": 275839,
+                                        "civilLowContractPayments": 0
+                                    }
+                                },
+                                {
+                                    "date": "2023-01",
+                                    "personInfo": {
+                                        "incomeTax": 55167,
+                                        "socialpayments": 13791,
+                                        "socialpaymentspaid": 0,
+                                        "workinghours": 158,
+                                        "salaryEquivPayments": 275839,
+                                        "civilLowContractPayments": 0
+                                    }
+                                },
+                                {
+                                    "date": "2023-02",
+                                    "personInfo": {
+                                        "incomeTax": 46367,
+                                        "socialpayments": 11591,
+                                        "socialpaymentspaid": 0,
+                                        "workinghours": 104,
+                                        "salaryEquivPayments": 231836,
+                                        "civilLowContractPayments": 0
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "taxpayerid": "01551257",
+                        "personInfoPeriods": {
+                            "personInfoPeriod": [
+                                {
+                                    "date": "2022-06",
+                                    "personInfo": {
+                                        "incomeTax": 15750,
+                                        "socialpayments": 3375,
+                                        "socialpaymentspaid": 3375,
+                                        "workinghours": 0,
+                                        "salaryEquivPayments": 75000,
+                                        "civilLowContractPayments": 0
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "taxpayerid": "01284284",
+                        "personInfoPeriods": {
+                            "personInfoPeriod": [
+                                {
+                                    "date": "2023-02",
+                                    "personInfo": {
+                                        "incomeTax": 20000,
+                                        "socialpayments": 5000,
+                                        "socialpaymentspaid": 5000,
+                                        "workinghours": 0,
+                                        "salaryEquivPayments": 100000,
+                                        "civilLowContractPayments": 0
+                                    }
+                                },
+                                {
+                                    "date": "2023-03",
+                                    "personInfo": {
+                                        "incomeTax": 20000,
+                                        "socialpayments": 5000,
+                                        "socialpaymentspaid": 0,
+                                        "workinghours": 0,
+                                        "salaryEquivPayments": 100000,
+                                        "civilLowContractPayments": 0
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
     ]
 }

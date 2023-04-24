@@ -1,18 +1,16 @@
 import { Box } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { v4 } from 'uuid';
-import { useState, useEffect } from 'react';
 
-import FinanceTable from '../financeTable/FinanceTable';
+import useFetchTax from '../../hooks/useFetchTax';
 import TableScileton from '../tableScileton/TableScileton';
+import FinanceTable from './FinanceTable';
+import TaxNotFound from './TaxNotFound';
 
-const Finances = () => {
-    const [loading, setLoading] = useState(true);
+const Finances = ({ ssn }) => {
+    const { data: taxInfo, isLoading, isError, error } = useFetchTax(ssn);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading((prev) => false);
-        }, 2000);
-    });
+    console.log('taxInfo:::::: ', taxInfo);
 
     const employers = [
         {
@@ -57,19 +55,27 @@ const Finances = () => {
         },
     ];
 
+    if (isLoading) {
+        return <TableScileton />;
+    }
+
+    if (isError) {
+        return error.request.status === 404 ? (
+            <TaxNotFound />
+        ) : (
+            <MuiAlert severity='error'>{error.message}</MuiAlert>
+        );
+    }
+
     return (
         <Box sx={{ mt: 3 }}>
-            {loading ? (
-                <TableScileton />
-            ) : (
-                employers.map((employer) => (
-                    <FinanceTable
-                        sallery={employer}
-                        company='«ՀԵՔՍԱԿՏ» ՍՊԸ'
-                        key={v4()}
-                    />
-                ))
-            )}
+            {employers.map((employer) => (
+                <FinanceTable
+                    sallery={employer}
+                    company='«ՀԵՔՍԱԿՏ» ՍՊԸ'
+                    key={v4()}
+                />
+            ))}
         </Box>
     );
 };

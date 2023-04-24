@@ -1,24 +1,41 @@
-const { getPersonBySsnDb, getDocumentsBySsn } = require("./services");
+const {
+    getPersonBySsnDb,
+    getDocumentsBySsnDb,
+    getTaxBySsnDb,
+} = require('./services');
 
 const getPersonBySsn = async (req, res, next) => {
-  try {
-    const person = await getPersonBySsnDb(req.params);
+    try {
+        const person = await getPersonBySsnDb(req.params);
 
-    res.status(200).json(person);
-  } catch (err) {
-    next(err);
-  }
+        res.status(200).json(person);
+    } catch (err) {
+        next(err);
+    }
 };
-const getQkagInfoBySsn = async (req, res, next) => {
-  try {
-    const { firstName, lastName } = req.body;
-    console.log(">>>>", firstName, lastName);
-    const documents = await getDocumentsBySsn(req.params);
 
-    res.status(200).json(documents);
-  } catch (err) {
-    next(err);
-  }
+const getTaxBySsn = async (req, res, next) => {
+    try {
+        const { ssn } = req.params;
+        const person = await getTaxBySsnDb(ssn);
+
+        res.status(200).json(person);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const getQkagInfoBySsn = async (req, res, next) => {
+    try {
+        const { ssn } = req.params;
+        const { firstName, lastName } = req.body;
+
+        const documents = await getDocumentsBySsnDb(ssn, firstName, lastName);
+
+        res.status(200).json(documents);
+    } catch (err) {
+        next(err);
+    }
 };
 
 // async getAll(req, res) {
@@ -74,4 +91,4 @@ const getQkagInfoBySsn = async (req, res, next) => {
 //     }
 // }
 
-module.exports = { getPersonBySsn, getQkagInfoBySsn };
+module.exports = { getPersonBySsn, getQkagInfoBySsn, getTaxBySsn };

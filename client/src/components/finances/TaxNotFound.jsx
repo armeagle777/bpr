@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-const DocumentNotFound = () => {
+const TaxNotFound = () => {
     return (
         <Card sx={{ display: 'flex' }}>
             <CardMedia
@@ -16,7 +16,7 @@ const DocumentNotFound = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component='div' variant='h6'>
-                        Տվյալ անձի վերաբերյալ ՔԿԱԳ փաստաթղթեր չեն գտնվել
+                        Տվյալ անձի եկամուտների վերաբերյալ տվյալներ չեն գտնվել
                     </Typography>
                 </CardContent>
             </Box>
@@ -24,4 +24,4 @@ const DocumentNotFound = () => {
     );
 };
 
-export default DocumentNotFound;
+export default TaxNotFound;

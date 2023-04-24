@@ -234,10 +234,14 @@ const PersonInfoPage = ({ personInfo }) => {
                     <Documents documents={documents} addresses={addresses} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <Finances />
+                    <Finances ssn={PNum || Certificate_Number} />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <Family ssn={PNum || Certificate_Number} firstName={firstName} lastName={lastName} />
+                    <Family
+                        ssn={PNum || Certificate_Number}
+                        firstName={firstName}
+                        lastName={lastName}
+                    />
                 </TabPanel>
             </Box>
             <SpeedDialButton />

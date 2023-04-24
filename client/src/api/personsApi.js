@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const personsApi = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+    baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 // export const getAdvertisements = async (pageNumber) => {
@@ -13,16 +13,21 @@ const personsApi = axios.create({
 // };
 
 export const getPersonBySsn = async (ssn) => {
-  const response = await personsApi.get(`/persons/${ssn}/bpr`);
-  return response.data;
+    const response = await personsApi.get(`/persons/${ssn}/bpr`);
+    return response.data;
 };
 
 export const getQkagDocsBySsn = async (ssn, firstName, lastName) => {
-  const response = await personsApi.post(`/persons/${ssn}/qkag`, {
-    firstName,
-    lastName,
-  });
-  return response.data;
+    const response = await personsApi.post(`/persons/${ssn}/qkag`, {
+        firstName,
+        lastName,
+    });
+    return response.data;
+};
+
+export const getTaxBySsn = async (ssn) => {
+    const response = await personsApi.get(`/persons/${ssn}/tax`);
+    return response.data;
 };
 
 // export const addAdvertisement = async (advertisement) => {
