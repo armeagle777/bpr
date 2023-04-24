@@ -1,3 +1,8 @@
+import { v4 } from 'uuid';
+import StyledTableCell from '../components/finances/StyledTableCell';
+import ThCell from '../components/finances/ThCell';
+import TdCell from '../components/finances/TdCell';
+
 export const formatCountryName = (countryName) => {
     const countryNameArray = countryName.split(' ');
 
@@ -168,3 +173,53 @@ export const filterImageSrcs = (docs, gender, birthDate) => {
 export const formatDates = (date) => {
     return date;
 };
+
+export const formatedData = (periods) =>
+    periods.reduce(
+        (acc, { date, personInfo }) => {
+            acc.titles.push(
+                <StyledTableCell
+                    align='right'
+                    key={v4()}
+                    sx={{ fontSize: '10px' }}
+                >
+                    {date}
+                </StyledTableCell>
+            );
+            acc.salaryEquivPayments.push(
+                <TdCell data={personInfo.salaryEquivPayments} key={v4()} />
+            );
+            acc.incomeTax.push(
+                <TdCell data={personInfo.incomeTax} key={v4()} />
+            );
+            acc.civilLowContractPayments.push(
+                <TdCell data={personInfo.civilLowContractPayments} key={v4()} />
+            );
+            acc.socialpayments.push(
+                <TdCell data={personInfo.socialpayments} key={v4()} />
+            );
+            acc.socialpaymentspaid.push(
+                <TdCell data={personInfo.socialpaymentspaid} key={v4()} />
+            );
+            acc.workinghours.push(
+                <TdCell data={personInfo.workinghours} key={v4()} />
+            );
+
+            return acc;
+        },
+        {
+            titles: [<StyledTableCell key={v4()}>Ուղղություն</StyledTableCell>],
+            salaryEquivPayments: [
+                <ThCell title='Աշխ․ հավասարեցված վճարներ' key={v4()} />,
+            ],
+            incomeTax: [<ThCell title='Եկամտային հարկ' key={v4()} />],
+            civilLowContractPayments: [<ThCell title='Քաղ. պայմ' key={v4()} />],
+            socialpayments: [
+                <ThCell title='Հաշվարկված սոց․ վճարներ' key={v4()} />,
+            ],
+            socialpaymentspaid: [
+                <ThCell title='Վճարված սոցվճարներ' key={v4()} />,
+            ],
+            workinghours: [<ThCell title='Աշխատաժամեր' key={v4()} />],
+        }
+    );
