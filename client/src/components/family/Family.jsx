@@ -6,8 +6,8 @@ import useFetchQkag from '../../hooks/useFetchQkag';
 import DocumentNotFound from './DocumentNotFound';
 import ListScileton from '../listSceleton/ListScileton';
 
-const Family = ({ ssn }) => {
-    const { data: documents, isLoading, isError, error } = useFetchQkag(ssn);
+const Family = ({ ssn,firstName,lastName }) => {
+    const { data: documents, isLoading, isError, error } = useFetchQkag(ssn,firstName,lastName);
 
     if (isLoading) {
         return <ListScileton />;
