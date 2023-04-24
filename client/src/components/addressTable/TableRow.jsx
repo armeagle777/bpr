@@ -2,9 +2,10 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import MuiTableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
-import { Box } from '@mui/material';
+
 
 const TableRow = ({ rowInfo }) => {
+
     const {
         RegistrationAddress: {
             Street,
@@ -21,7 +22,7 @@ const TableRow = ({ rowInfo }) => {
             Foreign_Address,
         },
         RegistrationData: {
-            Registration_Aim: { AimName },
+            Registration_Aim ,
             Registered_Date,
             Registration_Department,
             Registration_Date,
@@ -73,7 +74,7 @@ const TableRow = ({ rowInfo }) => {
                     {addressString}
                     {Postal_Index && `, Փ/Ի:${Postal_Index}`}
                 </StyledTableCell>
-                <StyledTableCell align='right'>{AimName}</StyledTableCell>
+                <StyledTableCell align='right'>{Registration_Aim?.AimName}</StyledTableCell>
                 <StyledTableCell align='right'>
                     {Registration_Department}
                 </StyledTableCell>
