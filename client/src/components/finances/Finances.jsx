@@ -14,7 +14,7 @@ const Finances = ({ ssn }) => {
     }
 
     if (isError) {
-        <MuiAlert severity='error'>{error.message}</MuiAlert>;
+        return <MuiAlert severity='error'>{error.message}</MuiAlert>;
     }
 
     return (
