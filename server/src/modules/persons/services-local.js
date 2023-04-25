@@ -22,7 +22,7 @@ const getPersonBySsnDb = async (params) => {
     return person;
 };
 
-const getDocumentsBySsnDb = async (ssn, firstName, lastName) => {
+const getDocumentsBySsnDb = async (ssn) => {
     const qkagUrl = process.env.QKAG_URL;
 
     const { data } = await axios.get(`${qkagUrl}?PNum=${ssn}`);
@@ -54,19 +54,19 @@ const getTaxBySsnDb = async (ssn) => {
 };
 
 const getCompanyByHvhhDb = async (hvhh) => {
-    const taxUrl = process.env.TAX_URL;
+    const taxUrl = process.env.PETREGISTR_URL;
 
-    const { data } = await axios.get(`${taxUrl}?PNum=${hvhh}`);
+    const { data } = await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`);
 
     if (data.length === 0) {
         return [];
     }
 
     const {
-        taxPayersInfo: { taxPayerInfo },
+        result: { company },
     } = data[0];
 
-    return taxPayerInfo;
+    return company;
 };
 
 module.exports = {

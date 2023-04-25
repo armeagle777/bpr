@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,6 +8,7 @@ import MuiTableRow from '@mui/material/TableRow';
 
 import { formatedData } from '../../utils/helperFunctions';
 import StyledTableRow from './StyledTableRow';
+import useFetchCompany from '../../hooks/useFetchCompany';
 
 const FinanceTable = ({ employer }) => {
     const {
@@ -17,10 +18,28 @@ const FinanceTable = ({ employer }) => {
 
     const TableData = formatedData(periods);
 
+    const {
+        data: companyData,
+        isLoading,
+        isError,
+        error,
+    } = useFetchCompany(taxpayerid);
+    console.log('companyData:::::: ', companyData);
+
+    const companyName = isLoading ? (
+        <Skeleton />
+    ) : isError ? (
+        taxpayerid
+    ) : (
+        `${companyData?.name_am || ''} ${
+            companyData?.company_type || ''
+        } | ${taxpayerid}`
+    );
+
     return (
         <Stack spacing={1} sx={{ mb: 3 }}>
             <Typography variant='body2' component='span'>
-                {taxpayerid}
+                {companyName}
             </Typography>
             <TableContainer component={Paper}>
                 <Table

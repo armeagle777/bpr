@@ -19,12 +19,12 @@ const Family = ({ ssn, firstName, lastName }) => {
     }
 
     if (isError) {
-        <MuiAlert severity='error'>{error.message}</MuiAlert>;
+        return <MuiAlert severity='error'>{error.message}</MuiAlert>;
     }
 
     return (
         <Box>
-            {!documents.length ? (
+            {documents?.length === 0 ? (
                 <DocumentNotFound />
             ) : (
                 documents.map((doc) => (

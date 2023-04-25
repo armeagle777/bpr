@@ -1,9 +1,14 @@
+console.log('process.env.NODE_ENV::::::', process.env.NODE_ENV);
+
 const {
     getPersonBySsnDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
     getCompanyByHvhhDb,
-} = require('./services-local');
+} =
+    process.env.NODE_ENV === 'local'
+        ? require('./services-local')
+        : require('./services');
 
 const getPersonBySsn = async (req, res, next) => {
     try {
@@ -43,9 +48,9 @@ const getCompanyByHvhh = async (req, res, next) => {
     try {
         const { hvhh } = req.params;
 
-        const documents = await getCompanyByHvhhDb(hvhh);
+        const company = await getCompanyByHvhhDb(hvhh);
 
-        res.status(200).json(documents);
+        res.status(200).json(company);
     } catch (err) {
         next(err);
     }
