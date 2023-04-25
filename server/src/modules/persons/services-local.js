@@ -41,7 +41,22 @@ const getTaxBySsnDb = async (ssn) => {
     const taxUrl = process.env.TAX_URL;
 
     const { data } = await axios.get(`${taxUrl}?PNum=${ssn}`);
-    console.log('data::::::', data);
+
+    if (data.length === 0) {
+        return [];
+    }
+
+    const {
+        taxPayersInfo: { taxPayerInfo },
+    } = data[0];
+
+    return taxPayerInfo;
+};
+
+const getCompanyByHvhhDb = async (hvhh) => {
+    const taxUrl = process.env.TAX_URL;
+
+    const { data } = await axios.get(`${taxUrl}?PNum=${hvhh}`);
 
     if (data.length === 0) {
         return [];
@@ -58,4 +73,5 @@ module.exports = {
     getPersonBySsnDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
+    getCompanyByHvhhDb,
 };

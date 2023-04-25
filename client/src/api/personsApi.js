@@ -30,6 +30,11 @@ export const getTaxBySsn = async (ssn) => {
     return response.data;
 };
 
+export const getCompanyByHvhh = async (hvhh) => {
+    const response = await personsApi.get(`/persons/${hvhh}/petregistr`);
+    return response.data;
+};
+
 // export const addAdvertisement = async (advertisement) => {
 //     return await personsApi.post('/advertisements', advertisement);
 // };

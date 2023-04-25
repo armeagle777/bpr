@@ -2,7 +2,8 @@ const {
     getPersonBySsnDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
-} = require('./services');
+    getCompanyByHvhhDb,
+} = require('./services-local');
 
 const getPersonBySsn = async (req, res, next) => {
     try {
@@ -38,6 +39,17 @@ const getQkagInfoBySsn = async (req, res, next) => {
     }
 };
 
+const getCompanyByHvhh = async (req, res, next) => {
+    try {
+        const { hvhh } = req.params;
+
+        const documents = await getCompanyByHvhhDb(hvhh);
+
+        res.status(200).json(documents);
+    } catch (err) {
+        next(err);
+    }
+};
 // async getAll(req, res) {
 //     try {
 //         const { count, data } = await getPaginatedResults(
@@ -91,4 +103,9 @@ const getQkagInfoBySsn = async (req, res, next) => {
 //     }
 // }
 
-module.exports = { getPersonBySsn, getQkagInfoBySsn, getTaxBySsn };
+module.exports = {
+    getPersonBySsn,
+    getQkagInfoBySsn,
+    getTaxBySsn,
+    getCompanyByHvhh,
+};

@@ -79,10 +79,6 @@ const getTaxBySsnDb = async (ssn) => {
         return [];
     }
 
-    if (!data.taxPayersInfo) {
-        throw ApiError.NotFound('Եկամուտների վերաբերյալ տվյալներ չեն գտնվել');
-    }
-
     const {
         taxPayersInfo: { taxPayerInfo },
     } = data;
@@ -90,8 +86,11 @@ const getTaxBySsnDb = async (ssn) => {
     return taxPayerInfo;
 };
 
+const getCompanyByHvhhDb = async (hvhh) => {};
+
 module.exports = {
     getPersonBySsnDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
+    getCompanyByHvhhDb,
 };
