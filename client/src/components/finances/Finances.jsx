@@ -14,18 +14,21 @@ const Finances = ({ ssn }) => {
     }
 
     if (isError) {
-        return error.request.status === 404 ? (
-            <TaxNotFound />
-        ) : (
-            <MuiAlert severity='error'>{error.message}</MuiAlert>
-        );
+        <MuiAlert severity='error'>{error.message}</MuiAlert>;
     }
 
     return (
         <Box sx={{ mt: 3 }}>
-            {taxInfo.map((employer) => (
-                <FinanceTable key={employer.taxpayerid} employer={employer} />
-            ))}
+            {!taxInfo.length ? (
+                <TaxNotFound />
+            ) : (
+                taxInfo.map((employer) => (
+                    <FinanceTable
+                        key={employer.taxpayerid}
+                        employer={employer}
+                    />
+                ))
+            )}
         </Box>
     );
 };

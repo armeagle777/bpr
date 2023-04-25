@@ -28,7 +28,7 @@ const getDocumentsBySsnDb = async (ssn, firstName, lastName) => {
     const { data } = await axios.get(`${qkagUrl}?PNum=${ssn}`);
 
     if (data.length === 0) {
-        throw ApiError.NotFound('ՔԿԱԳ տվյալներ չեն գտնվել');
+        return [];
     }
 
     const { result } = data[0];
@@ -43,7 +43,7 @@ const getTaxBySsnDb = async (ssn) => {
     const { data } = await axios.get(`${taxUrl}`, { ssn });
 
     if (!data[0].taxPayersInfo) {
-        throw ApiError.NotFound('Եկամուտների վերաբերյալ տվյալներ չեն գտնվել');
+        return [];
     }
 
     const {
