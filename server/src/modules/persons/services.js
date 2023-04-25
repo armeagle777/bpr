@@ -86,7 +86,14 @@ const getTaxBySsnDb = async (ssn) => {
     return taxPayerInfo;
 };
 
-const getCompanyByHvhhDb = async (hvhh) => {};
+const getCompanyByHvhhDb = async (hvhh) => {
+    const options = {
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'company_info',
+        params: { tax_id: hvhh },
+    };
+};
 
 module.exports = {
     getPersonBySsnDb,
