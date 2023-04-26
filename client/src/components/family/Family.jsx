@@ -28,7 +28,11 @@ const Family = ({ ssn, firstName, lastName }) => {
                 <DocumentNotFound />
             ) : (
                 documents.map((doc) => (
-                    <QkagDocument key={doc.tracking_id} document={doc} />
+                    <QkagDocument
+                        targetSsn={ssn}
+                        key={doc.tracking_id}
+                        document={doc}
+                    />
                 ))
             )}
         </Box>

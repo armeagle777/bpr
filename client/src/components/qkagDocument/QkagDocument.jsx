@@ -12,7 +12,7 @@ import { documentNames } from '../../utils/constants';
 import { formatDates } from '../../utils/helperFunctions';
 import PersonRow from './PersonRow';
 
-const QkagDocument = ({ document }) => {
+const QkagDocument = ({ document, targetSsn }) => {
     const [open, setOpen] = useState(false);
     const {
         type,
@@ -52,9 +52,23 @@ const QkagDocument = ({ document }) => {
             </ListItemButton>
             <Collapse in={open} timeout='auto' unmountOnExit>
                 <List component='div' disablePadding>
-                    <PersonRow role='male' person={person} />
-                    <PersonRow role='female' person={person2} />
-                    {child && <PersonRow role='baby' person={child} />}
+                    <PersonRow
+                        role='male'
+                        person={person}
+                        targetSsn={targetSsn}
+                    />
+                    <PersonRow
+                        role='female'
+                        person={person2}
+                        targetSsn={targetSsn}
+                    />
+                    {child && (
+                        <PersonRow
+                            role='baby'
+                            person={child}
+                            targetSsn={targetSsn}
+                        />
+                    )}
                 </List>
             </Collapse>
         </List>

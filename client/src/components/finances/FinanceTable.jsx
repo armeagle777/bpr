@@ -1,4 +1,4 @@
-import { Skeleton, Stack, Typography } from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,9 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import MuiTableRow from '@mui/material/TableRow';
 
-import { formatedData } from '../../utils/helperFunctions';
-import StyledTableRow from './StyledTableRow';
 import useFetchCompany from '../../hooks/useFetchCompany';
+import { formatedData } from '../../utils/helperFunctions';
+import CompanyTooltip from './CompanyTooltip';
+import StyledTableRow from './StyledTableRow';
+import TableHeader from './TableHeader';
 
 const FinanceTable = ({ employer }) => {
     const {
@@ -24,23 +26,18 @@ const FinanceTable = ({ employer }) => {
         isError,
         error,
     } = useFetchCompany(taxpayerid);
-    console.log('companyData:::::: ', companyData);
 
-    const companyName = isLoading ? (
+    const tableTitle = isLoading ? (
         <Skeleton />
     ) : isError ? (
         taxpayerid
     ) : (
-        `${companyData?.name_am || ''} ${
-            companyData?.company_type || ''
-        } | ${taxpayerid}`
+        <TableHeader taxpayerid={taxpayerid} companyData={companyData} />
     );
 
     return (
         <Stack spacing={1} sx={{ mb: 3 }}>
-            <Typography variant='body2' component='span'>
-                {companyName}
-            </Typography>
+            {tableTitle}
             <TableContainer component={Paper}>
                 <Table
                     sx={{ minWidth: 700 }}
