@@ -73,4 +73,4 @@ export const bprDocumentTypes = {
     OTHER: 'Այլ',
 };
 
-export const perPageCount = 1;
+export const perPageCount = 10;

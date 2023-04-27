@@ -25,7 +25,7 @@ export const findCurrentAddress = (addresses) => {
                 address.RegistrationData.Registration_Type === 'CURRENT'
         ) || addresses[0];
 
-    const headerAddressObject = { ...registrationAddress.RegistrationAddress };
+    const headerAddressObject = { ...registrationAddress?.RegistrationAddress };
 
     return headerAddressObject;
 };

@@ -11,7 +11,7 @@ import { formatDates } from '../../utils/helperFunctions';
 import useFetchPerson from '../../hooks/useFetchPerson';
 import { Skeleton } from '@mui/material';
 
-const PersonRow = ({ role, person, imageSrc, targetSsn }) => {
+const PersonRow = ({ role, person, targetSsn }) => {
     const {
         psn,
         id_type,
@@ -30,7 +30,7 @@ const PersonRow = ({ role, person, imageSrc, targetSsn }) => {
         isLoading,
         isError,
         error,
-    } = useFetchPerson(null, psn);
+    } = useFetchPerson({}, psn);
     const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID)?.Photo_ID;
 
     const navigate = useNavigate();

@@ -28,15 +28,12 @@ const getPersonBySsnDb = async (params) => {
   if (status === "failed") {
     return [];
   }
+  const person = result[0];
 
-  const persons = data.map((person) => {
-    const { AVVDocuments, AVVAddresses, ...restInfo } = person;
-    const addresses = AVVAddresses.AVVAddress;
-    const documents = AVVDocuments.Document;
-    return { addresses, documents, ...restInfo };
-  });
-
-  return persons;
+  const { AVVDocuments, AVVAddresses, ...restInfo } = person;
+  const addresses = AVVAddresses?.AVVAddress || [];
+  const documents = AVVDocuments?.Document || [];
+  return { addresses, documents, ...restInfo };
 };
 
 const getSearchedPersonsDb = async (body) => {
@@ -96,10 +93,11 @@ const getSearchedPersonsDb = async (body) => {
     return [];
   }
 
-  const persons = data.map((person) => {
+  const persons = result.map((person) => {
     const { AVVDocuments, AVVAddresses, ...restInfo } = person;
-    const addresses = AVVAddresses.AVVAddress;
-    const documents = AVVDocuments.Document;
+
+    const addresses = AVVAddresses?.AVVAddress || [];
+    const documents = AVVDocuments?.Document || [];
     return { addresses, documents, ...restInfo };
   });
 
@@ -178,6 +176,7 @@ const getCompanyByHvhhDb = async (hvhh) => {
 
 module.exports = {
   getPersonBySsnDb,
+  getSearchedPersonsDb,
   getDocumentsBySsnDb,
   getTaxBySsnDb,
   getCompanyByHvhhDb,

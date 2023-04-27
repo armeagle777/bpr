@@ -1,128 +1,128 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const ApiError = require('../../exceptions/api-error');
+const ApiError = require("../../exceptions/api-error");
 
 const getPersonBySsnDb = async (params) => {
-    const bprUrl = process.env.BPR_URL;
-    const { ssn } = params;
+  const bprUrl = process.env.BPR_URL;
+  const { ssn } = params;
 
-    const { data } = await axios.get(`${bprUrl}?PNum=${ssn}`);
+  const { data } = await axios.get(`${bprUrl}?PNum=${ssn}`);
 
-    if (data.length === 0) {
-        return [];
-    }
+  if (data.length === 0) {
+    return [];
+  }
 
-    const personData = data[0];
-    const { AVVDocuments, AVVAddresses, ...restInfo } = personData;
-    const addresses = AVVAddresses.AVVAddress;
-    const documents = AVVDocuments.Document;
+  const personData = data[0];
+  const { AVVDocuments, AVVAddresses, ...restInfo } = personData;
+  const addresses = AVVAddresses.AVVAddress;
+  const documents = AVVDocuments.Document;
 
-    const person = { addresses, documents, ...restInfo };
+  const person = { addresses, documents, ...restInfo };
 
-    return person;
+  return person;
 };
 
 const getSearchedPersonsDb = async (body) => {
-    const bprUrl = process.env.BPR_URL;
+  const bprUrl = process.env.BPR_URL;
 
-    const {
-        firstName,
-        lastName,
-        patronomicName,
-        birthDate,
-        documentNumber,
-        ssn,
-    } = body;
+  const {
+    firstName,
+    lastName,
+    patronomicName,
+    birthDate,
+    documentNumber,
+    ssn,
+  } = body;
 
-    let serachUrl = `${bprUrl}?`;
+  let serachUrl = `${bprUrl}?`;
 
-    if (ssn) {
-        serachUrl += `&PNum=${ssn}`;
-    }
-    if (firstName) {
-        serachUrl += `&first_name_like=${firstName}`;
-    }
-    if (lastName) {
-        serachUrl += `&last_name_like=${lastName}`;
-    }
-    if (patronomicName) {
-        serachUrl += `&middle_name_like=${patronomicName}`;
-    }
-    if (birthDate) {
-        serachUrl += `&birth_date=${birthDate}`;
-    }
-    if (documentNumber) {
-        serachUrl += `&docnum=${documentNumber}`;
-    }
-    serachUrl = serachUrl.replace(/\?\&/g, '?');
+  if (ssn) {
+    serachUrl += `&PNum=${ssn}`;
+  }
+  if (firstName) {
+    serachUrl += `&first_name_like=${firstName}`;
+  }
+  if (lastName) {
+    serachUrl += `&last_name_like=${lastName}`;
+  }
+  if (patronomicName) {
+    serachUrl += `&middle_name_like=${patronomicName}`;
+  }
+  if (birthDate) {
+    serachUrl += `&birth_date=${birthDate}`;
+  }
+  if (documentNumber) {
+    serachUrl += `&docnum=${documentNumber}`;
+  }
+  serachUrl = serachUrl.replace(/\?\&/g, "?");
 
-    const { data } = await axios.get(serachUrl);
+  const { data } = await axios.get(serachUrl);
 
-    if (data.length === 0) {
-        return [];
-    }
+  if (data.length === 0) {
+    return [];
+  }
 
-    const persons = data.map((person) => {
-        const { AVVDocuments, AVVAddresses, ...restInfo } = person;
-        const addresses = AVVAddresses.AVVAddress;
-        const documents = AVVDocuments.Document;
-        return { addresses, documents, ...restInfo };
-    });
+  const persons = data.map((person) => {
+    const { AVVDocuments, AVVAddresses, ...restInfo } = person;
+    const addresses = AVVAddresses.AVVAddress;
+    const documents = AVVDocuments.Document;
+    return { addresses, documents, ...restInfo };
+  });
 
-    return persons;
+  return persons;
 };
 
 const getDocumentsBySsnDb = async (ssn) => {
-    const qkagUrl = process.env.QKAG_URL;
+  const qkagUrl = process.env.QKAG_URL;
 
-    const { data } = await axios.get(`${qkagUrl}?PNum=${ssn}`);
+  const { data } = await axios.get(`${qkagUrl}?PNum=${ssn}`);
 
-    if (data.length === 0) {
-        return [];
-    }
+  if (data.length === 0) {
+    return [];
+  }
 
-    const { result } = data[0];
-    const documentsData = Object.values(result);
+  const { result } = data[0];
+  const documentsData = Object.values(result);
 
-    return documentsData;
+  return documentsData;
 };
 
 const getTaxBySsnDb = async (ssn) => {
-    const taxUrl = process.env.TAX_URL;
+  const taxUrl = process.env.TAX_URL;
 
-    const { data } = await axios.get(`${taxUrl}?PNum=${ssn}`);
+  const { data } = await axios.get(`${taxUrl}?PNum=${ssn}`);
 
-    if (data.length === 0) {
-        return [];
-    }
+  if (data.length === 0) {
+    return [];
+  }
 
-    const {
-        taxPayersInfo: { taxPayerInfo },
-    } = data[0];
+  const {
+    taxPayersInfo: { taxPayerInfo },
+  } = data[0];
 
-    return taxPayerInfo;
+  return taxPayerInfo;
 };
 
 const getCompanyByHvhhDb = async (hvhh) => {
-    const taxUrl = process.env.PETREGISTR_URL;
+  const taxUrl = process.env.PETREGISTR_URL;
 
-    const { data } = await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`);
+  const { data } = await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`);
 
-    if (data.length === 0) {
-        return [];
-    }
+  if (data.length === 0) {
+    return [];
+  }
 
-    const {
-        result: { company },
-    } = data[0];
+  const {
+    result: { company },
+  } = data[0];
 
-    return company;
+  return company;
 };
 
 module.exports = {
-    getPersonBySsnDb,
-    getSearchedPersonsDb,
-    getDocumentsBySsnDb,
-    getTaxBySsnDb,
-    getCompanyByHvhhDb,
+  getPersonBySsnDb,
+  getSearchedPersonsDb,
+  getDocumentsBySsnDb,
+  getTaxBySsnDb,
+  getCompanyByHvhhDb,
 };

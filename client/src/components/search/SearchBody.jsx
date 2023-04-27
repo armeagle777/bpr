@@ -22,7 +22,7 @@ const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
                 {persons.map((person) => (
                     <Stack
                         width='100%'
-                        key={person.id}
+                        key={person.PNum}
                         spacing={1}
                         direction='column'
                     >
