@@ -108,6 +108,33 @@ export const formatPersonData = (personInfo) => {
     const { addresses, documents, ...unChangedData } = personInfo;
 
     const currentAddressObj = findCurrentAddress(addresses);
+
+    const allCitizenships = documents
+        .reduce((acc, doc) => {
+            acc = [...acc, ...doc.Person?.Citizenship?.Citizenship];
+            return acc;
+        }, [])
+        .map((obj) => obj.CountryName)
+        .reduce((acc, countryName) => {
+            if (!acc.includes(countryName)) {
+                acc.push(countryName);
+            }
+
+            return acc;
+        }, [])
+        .map((name) => {
+            const citizenshipNamesArray = name.split(' ');
+            if (citizenshipNamesArray.length === 1) {
+                return citizenshipNamesArray;
+            }
+
+            return citizenshipNamesArray.reduce((acc, name) => {
+                acc += name[0];
+                return acc;
+            }, '');
+        })
+        .join(',');
+
     const {
         Person: {
             English_First_Name,
@@ -121,6 +148,8 @@ export const formatPersonData = (personInfo) => {
             Birth_Date,
             Birth_Country: { CountryName },
             Birth_Region,
+            Birth_Community,
+            Birth_Address,
         },
     } = findValidDocument(documents);
 
@@ -129,6 +158,7 @@ export const formatPersonData = (personInfo) => {
             ...currentAddressObj,
         },
         titlePerson: {
+            allCitizenships,
             firstName: First_Name,
             lastName: Last_Name,
             middleName: Patronymic_Name,
@@ -139,7 +169,7 @@ export const formatPersonData = (personInfo) => {
             NationalityName,
             birthDate: Birth_Date,
             birthCountry: formatCountryName(CountryName),
-            birthRegion: Birth_Region,
+            birthRegion: Birth_Region || Birth_Community || Birth_Address,
             ...unChangedData,
         },
         addresses,
@@ -223,3 +253,36 @@ export const formatedData = (periods) =>
             workinghours: [<ThCell title='Աշխատաժամեր' key={v4()} />],
         }
     );
+
+export const createSearchParamsObject = (searchInputValue) => {
+    const searchParamsObj = searchInputValue
+        .split(' ')
+        .reduce((acc, el, index, arr) => {
+            switch (arr.length) {
+                case 1:
+                    {
+                        if (el.length === 10) {
+                            acc.ssn = el;
+                        } else {
+                            acc.documentNumber = el;
+                        }
+                    }
+                    break;
+                default: {
+                    if (el.search(/\/|\./i) !== -1) {
+                        acc.birthDate = el.replace(/\./g, '/');
+                    } else if (index === 0) {
+                        acc.firstName = el.replace(/և/g, 'եվ').toUpperCase();
+                    } else if (index === 1) {
+                        acc.lastName = el.replace(/և/g, 'եվ').toUpperCase();
+                    } else {
+                        acc.patronomicName = el.toUpperCase();
+                    }
+                }
+            }
+
+            return acc;
+        }, {});
+
+    return searchParamsObj;
+};

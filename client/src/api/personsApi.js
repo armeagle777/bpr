@@ -17,6 +17,11 @@ export const getPersonBySsn = async (ssn) => {
     return response.data;
 };
 
+export const getSearchedPersons = async (searchOptions) => {
+    const response = await personsApi.post(`/persons/bpr`, searchOptions);
+    return response.data;
+};
+
 export const getQkagDocsBySsn = async (ssn, firstName, lastName) => {
     const response = await personsApi.post(`/persons/${ssn}/qkag`, {
         firstName,

@@ -1,29 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import LinearProgress from '@mui/material/LinearProgress';
-
-import SearchPageSkileton from '../components/searchPageSkileton/SearchPageSkileton';
 import SearchBody from '../components/search/SearchBody';
-import SearchHeader from '../components/search/SearchHeader';
+import SearchPageSkileton from '../components/searchPageSkileton/SearchPageSkileton';
 
-import { fakeData } from '../utils/constants';
+import { Stack } from '@mui/material';
+import SearchInput from '../components/search/SearchInput';
+import useFetchPersons from '../hooks/useFetchPersons';
+import { createSearchParamsObject } from '../utils/helperFunctions';
 
 const Search = () => {
-    const [loading, setLoading] = useState(true);
+    const [searchString, setSearchString] = useState('');
+    const [filters, setFilters] = useState({});
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading((prev) => false);
-        }, 2000);
-    });
+    const { data, isLoading, isInitialLoading, isError, error } =
+        useFetchPersons(filters);
+
+    const handleClearButton = () => {
+        setFilters({});
+        setSearchString('');
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const trimedString = searchString.trim();
+        const searchParamsObj = createSearchParamsObject(trimedString);
+
+        setFilters(searchParamsObj);
+    };
+
+    console.log('filters:::::: ', filters);
+
     return (
         <>
-            {loading && <LinearProgress />}
-            <SearchHeader />
-            {loading ? (
+            {/* <SearchHeader /> */}
+            <Stack
+                sx={{
+                    width: '100%',
+                    alignItems: 'center',
+                    pt: 2,
+                }}
+            >
+                <SearchInput
+                    searchString={searchString}
+                    setSearchString={setSearchString}
+                    handleSubmit={handleSubmit}
+                    handleClearButton={handleClearButton}
+                />
+            </Stack>
+            {isInitialLoading ? (
                 <SearchPageSkileton />
+            ) : data ? (
+                <SearchBody persons={data} />
             ) : (
-                <SearchBody persons={fakeData} />
+                ''
             )}
         </>
     );

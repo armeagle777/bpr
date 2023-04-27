@@ -30,7 +30,7 @@ const TableBody = ({ rows }) => {
 
     return (
         <MuiTableBody>
-            {rows.map((row) => {
+            {rows.map((row, index) => {
                 const {
                     Document_Department,
                     Document_Number,
@@ -44,7 +44,7 @@ const TableBody = ({ rows }) => {
                 } = row;
 
                 return (
-                    <StyledTableRow key={Document_Number}>
+                    <StyledTableRow key={Document_Number + index}>
                         <StyledTableCell align='right'>
                             <Tooltip
                                 title={

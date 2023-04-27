@@ -22,6 +22,62 @@ const getPersonBySsnDb = async (params) => {
     return person;
 };
 
+const getSearchedPersonsDb = async (body) => {
+    const bprUrl = process.env.BPR_URL;
+
+    const {
+        firstName,
+        lastName,
+        patronomicName,
+        birthDate,
+        documentNumber,
+        ssn,
+    } = body;
+
+    console.log('body::::::', body);
+
+    let serachUrl = `${bprUrl}?`;
+
+    if (ssn) {
+        serachUrl += `&PNum=${ssn}`;
+    }
+    if (firstName) {
+        serachUrl += `&first_name_like=${firstName}`;
+    }
+    if (lastName) {
+        serachUrl += `&last_name_like=${lastName}`;
+    }
+    if (patronomicName) {
+        serachUrl += `&middle_name_like=${patronomicName}`;
+    }
+    if (birthDate) {
+        serachUrl += `&birth_date=${birthDate}`;
+    }
+    if (documentNumber) {
+        serachUrl += `&docnum=${documentNumber}`;
+    }
+    serachUrl = serachUrl.replace(/\?\&/g, '?');
+
+    console.log('searchUrl::::::', serachUrl);
+
+    const { data } = await axios.get(serachUrl);
+
+    console.log('data::::::', data);
+
+    if (data.length === 0) {
+        return [];
+    }
+
+    const persons = data.map((person) => {
+        const { AVVDocuments, AVVAddresses, ...restInfo } = person;
+        const addresses = AVVAddresses.AVVAddress;
+        const documents = AVVDocuments.Document;
+        return { addresses, documents, ...restInfo };
+    });
+
+    return persons;
+};
+
 const getDocumentsBySsnDb = async (ssn) => {
     const qkagUrl = process.env.QKAG_URL;
 
@@ -71,6 +127,7 @@ const getCompanyByHvhhDb = async (hvhh) => {
 
 module.exports = {
     getPersonBySsnDb,
+    getSearchedPersonsDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
     getCompanyByHvhhDb,

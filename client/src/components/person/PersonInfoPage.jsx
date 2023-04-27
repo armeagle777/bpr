@@ -6,7 +6,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { Box, Button, Container, Stack } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Documents from '../documents/Documents';
@@ -44,6 +44,7 @@ const PersonInfoPage = ({ personInfo }) => {
             middleNameEng,
             gender,
             NationalityName,
+            allCitizenships,
         },
 
         titleAddress: {
@@ -61,7 +62,7 @@ const PersonInfoPage = ({ personInfo }) => {
         },
         addresses,
         documents,
-    } = useMemo(() => formatPersonData(personInfo), [personInfo]);
+    } = formatPersonData(personInfo);
 
     const images = filterImageSrcs(documents, gender, birthDate);
 
@@ -126,17 +127,23 @@ const PersonInfoPage = ({ personInfo }) => {
                         <PersonalInfoRow
                             width={35}
                             label='ԱՆՈՒՆ'
-                            text={`${firstName} | ${firstNameEng}`}
+                            text={`${firstName} | ${
+                                firstNameEng ? firstNameEng : ''
+                            }`}
                         />
                         <PersonalInfoRow
                             width={35}
                             label='ԱԶԳԱՆՈՒՆ'
-                            text={`${lastName} | ${lastNameEng}`}
+                            text={`${lastName} | ${
+                                lastNameEng ? lastNameEng : ''
+                            }`}
                         />
                         <PersonalInfoRow
                             width={35}
                             label='ՀԱՅՐԱՆՈՒՆ'
-                            text={`${middleName} | ${middleNameEng}`}
+                            text={`${middleName ? middleName : ''} | ${
+                                middleNameEng ? middleNameEng : ''
+                            }`}
                         />
                         <PersonalInfoRow
                             width={35}
@@ -206,18 +213,22 @@ const PersonInfoPage = ({ personInfo }) => {
                             label='ՏՈՒՆ'
                             text={
                                 Building &&
-                                `${Building_Type} ${Building}, ${Apartment}`
+                                `${Building_Type} ${Building}, ${
+                                    Apartment ? Apartment : ''
+                                }`
                             }
                         />
                         <PersonalInfoRow
                             width={40}
                             label='ԾՆՆԴԱՎԱՅՐ'
-                            text={`${birthCountry}/${birthRegion}`}
+                            text={`${birthCountry}/${
+                                birthRegion ? ` \ ${birthRegion}` : ''
+                            }`}
                         />
                         <PersonalInfoRow
                             width={40}
                             label='ՔԱՂԱՔԱՑԻՈՒԹՅՈՒՆ'
-                            text='ՀՀ'
+                            text={allCitizenships}
                         />
                         {Citizenship_StoppedDate && (
                             <PersonalInfoRow

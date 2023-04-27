@@ -1773,24 +1773,820 @@
             "Citizenship_StoppedDate": null
         },
         {
-            "psn": "2701850403",
-            "addresses": "ALL",
-            "id": 7
+            "id": 7,
+            "PNum": "6104911099",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "RESIDENCE_CARD",
+                        "Document_Number": "AJ0000079",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "21/12/2021",
+                            "Passport_Validity_Date": "21/12/2022",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "FOREIGN_PASSPORT",
+                        "Document_Number": "AB3045337",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "21/12/2021",
+                            "Passport_Validity_Date": "21/12/2022",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "RESIDENCE_CARD",
+                        "Document_Number": "AH0004970",
+                        "Other_DocumentType": null,
+                        "Document_Department": "___",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "03/10/2019",
+                            "Passport_Validity_Date": "03/10/2020",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "FOREIGN_PASSPORT",
+                        "Document_Number": "AB3045337",
+                        "Other_DocumentType": null,
+                        "Document_Department": "___",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "03/10/2019",
+                            "Passport_Validity_Date": "03/10/2020",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "RESIDENCE_CARD",
+                        "Document_Number": "AI0003563",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "14/10/2020",
+                            "Passport_Validity_Date": "14/10/2021",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "FOREIGN_PASSPORT",
+                        "Document_Number": "AB3045337",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՆՇՎԱԾ ՉԷ",
+                                "NationalityCode": "125"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                        "CountryCode": "112",
+                                        "CountryShortName": "BLR"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ՊԼԱՏՈՆՈՎԱ",
+                            "First_Name": "ԴԱՐՅԱ",
+                            "Patronymic_Name": null,
+                            "Birth_Date": "11/04/1991",
+                            "Genus": "F",
+                            "English_Last_Name": null,
+                            "English_First_Name": null,
+                            "English_Patronymic_Name": null,
+                            "Birth_Country": {
+                                "CountryName": "ԲԵԼԱՌՈՒՍ",
+                                "CountryCode": "112",
+                                "CountryShortName": "BLR"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": null,
+                            "Passport_Issuance_Date": "14/10/2020",
+                            "Passport_Validity_Date": "14/10/2021",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100800",
+                            "Postal_Index": null,
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ՆՈՐ ՆՈՐՔ",
+                            "Street": "ՄԱՌԻ Փ.",
+                            "Building": "9",
+                            "Building_Type": "Շ",
+                            "Apartment": "30"
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": null,
+                            "Registration_Date": null,
+                            "Registration_Type": "OLD",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": null,
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    },
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100800",
+                            "Postal_Index": null,
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ՆՈՐ ՆՈՐՔ",
+                            "Street": "ՄԱՌԻ Փ.",
+                            "Building": "9",
+                            "Building_Type": "Շ",
+                            "Apartment": "30"
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": null,
+                            "Registration_Date": null,
+                            "Registration_Type": "OLD",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": null,
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    },
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100800",
+                            "Postal_Index": null,
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ՆՈՐ ՆՈՐՔ",
+                            "Street": "ՄԱՌԻ Փ.",
+                            "Building": "9",
+                            "Building_Type": "Շ",
+                            "Apartment": "30"
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": null,
+                            "Registration_Date": null,
+                            "Registration_Type": "OLD",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": null,
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
         },
         {
-            "psn": "2701850403",
-            "addresses": "ALL",
-            "id": 8
+            "id": 8,
+            "PNum": "7701930663",
+            "docnum": "AR0479126",
+            "birth_date": "27/01/1993",
+            "middle_name": "ՆԱԻՐԻԻ",
+            "last_name": "ԱՎԵՏԻՍՅԱՆ",
+            "first_name": "ՄԵԼԻՆԵ",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": "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",
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AM0257002",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "7",
+                            "Basic_Document_Name": "ՀՀ ՆՈՐ ԾՆՆԴՅԱՆ ՎԿԱՅԱԿԱՆ",
+                            "Basic_Document_Number": "ԱԲ119112",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԱՎԵՏԻՍՅԱՆ",
+                            "First_Name": "ՄԵԼԻՆԵ",
+                            "Patronymic_Name": "ՆԱԻՐԻԻ",
+                            "Birth_Date": "27/01/1993",
+                            "Genus": "F",
+                            "English_Last_Name": "AVETISYAN",
+                            "English_First_Name": "MELINE",
+                            "English_Patronymic_Name": "NAIRII",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": "ՆՈՐ ՆՈՐՔ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "06/04/2011",
+                            "Passport_Validity_Date": "06/04/2021",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "AR0479126",
+                            "Related_Document_Date": "10/10/2017",
+                            "Related_Document_Department": "005"
+                        }
+                    },
+                    {
+                        "Photo_ID": "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAoHBwkHBgoJCAkLCwoMDxkQDw4ODx4WFxIZJCAmJSMgIyIoLTkwKCo2KyIjMkQyNjs9QEBAJjBGS0U+Sjk/QD3/2wBDAQsLCw8NDx0QEB09KSMpPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT3/wAARCAFAAPoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDuABgcUYHpQOgooAMD0owPSiloATA9KMD0oooAMD0owPSignFACkD2pOKM0maADj2pOKQmmlvSgBWYDrx71FIwQZJUfWmyzbRksfyrH1DUUgikZZBlR8xHOPYCgC5d6hDbozSSeXt6kjH865DW9etxm4tctNj5mOAGH6Z6+nrzWfqOrRvI0rt57sfki6hfc+9c/NLLeyZlKD/ZAwD+VAjQvvEdxfwskEbEuMOf/r1zs7FpB5mdwGMelXo1e0csCCp6YqG4tJHk3IvB5570AWvDZZ9Vj5G1Msc+gr1Kw1CF4gUO5c445/KvJYrC7hBKYw/BweSK1dB1VtK1Iea5Cnhge3vQB7BbyF1+Zdp9PSrIIrntL1A3aiSJkYMMkjr+PvW1G/HrSGWePSjj0poOacKAFwPSlwKMUtMBMD0owPSlpaAG7RS4HpS0tAAAMdKMD0FFFAEA6CikHQUtABRRRQAUZopKADNNJyfagntTC3BoAUsFBJOAO5pvmjHQge4qJjufnov86q3t/b2yZuZ44k9XYAH86ALhnXLDIyOtZOo+I7TT4y0rnA9OKwdX8bWMMLpaS+c3IwmQPqT/AIV5/e6lcajcb5nJx0HZfpQI6vVPH004ZbRPLHZieTXMSX93esXuJ5CvYFuPyqpjB5pTLu4HagLE8l1xsU/U0xZMVW3fOT6mnB/zoGTvITgDvUz3J2qAeBVMvyCOwpryZoAuw3hU9ehqyzQ3DAuo3eo61iLIVc1YSU0AdDoupyaNeLIjsYv409RXo+mazbajAHhmUnptzzXj7XBKhs89KsWeoTWEyyW8hXPemI9vSQHjn8qlVxXH+H/FEN9EI3wJ1Xu3WuotpA0YYHOe9IZcBJFOqJWqQGgB1FJS0AFLRRQAtJRRQBXHQUUDoKKACiiigANNJxQTj6U12wpoAbI2Bnpj1qNj1FJJINnPOR0FQFvkBz0oApatqX9m6XdXPBMfYnvmvINS1S41O6a4uZC7k9+3tXWePNVwv2GNvmdhI4/ujHA/PP5Vw646GgBRlj7U9CFc/WhCMc1C5w/FAEjPj6mo3O2Tg8daaWzSAbuKAFDU5JOTTShxmgoQKAJd42mombmn7PlYZ61GVO4YoAb3zU0fAHNMZcUbjQBYDZBp6tlSp69qrB88VIrcigCzDcyW8wkidkdTkEHBFdboHjqe2uEj1DDwscGQDBHufWuLzk/pT1YFdp7UBY9+imEiKynhhkGp1auN8Dak9zoiJIc+U3lg/T/61dYknrQBZBp1Rq2aeDQA6ikooAWiiigCsOgpaQdBS0AFJRSE0AIx4qtJLsBbnFSyH5TVacgJz93pigCBmwSTkkHOPx/+tWXr2txaTYlmIZ24UA9eKsX10ltEWkfajK2SOwxmvM/EOpG9uMsTu7rnIQdlH58+/PfgAzr66e9vJJpTkucmqjcNwaey7kzmowvNAByPWlXlqnjiZ8AKT9KtxaZJIRhDSbsUot7FE25xleQakjtSUzitqLR7g4wnX2q4nhy4zkp16FTUOokWqbZzxtfkyQaf9jLAlFJArrbXw8yDEuCvuKvRaBbo2VyMjB96h1UaKg2cB9m2ye/IpDbnfz2rv28OWpYsBgk5qleeGsIzR/N6ChVUDoM4p4QxG0VC8OOlbtzo86OQEbA6nHFUHtzHywwK0U0zJwaM3btNKp21Zlh4+WqxQjrVkWHg0oYbhTFGTSng0COp8G6xJZX4twSY5W5X3/yK9Tt5hIikcgjp6V4nok4g1SCRmKqHGWBxgV7NZ7VjUIcqeRQI0o3z0qYGqyHNTqcUDJaKQGloAKM0UUAQDoKKB0FFACU1qfTGoAic8GoJMMpHr3qZzxVWQ+nagDi/FV9Ja2bxHPmOCi4/DJ/L+Yrz6RiTk9fWu68cAvGHcY2thCOnvn9K4dkZj0oGLH8y4qzb2AlYAbs+1WNO0iW5YHBCnvXX2GlQ2qDAy1YzqWN4U2zL03QgoVnXit+C0ijXhB+VTBSegqVV4rnlJs6YwS2ESMKPlAFSAEHgfjTlX0p4XmouaWGBefen7TTwnpTwnFAEO2gg4OOan2UbeKBlOS3SQcrWPe6Bb3CnK7W9RXQsKiK801JolxT3OEvPD80APl4ZTWHc2cqEgxkV6g8YPBHBrPutKgmyQgDeoraNV9TCdBdDzcRsp+ZaRhXS6noz2+WVcg965+RMMex9K6IyUjmlBxGRHaeK9J8Fa4Lq2FnKf3sQG0/3l/8ArV5qQQeK3vCsrR6zbbc8nBqjM9hjarCmqMD70Vuxq2h9KAJxThUan1p9AC0tJRQBCOgooHSigApjU+mNQBBJwOapTcAkHoOlXJKqS4IPFAHDeOp9sMFrngktWNpdnHMVLLkEAnNT+MpvP1sRn7qAAeuTV/SYRHboOpx1qJuyNKauzRt4ljUbRirKdahXqPSrEY9K5GdsSdRUirUaCp1qGajlWpVTNEa5qdFoBsasdSKlOA9aeOBxTSIuRFKjK1OxphpDuV2Wo2HrVlgKhcUh3K7rkYqFhxU7moWpobRXljEiEMAQa5/U9AWYl4uG610bVGQDWkW1sYzSe5wE9i8LFXGMe1TaXP8AYr2OTgYPU102oaekqk44/lXL3cIjuwgPANdUJXOScOVnr1nMJIEYfxKDV+M1yvhG9FxpSI3DxEoR3rqIzVmRZU08Co1qSgBaKSigCIdBRSDoKKAFzUbGnmomoAikqlO2xWJ6datvVG7J8sgdScUAeYa5um8R3GSMlhjH0Fb+nxlIQD1xWPqsYPiGUjgbh0HTit+AbY1x6VjUN6RYjFWEHpVZWAPNI2pW0Jw8ig/Wudps600tzQUVMtZ0Wp282AkqHPvV2N9w4INTystSTLidKmVsCq0ZqYHNKwEhalDmo8Z4NPAoCwpY0wvxUm0kVGyc0AMLVGxzT2HNROaBkb1CR7U+RqgMyqecfjTSYXQj0zFOLq3Q00nniqRnIbIoKHNchq8e2554xXYN901y/iAKHIXqTzW8NzmqbG14YnNrq7xsMR3cKyj/AHh/+uu6gfKjmvOIJmt5NLuSvET7WJ/uNhT/ADr0C2ch+fut09q3OY0kNSVElSigBaKKKAIR0FFA6CigBCaiY1I2KiegCCU4HNZtzKu0jPHTPoavTHmuf1aR1nFujlFYZ4PP0qZS5VdlQi5uyOU1Yn/hJpDjqV6jrgCtpPuL9KyNQjlfUovNX94o2lv73ofyxWvHzEp9qym09Ubwi4uzKt8lzcDy7c7F7sT1qvF4aLIS07Fz7cVqKcsKne5S3iLu21R3rJza0RuqaerOfn0C6tTvgJkH+yeRUEWpXlq20My46gitebWmVHKD5on+dMZ3L6j/AD2qvcanYXVyVkCFCisG78nBq1JvdESjFbMsWnimRCEmi3e44roLDW7G6IAlCt6HiuU/syC7QtaTNxg884quNMu4ZCRhsf3TR7rC80emRiKXlGUj2PSrCWWTjjNcXoMt1FPh87COQa6+C7beuSfzqdLle9a5ZFqoJDVBN5MQPmMAKWe5I6Gud19ppY/3RYEKwwPU4H8s0rrYEmWbzVbG1U+ZKB6Ac1g3fimJS3kxlgKz5NNuriRmlG1T2z6dKRNJjM22WcBuu1RmqtDqK8+hDc+JbuZf3abPwqkh1G9b5RM/8q6O3trG2kGEVnAzl+TVk39ssix+YgZ+gHejnS2QKm38TOeS11eLlcqPQtWpZXsxIju02SdmHQ1oswPSoyEbqBx0pKd9xuny6ofniuZ1shpjxXS9q5jWMm62gZzVw3Mp7FoN9o0aRFB3BMAjp6j9QK7fTLoXdhbzKeqB8HtkVyljZPBZCKbJLDnjpWz4Xby7EW53ERMyAnjIz1/PP5VtGSlsYTpyhuddEwKgipgaqxMCAfUZqwp/GqIJKKbn2oz/AJxQBGOgooB6CigBrCoX4BqZulQycg0AVJceYoPXkj/P41ha3EGdHHDDGD+dbcp/ern0PP5Vl6pH5qgerAfrms6qvE2w7tUVznL3LyqXGGU4q3GMQL9KTVotvlsAcjg/SpkX5VHoK50/dOqUfeK0wkjRnRdxA+6O9c5eeIJWR4ZIeowVbj8a7MICORWTq+kLf5JVV2jhsck/4UQkr6hOMre6zm9N0i91uTJfykA5du49h3qlPaSf2obS1Lyu0nlIMAFjnH863bOfU9KlAVfNXsrAniqt7pMl9dSTiB4Qx3Ov3tpPJxj+VdCkjl5GQ6KL83UlvbEpIFLMmMkgdgPWupsbhLmMoqsjx8FW6g1B4Wsho7tcvA00rDC9goP9eK1LxGmuYrm3tTHLn942fve3XnjvisqjizakpJkltMUkCv8AnW3bNuIHrWFKmGUjqDmtK1lIUVhc6LF+5baax7ufB461dnnz1NZTDzbg5+lF7sErIrTT7BukO1M8segrE1PVYbO63QkSq6/eIztYenrwa3pljuppLeWQxQIvPHL9OP1/SsrxdpVs1rby6WqbI12sifeHvjrWtNJ6sxqya0Rz/wDbtwGcIUcyRLGfl6f/AF+afHqUlpcPJdWzC4I43ZGPwqL7Jd32oKJ4Y4GAVWxEIlUAAZIAA6DPufrW9r19p93EkCIbl4xjeg6fjW7UTnTn3K1jre0gSNvDHJYnpW3b3AuFDr0NcxpWhC8JdiwUNgr3H1rrre0WCNUUYVRgCsZ8qeh0U+ZrUlXpWUloJtQErjIQgitgDAxUOmxiS5ww+VeT71LdkNRvIc4eaRQcooxx61JozhL6ROSDI649O/8AU1PdLtuUIHHX8qzfD8xknkY7QfMbcf8AgX+AH51dDdixduVHbw545q0tU4QM57mraA4rpOEkFFIDS0AQjoKWkHQUZoAD0qGTpUueKiegChMcTKPVSf5VQuSN2T2YfzFaM4/eK3oCP5Vm3yf6K5X73X8jUy2ZUNJIiuIkkLKwHNUI+1LdXTBFkTJYdRUdq4kCkdDzXHHY9Ge6Lsak0rQbjzUsQyKsrFmoLRnG0BYHbyKnSAhcAdeaviH1pxCr2p3EykLbHJ79ailyCQvSrrgtnsKrygLwBRcEU9pzzVq3GBUbYUZNOgOTS3GiS4AK1QBMcmavz/cNUQd/1FCBmjGBLHkAHNQS2nI4+UHOCKLZih4P4Voq6uvPWqRLMKTTIncl485GMdqgXR4Y3O0DaeoI610TW4PIqFrfB6UNsEomXb2Udvny1xu61MVIq2YsdqY6jFTcqxVNXLO1WKBGGOeTVSQhVJJ4qWK7WfakZwijlvWrlsRD4mQ+I5mhsHaI4fZj8yKo+GATbyZyxDoc55+4px+VS61KJIeRlXIT+dL4YjK/afRpSAPThf8AD9K6KK905MS7ysdjAQUXnmra9BVSBcKAOmO9Wl+6K2OcdjmnUgpaAIB0pKUdBQaAEqNyBT+vsKYyigCnPjgk9D0/T+tVJU3qQehq/OMocde31qk+CAR0xxQBgyoY2YOMjoait8KQFORWheRjJJ6HrWWpCTsq9jXJJWk0d0Z80UzYgPAq8h4rMt5OBWhG2RWTOgsdaNmTSKwqZcZFITIWTA4qpIoBJbpWmwUrxisjUiQQq/xU2gTKryebJhelWrePgVShxG+GPBrZtFiI+dwv4UW6Au5XlXK1mEGOf2NdBdxwqgKSBj3rCusO2FOTmna2gXurlqFCMHsauomVyKp6e27MbdR0rUSMKtKwNka5HWgkd6kddhIPUGoJDSBajXIqrK2Klduaqyt1oQ2VbpPOjMQONxwT7VMkKwxhV5x3qFR5twB6c0usXsel6bJMxG4DCg/xN2FXu7Gadlco306XUzwqciMYIH94/wCf1rV0Ff8ARlbOctvzn72Sf8a4/wAOvJPJKwYmQncc87if85rutKiWAIi9FXOPoMf4V2Rjyqx585c0rm/CMAcYqcDioIs8DirA561RIopc0mKWgCAHig0g6UtABTWpaQ0AQSjiqEg2uy/iK0JBxVG5UsMg9KAM68y8Tqg+YDIyOM1hNcRy3HmRqFWQkqq9F9vw6V0Eg3HHauM1YyQ6tFcwIEgLgOQRhgT1rOcb6mlOTR0UEmBV+GXPWsmB+KuRMQa5JHowd0aiNxVhGqhG/FTq/SpHYus4CcVlXkfm8j7wPFWmkwKhK5NNsSVigbVJEzIsgYdCrcf/AF6RLiWD5XUnHRuxrRVM8Gp2tUePnGaEDaRjy3Usw2Rjr1PpTRb+QgbzhI/90LitYWShDimGPb26UN2AgsVZGLuME9q1Q37us/GDUySnZg0rg0SPJnkVC75prvULSYHNA0Ej4FU5X4NOlkyeKqzuEQsxwAMmqiiZvQZHcRLcrvnVMsF5Ncdr+ry6pqDq2VihJVF/r+NRS3YEiX7Qr5xPAJyrepIqjCvnyFifn689zXVThZ3OGpUbVjo/Cr7JGAzvyOnavQbAoBHtydwIwRgjqa810SbydRUqGEbABh79f6fpXpWmyB4EDcFWzz25xWpibcXC81MOOn5VFHwBgCpRQAuc0tJS0AVx0FFHYUlAC0h6UYoNICKQcVVmGBVxqqyjjFAGRfjMMilQQe2evt+Ncde6la2fhyS1BgZi7YAkDkg4/EdB6fd6evXauwS1uHGfkjZh9QOK8jaPdcIjZwcE0nG407He6bcefbQy/wB9A36Vqo1cvoV2GhMWQDE3A/2a6OGQMormqRszuoyui9E2KlWUiq0bVLgkcVidBK86ry5A+tY934iAkKW+Bj+I1Pd2TToVZz+HFcxdWbQThFZgc9T0q0kVFK5spq9yefOYn0wKuw67IQFMnI7MP6iuVRZjkhmIFObzgwG9gf8AdzTNWk+h1U3iKSPhGjP4Gq48TPn97Ep/3TiudBmA4Yk+601/OPLYI9aLE8sV0Ovg1u2uSFDFHPZqurKGHFcLa2ss0qgk4zztrsLK2MEGNzH/AHjmplFIykrEzvzimOeOaVhhsmo3NSIjbvms7UnVoDG7hBIRHuIJwDwentmrssm2se6Iu7kxggiMZIzySf8AP61tTjdnPWnZCTafbTWjQlIwnktL85AZOCQB/wDW6/iK4+SCSznHUKfut2Ndu0NzLGY0lb1bdzv+p6+tZ1zpgnt3hljO4DK47GumKsccncx7a6CSQyLw6OG9R1r0rQJTLbzbgVIOAvQgADFeUywTWc5hlGGH3T2Ye1ejeErr7XYMzOGZjzg45wAfeqJO2hJx83WpwaqQn5RVodKAFopKKAIB0ozSdhRSAXNBPFJRmgBrVXkXAPrVnqKhkx0NAHP62jPpt0q/eeJlHtkYry28jCT7h09/TAr169RX3LjgHJrybWAIbuS3AJ8lmTJ7jPH+femBWttQe1vlmX7vQj1Fdvp96s8SsjAgjg158yEOQO1a2hzzQTbM/IQSBWdSN0a0p8rsegRPkVbjbK1hWd4GA5rUgmBGK5GrHencunkVTurCO5GXXn1q4hyOtSKgJpXsNaHKTaXNBJlFLL/s81HtdCCUkB91Ndh9nVj0FL9iU84P5VSkae07nGOZDgKjAj/Zp9vplxcvkoQuercV15tEBoMQUcCjmDn7GdZ2EdsowMt61dzxigjFNY4FQ3cz3I5GqtJJtGafNIAKyNR1GO1iLO30Hc1UVcmUkkLeXixlQT87nao9TVeDTmEplwx3E5IPDf5/wrLt3Oo6xAzjpngdhg8/qK7W2tgNuD8uOnpXZCPKjgqT5mQ28AlAygLY+8ep/wDr026sSI2kxnHQetaqW6IwY8E96k8jjHLDPX0qjM5HXNKhu7LewIMKHDAcg5HH86oaNdz+H7mIXqssEo3b1PBH94evbNdNqML3l0lrA3LHLn+7jkfritO50u11K1NtPHuj/h/2cenp6UAallOs0KyRsHRhkMO/vV5W4rj9FNx4auhp96VexlbbbzjjDdlb6/zrrUIxxTAmopoNLQBXHSikB4FLSAKKKTdQAGoZc5461Ju4qGQ/rSAo3SgKc9+DXk+utv1y4Zv739BXrF23yH1rzDxPDHDqLuGHmO5baOw/z/OmgMrZsAZgPnHSrWlZ/tKP0IP8qpIS7lmOTWjpKMdQD4O1Vxn3pS2Kjq0b5t3jO+P8vWrFveYbHIYdQatW6h1wehpl1pwcZUYYdCK5Obud6j2NK2ulkQc81fjfPSuSjkms5PmyVHetqz1BZAPmFS12Ki+5uR4yPerishTA4rIS5XHWpPtQx1oTsU1ctT4B4qs7etRtOD1NV5bpUHWpeo7WJXcDPNVJ7kKDzVS51JRwpyfaqRWa6buq1SXchvsOuL4sxWP5j/KuZ8Slx5GW5JY/yrqktFiXpWRqemrqRmjUZkjiLp9R2/GtabVzGtF8pS8LajFDdeXc8GTAWT+leiW64A25x+FeOQtzjuK9K8H6v/aFl5MzZuIBgknll7H+n/666jiOnA4x/OoZZiIQinAHDMe3+JPpTvnbOxv/AK1TW9tsO6Tlycj0FICK0sBE3mEYfGADzgd8+57/AIematiLafY1YVABgfnSsmKAK1xZxXdq8M6Bo34ZTVHQZ5raWfSrpmaS3O6KRjkyRnp9SOhNa+OlZN3EI/E1hOgwZI5InPqB8wH5j9aANwGlzTAadQBV3cCjdWY2t6cn3r+2GP8Apqv+NQSeJ9JiHzX0R/3ct/KgDa3U0tXPN410cNgXDN7iNsfyp6eLdHmcIl8gY/3lZR+ZGKANtnxUTvkVlyeINMQfNf2x+kgP8q5LxH43Mqta6U7BSMPPjBPsv+NAGr4o8VRaajW1qVkuzwe4j+vv7V5zNPJcTPLM5eRzlmPUmmFix5NJ3pgTR9a6mC0+z21nxgshcn1yR/SuVi+8BXoN1Gvk2hQfJswP0rOp8JrRV5DrXoKvryuDVGDgVfj5ArjZ6CIJ7VXHT8apNp5U7oyVPtWuRQsYJpXCxlqbuMY+9S+ddd0/WtlYNw5UGlNsB/DRzBYwzNdsMBcVH9nnmb53P0Fbjwj+6KasQzT5g5TPt9NVeWGatiJUHAqyVwKiele47FWUVXsbfE9zMegQKPrzn+YqxNwhNPhTyrAkj5nOT+Na0VdmNd2ieZahD9l1a4jAwA5wPY9Ku6Pqkmk6jHcoMgcOufvKeorR8VWAL/aAuHXGT6iudJ4Fdh57PY9I1e01W3820kDH+JDwy/UVsRkDOa8Msr640+5We1laORejLXpnhrxVFrCCKbCXajJXs/uP8KAOvTpmlbBFQRy5AqXdnFIAx6Vm33Os6eijIBds88YXH9a0wetU4/31803O2NNhzj7xIJ/TApgXV6U+mA4PtT80AeB7yxyenpTdx+mO1J6EUZIPB56ZoAOvrTGPankbR8wqCQ7TQAjOSx5pneigUAFFFJmgC9pMXn6nbREZDyqpH1NejXkASxQKeImI/DJH9a4Lwwu/xBZZ7SA/lzXpCqJY7iF+hZv5mlKN42LhLlkmZcI5q9FwKpQqVcq33lODV6OvPZ6a2JcZFKgpVHFPCmkMkQ4FPZuKjFHNIBjcmhRTtvNBGBQBG5qA9alkNQscAk9KYyGZPMZY/wC8efp3qzcYWOMddzAUy2TfJ5h6ngD2pb0/vo1HbnFd1CFo3Z5+JqXdl0MHxTAf7NZgOVOD+dcM3Br0XxOA2hzSDuuCPfIrzpjmtZbnMhAeMVJDcSW0yyROUdTlWU4INRUUhnofh/x4kzJb6ptiY8CccKT7jt9en0rt4pgyhgwYEcEdxXgwFW7TUbq0/wBRcSxf7jkUAe2z3eyMrGN8jcKuep+tSWsYgiKA5yxJJ6knkn868jtvFmrW7A/a2ccffUMeDnqRmtu2+I12jD7TaQSL/sEof1zQB6QDmn5rjbb4h6dIF8+G4iY9cAMB+Oc/pWj/AMJnomP+P3/yE/8AhQB5Hj14oCnGe31oPzEA8A0/AUZBOfrQAgG7liNvXGen4VTkYvIWJ6mrk7bIXLJ82dvoFNUM0ALRSUp60AJR3ooFAG34UH/FQWhPZif0NeiWz5u3/wBon+dee+EVL67GV6qCf8/nXexHZcoCe5qkJhqEHlTrOv3Tw3+NOj7VeZN6FWGVbgiqSxmF/Lbp/CT3rlxFKz5kd2Gq3XKywnIqZRjtTIlqYDiuU6hu0Zo20uOKM4oENwMZPFQyvgHFTMflqhdTBeKBoQvz1oSJrhsAHb/OrEOnlI/MmwXIyEORj6+/tUkUyB9hUoTgA/wk+n1rrpYdv3pHJWxKXuxHJCIk+grPQedcvJ1A4FXruXZAxHXpVewCrGAed4ya7OpwtmR4nk2aFcjb1wPpyK86r0Hxq/k6SE4IlYAH6c/0rz9uKiW41sN70tJRUjDJpfxpKKAJFapAfXFVwamQ5X6UAS5Cng0u4+tChSvPy465o3p6NQAzqeB19aNxXp65FP2/LkdD6U3b8ueeKAIbqQuyqOFUYAqCrZjVh8wz6EVC6KvbFAEVLSEDPBNAoAWiikoA6LwTltdwOSYz/MV3dyu2VGOMgkmvPvCMrReIrfacbgw/T/61ehzjevv1q47Evc0IWBjyaSa3WZMDAPXPpUdq2ICG4AHJPb/OKkAkm8pjlIgeUxyR71VrqzBNp3RCm+JRvHB6MOQasRMGFOKmN3jA3LnoT1HpVd4zAvnREtCT1PVfY1wVqDhrHY9CjXU9Jblhhio2xTROWAA5J4HvURlGc5rnOgdM22Mk1W06ATXLXUmCsZ2oD0Lf/W6/lTLyYlQiDLHgAdzWn5S2scNugyU64HX1P4nP6VvQp87v2MMRU5I27i3Ct5UZZSFQZx/eBqnqiI9sAg25B49Djj9cVoTs8sBR2JwMAn09KrXAQRtJnJBOB7npXoxulqea9WZRlluNOgaU/OCUdjxkjv8AkRV21VViXf0x1FV3jBsNoPKS9PwH+FWVbEOwfeIGP8aFuDOH8cXTNfRWwbKIu7juT/8Aqrlyp74/OtXxNNv1242nIQhB+ArIJzWT3LEPFAPFFJnBpAOopM8UhNAC1JEcSDJwPWos0A0AaOECgAZXu3rTC4ycAY7cU1Zn8kDkJ0+tM3fT86ALRVeSpB6dcioXK5z+IzzTB+WR6UbTjPb1oAieQ546VESSeeamlQkZ64qCgAFFFKKAEopaSgDV8MHHiC1+p/ka9KP7xtqfMTXm/hZA/iG1Vs4yeh9jXqqW6IuFGB3Hr9a0hsTIS2gMiKOCincT/eP+Faiqrpg1HGihB6YoXKHrxVANliyckZPfFRIBGWUgbTwVPQirhUSKOcMOhFVpHMfEyEH+8o4IotdCvYZp9gizSSzXP2dbYI0Uitt3c8Zzn5jg57cHgCsq3wwVndpjz9oYqx25cYYMOCSN3Xj+VXLuOK4ij8vl4Tuw65478Hr2qEhXZmIHzdQowOucY9K4a1oO1juo3mr3HanZwadqUYE5lETfMEHIcNyDnHHB556ipxfQMT9mCu3UnOT+VVtoPB5qld2gjImhJSReQRU06/I9tC6mH51q9TTaWSVsuT+FROS0+3OVByffFPWTNpFMy4LIM/Wo4V+QuerV6Cdzz2rDGjB80D7rrkcfxDp/WliicRZbrg4HoKtJwoyRTbg/u2I7A02I8h1Ri2q3THvK38zVSprtt15M3q7H9ahrAsQ02nHmkxQAo6UY96SloAsRWyyk7M7R1JPSpFSNHzGuT23c1UDEHPep1uDtC9PUjvQA53LN8xzScY6LSAE57Y/SphC5AxGSKAP/2Q==",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "ID_CARD",
+                        "Document_Number": "009977489",
+                        "Other_DocumentType": null,
+                        "Document_Department": "004",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AR0479126",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԱՎԵՏԻՍՅԱՆ",
+                            "First_Name": "ՄԵԼԻՆԵ",
+                            "Patronymic_Name": "ՆԱԻՐԻԻ",
+                            "Birth_Date": "27/01/1993",
+                            "Genus": "F",
+                            "English_Last_Name": "AVETISYAN",
+                            "English_First_Name": "MELINE",
+                            "English_Patronymic_Name": "NAIRII",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": "ՆՈՐ ՆՈՐՔ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "12/02/2018",
+                            "Passport_Validity_Date": "12/02/2028",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    },
+                    {
+                        "Photo_ID": "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",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AR0479126",
+                        "Other_DocumentType": null,
+                        "Document_Department": "005",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AM0257002",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԱՎԵՏԻՍՅԱՆ",
+                            "First_Name": "ՄԵԼԻՆԵ",
+                            "Patronymic_Name": "ՆԱԻՐԻԻ",
+                            "Birth_Date": "27/01/1993",
+                            "Genus": "F",
+                            "English_Last_Name": "AVETISYAN",
+                            "English_First_Name": "MELINE",
+                            "English_Patronymic_Name": "NAIRII",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": "ԵՐԵՎԱՆ",
+                            "Birth_Community": "ՆՈՐ ՆՈՐՔ",
+                            "Birth_Residence": null,
+                            "Birth_Address": null
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "10/10/2017",
+                            "Passport_Validity_Date": "10/10/2027",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100800",
+                            "Postal_Index": "0056",
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ՆՈՐ ՆՈՐՔ",
+                            "Street": "ՆԱՆՍԵՆԻ Փ.",
+                            "Building": "2",
+                            "Building_Type": "Շ",
+                            "Apartment": "1"
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": "005",
+                            "Registration_Date": "06/04/2011",
+                            "Registration_Type": "CURRENT",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": {
+                                "AimName": "ՀՀ-ում հաշվառում առաջին անգամ",
+                                "AimCode": "Հ"
+                            },
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
         },
         {
-            "psn": "2701850403",
-            "addresses": "ALL",
-            "id": 9
-        },
-        {
-            "psn": "2701850403",
-            "addresses": "ALL",
-            "id": 10
+            "id": 9,
+            "PNum": "6507870439",
+            "docnum": "AN0694506",
+            "birth_date": "15/07/1987",
+            "middle_name": "ՄԱՆՈՒԷԼԻ",
+            "last_name": "ԳԱՎԵՏԻՍՅԱՆ",
+            "first_name": "ՍԵԼԻՆԵ",
+            "SSN_Indicator": true,
+            "Certificate_Number": null,
+            "IsDead": false,
+            "DeathDate": null,
+            "AVVDocuments": {
+                "Document": [
+                    {
+                        "Photo_ID": null,
+                        "Document_Status": "INVALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AG0291026",
+                        "Other_DocumentType": null,
+                        "Document_Department": "009",
+                        "BasicDocument": null,
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԶՈՒՌՆԱՉՅԱՆ",
+                            "First_Name": "ԼԵՆԱ",
+                            "Patronymic_Name": "ՄԱՆՈՒԷԼԻ",
+                            "Birth_Date": "15/07/1987",
+                            "Genus": "F",
+                            "English_Last_Name": "ZURNACHYAN",
+                            "English_First_Name": "LENA",
+                            "English_Patronymic_Name": "MANUELI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք.ԵՐԵՎՓԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "16/06/2004",
+                            "Passport_Validity_Date": "16/06/2014",
+                            "Passport_Validity_Date_FC": null,
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": "AN0694506",
+                            "Related_Document_Date": "29/10/2013",
+                            "Related_Document_Department": "009"
+                        }
+                    },
+                    {
+                        "Photo_ID": "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",
+                        "Document_Status": "PRIMARY_VALID",
+                        "Document_Type": "NON_BIOMETRIC_PASSPORT",
+                        "Document_Number": "AN0694506",
+                        "Other_DocumentType": null,
+                        "Document_Department": "009",
+                        "BasicDocument": {
+                            "Basic_Document_Code": "9",
+                            "Basic_Document_Name": "ՀՀ ԱՆՁՆԱԳԻՐ",
+                            "Basic_Document_Number": "AG0291026",
+                            "Basic_Document_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            }
+                        },
+                        "Person": {
+                            "Nationality": {
+                                "NationalityName": "ՀԱՅ",
+                                "NationalityCode": "40"
+                            },
+                            "Citizenship": {
+                                "Citizenship": [
+                                    {
+                                        "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                        "CountryCode": "051",
+                                        "CountryShortName": "ARM"
+                                    },
+                                    {
+                                        "CountryName": "ՌՈՒՍԱՍՏԱՆԻ ԴԱՇՆՈՒԹՅՈՒՆ",
+                                        "CountryCode": "643",
+                                        "CountryShortName": "RUS"
+                                    }
+                                ]
+                            },
+                            "Last_Name": "ԶՈՒՌՆԱՉՅԱՆ",
+                            "First_Name": "ԼԵՆԱ",
+                            "Patronymic_Name": "ՄԱՆՈՒԷԼԻ",
+                            "Birth_Date": "15/07/1987",
+                            "Genus": "F",
+                            "English_Last_Name": "ZURNACHYAN",
+                            "English_First_Name": "LENA",
+                            "English_Patronymic_Name": "MANUELI",
+                            "Birth_Country": {
+                                "CountryName": "ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆ",
+                                "CountryCode": "051",
+                                "CountryShortName": "ARM"
+                            },
+                            "Birth_Region": null,
+                            "Birth_Community": null,
+                            "Birth_Residence": null,
+                            "Birth_Address": "Ք.ԵՐԵՎՓԱՆ"
+                        },
+                        "PresidentOrder": null,
+                        "PassportData": {
+                            "Passport_Type": "C",
+                            "Passport_Issuance_Date": "29/10/2013",
+                            "Passport_Validity_Date": "29/10/2023",
+                            "Passport_Validity_Date_FC": "18/09/2017",
+                            "Passport_Extension_Date": null,
+                            "Passport_Extension_Department": null,
+                            "Related_Document_Number": null,
+                            "Related_Document_Date": null,
+                            "Related_Document_Department": null
+                        }
+                    }
+                ]
+            },
+            "AVVAddresses": {
+                "AVVAddress": [
+                    {
+                        "RegistrationAddress": {
+                            "LocationCode": "0100500",
+                            "Postal_Index": "0020",
+                            "Region": "ԵՐԵՎԱՆ",
+                            "Community": "ԵՐԵՎԱՆ",
+                            "Residence": "ԷՐԵԲՈՒՆԻ",
+                            "Street": "ՆՈՐ ԱՐԵՇ 22 Փ.",
+                            "Building": "74/1",
+                            "Building_Type": "Տ",
+                            "Apartment": null
+                        },
+                        "ResidenceDocument": null,
+                        "RegistrationData": {
+                            "Registration_Department": "009",
+                            "Registration_Date": "16/06/2004",
+                            "Registration_Type": "CURRENT",
+                            "Registration_Status": "P",
+                            "Temporary_Registration_Date": null,
+                            "Registration_Aim": {
+                                "AimName": "ՀՀ-ում հաշվառում առաջին անգամ",
+                                "AimCode": "Հ"
+                            },
+                            "UnRegistration_Aim": null,
+                            "Registered_Date": null,
+                            "Registered_Department": null
+                        }
+                    }
+                ]
+            },
+            "Citizenship_StoppedDate": null
         }
     ],
     "zags": [
@@ -2182,6 +2978,265 @@
                     },
                     "cert_num2": "ԱԲ060447",
                     "cert_date2": "2017-08-18"
+                }
+            }
+        },
+        {
+            "PNum": "6104911099",
+            "result": {
+                "1334256": {
+                    "full_ref_num": "846/570/2018",
+                    "type": "marriage",
+                    "ref_num": 570,
+                    "registered": "2018-06-18T00:00:00",
+                    "office_name": "Ամուսնության պալատ",
+                    "cert_num": "ԱԲ225291",
+                    "cert_date": "2018-06-18",
+                    "tracking_id": "CRXA-D4HC-E2DG-9JGX",
+                    "presenter": {
+                        "psn": "2603910544",
+                        "id_type": "p",
+                        "id_number": "AP0521229",
+                        "citizenship": "AM",
+                        "id_department": "005",
+                        "id_issue_date": "2016-08-25",
+                        "id_expirey_date": "2026-08-25",
+                        "base_info": {
+                            "last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                            "name": "ՏԻԳՐԱՆ",
+                            "fathers_name": "ԱՐՄԵՆ",
+                            "birth_date": "1991-03-16",
+                            "nationality": "40"
+                        },
+                        "gender": "1",
+                        "birth": { "country": "AM" },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՔՈՉԱՐՅԱՆ Փ.",
+                            "house_type": "Շ",
+                            "house": "12",
+                            "apartment": "53",
+                            "start_date": "20-06-2013",
+                            "department": "005"
+                        }
+                    },
+                    "person": {
+                        "psn": "2603910544",
+                        "id_type": "p",
+                        "id_number": "AP0521229",
+                        "citizenship": "AM",
+                        "id_department": "005",
+                        "id_issue_date": "2016-08-25",
+                        "id_expirey_date": "2026-08-25",
+                        "base_info": {
+                            "last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                            "name": "ՏԻԳՐԱՆ",
+                            "fathers_name": "ԱՐՄԵՆ",
+                            "birth_date": "1991-03-16",
+                            "nationality": "40"
+                        },
+                        "new_last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                        "gender": "1",
+                        "birth": { "country": "AM" },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՔՈՉԱՐՅԱՆ Փ.",
+                            "house_type": "Շ",
+                            "house": "12",
+                            "apartment": "53",
+                            "start_date": "20-06-2013",
+                            "department": "005"
+                        },
+                        "education_level": "high",
+                        "employment_status": "Բարձր որակավորման մասնագետ",
+                        "marital_status": "u",
+                        "marriage_number": "1"
+                    },
+                    "med": {},
+                    "person2": {
+                        "psn": "6104911099",
+                        "id_type": "id",
+                        "id_number": "ab3045337",
+                        "citizenship": "BY",
+                        "id_department": "նգն",
+                        "id_issue_date": "2016-03-03",
+                        "id_expirey_date": "2026-03-03",
+                        "base_info": {
+                            "last_name": "ՊԼԱՏՈՆՈՎԱ",
+                            "name": "ԴԱՐՅԱ",
+                            "birth_date": "1991-04-11",
+                            "nationality": "999"
+                        },
+                        "new_last_name": "ՊԼԱՏՈՆՈՎԱ",
+                        "gender": "2",
+                        "birth": { "country": "BY" },
+                        "resident": {
+                            "country": "BY",
+                            "region": "ԲԵՐՅՈՒԶԱ",
+                            "street": "ՍԵՎԵՌՆԻՅ ԳՈՌՈԴՈԿ",
+                            "house": "57",
+                            "apartment": "52",
+                            "start_date": "2009"
+                        },
+                        "education_level": "high",
+                        "employment_status": "Գործազուրկ",
+                        "marital_status": "u",
+                        "marriage_number": "1"
+                    },
+                    "children": "[]"
+                },
+                "2238051": {
+                    "full_ref_num": "851/480/2020",
+                    "type": "birth",
+                    "ref_num": 480,
+                    "registered": "2020-11-19T00:00:00",
+                    "office_name": "Արաբկիր",
+                    "cert_num": "ԲԱ321271",
+                    "cert_date": "2020-11-19",
+                    "tracking_id": "CRLC-SR39-K9E2-HB1P",
+                    "presenter": {
+                        "psn": "2603910544",
+                        "id_type": "id",
+                        "id_number": "001157791",
+                        "citizenship": "AM",
+                        "id_department": "011",
+                        "id_issue_date": "2014-03-23",
+                        "id_expirey_date": "2024-03-23",
+                        "base_info": {
+                            "last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                            "name": "ՏԻԳՐԱՆ",
+                            "fathers_name": "ԱՐՄԵՆ",
+                            "birth_date": "1991-03-16",
+                            "nationality": "40"
+                        },
+                        "gender": "1",
+                        "birth": { "country": "AM", "region": "ԵՐԵՎԱՆ" },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՔՈՉԱՐՅԱՆ Փ.",
+                            "house_type": "Շ",
+                            "house": "12",
+                            "apartment": "53",
+                            "start_date": "20-06-2013",
+                            "department": "005"
+                        }
+                    },
+                    "person": {
+                        "psn": "2603910544",
+                        "id_type": "id",
+                        "id_number": "001157791",
+                        "citizenship": "AM",
+                        "id_department": "011",
+                        "id_issue_date": "2014-03-23",
+                        "id_expirey_date": "2024-03-23",
+                        "base_info": {
+                            "last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                            "name": "ՏԻԳՐԱՆ",
+                            "fathers_name": "ԱՐՄԵՆ",
+                            "birth_date": "1991-03-16",
+                            "nationality": "40"
+                        },
+                        "gender": "1",
+                        "birth": { "country": "AM", "region": "ԵՐԵՎԱՆ" },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՔՈՉԱՐՅԱՆ Փ.",
+                            "house_type": "Շ",
+                            "house": "12",
+                            "apartment": "53",
+                            "start_date": "20-06-2013",
+                            "department": "005"
+                        },
+                        "education_level": "high",
+                        "employment_status": "ՏՆՕՐԵՆ",
+                        "attached_act": {
+                            "registration_date": "2018-06-18",
+                            "certificate_number": "ԱԲ225291",
+                            "registration_office": "Ամուսնության պալատ",
+                            "registration_number": "570"
+                        },
+                        "paternity_base": "mcert"
+                    },
+                    "med": {
+                        "institution_name": "«ԷՐԵԲՈՒՆԻ ԲԿ» ՓԲԸ",
+                        "document_name": "4",
+                        "document_number": "4514",
+                        "document_date": "2020-11-13"
+                    },
+                    "person2": {
+                        "psn": "6104911099",
+                        "id_type": "oth",
+                        "id_number": "AB3045337",
+                        "citizenship": "BY",
+                        "id_department": "ԲՐԵՍՏԻ ՄԱՐԶԻ ԲԵՐՅՈԶՈՎՍԿԻ ՆԵՐՔԻՆ ԳՈՐԾԵՐԻ ՆԱԽ",
+                        "id_issue_date": "2016-03-03",
+                        "id_expirey_date": "2026-03-03",
+                        "base_info": {
+                            "last_name": "ՊԼԱՏՈՆՈՎԱ",
+                            "name": "ԴԱՐՅԱ",
+                            "fathers_name": "ՍԵՐԳԵՅ",
+                            "birth_date": "1991-04-11",
+                            "nationality": "999"
+                        },
+                        "gender": "2",
+                        "birth": {
+                            "country": "BY",
+                            "region": "ԲՐԵՍՏԻ ՄԱՐԶ",
+                            "community": "Ք. ԲԵՐՅՈԶԱ"
+                        },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՄԱՌԻ Փ.",
+                            "house_type": "Շ",
+                            "house": "9",
+                            "apartment": "30",
+                            "start_date": "09-11-2020",
+                            "department": "005"
+                        },
+                        "education_level": "high",
+                        "employment_status": "Տնային տնտեսուհի"
+                    },
+                    "child": {
+                        "psn": "2231200325",
+                        "base_info": {
+                            "last_name": "ԱԲՐԱՀԱՄՅԱՆ",
+                            "name": "ԴԱՎԻԹ",
+                            "fathers_name": "ՏԻԳՐԱՆ",
+                            "birth_date": "2020-11-12",
+                            "nationality": "999"
+                        },
+                        "gender": "1",
+                        "count_children": "1",
+                        "child_number": "1",
+                        "birth_status": "live",
+                        "birth": { "country": "AM", "region": "ԵՐԵՎԱՆ" },
+                        "resident": {
+                            "country": "AM",
+                            "region": "ԵՐԵՎԱՆ",
+                            "community": "ԵՐԵՎԱՆ",
+                            "residence": "ՆՈՐ ՆՈՐՔ",
+                            "street": "ՔՈՉԱՐՅԱՆ Փ.",
+                            "house_type": "Շ",
+                            "house": "12",
+                            "apartment": "53",
+                            "department": "005"
+                        }
+                    }
                 }
             }
         }

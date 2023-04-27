@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
     getPersonBySsn,
+    getSearchedPersons,
     getQkagInfoBySsn,
     getTaxBySsn,
     getCompanyByHvhh,
@@ -10,6 +11,7 @@ const {
 const personsRoute = express.Router();
 
 personsRoute.get('/:ssn/bpr', getPersonBySsn);
+personsRoute.post('/bpr', getSearchedPersons);
 personsRoute.get('/:ssn/tax', getTaxBySsn);
 personsRoute.post('/:ssn/qkag', getQkagInfoBySsn);
 personsRoute.get('/:hvhh/petregistr', getCompanyByHvhh);

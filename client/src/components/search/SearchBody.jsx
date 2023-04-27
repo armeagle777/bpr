@@ -9,7 +9,7 @@ import SearchAside from './SearchAside';
 
 const minDistance = 10;
 
-const SearchBody = ({ persons }) => {
+const SearchBody = ({ persons = [] }) => {
     return (
         <Stack
             direction='row'

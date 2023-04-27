@@ -1,5 +1,6 @@
 const {
     getPersonBySsnDb,
+    getSearchedPersonsDb,
     getDocumentsBySsnDb,
     getTaxBySsnDb,
     getCompanyByHvhhDb,
@@ -13,6 +14,16 @@ const getPersonBySsn = async (req, res, next) => {
         const person = await getPersonBySsnDb(req.params);
 
         res.status(200).json(person);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const getSearchedPersons = async (req, res, next) => {
+    try {
+        const persons = await getSearchedPersonsDb(req.body);
+
+        res.status(200).json(persons);
     } catch (err) {
         next(err);
     }
@@ -108,6 +119,7 @@ const getCompanyByHvhh = async (req, res, next) => {
 
 module.exports = {
     getPersonBySsn,
+    getSearchedPersons,
     getQkagInfoBySsn,
     getTaxBySsn,
     getCompanyByHvhh,
