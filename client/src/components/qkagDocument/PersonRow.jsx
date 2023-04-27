@@ -37,7 +37,7 @@ const PersonRow = ({ role, person, imageSrc, targetSsn }) => {
 
     const handleRowClick = () => {
         if (psn !== targetSsn) {
-            navigate(`/search/${psn}`, { state: { personInfo: bprData } });
+            navigate(`/search/${psn}`);
         }
     };
 

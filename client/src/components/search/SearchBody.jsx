@@ -1,15 +1,12 @@
-import { useState } from 'react';
-
 import Divider from '@mui/material/Divider';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-import SearchRow from './SearchRow';
+import { perPageCount } from '../../utils/constants';
 import SearchAside from './SearchAside';
+import SearchRow from './SearchRow';
 
-const minDistance = 10;
-
-const SearchBody = ({ persons }) => {
+const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
     return (
         <Stack
             direction='row'
@@ -35,9 +32,13 @@ const SearchBody = ({ persons }) => {
                 ))}
 
                 <Pagination
-                    count={Math.ceil(persons.length / 2)}
+                    count={Math.ceil(totalCount / perPageCount)}
                     shape='rounded'
                     color='primary'
+                    onChange={(_, newPage) => {
+                        changePage(newPage);
+                    }}
+                    page={currentPage}
                 />
             </Stack>
         </Stack>

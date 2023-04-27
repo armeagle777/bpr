@@ -31,9 +31,7 @@ const SearchRow = ({ personInfo }) => {
     const noImageSrc =
         gender === 'M' ? './src/assets/male.png' : './src/assets/female.png';
     const infoClickHandler = () => {
-        navigate(`/search/${PNum}`, {
-            state: { personInfo },
-        });
+        navigate(`/search/${PNum}`);
     };
 
     return (

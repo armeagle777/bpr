@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { usePersons } from '../components/context/persons';
 import PersonInfoPage from '../components/person/PersonInfoPage';
-import PersonNotFound from '../components/person/PersonNotFound';
+import PersonNotFound from '../components/notFound/PersonNotFound';
 import PersonPageSkeleton from '../components/personPageSkeleton/PersonPageSkeleton';
 import useFetchPerson from '../hooks/useFetchPerson';
 

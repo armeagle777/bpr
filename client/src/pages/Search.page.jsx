@@ -1,22 +1,32 @@
 import { useState } from 'react';
+import { Stack } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 import SearchBody from '../components/search/SearchBody';
 import SearchPageSkileton from '../components/searchPageSkileton/SearchPageSkileton';
-
-import { Stack } from '@mui/material';
 import SearchInput from '../components/search/SearchInput';
-
-import { createSearchParamsObject } from '../utils/helperFunctions';
 import { usePersons } from '../components/context/persons';
+import PersonNotFound from '../components/notFound/PersonNotFound';
+import { createSearchParamsObject } from '../utils/helperFunctions';
 
 const Search = () => {
     const [searchString, setSearchString] = useState('');
 
-    const { persons, isInitialLoading, setFilters } = usePersons();
+    const {
+        persons,
+        isInitialLoading,
+        setSearchParams,
+        currentPage,
+        changePage,
+        totalCount,
+        isError,
+        error,
+    } = usePersons();
 
     const handleClearButton = () => {
-        setFilters({});
+        setSearchParams({});
         setSearchString('');
+        changePage(1);
     };
 
     const handleSubmit = (e) => {
@@ -24,8 +34,17 @@ const Search = () => {
         const trimedString = searchString.trim();
         const searchParamsObj = createSearchParamsObject(trimedString);
 
-        setFilters(searchParamsObj);
+        setSearchParams(searchParamsObj);
+        changePage(1);
     };
+
+    if (isInitialLoading) {
+        return <SearchPageSkileton />;
+    }
+
+    if (isError) {
+        return <MuiAlert severity='error'>{error.message}</MuiAlert>;
+    }
 
     return (
         <>
@@ -44,12 +63,15 @@ const Search = () => {
                     handleClearButton={handleClearButton}
                 />
             </Stack>
-            {isInitialLoading ? (
-                <SearchPageSkileton />
-            ) : persons ? (
-                <SearchBody persons={persons} />
+            {!persons ? null : persons?.length === 0 ? (
+                <PersonNotFound />
             ) : (
-                ''
+                <SearchBody
+                    persons={persons}
+                    currentPage={currentPage}
+                    changePage={changePage}
+                    totalCount={totalCount}
+                />
             )}
         </>
     );

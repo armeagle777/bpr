@@ -7,6 +7,8 @@ import Stack from '@mui/material/Stack';
 
 import Checkbox from '../checkbox/Checkbox';
 
+const minDistance = 10;
+
 const SearchAside = () => {
     const [value, setValue] = useState([20, 37]);
 
