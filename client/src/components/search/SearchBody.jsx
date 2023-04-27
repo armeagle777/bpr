@@ -9,7 +9,7 @@ import SearchAside from './SearchAside';
 
 const minDistance = 10;
 
-const SearchBody = ({ persons = [] }) => {
+const SearchBody = ({ persons }) => {
     return (
         <Stack
             direction='row'
@@ -34,7 +34,11 @@ const SearchBody = ({ persons = [] }) => {
                     </Stack>
                 ))}
 
-                <Pagination count={10} shape='rounded' color='primary' />
+                <Pagination
+                    count={Math.ceil(persons.length / 2)}
+                    shape='rounded'
+                    color='primary'
+                />
             </Stack>
         </Stack>
     );

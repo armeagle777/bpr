@@ -31,7 +31,7 @@ const PersonRow = ({ role, person, imageSrc, targetSsn }) => {
         isError,
         error,
     } = useFetchPerson(null, psn);
-    const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID).Photo_ID;
+    const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID)?.Photo_ID;
 
     const navigate = useNavigate();
 

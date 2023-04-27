@@ -5,15 +5,14 @@ import SearchPageSkileton from '../components/searchPageSkileton/SearchPageSkile
 
 import { Stack } from '@mui/material';
 import SearchInput from '../components/search/SearchInput';
-import useFetchPersons from '../hooks/useFetchPersons';
+
 import { createSearchParamsObject } from '../utils/helperFunctions';
+import { usePersons } from '../components/context/persons';
 
 const Search = () => {
     const [searchString, setSearchString] = useState('');
-    const [filters, setFilters] = useState({});
 
-    const { data, isLoading, isInitialLoading, isError, error } =
-        useFetchPersons(filters);
+    const { persons, isInitialLoading, setFilters } = usePersons();
 
     const handleClearButton = () => {
         setFilters({});
@@ -27,8 +26,6 @@ const Search = () => {
 
         setFilters(searchParamsObj);
     };
-
-    console.log('filters:::::: ', filters);
 
     return (
         <>
@@ -49,8 +46,8 @@ const Search = () => {
             </Stack>
             {isInitialLoading ? (
                 <SearchPageSkileton />
-            ) : data ? (
-                <SearchBody persons={data} />
+            ) : persons ? (
+                <SearchBody persons={persons} />
             ) : (
                 ''
             )}

@@ -1,16 +1,23 @@
 import { createContext, useContext, useState } from 'react';
+import useFetchPersons from '../../hooks/useFetchPersons';
 
 const PersonsContext = createContext(null);
 
 export const PersonsProvider = ({ children }) => {
-    const [persons, setPersons] = useState([]);
+    const [filters, setFilters] = useState({});
 
-    const loadPersons = (persons) => setPersons(persons);
-
-    const emptyPersons = () => setPersons([]);
+    const {
+        data: persons,
+        isLoading,
+        isInitialLoading,
+        isError,
+        error,
+    } = useFetchPersons(filters);
 
     return (
-        <PersonsContext.Provider value={{ persons, loadPersons, emptyPersons }}>
+        <PersonsContext.Provider
+            value={{ persons, isInitialLoading, setFilters }}
+        >
             {children}
         </PersonsContext.Provider>
     );

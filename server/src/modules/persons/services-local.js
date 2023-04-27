@@ -9,7 +9,7 @@ const getPersonBySsnDb = async (params) => {
     const { data } = await axios.get(`${bprUrl}?PNum=${ssn}`);
 
     if (data.length === 0) {
-        throw ApiError.NotFound('Տվյալներով անձ չի գտնվել');
+        return [];
     }
 
     const personData = data[0];
@@ -34,8 +34,6 @@ const getSearchedPersonsDb = async (body) => {
         ssn,
     } = body;
 
-    console.log('body::::::', body);
-
     let serachUrl = `${bprUrl}?`;
 
     if (ssn) {
@@ -58,11 +56,7 @@ const getSearchedPersonsDb = async (body) => {
     }
     serachUrl = serachUrl.replace(/\?\&/g, '?');
 
-    console.log('searchUrl::::::', serachUrl);
-
     const { data } = await axios.get(serachUrl);
-
-    console.log('data::::::', data);
 
     if (data.length === 0) {
         return [];
