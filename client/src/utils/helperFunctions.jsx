@@ -145,14 +145,14 @@ export const formatPersonData = (personInfo) => {
             Last_Name,
             Patronymic_Name,
             Genus,
-            Nationality: { NationalityName },
+            Nationality: { NationalityName } = {},
             Birth_Date,
-            Birth_Country: { CountryName },
+            Birth_Country: { CountryName } = {},
             Birth_Region,
             Birth_Community,
             Birth_Address,
         },
-    } = findValidDocument(documents);
+    } = { ...findValidDocument(documents) };
 
     return {
         titleAddress: {
