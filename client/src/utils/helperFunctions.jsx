@@ -66,6 +66,7 @@ export const findValidDocument = (documents) => {
     const validDocument =
         documents.find((doc) => doc.Document_Status === 'PRIMARY_VALID') ||
         documents[0];
+    console.log('validDocument:::::: ', validDocument);
 
     return validDocument;
 };
