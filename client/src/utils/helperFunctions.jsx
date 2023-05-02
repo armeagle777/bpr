@@ -66,7 +66,6 @@ export const findValidDocument = (documents) => {
     const validDocument =
         documents.find((doc) => doc.Document_Status === 'PRIMARY_VALID') ||
         documents[0];
-    console.log('validDocument:::::: ', validDocument);
 
     return validDocument;
 };
@@ -208,8 +207,10 @@ export const formatDates = (date) => {
     return date;
 };
 
-export const formatedData = (periods) =>
-    periods.reduce(
+export const formatedData = (periods) => {
+    console.log('periods:::::: ', periods);
+
+    return periods.reduce(
         (acc, { date, personInfo }) => {
             acc.titles.push(
                 <StyledTableCell
@@ -257,6 +258,7 @@ export const formatedData = (periods) =>
             workinghours: [<ThCell title='Աշխատաժամեր' key={v4()} />],
         }
     );
+};
 
 export const createSearchParamsObject = (searchInputValue) => {
     const searchParamsObj = searchInputValue
