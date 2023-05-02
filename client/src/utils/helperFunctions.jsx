@@ -145,14 +145,17 @@ export const formatPersonData = (personInfo) => {
             Last_Name,
             Patronymic_Name,
             Genus,
-            Nationality: { NationalityName } = {},
+            Nationality,
             Birth_Date,
-            Birth_Country: { CountryName } = {},
+            Birth_Country,
             Birth_Region,
             Birth_Community,
             Birth_Address,
         },
     } = { ...findValidDocument(documents) };
+
+    const NationalityName = Nationality?.NationalityName || '';
+    const CountryName = Birth_Country?.Birth_Country || '';
 
     return {
         titleAddress: {
