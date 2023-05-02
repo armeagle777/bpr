@@ -210,7 +210,7 @@ export const formatDates = (date) => {
 export const formatedData = (periods) => {
     console.log('periods:::::: ', periods);
 
-    return periods.reduce(
+    return [...periods].reduce(
         (acc, { date, personInfo }) => {
             acc.titles.push(
                 <StyledTableCell
