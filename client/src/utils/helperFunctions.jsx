@@ -105,13 +105,16 @@ export const searchRowPersonData = (documents) => {
 };
 
 export const formatPersonData = (personInfo) => {
-    const { addresses, documents, ...unChangedData } = personInfo;
+    const { addresses, documents, ...unChangedData } = { ...personInfo };
 
     const currentAddressObj = findCurrentAddress(addresses);
 
     const allCitizenships = documents
         .reduce((acc, doc) => {
-            acc = [...acc, ...doc.Person?.Citizenship?.Citizenship];
+            const { Citizenship } = { ...doc.Person?.Citizenship };
+            if (Citizenship) {
+                acc = [...acc, ...doc.Person.Citizenship.Citizenship];
+            }
             return acc;
         }, [])
         .map((obj) => obj.CountryName)
@@ -208,8 +211,6 @@ export const formatDates = (date) => {
 };
 
 export const formatedData = (periods) => {
-    console.log('periods:::::: ', periods);
-
     return [...periods].reduce(
         (acc, { date, personInfo }) => {
             acc.titles.push(

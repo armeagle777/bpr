@@ -25,12 +25,7 @@ const PersonRow = ({ role, person, targetSsn }) => {
         resident: { country, region, community, street, house_type, house },
     } = person;
 
-    const {
-        data: bprData,
-        isLoading,
-        isError,
-        error,
-    } = useFetchPerson({}, psn);
+    const { data: bprData, isLoading, isError, error } = useFetchPerson(psn);
     const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID)?.Photo_ID;
 
     const navigate = useNavigate();

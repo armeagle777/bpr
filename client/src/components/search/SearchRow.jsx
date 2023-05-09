@@ -11,7 +11,7 @@ import { formatAddressString } from '../../utils/helperFunctions';
 import { searchRowPersonData } from '../../utils/helperFunctions';
 
 const SearchRow = ({ personInfo }) => {
-    const { PNum, addresses=[], documents=[] } = personInfo;
+    const { PNum, addresses = [], documents = [] } = personInfo;
     const navigate = useNavigate();
 
     const addressLine = formatAddressString(addresses);
