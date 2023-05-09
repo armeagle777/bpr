@@ -6,15 +6,17 @@ import NotFound from './pages/NotFound.page';
 import PersonPage from './pages/Person.page';
 import Search from './pages/Search.page';
 import WorkPermit from './pages/WorkPermit.page';
+import Register from './pages/Register.page';
 
 function App() {
     return (
         <Routes>
             <Route path='/' element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path='search' element={<Search />} />
-                <Route path='search/:ssn' element={<PersonPage />} />
+                <Route path='bpr' element={<Search />} />
+                <Route path='bpr/:ssn' element={<PersonPage />} />
                 <Route path='workpermit' element={<WorkPermit />} />
+                <Route path='register' element={<Register />} />
                 <Route path='/*' element={<NotFound />} />
             </Route>
         </Routes>

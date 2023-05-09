@@ -10,7 +10,7 @@ const NotFound = () => {
             sx={{ width: '100%', height: '500px', alignItems: 'center', pt: 2 }}
         >
             <Box sx={{}}>
-                <img src='src/assets/not_found.jpg' alt='error-404' />
+                <img src='/not_found.jpg' alt='error-404' />
             </Box>
             <Box sx={{ mb: 2 }}>
                 <Typography variant='h6' component='span'>

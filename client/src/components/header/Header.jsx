@@ -72,13 +72,19 @@ const Header = () => {
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            <Link to='search'>Որոնում</Link>
+                            <Link to='bpr'>ԲՊՌ</Link>
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             <Link to='workpermit'>Աշխ․ Թույլտվություն</Link>
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            <Link to='register'>Պետ․Ռեգիստր</Link>
                         </Button>
                     </Box>
 

@@ -23,7 +23,7 @@ const Family = ({ ssn, firstName, lastName }) => {
     }
 
     return (
-        <Box>
+        <Box sx={{ pt: 3 }}>
             {documents?.length === 0 ? (
                 <DocumentNotFound />
             ) : (

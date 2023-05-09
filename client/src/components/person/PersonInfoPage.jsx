@@ -3,6 +3,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import BusinessIcon from '@mui/icons-material/Business';
 import { Box, Button, Container, Stack } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -11,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Documents from '../documents/Documents';
 import Family from '../family/Family';
+import BusinessTab from '../businessTab/BusinessTab';
 import Finances from '../finances/Finances';
 import PhotoSlider from '../photoSlider/PhotoSlider';
 import SpeedDialButton from '../speedDial/SpeedDial';
@@ -97,6 +99,7 @@ const PersonInfoPage = ({ personInfo }) => {
                             icon={<FamilyRestroomIcon />}
                             aria-label='family'
                         />
+                        <Tab icon={<BusinessIcon />} aria-label='business' />
                     </Tabs>
                 </Box>
                 <Button
@@ -253,6 +256,9 @@ const PersonInfoPage = ({ personInfo }) => {
                         firstName={firstName}
                         lastName={lastName}
                     />
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <BusinessTab ssn={PNum || Certificate_Number} />
                 </TabPanel>
             </Box>
             <SpeedDialButton />

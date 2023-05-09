@@ -32,7 +32,7 @@ const PersonRow = ({ role, person, targetSsn }) => {
 
     const handleRowClick = () => {
         if (psn !== targetSsn) {
-            navigate(`/search/${psn}`);
+            navigate(`/bpr/${psn}`);
         }
     };
 

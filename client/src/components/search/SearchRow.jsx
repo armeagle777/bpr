@@ -31,7 +31,7 @@ const SearchRow = ({ personInfo }) => {
     const noImageSrc =
         gender === 'M' ? './src/assets/male.png' : './src/assets/female.png';
     const infoClickHandler = () => {
-        navigate(`/search/${PNum}`);
+        navigate(`/bpr/${PNum}`);
     };
 
     return (
@@ -39,11 +39,10 @@ const SearchRow = ({ personInfo }) => {
             direction='row'
             sx={{
                 width: '100%',
-                height: '100px',
             }}
         >
             <CardMedia
-                sx={{ height: '100%', width: '100px', bgcolor: '#ccc' }}
+                sx={{ height: '130px', width: '100px', bgcolor: '#ccc' }}
                 image={avatar ? `data:image/jpeg;base64,${avatar}` : noImageSrc}
                 title='green iguana'
             />
@@ -85,7 +84,7 @@ const SearchRow = ({ personInfo }) => {
                         <small>ԳՐԱՆՑՄԱՆ ՀԱՍՑԵ : </small> {addressLine}
                     </Typography>
                 </Stack>
-                <Stack spacing={1} direction='row'>
+                <Stack spacing={1} direction='row' sx={{ mt: 2 }}>
                     <Button
                         size='medium'
                         variant='outlined'
