@@ -36,6 +36,8 @@ const ExpandMore = styled((props) => {
 }));
 
 const CompanyInfo = ({ company }) => {
+    console.log('company:::::: ', company);
+
     const [expanded, setExpanded] = React.useState(false);
 
     const {
@@ -50,8 +52,8 @@ const CompanyInfo = ({ company }) => {
         address,
         industry_code,
         executive,
-        owners,
-        sole_proprietor,
+        owners = [],
+        sole_proprietor = {},
         capital,
         zcode,
         soc_num,
@@ -211,7 +213,7 @@ const CompanyInfo = ({ company }) => {
             <Collapse in={expanded} timeout='auto' unmountOnExit>
                 <CardContent>
                     <Typography sx={{ mb: 0 }} paragraph>
-                        {exec_position}:
+                        {exec_position || 'Անհատ Ձեռնարկատեր'}:
                     </Typography>
                     <Divider
                         variant='fullWidth'
