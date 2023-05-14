@@ -8,6 +8,7 @@ const PersonsContext = createContext(null);
 export const PersonsProvider = ({ children }) => {
     const [searchParams, setSearchParams] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchString, setSearchString] = useState('');
 
     const {
         data: persons,
@@ -30,6 +31,8 @@ export const PersonsProvider = ({ children }) => {
     return (
         <PersonsContext.Provider
             value={{
+                searchString,
+                setSearchString,
                 persons: filteredPersons,
                 isInitialLoading,
                 setSearchParams,

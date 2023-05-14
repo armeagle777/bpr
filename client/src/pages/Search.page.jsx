@@ -10,9 +10,9 @@ import PersonNotFound from '../components/notFound/PersonNotFound';
 import { createSearchParamsObject } from '../utils/helperFunctions';
 
 const Search = () => {
-    const [searchString, setSearchString] = useState('');
-
     const {
+        searchString,
+        setSearchString,
         persons,
         isInitialLoading,
         setSearchParams,
@@ -48,7 +48,6 @@ const Search = () => {
 
     return (
         <>
-            {/* <SearchHeader /> */}
             <Stack
                 sx={{
                     width: '100%',

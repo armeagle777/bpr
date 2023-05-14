@@ -1,6 +1,6 @@
 import InfoIcon from '@mui/icons-material/Info';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import { Stack } from '@mui/material';
+import { Chip, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Tooltip from '@mui/material/Tooltip';
@@ -58,7 +58,7 @@ const SearchRow = ({ personInfo }) => {
                             </Typography>
                         </Tooltip>
                         <Tooltip title='ՀԾՀ' placement='top'>
-                            <Typography component='span'>{PNum}</Typography>
+                            <Chip size='small' color='primary' label={PNum} />
                         </Tooltip>
                         <Tooltip title='Փաստաթղթի համար' placement='top'>
                             <Typography component='span'>{docNum}</Typography>

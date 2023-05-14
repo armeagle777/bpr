@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './index.css';
 import { PersonsProvider } from './components/context/persons';
+import { CompaniesProvider } from './components/context/companies';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -20,9 +21,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
         <PersonsProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
+            <CompaniesProvider>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </CompaniesProvider>
         </PersonsProvider>
     </QueryClientProvider>
     // </React.StrictMode>

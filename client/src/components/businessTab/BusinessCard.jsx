@@ -9,7 +9,6 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 const BusinessCard = ({ company }) => {
-    console.log('company:::::: ', company);
     const {
         name_am,
         name_en,

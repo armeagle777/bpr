@@ -3,7 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getCompanyByHvhh } from '../api/personsApi';
 
 const useFetchCompany = (tax_id) => {
-    const { isLoading, isError, error, data } = useQuery(
+    console.log('Fetching in useFetchCompany');
+    const { isFetching, isError, error, data } = useQuery(
         ['company', tax_id],
         () => getCompanyByHvhh(tax_id),
         {
@@ -14,7 +15,7 @@ const useFetchCompany = (tax_id) => {
     return {
         error,
         isError,
-        isLoading,
+        isFetching,
         data,
     };
 };
