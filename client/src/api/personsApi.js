@@ -40,6 +40,11 @@ export const getCompanyByHvhh = async (tax_id) => {
     return response.data;
 };
 
+export const getCompanyForPersonByHvhh = async (tax_id) => {
+    const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
+    return response.data;
+};
+
 export const getCompaniesBySsn = async (ssn) => {
     const response = await personsApi.get(`/petregistr/${ssn}/person`);
     return response.data;

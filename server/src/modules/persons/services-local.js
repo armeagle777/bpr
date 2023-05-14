@@ -105,7 +105,6 @@ const getTaxBySsnDb = async (ssn) => {
 
 const getCompanyByHvhhDb = async (hvhh) => {
     const taxUrl = process.env.PETREGISTR_URL;
-
     const { data } = await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`);
 
     if (data.length === 0) {

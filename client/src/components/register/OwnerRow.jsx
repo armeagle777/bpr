@@ -9,7 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 const OwnerRow = ({ ownerInfo }) => {
-    console.log('ownerInfo:::::: ', ownerInfo);
     const {
         address: { addr_descr, email, mobile, phone, website },
         full_name = '',

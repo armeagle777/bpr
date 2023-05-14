@@ -1,14 +1,15 @@
 import { createContext, useContext, useState } from 'react';
-import useFetchCompany from '../../hooks/useFetchCompany';
+
+import useFetchBusiness from '../../hooks/useFetchBusiness';
 
 const CompaniesContext = createContext(null);
 
 export const CompaniesProvider = ({ children }) => {
     const [taxIdInputValue, setTaxIdInputValue] = useState('');
-    const [companySearchParams, setCompanySearchParams] = useState(null);
+    const [companySearchParams, setCompanySearchParams] = useState({});
 
     const { data, isLoading, isFetching, isError, error } =
-        useFetchCompany(companySearchParams);
+        useFetchBusiness(companySearchParams);
 
     const handleSubmitSearch = () => {
         setCompanySearchParams(taxIdInputValue);

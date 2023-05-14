@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getCompanyByHvhh } from '../api/personsApi';
+import { getCompanyByHvhh, getCompanyForPersonByHvhh } from '../api/personsApi';
 
-const useFetchCompany = (tax_id) => {
+const useFetchBusiness = (tax_id) => {
     const { isFetching, isError, error, data } = useQuery(
-        ['company', tax_id],
-        () => getCompanyByHvhh(tax_id),
+        ['business', tax_id],
+        () => getCompanyForPersonByHvhh(tax_id),
         {
             keepPreviousData: true,
         }
@@ -19,4 +19,4 @@ const useFetchCompany = (tax_id) => {
     };
 };
 
-export default useFetchCompany;
+export default useFetchBusiness;

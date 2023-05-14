@@ -36,8 +36,6 @@ const ExpandMore = styled((props) => {
 }));
 
 const CompanyInfo = ({ company }) => {
-    console.log('company:::::: ', company);
-
     const [expanded, setExpanded] = React.useState(false);
 
     const {
