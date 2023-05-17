@@ -9,7 +9,7 @@ import Checkbox from '../checkbox/Checkbox';
 
 const minDistance = 10;
 
-const SearchAside = () => {
+const SearchAside = ({ showExtended }) => {
     const [value, setValue] = useState([20, 37]);
 
     const handleChange = (event, newValue, activeThumb) => {
@@ -30,42 +30,50 @@ const SearchAside = () => {
 
     return (
         <Stack sx={{ width: '15%' }}>
-            <Box sx={{ width: '100%', mb: 2 }}>
-                <Typography sx={{ mb: 1, fontWeight: 'bold' }}>
-                    Տարիքը
-                </Typography>
-                <Slider
-                    getAriaLabel={() => 'Age range'}
-                    value={value}
-                    onChange={handleChange}
-                    valueLabelDisplay='auto'
-                    getAriaValueText={valuetext}
-                />
-            </Box>
-            <Box sx={{ width: '100%', mb: 2 }}>
-                <Typography sx={{ mb: 1, fontWeight: 'bold' }}>Սեռը</Typography>
-                <FormGroup>
-                    <Checkbox label='Արական' />
-                    <Checkbox label='Իգական' />
-                </FormGroup>
-            </Box>
-            <Box sx={{ width: '100%' }}>
-                <Typography sx={{ mb: 1, fontWeight: 'bold' }}>Մարզ</Typography>
-                <FormGroup>
-                    <Checkbox label='Երևան' />
-                    <Checkbox label='Արագածոտն' />
-                    <Checkbox label='Արարատ' />
-                    <Checkbox label='Արմավիր' />
-                    <Checkbox label='Գեղարքունիք' />
-                    <Checkbox label='Կոտայք' />
-                    <Checkbox label='Լոռի' />
-                    <Checkbox label='Շիրակ' />
-                    <Checkbox label='Սյունիք' />
-                    <Checkbox label='Տավուշ' />
-                    <Checkbox label='Վայոց ձոր' />
-                    <Checkbox label='Անհայտ' />
-                </FormGroup>
-            </Box>
+            {showExtended && (
+                <>
+                    <Box sx={{ width: '100%', mb: 2 }}>
+                        <Typography sx={{ mb: 1, fontWeight: 'bold' }}>
+                            Տարիքը
+                        </Typography>
+                        <Slider
+                            getAriaLabel={() => 'Age range'}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay='auto'
+                            getAriaValueText={valuetext}
+                        />
+                    </Box>
+                    <Box sx={{ width: '100%', mb: 2 }}>
+                        <Typography sx={{ mb: 1, fontWeight: 'bold' }}>
+                            Սեռը
+                        </Typography>
+                        <FormGroup>
+                            <Checkbox label='Արական' />
+                            <Checkbox label='Իգական' />
+                        </FormGroup>
+                    </Box>
+                    <Box sx={{ width: '100%' }}>
+                        <Typography sx={{ mb: 1, fontWeight: 'bold' }}>
+                            Մարզ
+                        </Typography>
+                        <FormGroup>
+                            <Checkbox label='Երևան' />
+                            <Checkbox label='Արագածոտն' />
+                            <Checkbox label='Արարատ' />
+                            <Checkbox label='Արմավիր' />
+                            <Checkbox label='Գեղարքունիք' />
+                            <Checkbox label='Կոտայք' />
+                            <Checkbox label='Լոռի' />
+                            <Checkbox label='Շիրակ' />
+                            <Checkbox label='Սյունիք' />
+                            <Checkbox label='Տավուշ' />
+                            <Checkbox label='Վայոց ձոր' />
+                            <Checkbox label='Անհայտ' />
+                        </FormGroup>
+                    </Box>
+                </>
+            )}
         </Stack>
     );
 };

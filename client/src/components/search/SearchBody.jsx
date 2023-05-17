@@ -8,19 +8,20 @@ import SearchRow from './SearchRow';
 import { countForFilter } from '../../utils/configs';
 
 const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
+    const showExtended = !!totalCount >= countForFilter;
     return (
         <Stack
             direction='row'
             spacing={1}
             sx={{ justifyContent: 'center', pt: 2 }}
         >
-            <SearchAside />
+            <SearchAside showExtended={showExtended} />
             <Divider orientation='vertical' variant='middle' flexItem />
             <Stack
                 spacing={1}
                 sx={{ width: '80%', px: 2, pb: 4, alignItems: 'center' }}
             >
-                {persons.map((person) => (
+                {persons.map((person, index) => (
                     <Stack
                         width='100%'
                         key={person.PNum}
@@ -28,11 +29,11 @@ const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
                         direction='column'
                     >
                         <SearchRow personInfo={person} />
-                        <Divider />
+                        {index < persons?.length - 1 && <Divider />}
                     </Stack>
                 ))}
 
-                {totalCount >= countForFilter && (
+                {showExtended && (
                     <Pagination
                         count={Math.ceil(totalCount / perPageCount)}
                         shape='rounded'

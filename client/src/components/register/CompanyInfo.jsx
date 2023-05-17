@@ -23,6 +23,7 @@ import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
 import OwnerRow from './OwnerRow';
+import { activityCodes } from '../../utils/industryCodes';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -185,7 +186,10 @@ const CompanyInfo = ({ company }) => {
                         sx={{ pl: 1 }}
                     >
                         {cert_num || ''} <br />
-                        {industry_code || ''} <br />
+                        {activityCodes[industry_code] ||
+                            industry_code ||
+                            ''}{' '}
+                        <br />
                         {reg_num || ''} <br />
                         {soc_num || ''} <br />
                         {zcode || ''} <br />

@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import { activityCodes } from '../../utils/industryCodes';
 
 const BusinessCard = ({ company }) => {
     const {
@@ -23,6 +24,7 @@ const BusinessCard = ({ company }) => {
     } = {
         ...company,
     };
+    console.log('62.01.0:::::: ', industry_code);
 
     const director = executive
         ? { ...executive }
@@ -80,7 +82,8 @@ const BusinessCard = ({ company }) => {
                     <small>ՀՎՀՀ։</small> {taxid}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
-                    <small>Ոլորտը։</small> {industry_code}
+                    <small>Ոլորտը։</small>{' '}
+                    {activityCodes[industry_code] || industry_code}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
                     <small>Հասցե։</small> {companyAddress?.addr_descr}
