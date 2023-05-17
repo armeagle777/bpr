@@ -9,13 +9,13 @@ const TableHeader = ({ companyData, taxpayerid }) => {
                     companyData?.company_type || ''
                 } | ${taxpayerid}`}
             </Typography>
-            {/* <CompanyTooltip
+            <CompanyTooltip
                 name_en={companyData?.name_am}
                 name_ru={companyData?.name_ru}
                 company_type={companyData?.company_type}
                 address={companyData?.address}
                 executive={companyData?.executive}
-            /> */}
+            />
         </Stack>
     );
 };

@@ -1,11 +1,10 @@
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
-import QkagDocument from '../qkagDocument/QkagDocument';
-import BusinessNotFound from './BusinessNotFound';
-import ListScileton from '../listSceleton/ListScileton';
 import useFetchCompanies from '../../hooks/useFetchCompanies';
+import ListScileton from '../listSceleton/ListScileton';
 import BusinessCard from './BusinessCard';
+import BusinessNotFound from './BusinessNotFound';
 
 const BusinessTab = ({ ssn }) => {
     const { data, isLoading, isError, error } = useFetchCompanies(ssn);

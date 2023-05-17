@@ -7,7 +7,13 @@ import FinanceTable from './FinanceTable';
 import TaxNotFound from './TaxNotFound';
 
 const Finances = ({ ssn }) => {
-    const { data: taxInfo, isLoading, isError, error } = useFetchTax(ssn);
+    const {
+        data: taxInfo,
+        isLoading,
+        isFetching,
+        isError,
+        error,
+    } = useFetchTax(ssn, 'bpr');
 
     if (isLoading) {
         return <TableScileton />;

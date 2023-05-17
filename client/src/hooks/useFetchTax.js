@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTaxBySsn } from '../api/personsApi';
 
-const useFetchTax = (ssn) => {
-    const { isLoading, isError, error, data } = useQuery(
-        ['tax', ssn],
+const useFetchTax = (ssn, page) => {
+    const { isLoading, isFetching, isError, error, data } = useQuery(
+        ['tax', page, ssn],
         () => getTaxBySsn(ssn),
         {
             keepPreviousData: true,

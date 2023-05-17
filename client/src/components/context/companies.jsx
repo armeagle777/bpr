@@ -6,7 +6,7 @@ const CompaniesContext = createContext(null);
 
 export const CompaniesProvider = ({ children }) => {
     const [taxIdInputValue, setTaxIdInputValue] = useState('');
-    const [companySearchParams, setCompanySearchParams] = useState({});
+    const [companySearchParams, setCompanySearchParams] = useState(null);
 
     const { data, isLoading, isFetching, isError, error } =
         useFetchBusiness(companySearchParams);

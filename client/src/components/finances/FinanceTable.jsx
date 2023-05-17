@@ -22,12 +22,12 @@ const FinanceTable = ({ employer }) => {
 
     const {
         data: companyData,
-        isLoading,
+        isFetching,
         isError,
         error,
     } = useFetchCompany(taxpayerid);
 
-    const tableTitle = isLoading ? (
+    const tableTitle = isFetching ? (
         <Skeleton />
     ) : isError ? (
         taxpayerid
