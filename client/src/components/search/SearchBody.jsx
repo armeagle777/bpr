@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import { perPageCount } from '../../utils/constants';
 import SearchAside from './SearchAside';
 import SearchRow from './SearchRow';
+import { countForFilter } from '../../utils/configs';
 
 const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
     return (
@@ -31,15 +32,17 @@ const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
                     </Stack>
                 ))}
 
-                <Pagination
-                    count={Math.ceil(totalCount / perPageCount)}
-                    shape='rounded'
-                    color='primary'
-                    onChange={(_, newPage) => {
-                        changePage(newPage);
-                    }}
-                    page={currentPage}
-                />
+                {totalCount >= countForFilter && (
+                    <Pagination
+                        count={Math.ceil(totalCount / perPageCount)}
+                        shape='rounded'
+                        color='primary'
+                        onChange={(_, newPage) => {
+                            changePage(newPage);
+                        }}
+                        page={currentPage}
+                    />
+                )}
             </Stack>
         </Stack>
     );

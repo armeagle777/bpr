@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import useFetchPersons from '../../hooks/useFetchPersons';
 
 import { perPageCount } from '../../utils/constants';
+import { countForFilter } from '../../utils/configs';
 
 const PersonsContext = createContext(null);
 
@@ -13,6 +14,7 @@ export const PersonsProvider = ({ children }) => {
     const {
         data: persons,
         isLoading,
+        isFetching,
         isInitialLoading,
         isError,
         error,
@@ -22,11 +24,14 @@ export const PersonsProvider = ({ children }) => {
         setCurrentPage(pg);
     };
 
-    const filteredPersons = persons?.filter(
-        (pers, index) =>
-            index >= (currentPage - 1) * perPageCount &&
-            index <= currentPage * perPageCount - 1
-    );
+    const filteredPersons =
+        persons?.length <= countForFilter
+            ? persons
+            : persons?.filter(
+                  (pers, index) =>
+                      index >= (currentPage - 1) * perPageCount &&
+                      index <= currentPage * perPageCount - 1
+              );
 
     return (
         <PersonsContext.Provider

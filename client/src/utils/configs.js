@@ -1,1 +1,1 @@
-const countForFilter = 20;
+export const countForFilter = 20;
