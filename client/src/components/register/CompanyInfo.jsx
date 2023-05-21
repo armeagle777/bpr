@@ -344,7 +344,12 @@ const CompanyInfo = ({ company }) => {
                         {Object.keys(docs)?.map((doc) => (
                             <FullScreenDialog
                                 documentName={
-                                    companyDocumentNames[doc] || 'Փաստաթուղթ'
+                                    companyDocumentNames[doc].title ||
+                                    companyDocumentNames.unknown.title
+                                }
+                                icon={
+                                    companyDocumentNames[doc].icon ||
+                                    companyDocumentNames.unknown.cion
                                 }
                             >
                                 <PdfViewer string={docs[doc]} />

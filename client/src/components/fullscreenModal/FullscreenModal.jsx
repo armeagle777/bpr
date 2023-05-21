@@ -8,13 +8,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-import DescriptionIcon from '@mui/icons-material/Description';
-
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;
 });
 
-const FullScreenDialog = ({ children, documentName }) => {
+const FullScreenDialog = ({ children, documentName, icon }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -29,7 +27,8 @@ const FullScreenDialog = ({ children, documentName }) => {
         <div>
             <Button
                 variant='text'
-                startIcon={<DescriptionIcon />}
+                color='secondary'
+                startIcon={icon}
                 onClick={handleClickOpen}
                 sx={{ py: 2 }}
             >

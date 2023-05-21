@@ -2,6 +2,9 @@ import MarriageIcon from '@mui/icons-material/VolunteerActivism';
 import BirthIcon from '@mui/icons-material/Cake';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
+import DescriptionIcon from '@mui/icons-material/Description';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+
 export const documentNames = {
     marriage: {
         name: 'Ամուսնության Վկայական',
@@ -95,5 +98,7 @@ export const filterDefaultObj = {
 };
 
 export const companyDocumentNames = {
-    statement: 'ՔԱՂՎԱԾՔ',
+    statement: { title: 'ՔԱՂՎԱԾՔ', icon: <DescriptionIcon /> },
+    charter: { title: 'ԿԱՆՈՆԱԴՐՈՒԹՅՈՒՆ', icon: <AccountBalanceIcon /> },
+    unknown: { title: 'ՓԱՍՏԱԹՈՒՂԹ', icon: <DescriptionIcon /> },
 };
