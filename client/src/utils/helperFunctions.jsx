@@ -244,7 +244,7 @@ export const formatedData = (periods) => {
             return acc;
         },
         {
-            titles: [<StyledTableCell key={v4()}>Ուղղություն</StyledTableCell>],
+            titles: [<StyledTableCell key={v4()}>...</StyledTableCell>],
             salaryEquivPayments: [
                 <ThCell title='Աշխ․ հավասարեցված վճարներ' key={v4()} />,
             ],

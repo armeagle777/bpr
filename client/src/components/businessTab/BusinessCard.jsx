@@ -24,7 +24,6 @@ const BusinessCard = ({ company }) => {
     } = {
         ...company,
     };
-    console.log('62.01.0:::::: ', industry_code);
 
     const director = executive
         ? { ...executive }

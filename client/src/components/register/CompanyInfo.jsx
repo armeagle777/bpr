@@ -22,8 +22,12 @@ import { red } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
-import OwnerRow from './OwnerRow';
+import PdfViewer from '../pdfViewer/PdfViewer';
+
 import { activityCodes } from '../../utils/industryCodes';
+import OwnerRow from './OwnerRow';
+import FullScreenDialog from '../fullscreenModal/FullscreenModal';
+import { companyDocumentNames } from '../../utils/constants';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -57,6 +61,7 @@ const CompanyInfo = ({ company }) => {
         zcode,
         soc_num,
         reg_num,
+        docs,
     } = {
         ...company,
     };
@@ -83,7 +88,7 @@ const CompanyInfo = ({ company }) => {
     };
 
     return (
-        <Card>
+        <Card sx={{ pb: 2, mb: 1 }}>
             <CardHeader
                 avatar={
                     <Avatar
@@ -174,7 +179,6 @@ const CompanyInfo = ({ company }) => {
                         sx={{ pr: 1 }}
                     >
                         Վկայական: <br />
-                        Ոլորտ: <br />
                         reg_num: <br />
                         soc_num: <br />
                         zcode: <br />
@@ -186,13 +190,28 @@ const CompanyInfo = ({ company }) => {
                         sx={{ pl: 1 }}
                     >
                         {cert_num || ''} <br />
-                        {activityCodes[industry_code] ||
-                            industry_code ||
-                            ''}{' '}
-                        <br />
                         {reg_num || ''} <br />
                         {soc_num || ''} <br />
                         {zcode || ''} <br />
+                    </Typography>
+                </Stack>
+                <Stack direction='row' justifyContent='space-between'>
+                    <Typography
+                        align='left'
+                        variant='body2'
+                        color='text.secondary'
+                        flexGrow={1}
+                        fontWeight={700}
+                        sx={{ pr: 1 }}
+                    >
+                        Ոլորտ:
+                    </Typography>
+                    <Typography
+                        flexGrow={6}
+                        variant='body2'
+                        color='text.secondary'
+                    >
+                        {industry_code} - {activityCodes[industry_code] || ''}
                     </Typography>
                 </Stack>
             </CardContent>
@@ -308,6 +327,30 @@ const CompanyInfo = ({ company }) => {
                                   )}
                               </>
                           ))}
+                    <Typography sx={{ mb: 0, mt: 2 }} paragraph>
+                        Փաստաթղթեր:
+                    </Typography>
+                    <Divider
+                        variant='fullWidth'
+                        component='hr'
+                        color='secondary'
+                    />
+                    <Stack
+                        direction='row'
+                        justifyContent='center'
+                        spacing={1}
+                        padding={1}
+                    >
+                        {Object.keys(docs)?.map((doc) => (
+                            <FullScreenDialog
+                                documentName={
+                                    companyDocumentNames[doc] || 'Փաստաթուղթ'
+                                }
+                            >
+                                <PdfViewer string={docs[doc]} />
+                            </FullScreenDialog>
+                        ))}
+                    </Stack>
                 </CardContent>
             </Collapse>
         </Card>

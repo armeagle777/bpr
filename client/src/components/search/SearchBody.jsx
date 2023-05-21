@@ -15,7 +15,7 @@ const SearchBody = ({ persons, currentPage, changePage, totalCount }) => {
             spacing={1}
             sx={{ justifyContent: 'center', pt: 2 }}
         >
-            <SearchAside showExtended={showExtended} />
+            <SearchAside showExtended={showExtended} persons={persons} />
             <Divider orientation='vertical' variant='middle' flexItem />
             <Stack
                 spacing={1}

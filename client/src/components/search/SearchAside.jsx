@@ -1,16 +1,48 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormGroup from '@mui/material/FormGroup';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
+import { parse, differenceInYears } from 'date-fns';
 
 import Checkbox from '../checkbox/Checkbox';
+import { filterDefaultObj } from '../../utils/constants';
 
 const minDistance = 10;
 
-const SearchAside = ({ showExtended }) => {
+const SearchAside = ({ showExtended, persons }) => {
     const [value, setValue] = useState([20, 37]);
+
+    const filterCounts = persons.reduce((acc, el) => {
+        //Gender
+        if (el.documents.find((doc) => doc.Person?.Genus === 'M')) {
+            acc.gender.maleCount++;
+        } else if (el.documents.find((doc) => doc.Person?.Genus === 'F')) {
+            acc.gender.femaleCount++;
+        }
+
+        //Age
+        const birthDate = el.documents.find((doc) => doc.Person.Birth_Date)
+            ?.Person.Birth_Date;
+        const date = parse(birthDate, 'dd/MM/yyyy', new Date());
+        const age = differenceInYears(new Date(), date);
+
+        if (acc.age[age] === undefined) {
+            acc.age[age] = 1;
+        } else {
+            acc.age[age]++;
+        }
+
+        //Region
+
+        return acc;
+    }, JSON.parse(JSON.stringify(filterDefaultObj)));
+
+    const {
+        gender: { maleCount, femaleCount },
+        age,
+    } = { ...filterCounts };
 
     const handleChange = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
@@ -49,8 +81,8 @@ const SearchAside = ({ showExtended }) => {
                             Սեռը
                         </Typography>
                         <FormGroup>
-                            <Checkbox label='Արական' />
-                            <Checkbox label='Իգական' />
+                            <Checkbox label={`Արական (${maleCount})`} />
+                            <Checkbox label={`Իգական (${femaleCount})`} />
                         </FormGroup>
                     </Box>
                     <Box sx={{ width: '100%' }}>
