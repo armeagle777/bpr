@@ -24,7 +24,7 @@ const FullScreenDialog = ({ children, documentName, icon }) => {
     };
 
     return (
-        <div>
+        <>
             <Button
                 variant='text'
                 color='secondary'
@@ -54,7 +54,7 @@ const FullScreenDialog = ({ children, documentName, icon }) => {
                 </AppBar>
                 {children}
             </Dialog>
-        </div>
+        </>
     );
 };
 

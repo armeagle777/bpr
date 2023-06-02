@@ -3,12 +3,24 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useCompanies } from '../context/companies';
+import { useEffect } from 'react';
 
 const RegisterHead = () => {
+    const { taxId } = useParams();
+
     const { taxIdInputValue, setTaxIdInputValue, handleSubmitSearch } =
         useCompanies();
+
+    useEffect(() => {
+        if (taxId) {
+            handleSubmitSearch(taxId);
+        }
+    }, [taxId]);
+
+    const navigate = useNavigate();
 
     return (
         <Stack
@@ -38,7 +50,7 @@ const RegisterHead = () => {
                     autoFocus
                 />
                 <Button
-                    onClick={handleSubmitSearch}
+                    onClick={() => navigate(`/register/${taxIdInputValue}`)}
                     variant='contained'
                     size='large'
                     color='primary'

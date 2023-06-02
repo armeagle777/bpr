@@ -11,8 +11,10 @@ export const CompaniesProvider = ({ children }) => {
     const { data, isLoading, isFetching, isError, error } =
         useFetchBusiness(companySearchParams);
 
-    const handleSubmitSearch = () => {
-        setCompanySearchParams(taxIdInputValue);
+    const handleSubmitSearch = (taxId) => {
+        if (!taxId && !taxIdInputValue) return;
+
+        setCompanySearchParams(taxId ? taxId : taxIdInputValue);
     };
 
     return (
