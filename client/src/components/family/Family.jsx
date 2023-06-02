@@ -29,8 +29,8 @@ const Family = ({ ssn, firstName, lastName }) => {
             ) : (
                 documents.map((doc) => (
                     <QkagDocument
-                        targetSsn={ssn}
                         key={doc.tracking_id}
+                        targetSsn={ssn}
                         document={doc}
                     />
                 ))

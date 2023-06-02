@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import { activityCodes } from '../../utils/industryCodes';
+import { useNavigate } from 'react-router-dom';
 
 const BusinessCard = ({ company }) => {
     const {
@@ -33,6 +34,8 @@ const BusinessCard = ({ company }) => {
 
     const { address, full_name, identification_no } = director;
     const { addr_descr, phone } = { ...address };
+
+    const navigate = useNavigate();
     return (
         <Card sx={{ minWidth: 275 }}>
             <CardContent>
@@ -89,7 +92,12 @@ const BusinessCard = ({ company }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size='small'>Ավելին</Button>
+                <Button
+                    onClick={() => navigate(`/register/${taxid}`)}
+                    size='small'
+                >
+                    Ավելին
+                </Button>
             </CardActions>
         </Card>
     );

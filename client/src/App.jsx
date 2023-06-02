@@ -17,6 +17,7 @@ function App() {
                 <Route path='bpr/:ssn' element={<PersonPage />} />
                 <Route path='workpermit' element={<WorkPermit />} />
                 <Route path='register' element={<Register />} />
+                <Route path='register/:taxId' element={<Register />} />
                 <Route path='/*' element={<NotFound />} />
             </Route>
         </Routes>
