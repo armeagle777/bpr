@@ -41,3 +41,7 @@ header a {
   text-decoration: none;
 }
 
+.workpermit-container{
+  min-height: calc(100vh - 145px);
+}
+
