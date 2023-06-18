@@ -1,7 +1,21 @@
 const axios = require('axios');
+const path = require('path');
 const { defaultAddress, defaultDocument } = require('../../utils/constants');
 
 const ApiError = require('../../exceptions/api-error');
+
+const createPdfBySsn = async (params) => {
+    const fileFullPath = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        'public',
+        'test.pdf'
+    );
+
+    // const file = await promises.readFile(filepath, 'utf8');
+    return fileFullPath;
+};
 
 const getPersonBySsnDb = async (params) => {
     const bprUrl = process.env.BPR_URL;
@@ -124,4 +138,5 @@ module.exports = {
     getDocumentsBySsnDb,
     getTaxBySsnDb,
     getCompanyByHvhhDb,
+    createPdfBySsn,
 };

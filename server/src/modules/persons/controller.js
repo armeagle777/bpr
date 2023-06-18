@@ -4,10 +4,20 @@ const {
     getDocumentsBySsnDb,
     getTaxBySsnDb,
     getCompanyByHvhhDb,
+    createPdfBySsn,
 } =
     process.env.NODE_ENV === 'local'
         ? require('./services-local')
         : require('./services');
+
+const downloadBprInfo = async (req, res, next) => {
+    try {
+        const createdFile = await createPdfBySsn(req.params);
+        res.download(createdFile);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const getPersonBySsn = async (req, res, next) => {
     try {
@@ -123,4 +133,5 @@ module.exports = {
     getQkagInfoBySsn,
     getTaxBySsn,
     getCompanyByHvhh,
+    downloadBprInfo,
 };
