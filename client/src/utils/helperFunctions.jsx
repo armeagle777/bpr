@@ -2,6 +2,17 @@ import { v4 } from 'uuid';
 import StyledTableCell from '../components/finances/StyledTableCell';
 import ThCell from '../components/finances/ThCell';
 import TdCell from '../components/finances/TdCell';
+import fileDownload from 'js-file-download';
+import { getFileBySsn } from '../api/personsApi';
+
+export const downloadPdf = async (url, fileName) => {
+    try {
+        const file = await getFileBySsn(url);
+        fileDownload(file, fileName);
+    } catch (error) {
+        console.log('error:::::: ', error);
+    }
+};
 
 export const formatCountryName = (countryName) => {
     const countryNameArray = countryName.split(' ');
