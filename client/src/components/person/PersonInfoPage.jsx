@@ -9,7 +9,6 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fileDownload from 'js-file-download';
 
 import Documents from '../documents/Documents';
 import Family from '../family/Family';
@@ -21,11 +20,11 @@ import TabPanel from '../tabPanel/TabPanel';
 import PersonalInfoRow from './PersonalInfoRow';
 
 import {
+    downloadPdf,
     filterImageSrcs,
     formatCountryName,
     formatPersonData,
 } from '../../utils/helperFunctions';
-import { getFileBySsn } from '../../api/personsApi';
 
 const PersonInfoPage = ({ personInfo }) => {
     const [value, setValue] = useState(0);
@@ -77,12 +76,9 @@ const PersonInfoPage = ({ personInfo }) => {
     };
 
     const handleExport = async (ssn) => {
-        try {
-            const file = await getFileBySsn(ssn);
-            fileDownload(file, `bpr_${firstName}_${lastName}.pdf`);
-        } catch (error) {
-            console.log('error:::::: ', error);
-        }
+        const url = `/persons/download/${ssn}`;
+        const fileName = `bpr_${firstName}_${lastName}.pdf`;
+        await downloadPdf(url, fileName);
     };
 
     return (
