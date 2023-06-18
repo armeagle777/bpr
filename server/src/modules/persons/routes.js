@@ -6,11 +6,13 @@ const {
     getQkagInfoBySsn,
     getTaxBySsn,
     getCompanyByHvhh,
+    downloadBprInfo,
 } = require('./controller');
 
 const personsRoute = express.Router();
 
 personsRoute.get('/:ssn/bpr', getPersonBySsn);
+personsRoute.get('/download/:ssn', downloadBprInfo);
 personsRoute.post('/bpr', getSearchedPersons);
 personsRoute.get('/:ssn/tax', getTaxBySsn);
 personsRoute.post('/:ssn/qkag', getQkagInfoBySsn);

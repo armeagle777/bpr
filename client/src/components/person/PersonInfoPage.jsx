@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import fileDownload from 'js-file-download';
 
 import Documents from '../documents/Documents';
 import Family from '../family/Family';
@@ -24,6 +25,7 @@ import {
     formatCountryName,
     formatPersonData,
 } from '../../utils/helperFunctions';
+import { getFileBySsn } from '../../api/personsApi';
 
 const PersonInfoPage = ({ personInfo }) => {
     const [value, setValue] = useState(0);
@@ -74,6 +76,15 @@ const PersonInfoPage = ({ personInfo }) => {
         setValue(newValue);
     };
 
+    const handleExport = async (ssn) => {
+        try {
+            const file = await getFileBySsn(ssn);
+            fileDownload(file, `bpr_${firstName}_${lastName}.pdf`);
+        } catch (error) {
+            console.log('error:::::: ', error);
+        }
+    };
+
     return (
         <Container>
             <Stack
@@ -106,6 +117,7 @@ const PersonInfoPage = ({ personInfo }) => {
                     variant='contained'
                     color='error'
                     endIcon={<PictureAsPdfIcon />}
+                    onClick={() => handleExport(PNum)}
                 >
                     Արտահանել
                 </Button>

@@ -12,6 +12,13 @@ const personsApi = axios.create({
 //     return { data: response.data, totalCount };
 // };
 
+export const getFileBySsn = async (ssn) => {
+    const response = await personsApi.get(`/persons/download/${ssn}`, {
+        responseType: 'blob',
+    });
+    return response.data;
+};
+
 export const getPersonBySsn = async (ssn) => {
     const response = await personsApi.get(`/persons/${ssn}/bpr`);
     return response.data;
