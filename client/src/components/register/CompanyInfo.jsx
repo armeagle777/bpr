@@ -39,6 +39,8 @@ import { activityCodes } from '../../utils/industryCodes';
 import OwnerRow from './OwnerRow';
 import FullScreenDialog from '../fullscreenModal/FullscreenModal';
 import { companyDocumentNames } from '../../utils/constants';
+import PDFGenerator from '../PDFGenerator/PDFGenerator';
+import Company from '../pdf-templates/Company';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -97,7 +99,6 @@ const CompanyInfo = ({ company }) => {
         setAnchorEl(null);
         setShowDialog(true);
     };
-    console.log('docs[documentName]:::::: ', docs[documentName]);
 
     const { addr_descr, mobile, phone, website, email } = { ...address };
     const {
@@ -258,9 +259,16 @@ const CompanyInfo = ({ company }) => {
                     <IconButton aria-label='add to favorites'>
                         <FavoriteIcon />
                     </IconButton>
-                    <IconButton aria-label='export'>
-                        <PictureAsPdfOutlinedIcon color='error' />
-                    </IconButton>
+                    <PDFGenerator
+                        PDFTemplate={Company}
+                        fileName={`petregister_${name_am}.pdf`}
+                        buttonText=''
+                        iconButton={true}
+                        variant='outlined'
+                        Icon={PictureAsPdfOutlinedIcon}
+                        data={company}
+                    />
+
                     <ExpandMore
                         expand={expanded}
                         onClick={handleExpandClick}

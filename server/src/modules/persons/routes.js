@@ -12,7 +12,7 @@ const {
 const personsRoute = express.Router();
 
 personsRoute.get('/:ssn/bpr', getPersonBySsn);
-personsRoute.get('/download/:ssn', downloadBprInfo);
+personsRoute.post('/download', downloadBprInfo);
 personsRoute.post('/bpr', getSearchedPersons);
 personsRoute.get('/:ssn/tax', getTaxBySsn);
 personsRoute.post('/:ssn/qkag', getQkagInfoBySsn);

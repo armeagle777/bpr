@@ -5,9 +5,9 @@ import TdCell from '../components/finances/TdCell';
 import fileDownload from 'js-file-download';
 import { getFileBySsn } from '../api/personsApi';
 
-export const downloadPdf = async (url, fileName) => {
+export const downloadPdf = async (url, fileName, personInfo) => {
     try {
-        const file = await getFileBySsn(url);
+        const file = await getFileBySsn(url, personInfo);
         fileDownload(file, fileName);
     } catch (error) {
         console.log('error:::::: ', error);
