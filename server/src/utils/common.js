@@ -1,3 +1,7 @@
+const path = require('path');
+const fs = require('fs');
+const puppeteer = require('puppeteer');
+const handlebars = require('handlebars');
 // const jwt = require('jsonwebtoken');
 // const nodemailer = require('nodemailer');
 // const ApiError = require('../exceptions/api-error');
@@ -94,11 +98,56 @@
 //     };
 // };
 
-// module.exports = {
-//     sendActivationMail,
-//     generateTokens,
-//     createUserData,
-//     validateRefreshToken,
-//     validateAccessToken,
-//     validateSchema,
-// };
+const createPDF = async (data) => {
+    const generatedPath = path.join(
+        process.cwd(),
+        'src/pdf-templates/bpr.html'
+    );
+
+    var templateHtml = fs.readFileSync(generatedPath, 'utf8');
+    var template = handlebars.compile(templateHtml);
+    var html = template(data);
+
+    var milis = new Date();
+    milis = milis.getTime();
+
+    var pdfPath = path.join('src', 'pdf', `${milis}.pdf`);
+
+    var options = {
+        width: '1230px',
+        headerTemplate: '<p></p>',
+        footerTemplate: '<p></p>',
+        displayHeaderFooter: false,
+        margin: {
+            top: '10px',
+            bottom: '30px',
+        },
+        printBackground: true,
+        path: pdfPath,
+    };
+
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox'],
+        headless: 'new',
+    });
+
+    var page = await browser.newPage();
+
+    await page.setContent(html, {
+        waitUntil: 'networkidle0',
+    });
+
+    await page.pdf(options);
+    await browser.close();
+    return pdfPath;
+};
+
+module.exports = {
+    createPDF,
+    //     sendActivationMail,
+    //     generateTokens,
+    //     createUserData,
+    //     validateRefreshToken,
+    //     validateAccessToken,
+    //     validateSchema,
+};

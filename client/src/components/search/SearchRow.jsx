@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { formatAddressString } from '../../utils/helperFunctions';
 import { searchRowPersonData } from '../../utils/helperFunctions';
+import PDFGenerator from '../PDFGenerator/PDFGenerator';
+import BPR from '../pdf-templates/BPR';
 
 const SearchRow = ({ personInfo }) => {
     const { PNum, addresses = [], documents = [] } = personInfo;
@@ -85,14 +87,14 @@ const SearchRow = ({ personInfo }) => {
                     </Typography>
                 </Stack>
                 <Stack spacing={1} direction='row' sx={{ mt: 2 }}>
-                    <Button
-                        size='medium'
+                    <PDFGenerator
+                        PDFTemplate={BPR}
+                        fileName={`bpr_${firstName}_${lastName}.pdf`}
+                        buttonText='Արտահանել'
                         variant='outlined'
-                        color='error'
-                        endIcon={<PictureAsPdfIcon />}
-                    >
-                        Արտահանել
-                    </Button>
+                        Icon={PictureAsPdfIcon}
+                        data={{ addresses, documents }}
+                    />
                     <Button
                         onClick={infoClickHandler}
                         size='medium'

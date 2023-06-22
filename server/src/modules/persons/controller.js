@@ -12,7 +12,7 @@ const {
 
 const downloadBprInfo = async (req, res, next) => {
     try {
-        const createdFile = await createPdfBySsn(req.params);
+        const createdFile = await createPdfBySsn(req);
         res.download(createdFile);
     } catch (error) {
         next(error);

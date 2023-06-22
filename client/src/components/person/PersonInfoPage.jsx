@@ -10,6 +10,8 @@ import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import PDFGenerator from '../PDFGenerator/PDFGenerator';
+import BPR from '../pdf-templates/BPR';
 import Documents from '../documents/Documents';
 import Family from '../family/Family';
 import BusinessTab from '../businessTab/BusinessTab';
@@ -20,7 +22,6 @@ import TabPanel from '../tabPanel/TabPanel';
 import PersonalInfoRow from './PersonalInfoRow';
 
 import {
-    downloadPdf,
     filterImageSrcs,
     formatCountryName,
     formatPersonData,
@@ -75,11 +76,11 @@ const PersonInfoPage = ({ personInfo }) => {
         setValue(newValue);
     };
 
-    const handleExport = async (ssn) => {
-        const url = `/persons/download/${ssn}`;
-        const fileName = `bpr_${firstName}_${lastName}.pdf`;
-        await downloadPdf(url, fileName);
-    };
+    // const handleExport = async (personObj) => {
+    //     const url = `/persons/download`;
+    //     const fileName = `bpr_${firstName}_${lastName}.pdf`;
+    //     await downloadPdf(url, fileName, personInfo);
+    // };
 
     return (
         <Container>
@@ -109,14 +110,14 @@ const PersonInfoPage = ({ personInfo }) => {
                         <Tab icon={<BusinessIcon />} aria-label='business' />
                     </Tabs>
                 </Box>
-                <Button
+                <PDFGenerator
+                    PDFTemplate={BPR}
+                    fileName={`bpr_${firstName}_${lastName}.pdf`}
+                    buttonText='Արտահանել'
                     variant='contained'
-                    color='error'
-                    endIcon={<PictureAsPdfIcon />}
-                    onClick={() => handleExport(PNum)}
-                >
-                    Արտահանել
-                </Button>
+                    Icon={PictureAsPdfIcon}
+                    data={personInfo}
+                />
             </Stack>
             <Stack direction='row' sx={{ mt: 2 }}>
                 <Box
