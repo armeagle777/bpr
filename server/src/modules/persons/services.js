@@ -5,17 +5,33 @@ const { defaultAddress, defaultDocument } = require('../../utils/constants');
 
 const ApiError = require('../../exceptions/api-error');
 
-const createPdfBySsn = async (params) => {
-    const fileFullPath = path.resolve(
-        __dirname,
-        '..',
-        '..',
-        'public',
-        'test.pdf'
-    );
+const fakeData = {
+    title: 'A new Brazilian School',
+    date: '05/12/2018',
+    name: 'Rodolfo',
+    age: 28,
+    birthdate: '12/07/1990',
+    course: 'Computer Science',
+    obs: 'Graduated in 2014 by Federal University of Lavras, work with Full-Stack development and E-commerce.',
+};
 
-    // const file = await promises.readFile(filepath, 'utf8');
-    return fileFullPath;
+const createPdfBySsn = async (req) => {
+    const { body } = req;
+    const { data } = { ...body };
+    const {
+        Citizenship_StoppedDate,
+        DeathDate,
+        IsDead,
+        Certificate_Number,
+        SSN_Indicator,
+        PNum,
+        documents,
+        addresses,
+    } = { ...data };
+
+    const fileName = await createPDF(fakeData);
+
+    return fileName;
 };
 
 const getPersonBySsnDb = async (params) => {
