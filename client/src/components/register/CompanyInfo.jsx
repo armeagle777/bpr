@@ -32,6 +32,7 @@ import AppBar from '@mui/material/AppBar';
 import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import CloseIcon from '@mui/icons-material/Close';
+import { v4 } from 'uuid';
 
 import PdfViewer from '../pdfViewer/PdfViewer';
 
@@ -369,10 +370,7 @@ const CompanyInfo = ({ company }) => {
                             ? 'Բաժնետերեր չկան գրանցված'
                             : ownersArray.map((own, index) => (
                                   <>
-                                      <OwnerRow
-                                          ownerInfo={own}
-                                          key={own.id_num}
-                                      />
+                                      <OwnerRow ownerInfo={own} key={v4()} />
                                       {index !== ownersArray.length - 1 && (
                                           <Divider
                                               variant='inset'
@@ -397,7 +395,7 @@ const CompanyInfo = ({ company }) => {
                         >
                             {Object.keys(docs)?.map((doc) => {
                                 return (
-                                    <span key={doc}>
+                                    <span key={v4()}>
                                         <Button
                                             startIcon={
                                                 companyDocumentNames[doc]
