@@ -16,7 +16,7 @@ const Company = ({ data }) => (
         <Page>
             <View style={styles.container}>
                 <Text>Company DATA</Text>
-                <Text style={styles.text}>{JSON.stringify(data)} </Text>
+                <Text style={styles.text}>{data.taxid}</Text>
             </View>
         </Page>
     </Document>
