@@ -369,15 +369,15 @@ const CompanyInfo = ({ company }) => {
                         {ownersArray.length === 0
                             ? 'Բաժնետերեր չկան գրանցված'
                             : ownersArray.map((own, index) => (
-                                  <>
-                                      <OwnerRow ownerInfo={own} key={v4()} />
+                                  <div key={v4()}>
+                                      <OwnerRow ownerInfo={own} />
                                       {index !== ownersArray.length - 1 && (
                                           <Divider
                                               variant='inset'
                                               component='hr'
                                           />
                                       )}
-                                  </>
+                                  </div>
                               ))}
                         <Typography sx={{ mb: 0, mt: 2 }} paragraph>
                             Փաստաթղթեր:
