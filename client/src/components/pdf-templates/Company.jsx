@@ -1,6 +1,21 @@
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    Font,
+} from '@react-pdf/renderer';
+
+Font.register({
+    family: 'Sans-serif',
+    src: '/FreeSans.ttf',
+});
 
 const styles = StyleSheet.create({
+    page: {
+        fontFamily: 'Sans-serif',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -13,10 +28,10 @@ const styles = StyleSheet.create({
 
 const Company = ({ data }) => (
     <Document>
-        <Page>
+        <Page style={styles.page}>
             <View style={styles.container}>
                 <Text>Company DATA</Text>
-                <Text style={styles.text}>{data.taxid}</Text>
+                <Text style={styles.text}>{data.name_am}</Text>
             </View>
         </Page>
     </Document>
