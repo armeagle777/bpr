@@ -9,7 +9,7 @@ import {
 
 Font.register({
     family: 'Sans-serif',
-    src: '/FreeSans.ttf',
+    src: '/Fonts/FreeSans.ttf',
 });
 
 const styles = StyleSheet.create({

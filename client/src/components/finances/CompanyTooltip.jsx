@@ -34,11 +34,11 @@ const CompanyTooltip = ({
                         <Typography color='inherit'>
                             {name_ru} {company_type}
                         </Typography>
-                        <em>{'Տնօրեն։ '}</em> <b>{executive.full_name}</b>{' '}
-                        <em>{'Հասցե։ '}</em>
+                        <em>{'Տնօրեն։ '}</em>{' '}
+                        <b>{executive?.full_name || ''}</b> <em>{'Հասցե։ '}</em>
                         <u>
-                            {address.community} {address.city_town}{' '}
-                            {address.street1} {address.house} {address.apt}
+                            {address?.community} {address?.city_town}{' '}
+                            {address?.street1} {address?.house} {address?.apt}
                         </u>
                     </>
                 }
