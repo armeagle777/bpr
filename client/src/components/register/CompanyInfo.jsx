@@ -2,6 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import {
+    Box,
     Divider,
     List,
     ListItem,
@@ -395,7 +396,7 @@ const CompanyInfo = ({ company }) => {
                         >
                             {Object.keys(docs)?.map((doc) => {
                                 return (
-                                    <span key={v4()}>
+                                    <>
                                         <Button
                                             startIcon={
                                                 companyDocumentNames[doc]
@@ -452,7 +453,7 @@ const CompanyInfo = ({ company }) => {
                                                 </a>
                                             </MenuItem>
                                         </Menu>
-                                    </span>
+                                    </>
                                 );
                             })}
                         </Stack>
