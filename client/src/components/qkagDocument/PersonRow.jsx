@@ -21,9 +21,13 @@ const PersonRow = ({ role, person, targetSsn }) => {
         id_issue_date,
         id_expirey_date,
         new_last_name,
-        base_info: { name, last_name, fathers_name, birth_date },
-        resident: { country, region, community, street, house_type, house },
-    } = person;
+        base_info,
+        resident,
+    } = { ...person };
+    const { country, region, community, street, house_type, house } = {
+        ...resident,
+    };
+    const { name, last_name, fathers_name, birth_date } = { ...base_info };
 
     const { data: bprData, isLoading, isError, error } = useFetchPerson(psn);
     const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID)?.Photo_ID;
@@ -87,11 +91,13 @@ const PersonRow = ({ role, person, targetSsn }) => {
                             >
                                 Հասցե։
                             </Typography>
-                            {` ${country} ${
+                            {` ${country || ''} ${
                                 region === community
-                                    ? region
-                                    : `${region}, ${community}`
-                            } ${street} ${house_type} ${house}`}
+                                    ? region || ''
+                                    : `${region || ''}, ${community || ''}`
+                            } ${street || ''} ${house_type || ''} ${
+                                house || ''
+                            }`}
                         </>
                     }
                 />
