@@ -102,3 +102,13 @@ export const companyDocumentNames = {
     charter: { title: 'ԿԱՆՈՆԱԴՐՈՒԹՅՈՒՆ', icon: <AccountBalanceIcon /> },
     unknown: { title: 'ՓԱՍՏԱԹՈՒՂԹ', icon: <DescriptionIcon /> },
 };
+
+export const messages = {
+    excelFromFile: {
+        uploadSuccess: 'Նիշքը հաջողությամբ բեռնվել է',
+    },
+    excelTable: {
+        errorMessage: 'Խնդիր է առաջացել',
+        noData: 'Տվյալներ առկա չեն',
+    },
+};

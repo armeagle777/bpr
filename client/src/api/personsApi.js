@@ -12,6 +12,11 @@ const personsApi = axios.create({
 //     return { data: response.data, totalCount };
 // };
 
+export const getSpheres = async (url) => {
+    const response = await personsApi.get('/sphere');
+    return response.data;
+};
+
 export const getFileBySsn = async (url, personInfo) => {
     const response = await personsApi.post(url, {
         data: personInfo,

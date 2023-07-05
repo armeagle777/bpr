@@ -45,3 +45,13 @@ header a {
   min-height: calc(100vh - 145px);
 }
 
+
+.filepond--panel-root {
+  background-color: transparent;
+  border: 1px dashed blue;
+}
+
+.filepond--label-action{
+  color: blue;
+}
+

@@ -177,13 +177,15 @@ const Aside = () => {
                     </div>
                     <Menu menuItemStyles={menuItemStyles}>
                         <SubMenu
-                            label='Charts'
+                            label='Գործողություններ'
                             icon={<PieChartIcon />}
                             suffix={
                                 <Chip label='6' size='small' color='error' />
                             }
                         >
-                            <MenuItem> Pie charts</MenuItem>
+                            <MenuItem component={<Link to='ssns-fromfile' />}>
+                                Ներբեռնել xcel
+                            </MenuItem>
                             <MenuItem> Line charts</MenuItem>
                             <MenuItem> Bar charts</MenuItem>
                         </SubMenu>
