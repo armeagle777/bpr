@@ -2,6 +2,8 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 const v4 = require('uuid').v4;
 const { Sphere } = require('../../config/database');
+const { sequelize } = require('../../config/database');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const insertDataFromFile = async (files) => {
     const excelDocument = files.filepond;
@@ -12,7 +14,18 @@ const insertDataFromFile = async (files) => {
     const workSheet = workBook.Sheets[workBook.SheetNames[0]];
     const data = XLSX.utils.sheet_to_row_object_array(workSheet);
 
-    await Sphere.bulkCreate(data);
+    const filteredData = data.map((row) => {
+        const { tin } = row;
+
+        if (tin && tin.length === 8) {
+            return {
+                tin,
+                is_checked: false,
+            };
+        }
+    });
+
+    await bulkUpsert(Sphere, filteredData, 'tin');
     fs.rmSync(filePath, {
         force: true,
     });
@@ -30,12 +43,30 @@ const insertDataFromFile = async (files) => {
 const getSpheresDataDb = async () => {
     const data = await Sphere.findAll();
 
-    console.log('data::::::', data);
-
     return data;
 };
+
+// Function to perform bulk upsert
+async function bulkUpsert(model, data, uniqueKey) {
+    const updateValues = Object.keys(data[0])
+        .filter((key) => key !== uniqueKey)
+        .map((key) => `${key} = VALUES(${key})`)
+        .join(', ');
+
+    const query = `
+      INSERT INTO ${model.getTableName()} (${Object.keys(data[0]).join(', ')})
+      VALUES ${data.map(() => '(?)').join(', ')}
+      ON DUPLICATE KEY UPDATE ${updateValues}
+    `;
+
+    await sequelize.query(query, {
+        replacements: data.map((item) => Object.values(item)),
+        type: Sequelize.QueryTypes.INSERT,
+    });
+}
 
 module.exports = {
     insertDataFromFile,
     getSpheresDataDb,
+    bulkUpsert,
 };

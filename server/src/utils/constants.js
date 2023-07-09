@@ -94,4 +94,6 @@ const defaultAddress = [
     },
 ];
 
-module.exports = { defaultDocument, defaultAddress };
+const sphereCronConfig = '* * * * *';
+
+module.exports = { defaultDocument, defaultAddress, sphereCronConfig };

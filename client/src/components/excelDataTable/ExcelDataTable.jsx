@@ -24,6 +24,9 @@ import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import { messages } from '../../utils/constants';
+import { FaCheck } from 'react-icons/fa';
+import { GrFormClose } from 'react-icons/gr';
+import { GiSandsOfTime } from 'react-icons/gi';
 
 const {
     excelTable: { errorMessage, noData },
@@ -133,7 +136,7 @@ const headCells = [
         label: 'Ոլորտի անվանումը',
     },
     {
-        id: 'is_chacked',
+        id: 'is_checked',
         numeric: false,
         disablePadding: false,
         label: 'Ստուգված է',
@@ -402,21 +405,23 @@ const ExcelDataTable = ({ isError, error, isLoading, rowData = [] }) => {
                                             >
                                                 {row.tin}
                                             </TableCell>
-                                            <TableCell align='right'>
+                                            <TableCell align='center'>
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align='right'>
+                                            <TableCell align='center'>
                                                 {row.sphere_code}
                                             </TableCell>
-                                            <TableCell align='right'>
+                                            <TableCell align='center'>
                                                 {row.sphere_text}
                                             </TableCell>
-                                            <TableCell align='right'>
-                                                <Checkbox
-                                                    checked={row.is_chacked}
-                                                    color='success'
-                                                    disabled
-                                                />
+                                            <TableCell align='center'>
+                                                {!row.is_checked ? (
+                                                    <GiSandsOfTime color='orange' />
+                                                ) : row.sphere_code ? (
+                                                    <FaCheck color='green' />
+                                                ) : (
+                                                    <GrFormClose color='red' />
+                                                )}
                                             </TableCell>
                                             <TableCell align='right'>
                                                 {row.createdAt}

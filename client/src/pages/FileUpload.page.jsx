@@ -41,6 +41,12 @@ const FileUpload = () => {
                 }}
                 labelIdle='*.xlsx ֆորմատի նիշքը տեղադրել այստեղ  կամ <span class="filepond--label-action">Բացել</span>'
                 checkValidity
+                onerror={(err) => {
+                    console.log('error', err);
+                }}
+                onload={(res) => {
+                    console.log('res:::::: ', res);
+                }}
                 onprocessfiles={() => {
                     toast.success(uploadSuccess, {
                         progress: undefined,
