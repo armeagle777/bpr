@@ -162,7 +162,7 @@ const getCompanyFromApi = async (hvhh) => {
     const { data } =
         process.env.NODE_ENV === 'local'
             ? await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`)
-            : await axios.post(petregistrUrl, {
+            : await axios.post(taxUrl, {
                   jsonrpc: '2.0',
                   id: 1,
                   method: 'company_info',
