@@ -8,7 +8,7 @@ const password = process.env.DATABASE_PASSWORD;
 const sequelize = new Sequelize(DB, username, password, {
     host: host,
     dialect: 'mysql',
-    logging: (...msg) => console.log(msg),
+    // logging: (...msg) => console.log(msg),
 });
 
 const Sphere = sequelize.define(
@@ -16,10 +16,11 @@ const Sphere = sequelize.define(
     {
         name: {
             type: DataTypes.STRING,
-            validate: { len: [0, 500] },
+            validate: { len: [0, 255] },
         },
         tin: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false,
             validate: {
                 args: [7, 8],
@@ -30,15 +31,27 @@ const Sphere = sequelize.define(
             type: DataTypes.STRING,
         },
         sphere_text: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
         },
-        is_chacked: {
+        is_checked: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        createdAt: {
+            type: 'TIMESTAMP',
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: 'TIMESTAMP',
+            defaultValue: sequelize.literal(
+                'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
+            ),
+            allowNull: false,
+        },
     },
     {
-        // Other model options go here
+        timestamps: false,
     }
 );
 

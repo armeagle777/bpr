@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
+var CronJob = require('cron').CronJob;
 
 dotenv.config();
 
@@ -10,6 +11,17 @@ const personsRoute = require('./modules/persons/routes');
 const companiesRoute = require('./modules/companies/routes');
 const sphereRoute = require('./modules/sphere/routes');
 const { sequelize } = require('./config/database');
+
+const { cronUpdateSphere } = require('./utils/common');
+const { sphereCronConfig } = require('./utils/constants');
+
+var job = new CronJob(
+    sphereCronConfig,
+    cronUpdateSphere,
+    null,
+    true,
+    'Asia/Yerevan'
+);
 
 const app = express();
 app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }));

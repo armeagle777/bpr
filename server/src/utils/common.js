@@ -1,7 +1,14 @@
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 const puppeteer = require('puppeteer');
 const handlebars = require('handlebars');
+const { Sphere } = require('../config/database');
+const { bulkUpsert } = require('../modules/sphere/services');
+const { getCompanyByHvhhDb } =
+    process.env.NODE_ENV === 'local'
+        ? require('../modules/persons/services-local')
+        : require('../modules/persons/services');
 // const jwt = require('jsonwebtoken');
 // const nodemailer = require('nodemailer');
 // const ApiError = require('../exceptions/api-error');
@@ -142,12 +149,78 @@ const createPDF = async (data) => {
     return pdfPath;
 };
 
+const isPetregisterDataAvailable = (data) => {
+    const isDataAvailable =
+        process.env.NODE_ENV === 'local' ? data.length !== 0 : !!data.result;
+
+    return isDataAvailable;
+};
+
+const getCompanyFromApi = async (hvhh) => {
+    const taxUrl = process.env.PETREGISTR_URL;
+
+    const { data } =
+        process.env.NODE_ENV === 'local'
+            ? await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`)
+            : await axios.post(petregistrUrl, {
+                  jsonrpc: '2.0',
+                  id: 1,
+                  method: 'company_info',
+                  params: { tax_id: hvhh },
+              });
+
+    if (!isPetregisterDataAvailable(data)) {
+        return { company: { taxid: hvhh } };
+    }
+
+    const { result } = process.env.NODE_ENV === 'local' ? data[0] : data;
+
+    return result;
+};
+
+const cronUpdateSphere = async () => {
+    try {
+        const unCheckedSpheres = await Sphere.findAll({
+            attributes: ['tin'],
+            where: {
+                is_checked: 0,
+            },
+        });
+
+        if (unCheckedSpheres.length === 0) return;
+
+        const promises = unCheckedSpheres.map(({ tin }) => {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const { company } = await getCompanyFromApi(tin);
+
+                    resolve(company);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        });
+
+        const companyObjectArray = await Promise.allSettled(promises);
+
+        const companiesTins = companyObjectArray
+            .filter((obj) => obj.status === 'fulfilled')
+            .map((company) => ({
+                tin: company.value.taxid,
+                name: company.value.name_am,
+                sphere_code: company.value.industry_code,
+                is_checked: true,
+            }));
+
+        if (companiesTins.length === 0) return;
+
+        await bulkUpsert(Sphere, companiesTins, 'tin');
+    } catch (error) {
+        console.log('error::::::', error);
+    }
+};
+
 module.exports = {
     createPDF,
-    //     sendActivationMail,
-    //     generateTokens,
-    //     createUserData,
-    //     validateRefreshToken,
-    //     validateAccessToken,
-    //     validateSchema,
+    cronUpdateSphere,
 };
