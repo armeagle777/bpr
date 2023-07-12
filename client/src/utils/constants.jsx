@@ -4,16 +4,25 @@ import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
 import DescriptionIcon from '@mui/icons-material/Description';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import Birth from '../components/pdf-templates/Birth';
+import Marriage from '../components/pdf-templates/Marriage';
+import Divorce from '../components/pdf-templates/Divorce';
 
 export const documentNames = {
     marriage: {
         name: 'Ամուսնության Վկայական',
         icon: <MarriageIcon color='primary' />,
+        template: Marriage,
     },
-    birth: { name: 'Ծննդյան Վկայական', icon: <BirthIcon color='primary' /> },
+    birth: {
+        name: 'Ծննդյան Վկայական',
+        icon: <BirthIcon color='primary' />,
+        template: Birth,
+    },
     divorce: {
         name: 'Ամուսնալուծության Վկայական',
         icon: <HeartBrokenIcon color='primary' />,
+        template: Divorce,
     },
     death: {
         name: 'Մահվան Վկայական',

@@ -2,7 +2,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
+import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
@@ -11,6 +11,10 @@ import { useState } from 'react';
 import { documentNames } from '../../utils/constants';
 import { formatDates } from '../../utils/helperFunctions';
 import PersonRow from './PersonRow';
+import { IconButton } from '@mui/material';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import BPR from '../pdf-templates/BPR';
+import PDFGenerator from '../PDFGenerator/PDFGenerator';
 
 const QkagDocument = ({ document, targetSsn }) => {
     const [open, setOpen] = useState(false);
@@ -41,15 +45,23 @@ const QkagDocument = ({ document, targetSsn }) => {
                 </ListSubheader>
             }
         >
-            <ListItemButton onClick={handleClick}>
+            <ListItem onClick={handleClick} style={{ cursor: 'pointer' }}>
                 <ListItemIcon>{documentNames[type]['icon']}</ListItemIcon>
                 <ListItemText
                     primary={`${cert_num}${
                         cert_num2 ? `-${cert_num2}` : ''
                     } | ${formatDates(cert_date)} | ${office_name}`}
                 />
+                <PDFGenerator
+                    PDFTemplate={documentNames[type]['template']}
+                    fileName={`qkag.pdf`}
+                    buttonText=''
+                    variant='text'
+                    Icon={PictureAsPdfIcon}
+                    data={[]}
+                />
                 {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+            </ListItem>
             <Collapse in={open} timeout='auto' unmountOnExit>
                 <List component='div' disablePadding>
                     <PersonRow
