@@ -1,6 +1,8 @@
 import React from 'react';
 import { PDFViewer } from '@react-pdf/renderer';
-import BPR from '../components/pdf-templates/BPR';
+import Birth from '../components/pdf-templates/Birth';
+import Divorce from '../components/pdf-templates/Divorce';
+import Marriage from '../components/pdf-templates/Marriage';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
 const Pdf = () => {
     return (
         <PDFViewer style={styles.pdfContainer}>
-            <BPR />
+            <Marriage />
         </PDFViewer>
     );
 };
