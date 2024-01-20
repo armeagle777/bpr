@@ -137,12 +137,12 @@ export const formatPersonData = (personInfo) => {
             return acc;
         }, [])
         .map((name) => {
-            const citizenshipNamesArray = name.split(' ');
-            if (citizenshipNamesArray.length === 1) {
+            const citizenshipNamesArray = name?.split(' ');
+            if (citizenshipNamesArray?.length === 1) {
                 return citizenshipNamesArray;
             }
 
-            return citizenshipNamesArray.reduce((acc, name) => {
+            return citizenshipNamesArray?.reduce((acc, name) => {
                 acc += name[0];
                 return acc;
             }, '');
