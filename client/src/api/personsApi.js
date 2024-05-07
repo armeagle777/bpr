@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const personsApi = axios.create({
-    baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 // export const getAdvertisements = async (pageNumber) => {
@@ -13,54 +13,71 @@ const personsApi = axios.create({
 // };
 
 export const getSpheres = async (url) => {
-    const response = await personsApi.get('/sphere');
-    return response.data;
+  const response = await personsApi.get("/sphere");
+  return response.data;
 };
 
 export const getFileBySsn = async (url, personInfo) => {
-    const response = await personsApi.post(url, {
-        data: personInfo,
-        responseType: 'blob',
-    });
-    return response.data;
+  const response = await personsApi.post(url, {
+    data: personInfo,
+    responseType: "blob",
+  });
+  return response.data;
 };
 
 export const getPersonBySsn = async (ssn) => {
-    const response = await personsApi.get(`/persons/${ssn}/bpr`);
-    return response.data;
+  const response = await personsApi.get(`/persons/${ssn}/bpr`);
+  return response.data;
 };
 
 export const getSearchedPersons = async (searchOptions) => {
-    const response = await personsApi.post(`/persons/bpr`, searchOptions);
-    return response.data;
+  const response = await personsApi.post(`/persons/bpr`, searchOptions);
+  return response.data;
 };
 
 export const getQkagDocsBySsn = async (ssn, firstName, lastName) => {
-    const response = await personsApi.post(`/persons/${ssn}/qkag`, {
-        firstName,
-        lastName,
-    });
-    return response.data;
+  const response = await personsApi.post(`/persons/${ssn}/qkag`, {
+    firstName,
+    lastName,
+  });
+  return response.data;
 };
 
 export const getTaxBySsn = async (ssn) => {
-    const response = await personsApi.get(`/persons/${ssn}/tax`);
-    return response.data;
+  const response = await personsApi.get(`/persons/${ssn}/tax`);
+  return response.data;
 };
 
 export const getCompanyByHvhh = async (tax_id) => {
-    const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
-    return response.data;
+  const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
+  return response.data;
 };
 
 export const getCompanyForPersonByHvhh = async (tax_id) => {
-    const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
-    return response.data;
+  const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
+  return response.data;
 };
 
 export const getCompaniesBySsn = async (ssn) => {
-    const response = await personsApi.get(`/petregistr/${ssn}/person`);
-    return response.data;
+  const response = await personsApi.get(`/petregistr/${ssn}/person`);
+  return response.data;
+};
+
+export const getFile = async ({ filterData }) => {
+  const config = {
+    responseType: "blob",
+  };
+
+  const { data } = await serverApi.post(
+    "/export/excel",
+    { data: filterData },
+    config
+  );
+
+  const blob = new Blob([data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  return blob;
 };
 
 // export const addAdvertisement = async (advertisement) => {
