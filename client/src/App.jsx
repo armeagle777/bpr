@@ -10,7 +10,12 @@ import Register from "./pages/Register.page";
 import Pdf from "./pages/Pdf.page";
 import FileUpload from "./pages/FileUpload.page";
 import Statistics from "./pages/Statistics";
-import { WorkPermitStats } from "./pages/WorkPermit";
+import { WorkPermitStats } from "./pages/WorkPermitStats";
+import { WpOfficial } from "./pages/WpOfficial";
+import { StatisticsProfile } from "./pages/StatisticsProfile";
+import { StatisticsReports } from "./pages/StatisticsReports";
+import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
+import { StatisticsBordercross } from "./pages/StatisticsBordercross";
 
 function App() {
   return (
@@ -27,6 +32,11 @@ function App() {
         <Route path="register/:taxId" element={<Register />} />
         <Route path="statistics" element={<Statistics />}>
           <Route path="work-permit" element={<WorkPermitStats />} />
+          <Route path="profile" element={<StatisticsProfile />} />
+          <Route path="bordercross" element={<StatisticsBordercross />} />
+          <Route path="citizenship" element={<StatisticsCitizenship />} />
+          <Route path="reports" element={<StatisticsReports />} />
+          <Route path="work-permit-official" element={<WpOfficial />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Route>

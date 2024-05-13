@@ -23,7 +23,7 @@ const StaticsHeader = () => {
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="NavigationMenuContent">
             <ul className="List one">
-              <li style={{ gridRow: "span 3" }}>
+              <li style={{ gridRow: "span 4" }}>
                 <NavigationMenu.Link asChild>
                   <a className="Callout" href="/">
                     <svg
@@ -43,16 +43,19 @@ const StaticsHeader = () => {
                 </NavigationMenu.Link>
               </li>
 
-              <HeaderListItem href="/statistics/work-permit" title="Շնորհում">
+              <HeaderListItem
+                href="/statistics/citizenship?type=total"
+                title="Ընդհանուր"
+              >
+                Ընդհանուր
+              </HeaderListItem>
+              <HeaderListItem href="/statistics/citizenship" title="Շնորհում">
                 Քաղաքացիություն շնորհված
               </HeaderListItem>
-              <HeaderListItem href="/colors" title="Դադարեցում">
+              <HeaderListItem href="/statistics/citizenship" title="Դադարեցում">
                 Դադարեցված
               </HeaderListItem>
-              <HeaderListItem
-                href="https://icons.radix-ui.com/"
-                title="Ճանաչում"
-              >
+              <HeaderListItem href="/statistics/citizenship" title="Ճանաչում">
                 Քաղաքացի ճանաչված
               </HeaderListItem>
             </ul>
@@ -133,8 +136,8 @@ const StaticsHeader = () => {
                 Use CSS keyframes or any animation library of your choice.
               </HeaderListItem>
               <HeaderListItem
-                title="Accessibility"
-                href="/primitives/docs/overview/accessibility"
+                title="WP-official"
+                href="/statistics/work-permit-official"
               >
                 Tested in a range of browsers and assistive technologies.
               </HeaderListItem>
@@ -155,20 +158,20 @@ const StaticsHeader = () => {
             <ul className="List two">
               <HeaderListItem
                 title="Ըստ երկրների"
-                href="/primitives/docs/overview/introduction"
+                href="/statistics/bordercross?type=countries"
               >
                 Build high-quality, accessible design systems and web apps.
               </HeaderListItem>
               <HeaderListItem
                 title="Ըստ տեսակի"
-                href="/primitives/docs/overview/getting-started"
+                href="/statistics/bordercross?type=types"
               >
                 A quick tutorial to get you up and running with Radix
                 Primitives.
               </HeaderListItem>
               <HeaderListItem
                 title="Ըստ ժամանակահատվածի"
-                href="/primitives/docs/guides/styling"
+                href="/statistics/bordercross?type=periods"
               >
                 Unstyled and compatible with any styling solution.
               </HeaderListItem>
@@ -200,6 +203,61 @@ const StaticsHeader = () => {
           >
             Գործարքներ
           </NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Item>
+          <NavigationMenu.Link
+            className="NavigationMenuLink"
+            href="/statistics/profile"
+          >
+            Պրոֆիլ
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Item>
+          <NavigationMenu.Trigger className="NavigationMenuTrigger">
+            Հաշվետվություններ
+            <CaretDownIcon className="CaretDown" aria-hidden />
+          </NavigationMenu.Trigger>
+          <NavigationMenu.Content className="NavigationMenuContent">
+            <ul className="List two">
+              <HeaderListItem
+                title="Ապաստան"
+                href="/statistics/reports?report_type=asylum"
+              >
+                Build high-quality, accessible design systems and web apps.
+              </HeaderListItem>
+              <HeaderListItem
+                title="Քաղաքացիություն"
+                href="/statistics/reports?report_type=citizenship"
+              >
+                A quick tutorial to get you up and running with Radix
+                Primitives.
+              </HeaderListItem>
+              <HeaderListItem
+                title="Աշխ. թույլտվություն"
+                href="/statistics/reports?report_type=wp"
+              >
+                Unstyled and compatible with any styling solution.
+              </HeaderListItem>
+              <HeaderListItem
+                title="Animation"
+                href="/primitives/docs/guides/animation"
+              >
+                Use CSS keyframes or any animation library of your choice.
+              </HeaderListItem>
+              <HeaderListItem
+                title="Accessibility"
+                href="/primitives/docs/overview/accessibility"
+              >
+                Tested in a range of browsers and assistive technologies.
+              </HeaderListItem>
+              <HeaderListItem
+                title="Releases"
+                href="/primitives/docs/overview/releases"
+              >
+                Radix Primitives releases and their changelogs.
+              </HeaderListItem>
+            </ul>
+          </NavigationMenu.Content>
         </NavigationMenu.Item>
         <NavigationMenu.Indicator className="NavigationMenuIndicator">
           <div className="Arrow" />

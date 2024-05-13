@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { Outlet } from "react-router-dom";
-import StaticsHeader from "../components/StaticsHeader/StaticsHeader";
+import { StaticsHeader } from "../statisticsComponents";
 
 const Statistics = () => {
   return (
