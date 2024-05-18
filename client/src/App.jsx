@@ -15,7 +15,9 @@ import { WpOfficial } from "./pages/WpOfficial";
 import { StatisticsProfile } from "./pages/StatisticsProfile";
 import { StatisticsReports } from "./pages/StatisticsReports";
 import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
-import { StatisticsBordercross } from "./pages/StatisticsBordercross";
+import { StatisticsCountryBordercross } from "./pages/StatisticsCountryBordercross";
+import { StatisticsTypeBordercross } from "./pages/StatisticsTypeBordercross";
+import { Deals } from "./pages/Deals";
 
 function App() {
   return (
@@ -32,8 +34,16 @@ function App() {
         <Route path="register/:taxId" element={<Register />} />
         <Route path="statistics" element={<Statistics />}>
           <Route path="work-permit" element={<WorkPermitStats />} />
+          <Route path="deals" element={<Deals />} />
           <Route path="profile" element={<StatisticsProfile />} />
-          <Route path="bordercross" element={<StatisticsBordercross />} />
+          <Route
+            path="country-bordercross"
+            element={<StatisticsCountryBordercross />}
+          />
+          <Route
+            path="type-bordercross"
+            element={<StatisticsTypeBordercross />}
+          />
           <Route path="citizenship" element={<StatisticsCitizenship />} />
           <Route path="reports" element={<StatisticsReports />} />
           <Route path="work-permit-official" element={<WpOfficial />} />

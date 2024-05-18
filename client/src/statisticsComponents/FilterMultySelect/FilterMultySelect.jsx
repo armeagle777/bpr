@@ -1,22 +1,18 @@
 import { Select } from "antd";
+import { useState } from "react";
 
-const FilterMultySelect = ({ options, placeholder, onChange }) => {
-  // options.push({
-  //   label: `Long Label: ${value}`,
-  //   value,
-  // });
-  const [value, setValue] = useState([]);
-
+const FilterMultySelect = ({ options, placeholder, onChange, value = [] }) => {
   return (
     <Select
       mode="multiple"
       style={{
         flex: 1,
       }}
+      allowClear
       options={options}
       placeholder={placeholder}
       maxTagCount="responsive"
-      value={value}
+      defaultValue={value}
       onChange={onChange}
     />
   );

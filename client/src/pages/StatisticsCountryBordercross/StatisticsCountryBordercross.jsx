@@ -1,18 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Flex } from "antd";
-
+import { FilterRow } from "./FilterRow";
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
-import { WpFilterRow } from "./WpFilterRow";
-import {
-  MOCK_COLUMNS,
-  MOCK_PERIODS,
-  MOCK_REPORT_TYPES,
-  MOCK_YEARS,
-  MOCK_CLAIM_TYPES,
-  MOCK_DATA,
-} from "./WorkPermitStats.constants";
+import { MOCK_COLUMNS, MOCK_DATA } from "./constants";
 
-const WorkPermitStats = () => {
+const StatisticsCountryBordercross = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fakeData, setFakeData] = useState([]);
 
@@ -25,7 +17,7 @@ const WorkPermitStats = () => {
 
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <WpFilterRow />}
+      {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
       <DataTable
         isLoading={isLoading}
         modifiedData={fakeData}
@@ -36,4 +28,4 @@ const WorkPermitStats = () => {
   );
 };
 
-export default WorkPermitStats;
+export default StatisticsCountryBordercross;

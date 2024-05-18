@@ -158,13 +158,13 @@ const StaticsHeader = () => {
             <ul className="List two">
               <HeaderListItem
                 title="Ըստ երկրների"
-                href="/statistics/bordercross?type=countries"
+                href="/statistics/country-bordercross"
               >
                 Build high-quality, accessible design systems and web apps.
               </HeaderListItem>
               <HeaderListItem
                 title="Ըստ տեսակի"
-                href="/statistics/bordercross?type=types"
+                href="/statistics/type-bordercross"
               >
                 A quick tutorial to get you up and running with Radix
                 Primitives.
@@ -199,7 +199,7 @@ const StaticsHeader = () => {
         <NavigationMenu.Item>
           <NavigationMenu.Link
             className="NavigationMenuLink"
-            href="https://github.com/radix-ui"
+            href="/statistics/deals"
           >
             Գործարքներ
           </NavigationMenu.Link>
@@ -220,6 +220,12 @@ const StaticsHeader = () => {
           <NavigationMenu.Content className="NavigationMenuContent">
             <ul className="List two">
               <HeaderListItem
+                title="Ընդհանուր"
+                href="/statistics/reports?report_type=total"
+              >
+                Unstyled and compatible with any styling solution.
+              </HeaderListItem>
+              <HeaderListItem
                 title="Ապաստան"
                 href="/statistics/reports?report_type=asylum"
               >
@@ -233,22 +239,16 @@ const StaticsHeader = () => {
                 Primitives.
               </HeaderListItem>
               <HeaderListItem
-                title="Աշխ. թույլտվություն"
-                href="/statistics/reports?report_type=wp"
+                title="Կացություն"
+                href="/statistics/reports?report_type=stay"
               >
                 Unstyled and compatible with any styling solution.
               </HeaderListItem>
               <HeaderListItem
-                title="Animation"
-                href="/primitives/docs/guides/animation"
+                title="Սահմանահատում"
+                href="/statistics/reports?report_type=bordercross"
               >
                 Use CSS keyframes or any animation library of your choice.
-              </HeaderListItem>
-              <HeaderListItem
-                title="Accessibility"
-                href="/primitives/docs/overview/accessibility"
-              >
-                Tested in a range of browsers and assistive technologies.
               </HeaderListItem>
               <HeaderListItem
                 title="Releases"
