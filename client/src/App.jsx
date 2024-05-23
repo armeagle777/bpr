@@ -18,10 +18,12 @@ import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
 import { StatisticsCountryBordercross } from "./pages/StatisticsCountryBordercross";
 import { StatisticsTypeBordercross } from "./pages/StatisticsTypeBordercross";
 import { Deals } from "./pages/Deals";
+import { Login } from "./pages/Login";
 
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
         <Route path="pdf" element={<Pdf />} />
         <Route index element={<Home />} />
