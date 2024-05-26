@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Flex } from "antd";
 
-import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
-import { WpFilterRow } from "./WpFilterRow";
-import { MOCK_COLUMNS, MOCK_DATA } from "./WorkPermitStats.constants";
+import { DataTable } from "../../statisticsComponents";
 
-const WorkPermitStats = () => {
+import { MOCK_COLUMNS, MOCK_DATA } from "./ApastanYears.constants";
+
+const ApastanYears = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fakeData, setFakeData] = useState([]);
 
@@ -18,7 +18,6 @@ const WorkPermitStats = () => {
 
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <WpFilterRow />}
       <DataTable
         isLoading={isLoading}
         modifiedData={fakeData}
@@ -29,4 +28,4 @@ const WorkPermitStats = () => {
   );
 };
 
-export default WorkPermitStats;
+export default ApastanYears;

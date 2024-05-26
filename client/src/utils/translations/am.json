@@ -11,7 +11,8 @@
     "MULTY_PERIODS_PLACEHOLDER": "Ընտրեք ժ/հատվածը",
     "MULTY_TYPES_PLACEHOLDER": "Ընտրեք տեսակը",
     "MULTY_POINTS_PLACEHOLDER": "Ընտրեք կետը",
-    "MULTY_COUNTRIES_PLACEHOLDER": "Ընտրեք երկիրը"
+    "MULTY_COUNTRIES_PLACEHOLDER": "Ընտրեք երկիրը",
+    "MULTY_DECTYPES_PLACEHOLDER": "Ընտրեք որոշման տեսակը"
   },
   "FILES": {
     "EXCEL_UPLOAD_SUCCESS": "Նիշքը հաջողությամբ բեռնվել է"

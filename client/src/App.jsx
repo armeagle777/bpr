@@ -17,6 +17,10 @@ import { StatisticsReports } from "./pages/StatisticsReports";
 import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
 import { StatisticsCountryBordercross } from "./pages/StatisticsCountryBordercross";
 import { StatisticsTypeBordercross } from "./pages/StatisticsTypeBordercross";
+import { ApastanTotal } from "./pages/ApastanTotal";
+import { ApastanApplications } from "./pages/ApastanApplications";
+import { ApastanDecisions } from "./pages/ApastanDecisions";
+import { ApastanYears } from "./pages/ApastanYears";
 import { Deals } from "./pages/Deals";
 import { Login } from "./pages/Login";
 
@@ -48,6 +52,13 @@ function App() {
           />
           <Route path="citizenship" element={<StatisticsCitizenship />} />
           <Route path="reports" element={<StatisticsReports />} />
+          <Route path="apastan-total" element={<ApastanTotal />} />
+          <Route
+            path="apastan-applications"
+            element={<ApastanApplications />}
+          />
+          <Route path="apastan-decisions" element={<ApastanDecisions />} />
+          <Route path="apastan-years" element={<ApastanYears />} />
           <Route path="work-permit-official" element={<WpOfficial />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
