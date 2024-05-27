@@ -2,13 +2,17 @@ import { useState, useEffect } from "react";
 import { Flex } from "antd";
 
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
-import { WpFilterRow } from "./WpFilterRow";
-import { MOCK_COLUMNS, MOCK_DATA } from "./WorkPermitStats.constants";
+import { FilterRow } from "./FilterRow";
+import {
+  MOCK_COLUMNS,
+  MOCK_DATA,
+  MOCK_YEARS,
+  MOCK_PERIODS,
+} from "./ApastanApplications.constants";
 
-const WorkPermitStats = () => {
+const ApastanApplications = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fakeData, setFakeData] = useState([]);
-
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -18,7 +22,18 @@ const WorkPermitStats = () => {
 
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <WpFilterRow />}
+      {isLoading ? (
+        <FiltersRowSkeleton />
+      ) : (
+        <FilterRow
+          years={MOCK_YEARS}
+          periods={MOCK_PERIODS}
+          selectedYears={[2022]}
+          seletedPeriods={[1]}
+          onFilterCompanies={() => console.log("create this func")}
+          isCompaniesLoading={isLoading}
+        />
+      )}
       <DataTable
         isLoading={isLoading}
         modifiedData={fakeData}
@@ -29,4 +44,4 @@ const WorkPermitStats = () => {
   );
 };
 
-export default WorkPermitStats;
+export default ApastanApplications;

@@ -10,6 +10,7 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 const personsRoute = require("./modules/persons/routes");
 const companiesRoute = require("./modules/companies/routes");
 const sphereRoute = require("./modules/sphere/routes");
+const statisticsRoute = require("./modules/statistics/routes");
 const { sequelize } = require("./config/database");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
@@ -32,7 +33,7 @@ const updateSphereTextJob = new CronJob(
 );
 
 const app = express();
-app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
+app.use(cors({ origin: "http://localhost:5173", optionsSuccessStatus: 200 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -44,6 +45,9 @@ app.use(
 app.use("/api/persons", personsRoute);
 app.use("/api/petregistr", companiesRoute);
 app.use("/api/sphere", sphereRoute);
+
+//Statistics Endpoints
+app.use("/api/statistics", statisticsRoute);
 
 app.use(errorMiddleware);
 const PORT = process.env.PORT || 9000;

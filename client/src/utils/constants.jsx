@@ -26,11 +26,13 @@ export const documentNames = {
     template: Divorce,
   },
   death: {
+    //TODO Make template Death
     name: "Մահվան Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
     template: Paternity,
   },
   adoption: {
+    //TODO Make template Adoption
     name: "Որդեգրման վկայական",
     icon: <HeartBrokenIcon color="primary" />,
     template: Paternity,
@@ -41,6 +43,7 @@ export const documentNames = {
     template: Paternity,
   },
   chname: {
+    //TODO Make template Chname
     name: "Անվանափոխության Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
     template: Paternity,
