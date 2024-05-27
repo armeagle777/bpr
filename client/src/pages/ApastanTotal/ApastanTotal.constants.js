@@ -2,98 +2,102 @@ export const MOCK_COLUMNS = [
   {
     title: "Քաղաքացիություն",
     dataIndex: "country",
-    key: "name",
+    key: "country",
     width: 200,
     fixed: "left",
   },
   {
     title: "16-34 տարեկան",
+    key: "parent_16_34",
     children: [
       {
         title: "Ի",
         dataIndex: "F_16",
-        key: "F",
+        key: "F_16",
         width: 150,
       },
       {
         title: "Ա",
         dataIndex: "M_16",
-        key: "M",
+        key: "M_16",
         width: 150,
       },
       {
         title: "Ընդ․",
         dataIndex: "T_16",
-        key: "total",
+        key: "T_16",
         width: 150,
       },
     ],
   },
   {
     title: "35-64 տարեկան",
+    key: "parent_35_64",
     children: [
       {
         title: "Ի",
         dataIndex: "F_35",
-        key: "F",
+        key: "F_35",
         width: 150,
       },
       {
         title: "Ա",
         dataIndex: "M_35",
-        key: "M",
+        key: "M_35",
         width: 150,
       },
       {
         title: "Ընդ․",
         dataIndex: "T_35",
-        key: "total",
+        key: "T_35",
         width: 150,
       },
     ],
   },
   {
     title: "65-ից ավել",
+    key: "parent_65_plus",
     children: [
       {
         title: "Ի",
         dataIndex: "F_65",
-        key: "F",
+        key: "F_65",
         width: 150,
       },
       {
         title: "Ա",
         dataIndex: "M_65",
-        key: "M",
+        key: "M_65",
         width: 150,
       },
       {
         title: "Ընդ․",
         dataIndex: "T_65",
-        key: "total",
+        key: "T_65",
         width: 150,
       },
     ],
   },
   {
     title: "ԸՆԴԱՄԵՆԸ",
+    key: "total",
     children: [
       {
         title: "Ի",
         dataIndex: "F_T",
-        key: "F",
+        key: "F_T",
         width: 150,
       },
       {
         title: "Ա",
         dataIndex: "M_T",
-        key: "M",
+        key: "M_T",
         width: 150,
       },
       {
         title: "Ընդ․",
         dataIndex: "T_T",
-        key: "total",
+        key: "T_T",
         width: 150,
       },
     ],
@@ -104,17 +108,17 @@ export const MOCK_YEARS = [
   {
     label: "2022",
     value: 2022,
-    key: 2022,
+    key: "2022",
   },
   {
     label: "2023",
     value: 2023,
-    key: 2023,
+    key: "2023",
   },
   {
     label: "2024",
     value: 2024,
-    key: 2024,
+    key: "2024",
   },
 ];
 
@@ -168,6 +172,7 @@ export const MOCK_PERIODS = [
 
 export const MOCK_DATA = [
   {
+    key: "Ռուսաստան",
     country: "Ռուսաստան",
     F_16: 332,
     M_16: 933,
@@ -183,6 +188,7 @@ export const MOCK_DATA = [
     T_T: 2097,
   },
   {
+    key: "Ղազախստան",
     country: "Ղազախստան",
     F_16: 2,
     M_16: 7,
@@ -198,6 +204,7 @@ export const MOCK_DATA = [
     T_T: 16,
   },
   {
+    key: "Բելառուս",
     country: "Բելառուս",
     F_16: 12,
     M_16: 11,

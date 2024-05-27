@@ -2,15 +2,10 @@ import { Table } from "antd";
 
 import { TableButtonRow } from "..";
 
-const RowDataTable = ({
-  isLoading,
-  modifiedData,
-  dropdownOptions,
-  controlledColumns,
-}) => {
+const RowDataTable = ({ isLoading, modifiedData, controlledColumns }) => {
   return (
     <>
-      <TableButtonRow dropdownOptions={dropdownOptions} />
+      <TableButtonRow />
       <Table
         pagination={false}
         loading={isLoading}

@@ -100,6 +100,7 @@ export const MOCK_PERIODS = [
 
 export const MOCK_DATA = [
   {
+    key: "2021",
     year: 2021,
     applicants: 332,
     asylums: 933,
@@ -107,6 +108,7 @@ export const MOCK_DATA = [
     shortened: 139,
   },
   {
+    key: "2022",
     year: 2022,
     applicants: 2,
     asylums: 7,
@@ -114,6 +116,7 @@ export const MOCK_DATA = [
     shortened: 3,
   },
   {
+    key: "2023",
     year: 2023,
     applicants: 12,
     asylums: 11,
