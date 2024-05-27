@@ -51,7 +51,6 @@ const ApastanTotal = () => {
       <DataTable
         isLoading={fakeLoading}
         modifiedData={fakeData}
-        dropdownOptions={[]}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

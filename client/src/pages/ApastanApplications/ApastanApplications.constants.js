@@ -168,6 +168,7 @@ export const MOCK_PERIODS = [
 
 export const MOCK_DATA = [
   {
+    key: "Ռուսաստան",
     country: "Ռուսաստան",
     F_16: 332,
     M_16: 933,
@@ -183,6 +184,7 @@ export const MOCK_DATA = [
     T_T: 2097,
   },
   {
+    key: "Ղազախստան",
     country: "Ղազախստան",
     F_16: 2,
     M_16: 7,
@@ -198,6 +200,7 @@ export const MOCK_DATA = [
     T_T: 16,
   },
   {
+    key: "Բելառուս",
     country: "Բելառուս",
     F_16: 12,
     M_16: 11,

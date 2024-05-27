@@ -4,7 +4,7 @@ import { FaGripVertical } from "react-icons/fa";
 
 import ExportExcelButton from "./ExportExcelButton";
 
-const TableButtonRow = ({ dropdownOptions }) => {
+const TableButtonRow = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (nextOpen, info) => {
