@@ -28,10 +28,12 @@ export const documentNames = {
   death: {
     name: "Մահվան Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
+    template: Paternity,
   },
   adoption: {
     name: "Որդեգրման վկայական",
     icon: <HeartBrokenIcon color="primary" />,
+    template: Paternity,
   },
   paternity: {
     name: "Հայրության ճանաչման Վկայական",
@@ -41,6 +43,7 @@ export const documentNames = {
   chname: {
     name: "Անվանափոխության Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
+    template: Paternity,
   },
 };
 

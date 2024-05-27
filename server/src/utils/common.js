@@ -1,14 +1,18 @@
-const path = require('path');
-const fs = require('fs');
-const axios = require('axios');
-const puppeteer = require('puppeteer');
-const handlebars = require('handlebars');
-const { Sphere } = require('../config/database');
-const { bulkUpsert } = require('../modules/sphere/services');
+const path = require("path");
+const fs = require("fs");
+const axios = require("axios");
+const puppeteer = require("puppeteer");
+const handlebars = require("handlebars");
+const { Op } = require("sequelize");
+
+const { activityCodes } = require("./spheres");
+const { Sphere } = require("../config/database");
+const { bulkUpsert } = require("../modules/sphere/services");
+const { log } = require("console");
 const { getCompanyByHvhhDb } =
-    process.env.NODE_ENV === 'local'
-        ? require('../modules/persons/services-local')
-        : require('../modules/persons/services');
+  process.env.NODE_ENV === "local"
+    ? require("../modules/persons/services-local")
+    : require("../modules/persons/services");
 // const jwt = require('jsonwebtoken');
 // const nodemailer = require('nodemailer');
 // const ApiError = require('../exceptions/api-error');
@@ -106,121 +110,163 @@ const { getCompanyByHvhhDb } =
 // };
 
 const createPDF = async (data) => {
-    const generatedPath = path.join(
-        process.cwd(),
-        'src/pdf-templates/bpr.html'
-    );
+  const generatedPath = path.join(process.cwd(), "src/pdf-templates/bpr.html");
 
-    var templateHtml = fs.readFileSync(generatedPath, 'utf8');
-    var template = handlebars.compile(templateHtml);
-    var html = template(data);
+  var templateHtml = fs.readFileSync(generatedPath, "utf8");
+  var template = handlebars.compile(templateHtml);
+  var html = template(data);
 
-    var milis = new Date();
-    milis = milis.getTime();
+  var milis = new Date();
+  milis = milis.getTime();
 
-    var pdfPath = path.join('src', 'pdf', `${milis}.pdf`);
+  var pdfPath = path.join("src", "pdf", `${milis}.pdf`);
 
-    var options = {
-        width: '1230px',
-        headerTemplate: '<p></p>',
-        footerTemplate: '<p></p>',
-        displayHeaderFooter: false,
-        margin: {
-            top: '10px',
-            bottom: '30px',
-        },
-        printBackground: true,
-        path: pdfPath,
-    };
+  var options = {
+    width: "1230px",
+    headerTemplate: "<p></p>",
+    footerTemplate: "<p></p>",
+    displayHeaderFooter: false,
+    margin: {
+      top: "10px",
+      bottom: "30px",
+    },
+    printBackground: true,
+    path: pdfPath,
+  };
 
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox'],
-        headless: 'new',
-    });
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox"],
+    headless: "new",
+  });
 
-    var page = await browser.newPage();
+  var page = await browser.newPage();
 
-    await page.setContent(html, {
-        waitUntil: 'networkidle0',
-    });
+  await page.setContent(html, {
+    waitUntil: "networkidle0",
+  });
 
-    await page.pdf(options);
-    await browser.close();
-    return pdfPath;
+  await page.pdf(options);
+  await browser.close();
+  return pdfPath;
 };
 
 const isPetregisterDataAvailable = (data) => {
-    const isDataAvailable =
-        process.env.NODE_ENV === 'local' ? data.length !== 0 : !!data.result;
+  const isDataAvailable =
+    process.env.NODE_ENV === "local" ? data.length !== 0 : !!data.result;
 
-    return isDataAvailable;
+  return isDataAvailable;
 };
 
 const getCompanyFromApi = async (hvhh) => {
-    const taxUrl = process.env.PETREGISTR_URL;
+  const taxUrl = process.env.PETREGISTR_URL;
 
-    const { data } =
-        process.env.NODE_ENV === 'local'
-            ? await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`)
-            : await axios.post(taxUrl, {
-                  jsonrpc: '2.0',
-                  id: 1,
-                  method: 'company_info',
-                  params: { tax_id: hvhh },
-              });
+  const { data } =
+    process.env.NODE_ENV === "local"
+      ? await axios.get(`${taxUrl}?fake_tax_id=${hvhh}`)
+      : await axios.post(taxUrl, {
+          jsonrpc: "2.0",
+          id: 1,
+          method: "company_info",
+          params: { tax_id: hvhh },
+        });
 
-    if (!isPetregisterDataAvailable(data)) {
-        return { company: { taxid: hvhh } };
-    }
+  if (!isPetregisterDataAvailable(data)) {
+    return { company: { taxid: hvhh } };
+  }
 
-    const { result } = process.env.NODE_ENV === 'local' ? data[0] : data;
+  const { result } = process.env.NODE_ENV === "local" ? data[0] : data;
 
-    return result;
+  return result;
+};
+
+const cronUpdateSphereText = async () => {
+  try {
+    const unCheckedSpheres = await Sphere.findAll({
+      attributes: ["tin", "sphere_code"],
+      where: {
+        [Op.and]: [
+          { sphere_text: null },
+          {
+            sphere_code: {
+              [Op.not]: null,
+            },
+          },
+        ],
+      },
+    });
+
+    if (unCheckedSpheres.length === 0) return;
+
+    const companiesTins = unCheckedSpheres.map(({ tin, sphere_code }) => {
+      const shortSphereCode = sphere_code.substring(0, sphere_code.length - 2);
+      console.log("shortSphereCode", shortSphereCode);
+      console.log(" sphere_code.slice(-2)", sphere_code.slice(-2));
+      const sphereName = activityCodes[sphere_code]
+        ? activityCodes[sphere_code]
+        : sphere_code.slice(-2) === ".0" && activityCodes[shortSphereCode]
+        ? activityCodes[shortSphereCode]
+        : null;
+
+      return {
+        tin: tin,
+        sphere_text: sphereName,
+      };
+    });
+
+    await bulkUpsert(Sphere, companiesTins, "tin");
+  } catch (error) {
+    console.log("Crone Error", error);
+  }
 };
 
 const cronUpdateSphere = async () => {
-    try {
-        const unCheckedSpheres = await Sphere.findAll({
-            attributes: ['tin'],
-            where: {
-                is_checked: 0,
-            },
-        });
+  try {
+    const unCheckedSpheres = await Sphere.findAll({
+      attributes: ["tin"],
+      where: {
+        is_checked: 0,
+      },
+    });
 
-        if (unCheckedSpheres.length === 0) return;
+    console.log("unCheckedSpheres", unCheckedSpheres);
 
-        const promises = unCheckedSpheres.map(({ tin }) => {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const { company } = await getCompanyFromApi(tin);
+    if (unCheckedSpheres.length === 0) return;
 
-                    resolve(company);
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        });
+    const promises = unCheckedSpheres.map(({ tin }) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const { company } = await getCompanyFromApi(tin);
 
-        const companyObjectArray = await Promise.allSettled(promises);
+          resolve(company);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
 
-        const companiesTins = companyObjectArray
-            .filter((obj) => obj.status === 'fulfilled')
-            .map((company) => ({
-                tin: company.value.taxid,
-                name: company.value.name_am,
-                sphere_code: company.value.industry_code,
-                is_checked: true,
-            }));
+    const companyObjectArray = await Promise.allSettled(promises);
 
-        if (companiesTins.length === 0) return;
+    const companiesTins = companyObjectArray
+      .filter((obj) => obj.status === "fulfilled")
+      .map((company) => ({
+        tin: company.value.taxid,
+        name: company.value.name_am,
+        sphere_code: company.value.industry_code,
+        is_inactive: company.value.inactive,
+        is_blocked: company.value.is_blocked,
+        is_checked: true,
+      }));
 
-        await bulkUpsert(Sphere, companiesTins, 'tin');
-    } catch (error) {
-        console.log('error::::::', error);
-    }
+    if (companiesTins.length === 0) return;
+
+    await bulkUpsert(Sphere, companiesTins, "tin");
+  } catch (error) {
+    console.log("error::::::", error);
+  }
 };
 
 module.exports = {
-    createPDF,
-    cronUpdateSphere,
+  createPDF,
+  cronUpdateSphere,
+  cronUpdateSphereText,
 };
