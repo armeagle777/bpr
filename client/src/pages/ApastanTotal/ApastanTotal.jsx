@@ -9,34 +9,47 @@ import {
   MOCK_YEARS,
   MOCK_PERIODS,
 } from "./ApastanTotal.constants";
+import useFilterStatistics from "../../hooks/useFilterStatistics";
 
 const ApastanTotal = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [fakeData, setFakeData] = useState([]);
+  const [fakeLoading, setFakeLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
+      setFakeLoading(false);
       setFakeData(MOCK_DATA);
     }, 2000);
   }, []);
 
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+    handleFilter,
+    isInitialLoading,
+    handleFilterChange,
+    handleResetFilters,
+  } = useFilterStatistics();
+
   return (
     <Flex vertical>
-      {isLoading ? (
+      {fakeLoading ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
           years={MOCK_YEARS}
           periods={MOCK_PERIODS}
-          selectedYears={[2022]}
-          seletedPeriods={[1]}
-          onFilterCompanies={() => console.log("create this func")}
-          isCompaniesLoading={isLoading}
+          onFilter={handleFilter}
+          isDataLoading={isFetching}
+          onFilterChange={handleFilterChange}
+          onResetFilters={handleResetFilters}
         />
       )}
       <DataTable
-        isLoading={isLoading}
+        isLoading={fakeLoading}
         modifiedData={fakeData}
         dropdownOptions={[]}
         controlledColumns={MOCK_COLUMNS}

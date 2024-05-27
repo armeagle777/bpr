@@ -1,34 +1,76 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
-const useQuery = () => {
+import { getAsylumStatistics } from "../api/statisticsApi";
+
+const useQueryParams = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 const useFilterStatistics = () => {
-  const query = useQuery();
-  const history = useHistory();
-  const [filters, setFilters] = useState({
-    category: query.get("category") || "",
-    sort: query.get("sort") || "asc",
-  });
+  const queryParams = useQueryParams();
+  const navigate = useNavigate();
+
+  const initialFilters = {
+    year: queryParams.get("year") || "",
+    period: queryParams.get("period") || "",
+  };
+  const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
     const params = new URLSearchParams();
-    if (filters.search) params.set("search", filters.search);
-    if (filters.category) params.set("category", filters.category);
-    if (filters.sort) params.set("sort", filters.sort);
-    history.replace({ search: params.toString() });
-  }, [filters, history]);
+    if (filters.year) params.set("year", filters.year);
+    if (filters.period) params.set("period", filters.period);
+
+    navigate({ search: params.toString() }, { replace: true });
+  }, [filters, navigate]);
 
   const handleFilterChange = (e) => {
+    const { name, value } = e;
+
     setFilters({
       ...filters,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
-  return {};
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isInitialLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery(
+    ["statistics-asylum", filters],
+    () => getAsylumStatistics(filters),
+    {
+      keepPreviousData: false,
+      enabled: false,
+    }
+  );
+
+  const handleFilter = () => {
+    refetch();
+  };
+
+  const handleResetFilters = () => {
+    setFilters({ ...initialFilters });
+  };
+
+  return {
+    data,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+    handleFilter,
+    isInitialLoading,
+    handleFilterChange,
+    handleResetFilters,
+  };
 };
 
 export default useFilterStatistics;

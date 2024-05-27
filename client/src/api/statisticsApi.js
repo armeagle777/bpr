@@ -5,6 +5,6 @@ const statisticsApi = axios.create({
 });
 
 export const getAsylumStatistics = async (filterObj) => {
-  const response = await statisticsApi.get(`/statistics/${ssn}/bpr`);
+  const response = await statisticsApi.post(`/statistics/asylum`, filterObj);
   return response.data;
 };
