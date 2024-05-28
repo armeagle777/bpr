@@ -29,7 +29,7 @@ const ApastanTotal = () => {
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
-  } = useFilterStatistics();
+  } = useFilterStatistics({ statisticsType: "TOTAL" });
 
   return (
     <Flex vertical>

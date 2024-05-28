@@ -1,27 +1,28 @@
-import { useState, useEffect } from "react";
 import { Flex } from "antd";
 
 import { DataTable } from "../../statisticsComponents";
 
-import { MOCK_COLUMNS, MOCK_DATA } from "./ApastanYears.constants";
+import { MOCK_COLUMNS } from "./ApastanYears.constants";
+import useFilterStatistics from "../../hooks/useFilterStatistics";
 
 const ApastanYears = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [fakeData, setFakeData] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-      setFakeData(MOCK_DATA);
-    }, 2000);
-  }, []);
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+    handleFilter,
+    isInitialLoading,
+    handleFilterChange,
+    handleResetFilters,
+  } = useFilterStatistics({ statisticsType: "YEARS" });
 
   return (
     <Flex vertical>
       <DataTable
-        isLoading={isLoading}
-        modifiedData={fakeData}
-        dropdownOptions={[]}
+        isLoading={isFetching}
+        modifiedData={data}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

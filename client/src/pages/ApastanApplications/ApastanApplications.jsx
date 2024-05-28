@@ -5,39 +5,49 @@ import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
 import {
   MOCK_COLUMNS,
-  MOCK_DATA,
   MOCK_YEARS,
   MOCK_PERIODS,
 } from "./ApastanApplications.constants";
+import useFilterStatistics from "../../hooks/useFilterStatistics";
 
 const ApastanApplications = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [fakeData, setFakeData] = useState([]);
+  const [fakeLoading, setFakeLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
-      setFakeData(MOCK_DATA);
+      setFakeLoading(false);
     }, 2000);
   }, []);
 
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+    handleFilter,
+    isInitialLoading,
+    handleFilterChange,
+    handleResetFilters,
+  } = useFilterStatistics({ statisticsType: "APPLICATIONS" });
+
   return (
     <Flex vertical>
-      {isLoading ? (
+      {fakeLoading ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
+          isDataLoading={isFetching}
+          onFilterChange={handleFilterChange}
+          onResetFilters={handleResetFilters}
           years={MOCK_YEARS}
           periods={MOCK_PERIODS}
-          selectedYears={[2022]}
-          seletedPeriods={[1]}
-          onFilterCompanies={() => console.log("create this func")}
-          isCompaniesLoading={isLoading}
+          onFilter={handleFilter}
         />
       )}
       <DataTable
-        isLoading={isLoading}
-        modifiedData={fakeData}
-        dropdownOptions={[]}
+        isLoading={isFetching}
+        modifiedData={data}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

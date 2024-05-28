@@ -7,43 +7,40 @@ import translations from "../../../utils/translations/am.json";
 
 const FilterRow = ({
   years,
-  decTypes,
   periods,
-  selectedYears,
-  selectedDecTypes,
-  seletedPeriods,
-  onFilterCompanies,
-  onFilterDecTypes,
-  isCompaniesLoading,
+  decTypes,
+  onFilter,
+  onFilterChange,
+  isDataLoading,
+  onResetFilters,
 }) => {
   const { FILTER_ROW } = translations;
   return (
     <Flex style={{ width: "60%", gap: 10 }}>
       <FilterSelect
         options={decTypes}
-        onChange={onFilterDecTypes}
-        isLoading={isCompaniesLoading}
-        selectedValues={selectedDecTypes}
+        onChange={(e) => onFilterChange({ name: "decType", value: e })}
         placeholder={FILTER_ROW.MULTY_DECTYPES_PLACEHOLDER}
       />
       <FilterSelect
         options={years}
-        onChange={onFilterCompanies}
-        isLoading={isCompaniesLoading}
-        selectedValues={selectedYears}
+        onChange={(e) => onFilterChange({ name: "year", value: e })}
         placeholder={FILTER_ROW.YEARS_PLACEHOLDER}
       />
       <FilterSelect
         options={periods}
-        onChange={onFilterCompanies}
-        isLoading={isCompaniesLoading}
-        selectedValues={seletedPeriods}
+        onChange={(e) => onFilterChange({ name: "period", value: e })}
         placeholder={FILTER_ROW.PERIODS_PLACEHOLDER}
       />
-      <Button type="primary" icon={<FaFilter />}>
+      <Button
+        type="primary"
+        icon={<FaFilter />}
+        onClick={onFilter}
+        loading={isDataLoading}
+      >
         {FILTER_ROW.FILTER_BTN_TITLE}
       </Button>
-      <Button type="default" icon={<GrPowerReset />}>
+      <Button type="default" icon={<GrPowerReset />} onClick={onResetFilters}>
         {FILTER_ROW.RESET_BTN_TITLE}
       </Button>
     </Flex>

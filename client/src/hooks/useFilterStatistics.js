@@ -8,13 +8,14 @@ const useQueryParams = () => {
   return new URLSearchParams(useLocation().search);
 };
 
-const useFilterStatistics = () => {
+const useFilterStatistics = ({ statisticsType }) => {
   const queryParams = useQueryParams();
   const navigate = useNavigate();
 
   const initialFilters = {
     year: queryParams.get("year") || "",
     period: queryParams.get("period") || "",
+    decType: queryParams.get("decType") || "",
   };
   const [filters, setFilters] = useState(initialFilters);
 
@@ -22,6 +23,7 @@ const useFilterStatistics = () => {
     const params = new URLSearchParams();
     if (filters.year) params.set("year", filters.year);
     if (filters.period) params.set("period", filters.period);
+    if (filters.decType) params.set("decType", filters.decType);
 
     navigate({ search: params.toString() }, { replace: true });
   }, [filters, navigate]);
@@ -37,6 +39,9 @@ const useFilterStatistics = () => {
 
   const statisticsEndpoints = {
     TOTAL: "/total",
+    APPLICATIONS: "/applications",
+    DECISIONS: "/decisions",
+    YEARS: "/years",
   };
 
   const {
@@ -49,7 +54,7 @@ const useFilterStatistics = () => {
     refetch,
   } = useQuery(
     ["statistics-asylum", filters],
-    () => getAsylumStatistics(filters, statisticsEndpoints.TOTAL),
+    () => getAsylumStatistics(filters, statisticsEndpoints[statisticsType]),
     {
       keepPreviousData: false,
       enabled: false,
