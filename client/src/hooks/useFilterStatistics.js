@@ -35,8 +35,12 @@ const useFilterStatistics = () => {
     });
   };
 
+  const statisticsEndpoints = {
+    TOTAL: "/total",
+  };
+
   const {
-    data,
+    data = [],
     isLoading,
     isFetching,
     isInitialLoading,
@@ -45,7 +49,7 @@ const useFilterStatistics = () => {
     refetch,
   } = useQuery(
     ["statistics-asylum", filters],
-    () => getAsylumStatistics(filters),
+    () => getAsylumStatistics(filters, statisticsEndpoints.TOTAL),
     {
       keepPreviousData: false,
       enabled: false,

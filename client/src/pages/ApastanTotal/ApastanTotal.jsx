@@ -5,20 +5,17 @@ import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
 import {
   MOCK_COLUMNS,
-  MOCK_DATA,
   MOCK_YEARS,
   MOCK_PERIODS,
 } from "./ApastanTotal.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
 
 const ApastanTotal = () => {
-  const [fakeData, setFakeData] = useState([]);
   const [fakeLoading, setFakeLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setFakeLoading(false);
-      setFakeData(MOCK_DATA);
     }, 2000);
   }, []);
 
@@ -49,8 +46,8 @@ const ApastanTotal = () => {
         />
       )}
       <DataTable
-        isLoading={fakeLoading}
-        modifiedData={fakeData}
+        isLoading={isFetching}
+        modifiedData={data}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>
