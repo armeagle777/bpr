@@ -1,9 +1,9 @@
 const express = require("express");
 
-const { getCompanyByHvhh } = require("./controller");
+const { getAsylumTotal } = require("./controller");
 
 const statisticsRoute = express.Router();
 
-statisticsRoute.get("/asylum", getCompanyByHvhh);
+statisticsRoute.post("/asylum/total", getAsylumTotal);
 
 module.exports = statisticsRoute;

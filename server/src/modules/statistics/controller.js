@@ -1,20 +1,19 @@
-const { getCompanyByHvhhDb } =
+const { getAsylumTotalDb } =
   process.env.NODE_ENV === "local"
     ? require("./services-local")
     : require("./services");
 
-const getCompanyByHvhh = async (req, res, next) => {
+const getAsylumTotal = async (req, res, next) => {
   try {
-    const { hvhh } = req.params;
+    const { year, period } = req.body;
+    const data = await getAsylumTotalDb({ year, period });
 
-    const company = await getCompanyByHvhhDb(hvhh);
-
-    res.status(200).json(company);
+    res.status(200).json(data);
   } catch (err) {
     next(err);
   }
 };
 
 module.exports = {
-  getCompanyByHvhh,
+  getAsylumTotal,
 };
