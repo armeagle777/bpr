@@ -9,6 +9,7 @@ import {
   MOCK_PERIODS,
 } from "./ApastanTotal.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
+import { MOCK_MONTHS } from "../../utils/constants";
 
 const ApastanTotal = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -25,20 +26,23 @@ const ApastanTotal = () => {
     isError,
     isLoading,
     isFetching,
+    filters,
     handleFilter,
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "TOTAL" });
-  console.log("data", data);
+
   return (
     <Flex vertical>
       {fakeLoading ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
+          filters={filters}
           years={MOCK_YEARS}
           periods={MOCK_PERIODS}
+          months={MOCK_MONTHS}
           onFilter={handleFilter}
           isDataLoading={isFetching}
           onFilterChange={handleFilterChange}

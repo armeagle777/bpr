@@ -13,16 +13,24 @@ const useFilterStatistics = ({ statisticsType }) => {
   const navigate = useNavigate();
 
   const initialFilters = {
-    year: queryParams.get("year") || "",
-    period: queryParams.get("period") || "",
-    decType: queryParams.get("decType") || "",
+    year: "",
+    period: "",
+    month: "",
+    decType: "",
   };
+  // const initialFilters = {
+  //   year: queryParams.get("year") || "",
+  //   period: queryParams.get("period") || "",
+  //   month: queryParams.get("month") || "",
+  //   decType: queryParams.get("decType") || "",
+  // };
   const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
     const params = new URLSearchParams();
     if (filters.year) params.set("year", filters.year);
     if (filters.period) params.set("period", filters.period);
+    if (filters.month) params.set("month", filters.month);
     if (filters.decType) params.set("decType", filters.decType);
 
     navigate({ search: params.toString() }, { replace: true });
@@ -77,6 +85,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     isFetching,
     handleFilter,
     refetch,
+    filters,
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,

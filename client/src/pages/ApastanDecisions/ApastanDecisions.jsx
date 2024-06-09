@@ -10,6 +10,7 @@ import {
   MOCK_DEC_TYPES,
 } from "./ApastanDecisions.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
+import { MOCK_MONTHS } from "../../utils/constants";
 
 const ApastanDecisions = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -24,6 +25,7 @@ const ApastanDecisions = () => {
     data,
     error,
     isError,
+    filters,
     isLoading,
     isFetching,
     handleFilter,
@@ -38,10 +40,12 @@ const ApastanDecisions = () => {
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
+          filters={filters}
           years={MOCK_YEARS}
-          decTypes={MOCK_DEC_TYPES}
+          months={MOCK_MONTHS}
           periods={MOCK_PERIODS}
           onFilter={handleFilter}
+          decTypes={MOCK_DEC_TYPES}
           isDataLoading={isFetching}
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}

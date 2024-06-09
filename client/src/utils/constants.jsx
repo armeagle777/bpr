@@ -129,3 +129,78 @@ export const messages = {
     noData: "Տվյալներ առկա չեն",
   },
 };
+
+export const MOCK_MONTHS = [
+  {
+    label: "Հունվար",
+    value: 1,
+    key: "Հունվար",
+  },
+  {
+    label: "Փետրվար",
+    value: 2,
+    key: "Փետրվար",
+  },
+  {
+    label: "Մարտ",
+    value: 3,
+    key: "Մարտ",
+  },
+  {
+    label: "Ապրիլ",
+    value: 4,
+    key: "Ապրիլ",
+  },
+  {
+    label: "Մայիս",
+    value: 5,
+    key: "Մայիս",
+  },
+  {
+    label: "Հունիս",
+    value: 6,
+    key: "Հունիս",
+  },
+  {
+    label: "Հուլիս",
+    value: 7,
+    key: "Հուլիս",
+  },
+  {
+    label: "Օգոստոս",
+    value: 8,
+    key: "Օգոստոս",
+  },
+  {
+    label: "Սեպտեմբեր",
+    value: 9,
+    key: "Սեպտեմբեր",
+  },
+  {
+    label: "Հոկտեմբեր",
+    value: 10,
+    key: "Հոկտեմբեր",
+  },
+  {
+    label: "Նոյեմբեր",
+    value: 11,
+    key: "Նոյեմբեր",
+  },
+  {
+    label: "Դեկտեմբեր",
+    value: 12,
+    key: "Դեկտեմբեր",
+  },
+];
+
+export const STATISTICS_FILTERS = {
+  DECISION_TYPE: "decType",
+  YEAR: "year",
+  PERIOD: "period",
+  MONTH: "month",
+};
+
+export const ANT_BTN_TYPES = {
+  PRIMARY: "primary",
+  DEFAULT: "default",
+};

@@ -1,9 +1,8 @@
 import { Select } from "antd";
 
-const FilterSelect = ({ onChange, options, placeholder }) => {
+const FilterSelect = ({ onChange, options, placeholder, value }) => {
   return (
     <Select
-      // mode="multiple"
       // allowClear
       style={{
         flex: 1,
@@ -11,7 +10,7 @@ const FilterSelect = ({ onChange, options, placeholder }) => {
       placeholder={placeholder}
       onChange={onChange}
       options={options}
-      // value={selectedValues?.map((el) => +el) || []}
+      value={value || undefined}
     />
   );
 };
