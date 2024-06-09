@@ -1,30 +1,76 @@
 export const MOCK_COLUMNS = [
   {
     title: "Քաղաքացիություն",
-    dataIndex: "country",
-    key: "name",
+    dataIndex: "country_arm",
+    key: "country_arm",
     width: 200,
     fixed: "left",
   },
   {
-    title: "16-34 տարեկան",
+    title: "0-13 տարեկան",
     children: [
       {
         title: "Ի",
-        dataIndex: "F_16",
-        key: "F",
+        dataIndex: "FEMALE_0_13",
+        key: "FEMALE_0_13",
         width: 150,
       },
       {
         title: "Ա",
-        dataIndex: "M_16",
-        key: "M",
+        dataIndex: "MALE_0_13",
+        key: "MALE_0_13",
         width: 150,
       },
       {
         title: "Ընդ․",
-        dataIndex: "T_16",
-        key: "total",
+        dataIndex: "TOTAL_0_13",
+        key: "TOTAL_0_13",
+        width: 150,
+      },
+    ],
+  },
+  {
+    title: "14-17 տարեկան",
+    children: [
+      {
+        title: "Ի",
+        dataIndex: "FEMALE_14_17",
+        key: "FEMALE_14_17",
+        width: 150,
+      },
+      {
+        title: "Ա",
+        dataIndex: "MALE_14_17",
+        key: "MALE_14_17",
+        width: 150,
+      },
+      {
+        title: "Ընդ․",
+        dataIndex: "TOTAL_14_17",
+        key: "TOTAL_14_17",
+        width: 150,
+      },
+    ],
+  },
+  {
+    title: "18-34 տարեկան",
+    children: [
+      {
+        title: "Ի",
+        dataIndex: "FEMALE_18_34",
+        key: "FEMALE_18_34",
+        width: 150,
+      },
+      {
+        title: "Ա",
+        dataIndex: "MALE_18_34",
+        key: "MALE_18_34",
+        width: 150,
+      },
+      {
+        title: "Ընդ․",
+        dataIndex: "TOTAL_18_34",
+        key: "TOTAL_18_34",
         width: 150,
       },
     ],
@@ -34,20 +80,20 @@ export const MOCK_COLUMNS = [
     children: [
       {
         title: "Ի",
-        dataIndex: "F_35",
-        key: "F",
+        dataIndex: "FEMALE_35_64",
+        key: "FEMALE_35_64",
         width: 150,
       },
       {
         title: "Ա",
-        dataIndex: "M_35",
-        key: "M",
+        dataIndex: "MALE_35_64",
+        key: "MALE_35_64",
         width: 150,
       },
       {
         title: "Ընդ․",
-        dataIndex: "T_35",
-        key: "total",
+        dataIndex: "TOTAL_35_64",
+        key: "TOTAL_35_64",
         width: 150,
       },
     ],
@@ -57,20 +103,43 @@ export const MOCK_COLUMNS = [
     children: [
       {
         title: "Ի",
-        dataIndex: "F_65",
-        key: "F",
+        dataIndex: "FEMALE_65_PLUS",
+        key: "FEMALE_65_PLUS",
         width: 150,
       },
       {
         title: "Ա",
-        dataIndex: "M_65",
-        key: "M",
+        dataIndex: "MALE_65_PLUS",
+        key: "MALE_65_PLUS",
         width: 150,
       },
       {
         title: "Ընդ․",
-        dataIndex: "T_65",
-        key: "total",
+        dataIndex: "TOTAL_65_PLUS",
+        key: "TOTAL_65_PLUS",
+        width: 150,
+      },
+    ],
+  },
+  {
+    title: "անհայտ",
+    children: [
+      {
+        title: "Ի",
+        dataIndex: "FEMALE_UNKNOWN",
+        key: "FEMALE_UNKNOWN",
+        width: 150,
+      },
+      {
+        title: "Ա",
+        dataIndex: "MALE_UNKNOWN",
+        key: "MALE_UNKNOWN",
+        width: 150,
+      },
+      {
+        title: "Ընդ․",
+        dataIndex: "TOTAL_UNKNOWN",
+        key: "TOTAL_UNKNOWN",
         width: 150,
       },
     ],
@@ -80,20 +149,37 @@ export const MOCK_COLUMNS = [
     children: [
       {
         title: "Ի",
-        dataIndex: "F_T",
-        key: "F",
         width: 150,
+        render: (text, record) => {
+          const TOTAL_FEMALE =
+            record.FEMALE_0_13 +
+            record.FEMALE_14_17 +
+            record.FEMALE_18_34 +
+            record.FEMALE_35_64 +
+            record.FEMALE_65_PLUS +
+            record.FEMALE_UNKNOWN;
+          return TOTAL_FEMALE;
+        },
       },
       {
         title: "Ա",
-        dataIndex: "M_T",
-        key: "M",
+        key: "TOTAL_MALE",
         width: 150,
+        render: (text, record) => {
+          const TOTAL_MALE =
+            record.MALE_0_13 +
+            record.MALE_14_17 +
+            record.MALE_18_34 +
+            record.MALE_35_64 +
+            record.MALE_65_PLUS +
+            record.MALE_UNKNOWN;
+          return TOTAL_MALE;
+        },
       },
       {
         title: "Ընդ․",
-        dataIndex: "T_T",
-        key: "total",
+        dataIndex: "TOTAL_APPLICATIONS",
+        key: "TOTAL_APPLICATIONS",
         width: 150,
       },
     ],

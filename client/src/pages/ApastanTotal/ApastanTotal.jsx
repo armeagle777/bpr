@@ -30,7 +30,7 @@ const ApastanTotal = () => {
     handleFilterChange,
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "TOTAL" });
-
+  console.log("data", data);
   return (
     <Flex vertical>
       {fakeLoading ? (

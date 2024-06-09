@@ -76,6 +76,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     isLoading,
     isFetching,
     handleFilter,
+    refetch,
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,

@@ -4,6 +4,7 @@ import { DataTable } from "../../statisticsComponents";
 
 import { MOCK_COLUMNS } from "./ApastanYears.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
+import { useEffect } from "react";
 
 const ApastanYears = () => {
   const {
@@ -13,10 +14,15 @@ const ApastanYears = () => {
     isLoading,
     isFetching,
     handleFilter,
+    refetch,
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "YEARS" });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <Flex vertical>
