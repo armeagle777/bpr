@@ -21,8 +21,8 @@ const getAsylumTotal = async (req, res, next) => {
 
 const getAsylumApplications = async (req, res, next) => {
   try {
-    const { year, period } = req.body;
-    const data = await getAsylumApplicationsDb({ year, period });
+    const { year, period, month } = req.body;
+    const data = await getAsylumApplicationsDb({ year, period, month });
 
     res.status(200).json(data);
   } catch (err) {
@@ -32,8 +32,8 @@ const getAsylumApplications = async (req, res, next) => {
 
 const getAsylumDecisions = async (req, res, next) => {
   try {
-    const { year, period, decType } = req.body;
-    const data = await getAsylumDecisionsDb({ year, period, decType });
+    const { year, period, decType, month } = req.body;
+    const data = await getAsylumDecisionsDb({ year, period, decType, month });
 
     res.status(200).json(data);
   } catch (err) {

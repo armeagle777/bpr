@@ -12,6 +12,7 @@ const getAsylumTotalDb = async ({ year, period, month }) => {
     month,
     period,
   });
+
   const statData = await statisticsSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,
   });
@@ -19,13 +20,15 @@ const getAsylumTotalDb = async ({ year, period, month }) => {
   return statData;
 };
 
-const getAsylumApplicationsDb = async ({ year, period }) => {
+const getAsylumApplicationsDb = async ({ year, period, month }) => {
   const query = formatAsylumQuery({
     table_name: "applied_for_asylum",
     year,
-    month: 1,
+    month,
     period,
   });
+  console.log("query::::::", query);
+
   const statData = await statisticsSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,
   });
@@ -40,8 +43,6 @@ const getAsylumDecisionsDb = async ({ year, period, decType, month }) => {
     month,
     period,
   });
-  console.log("query", query);
-  return;
   const statData = await statisticsSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,
   });
@@ -49,7 +50,6 @@ const getAsylumDecisionsDb = async ({ year, period, decType, month }) => {
 };
 
 const getAsylumYearsDb = async () => {
-  console.log("Years");
   const statData = await statisticsSequelize.query(statByYearQuery, {
     type: Sequelize.QueryTypes.SELECT,
   });

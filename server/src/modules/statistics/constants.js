@@ -13,7 +13,6 @@ const statisticsSequelize = new Sequelize(DB, username, password, {
 
 const statByYearQuery = `select
 YEAR(asylum_general_stats.period) as period_year,
-MONTH(asylum_general_stats.period) as period_month,
 count(if(asylum_general_stats.TABLE_NAME = 'table_1', asylum_general_stats.count_parametr, null)) as asylum_seeker,
 count(if(asylum_general_stats.TABLE_NAME = 'table_2' and asylum_general_stats.count_parametr = 3, asylum_general_stats.count_parametr, null)) as positive_decisions,
 count(if(asylum_general_stats.TABLE_NAME = 'table_2' and asylum_general_stats.count_parametr = 4, asylum_general_stats.count_parametr, null)) as negative_decisions,
