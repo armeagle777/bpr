@@ -5,13 +5,13 @@ const DB = process.env.DATABASE_NAME;
 const username = process.env.DATABASE_USERNAME;
 const password = process.env.DATABASE_PASSWORD;
 
-const sequelize = new Sequelize(DB, username, password, {
+const sphereSequelize = new Sequelize(DB, username, password, {
   host: host,
   dialect: "mysql",
   // logging: (...msg) => console.log(msg),
 });
 
-const Sphere = sequelize.define(
+const Sphere = sphereSequelize.define(
   "Sphere",
   {
     name: {
@@ -46,12 +46,12 @@ const Sphere = sequelize.define(
     },
     createdAt: {
       type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      defaultValue: sphereSequelize.literal("CURRENT_TIMESTAMP"),
       allowNull: false,
     },
     updatedAt: {
       type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
+      defaultValue: sphereSequelize.literal(
         "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
       ),
       allowNull: false,
@@ -62,6 +62,6 @@ const Sphere = sequelize.define(
   }
 );
 
-sequelize.authenticate();
+sphereSequelize.authenticate();
 
-module.exports = { sequelize, Sphere };
+module.exports = { sphereSequelize, Sphere };

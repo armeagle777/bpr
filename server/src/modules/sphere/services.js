@@ -1,8 +1,8 @@
 const fs = require("fs");
 const XLSX = require("xlsx");
 const v4 = require("uuid").v4;
-const { Sphere } = require("../../config/database");
-const { sequelize } = require("../../config/database");
+const { Sphere } = require("../../config/sphereDatabase");
+const { sphereSequelize } = require("../../config/sphereDatabase");
 const { Sequelize, DataTypes } = require("sequelize");
 
 const insertDataFromFile = async (files) => {
@@ -64,7 +64,7 @@ async function bulkUpsert(model, data, uniqueKey) {
       ON DUPLICATE KEY UPDATE ${updateValues}
     `;
 
-  await sequelize.query(query, {
+  await sphereSequelize.query(query, {
     replacements: data.map((item) => Object.values(item)),
     type: Sequelize.QueryTypes.INSERT,
   });

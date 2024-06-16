@@ -6,7 +6,7 @@ const handlebars = require("handlebars");
 const { Op } = require("sequelize");
 
 const { activityCodes } = require("./spheres");
-const { Sphere } = require("../config/database");
+const { Sphere } = require("../config/sphereDatabase");
 const { bulkUpsert } = require("../modules/sphere/services");
 const { log } = require("console");
 const { getCompanyByHvhhDb } =

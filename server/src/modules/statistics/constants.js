@@ -55,9 +55,38 @@ const decTypeTableNameMap = {
   4: "terminate",
 };
 
+const monthsMap = {
+  January: 1,
+  February: 2,
+  March: 3,
+  April: 4,
+  May: 5,
+  June: 6,
+  July: 7,
+  August: 8,
+  September: 9,
+  October: 10,
+  November: 11,
+  December: 12,
+};
+
+const periodsMap = {
+  H1: "h1",
+  H2: "h2",
+  ANNUAL: "annual",
+  Q1: "q1",
+  Q2: "q2",
+  Q3: "q3",
+  Q4: "q4",
+  "9MONTHLY": "9monthly",
+  MONTHLY: "monthly",
+};
+
 module.exports = {
   statisticsBaseQuery,
   statisticsSequelize,
   decTypeTableNameMap,
   statByYearQuery,
+  monthsMap,
+  periodsMap,
 };

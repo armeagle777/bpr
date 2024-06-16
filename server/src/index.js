@@ -11,10 +11,11 @@ const personsRoute = require("./modules/persons/routes");
 const companiesRoute = require("./modules/companies/routes");
 const sphereRoute = require("./modules/sphere/routes");
 const statisticsRoute = require("./modules/statistics/routes");
-const { sequelize } = require("./config/database");
+const { sphereSequelize } = require("./config/sphereDatabase");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
 const { sphereCronConfig } = require("./utils/constants");
+const { sahmanahatumSequelize } = require("./config/sahmanahatumDb");
 
 var job = new CronJob(
   sphereCronConfig,
@@ -54,7 +55,8 @@ const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, async () => {
   try {
-    await sequelize.sync({ alter: true });
+    await sphereSequelize.sync({ alter: true });
+    await sahmanahatumSequelize.sync({ alter: true });
     console.log("Connection connected and synced successfully.");
     console.log("App is running on port ", PORT);
   } catch (err) {
