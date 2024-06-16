@@ -4,7 +4,11 @@ import { GrPowerReset } from "react-icons/gr";
 
 import { FilterSelect } from "../../../statisticsComponents";
 import translations from "../../../utils/translations/am.json";
-import { ANT_BTN_TYPES, STATISTICS_FILTERS } from "../../../utils/constants";
+import {
+  ANT_BTN_TYPES,
+  STATISTICS_FILTERS,
+  periodsMap,
+} from "../../../utils/constants";
 
 const FilterRow = ({
   years,
@@ -44,7 +48,7 @@ const FilterRow = ({
           onFilterChange({ name: STATISTICS_FILTERS.PERIOD, value: e })
         }
       />
-      {filters.period === 9 && (
+      {filters.period === periodsMap.MONTHLY && (
         <FilterSelect
           options={months}
           value={filters.month}
