@@ -16,13 +16,14 @@ import { StatisticsProfile } from "./pages/StatisticsProfile";
 import { StatisticsReports } from "./pages/StatisticsReports";
 import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
 import { StatisticsCountryBordercross } from "./pages/StatisticsCountryBordercross";
-import { StatisticsTypeBordercross } from "./pages/StatisticsTypeBordercross";
+import { StatisticsPeriodBordercross } from "./pages/StatisticsPeriodBordercross";
 import { ApastanTotal } from "./pages/ApastanTotal";
 import { ApastanApplications } from "./pages/ApastanApplications";
 import { ApastanDecisions } from "./pages/ApastanDecisions";
 import { ApastanYears } from "./pages/ApastanYears";
 import { Deals } from "./pages/Deals";
 import { Login } from "./pages/Login";
+import { StatisticsTotalBordercross } from "./pages/StatisticsTotalBordercross";
 
 function App() {
   return (
@@ -47,8 +48,12 @@ function App() {
             element={<StatisticsCountryBordercross />}
           />
           <Route
-            path="type-bordercross"
-            element={<StatisticsTypeBordercross />}
+            path="total-bordercross"
+            element={<StatisticsTotalBordercross />}
+          />
+          <Route
+            path="period-bordercross"
+            element={<StatisticsPeriodBordercross />}
           />
           <Route path="citizenship" element={<StatisticsCitizenship />} />
           <Route path="reports" element={<StatisticsReports />} />

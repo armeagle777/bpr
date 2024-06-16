@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getAsylumStatistics } from "../api/statisticsApi";
+import { getStatisticsData } from "../api/statisticsApi";
 
 const useQueryParams = () => {
   return new URLSearchParams(useLocation().search);
@@ -17,6 +17,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     period: "",
     month: "",
     decType: "",
+    borderCross: "",
   };
   // const initialFilters = {
   //   year: queryParams.get("year") || "",
@@ -32,6 +33,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     if (filters.period) params.set("period", filters.period);
     if (filters.month) params.set("month", filters.month);
     if (filters.decType) params.set("decType", filters.decType);
+    if (filters.borderCross) params.set("borderCross", filters.borderCross);
 
     navigate({ search: params.toString() }, { replace: true });
   }, [filters, navigate]);
@@ -46,10 +48,13 @@ const useFilterStatistics = ({ statisticsType }) => {
   };
 
   const statisticsEndpoints = {
-    TOTAL: "/total",
-    APPLICATIONS: "/applications",
-    DECISIONS: "/decisions",
-    YEARS: "/years",
+    ASYLUM_TOTAL: "/asylum/total",
+    ASYLUM_APPLICATIONS: "/asylum/applications",
+    ASYLUM_DECISIONS: "/asylum/decisions",
+    ASYLUM_YEARS: "/asylum/years",
+    BORDERCROSS_TOTAL: "/sahmanahatum/total",
+    BORDERCROSS_COUNTRIES: "/sahmanahatum/countries",
+    BORDERCROSS_PERIODS: "/sahmanahatum/periods",
   };
 
   const {
@@ -62,7 +67,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     refetch,
   } = useQuery(
     ["statistics-asylum", filters],
-    () => getAsylumStatistics(filters, statisticsEndpoints[statisticsType]),
+    () => getStatisticsData(filters, statisticsEndpoints[statisticsType]),
     {
       keepPreviousData: false,
       enabled: false,

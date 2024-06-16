@@ -3,14 +3,9 @@ import { Flex } from "antd";
 
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
-import {
-  MOCK_COLUMNS,
-  MOCK_YEARS,
-  MOCK_PERIODS,
-  MOCK_DEC_TYPES,
-} from "./ApastanDecisions.constants";
+import { MOCK_COLUMNS, MOCK_DEC_TYPES } from "./ApastanDecisions.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
-import { MOCK_MONTHS } from "../../utils/constants";
+import { MOCK_MONTHS, MOCK_PERIODS, MOCK_YEARS } from "../../utils/constants";
 
 const ApastanDecisions = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -32,7 +27,7 @@ const ApastanDecisions = () => {
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
-  } = useFilterStatistics({ statisticsType: "DECISIONS" });
+  } = useFilterStatistics({ statisticsType: "ASYLUM_DECISIONS" });
 
   return (
     <Flex vertical>

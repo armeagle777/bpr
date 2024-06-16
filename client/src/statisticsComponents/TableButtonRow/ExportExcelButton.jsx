@@ -29,7 +29,7 @@ const ExportExcelButton = ({ data }) => {
         link.click();
       } catch (error) {
         console.error("Error exporting Excel from React:", error);
-        toast.error("Something went wrong", {
+        toast.error(error.message || "Something went wrong", {
           progress: undefined,
         });
       }

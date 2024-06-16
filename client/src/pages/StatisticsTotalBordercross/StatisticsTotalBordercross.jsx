@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Flex } from "antd";
 
-import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
-import { MOCK_COLUMNS } from "./ApastanApplications.constants";
+import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
+import { BORDERCROSS_TYPES, MOCK_COLUMNS } from "./constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
 import { MOCK_MONTHS, MOCK_PERIODS, MOCK_YEARS } from "../../utils/constants";
 
-const ApastanApplications = () => {
+const StatisticsTotalBordercross = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
 
   useEffect(() => {
@@ -20,14 +20,14 @@ const ApastanApplications = () => {
     data,
     error,
     isError,
-    filters,
     isLoading,
     isFetching,
+    filters,
     handleFilter,
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
-  } = useFilterStatistics({ statisticsType: "ASYLUM_APPLICATIONS" });
+  } = useFilterStatistics({ statisticsType: "BORDERCROSS_TOTAL" });
 
   return (
     <Flex vertical>
@@ -37,8 +37,9 @@ const ApastanApplications = () => {
         <FilterRow
           filters={filters}
           years={MOCK_YEARS}
-          months={MOCK_MONTHS}
+          types={BORDERCROSS_TYPES}
           periods={MOCK_PERIODS}
+          months={MOCK_MONTHS}
           onFilter={handleFilter}
           isDataLoading={isFetching}
           onFilterChange={handleFilterChange}
@@ -54,4 +55,4 @@ const ApastanApplications = () => {
   );
 };
 
-export default ApastanApplications;
+export default StatisticsTotalBordercross;

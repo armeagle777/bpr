@@ -193,11 +193,90 @@ export const MOCK_MONTHS = [
   },
 ];
 
+export const MOCK_YEARS = [
+  {
+    label: "2022",
+    value: 2022,
+    key: 2022,
+  },
+  {
+    label: "2023",
+    value: 2023,
+    key: 2023,
+  },
+  {
+    label: "2024",
+    value: 2024,
+    key: 2024,
+  },
+];
+
+export const MOCK_PERIODS = [
+  {
+    label: "1-ին կիսամյակ",
+    value: "h1",
+    key: "h1",
+  },
+  {
+    label: "2-րդ կիսամյակ",
+    value: "h2",
+    key: "h2",
+  },
+  {
+    label: "տարեկան",
+    value: "annual",
+    key: "annual",
+  },
+  {
+    label: "1-ին եռամսյակ",
+    value: "q1",
+    key: "q1",
+  },
+  {
+    label: "2-րդ եռամսյակ",
+    value: "q2",
+    key: "q2",
+  },
+  {
+    label: "3-րդ եռամսյակ",
+    value: "q3",
+    key: "q3",
+  },
+  {
+    label: "4-րդ եռամսյակ",
+    value: "q4",
+    key: "q4",
+  },
+  {
+    label: "9֊ամսյակ",
+    value: "9monthly",
+    key: "9monthly",
+  },
+  {
+    label: "ամսական",
+    value: "monthly",
+    key: "monthly",
+  },
+];
+
+export const periodsMap = {
+  H1: "h1",
+  H2: "h2",
+  ANNUAL: "annual",
+  Q1: "q1",
+  Q2: "q2",
+  Q3: "q3",
+  Q4: "q4",
+  "9MONTHLY": "9monthly",
+  MONTHLY: "monthly",
+};
+
 export const STATISTICS_FILTERS = {
   DECISION_TYPE: "decType",
   YEAR: "year",
   PERIOD: "period",
   MONTH: "month",
+  BORDERCROSS_TYPE: "borderCross",
 };
 
 export const ANT_BTN_TYPES = {

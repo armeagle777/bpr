@@ -18,17 +18,18 @@ const ApastanYears = () => {
     isInitialLoading,
     handleFilterChange,
     handleResetFilters,
-  } = useFilterStatistics({ statisticsType: "YEARS" });
+  } = useFilterStatistics({ statisticsType: "ASYLUM_YEARS" });
 
   useEffect(() => {
     refetch();
   }, []);
-
+  console.log("data:::::: ", data);
+  const fakeData = [];
   return (
     <Flex vertical>
       <DataTable
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={fakeData}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

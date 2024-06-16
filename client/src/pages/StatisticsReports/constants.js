@@ -148,28 +148,6 @@ export const MOCK_COLUMNS = [
   },
 ];
 
-export const MOCK_YEARS_OPTIONS = [
-  {
-    label: "2021",
-    value: 2021,
-  },
-  {
-    label: "2022",
-    value: 2022,
-  },
-];
-
-export const MOCK_PERIODS_OPTIONS = [
-  {
-    label: "1-in eramsyak",
-    value: "Q1",
-  },
-  {
-    label: "2-rd eramsyak",
-    value: "Q2",
-  },
-];
-
 export const MOCK_COUNTRIES_OPTIONS = [
   {
     label: "Armenia",

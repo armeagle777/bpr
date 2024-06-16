@@ -2,7 +2,7 @@ import { Flex, Button } from "antd";
 import { FaFilter } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
 
-import { FilterSelect } from "../../../statisticsComponents";
+import { FilterMultySelect, FilterSelect } from "../../../statisticsComponents";
 import translations from "../../../utils/translations/am.json";
 import {
   ANT_BTN_TYPES,
@@ -21,12 +21,13 @@ const FilterRow = ({
   onResetFilters,
 }) => {
   const { FILTER_ROW } = translations;
+  const yearsValue = filters.year ? filters.year : [];
 
   return (
     <Flex style={{ width: "60%", gap: 10 }}>
-      <FilterSelect
+      <FilterMultySelect
         options={years}
-        value={filters.year}
+        value={yearsValue}
         placeholder={FILTER_ROW.YEARS_PLACEHOLDER}
         onChange={(e) =>
           onFilterChange({ name: STATISTICS_FILTERS.YEAR, value: e })
@@ -50,6 +51,15 @@ const FilterRow = ({
           }
         />
       )}
+      {/* <FilterMultySelect
+        placeholder={FILTER_ROW.MULTY_TYPES_PLACEHOLDER}
+        options={MOCK_TYPES_OPTIONS}
+      /> */}
+      {/* <FilterMultySelect
+        placeholder={FILTER_ROW.MULTY_POINTS_PLACEHOLDER}
+        options={MOCK_POINTS_OPTIONS}
+        value={pointsValue}
+      /> */}
       <Button
         type={ANT_BTN_TYPES.PRIMARY}
         icon={<FaFilter />}

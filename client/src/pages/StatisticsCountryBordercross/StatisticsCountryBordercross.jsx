@@ -1,27 +1,53 @@
 import { useEffect, useState } from "react";
 import { Flex } from "antd";
+
 import { FilterRow } from "./FilterRow";
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
-import { MOCK_COLUMNS, MOCK_DATA } from "./constants";
+import { MOCK_COLUMNS } from "./constants";
+import useFilterStatistics from "../../hooks/useFilterStatistics";
+import { MOCK_MONTHS, MOCK_PERIODS, MOCK_YEARS } from "../../utils/constants";
 
 const StatisticsCountryBordercross = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [fakeData, setFakeData] = useState([]);
+  const [fakeLoading, setFakeLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
-      setFakeData(MOCK_DATA);
+      setFakeLoading(false);
     }, 2000);
   }, []);
 
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+    filters,
+    handleFilter,
+    isInitialLoading,
+    handleFilterChange,
+    handleResetFilters,
+  } = useFilterStatistics({ statisticsType: "BORDERCROSS_COUNTRIES" });
+
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
+      {fakeLoading ? (
+        <FiltersRowSkeleton />
+      ) : (
+        <FilterRow
+          filters={filters}
+          years={MOCK_YEARS}
+          periods={MOCK_PERIODS}
+          months={MOCK_MONTHS}
+          onFilter={handleFilter}
+          isDataLoading={isFetching}
+          onFilterChange={handleFilterChange}
+          onResetFilters={handleResetFilters}
+        />
+      )}
       <DataTable
-        isLoading={isLoading}
-        modifiedData={fakeData}
-        dropdownOptions={[]}
+        isLoading={isFetching}
+        modifiedData={data}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

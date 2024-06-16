@@ -12,6 +12,7 @@ import {
 
 const FilterRow = ({
   years,
+  types,
   periods,
   months,
   onFilter,
@@ -24,6 +25,17 @@ const FilterRow = ({
 
   return (
     <Flex style={{ width: "60%", gap: 10 }}>
+      <FilterSelect
+        options={types}
+        value={filters.borderCross}
+        placeholder={FILTER_ROW.BORDERCROSS_TYPES_PLACEHOLDER}
+        onChange={(e) =>
+          onFilterChange({
+            name: STATISTICS_FILTERS.BORDERCROSS_TYPE,
+            value: e,
+          })
+        }
+      />
       <FilterSelect
         options={years}
         value={filters.year}
@@ -50,6 +62,7 @@ const FilterRow = ({
           }
         />
       )}
+
       <Button
         type={ANT_BTN_TYPES.PRIMARY}
         icon={<FaFilter />}

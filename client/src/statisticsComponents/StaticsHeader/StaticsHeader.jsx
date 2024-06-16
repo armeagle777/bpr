@@ -163,6 +163,31 @@ const StaticsHeader = () => {
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="NavigationMenuContent">
             <ul className="List two">
+              <li style={{ gridRow: "span 3" }}>
+                <NavigationMenu.Link asChild>
+                  <a className="Callout" href="/">
+                    <svg
+                      aria-hidden
+                      width="38"
+                      height="38"
+                      viewBox="0 0 25 25"
+                      fill="white"
+                    >
+                      <path d="M12 25C7.58173 25 4 21.4183 4 17C4 12.5817 7.58173 9 12 9V25Z"></path>
+                      <path d="M12 0H4V8H12V0Z"></path>
+                      <path d="M17 8C19.2091 8 21 6.20914 21 4C21 1.79086 19.2091 0 17 0C14.7909 0 13 1.79086 13 4C13 6.20914 14.7909 8 17 8Z"></path>
+                    </svg>
+                    <div className="CalloutHeading">WP</div>
+                    <p className="CalloutText">React components.</p>
+                  </a>
+                </NavigationMenu.Link>
+              </li>
+              <HeaderListItem
+                title="Ընդհանուր"
+                href="/statistics/total-bordercross"
+              >
+                Build high-quality, accessible design systems and web apps.
+              </HeaderListItem>
               <HeaderListItem
                 title="Ըստ երկրների"
                 href="/statistics/country-bordercross"
@@ -170,35 +195,10 @@ const StaticsHeader = () => {
                 Build high-quality, accessible design systems and web apps.
               </HeaderListItem>
               <HeaderListItem
-                title="Ըստ տեսակի"
-                href="/statistics/type-bordercross"
-              >
-                A quick tutorial to get you up and running with Radix
-                Primitives.
-              </HeaderListItem>
-              <HeaderListItem
                 title="Ըստ ժամանակահատվածի"
-                href="/statistics/bordercross?type=periods"
+                href="/statistics/period-bordercross"
               >
                 Unstyled and compatible with any styling solution.
-              </HeaderListItem>
-              <HeaderListItem
-                title="Animation"
-                href="/primitives/docs/guides/animation"
-              >
-                Use CSS keyframes or any animation library of your choice.
-              </HeaderListItem>
-              <HeaderListItem
-                title="Accessibility"
-                href="/primitives/docs/overview/accessibility"
-              >
-                Tested in a range of browsers and assistive technologies.
-              </HeaderListItem>
-              <HeaderListItem
-                title="Releases"
-                href="/primitives/docs/overview/releases"
-              >
-                Radix Primitives releases and their changelogs.
               </HeaderListItem>
             </ul>
           </NavigationMenu.Content>
