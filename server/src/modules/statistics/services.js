@@ -154,7 +154,6 @@ const getBorderCrossPeriodsDb = async ({ year, period, month }) => {
     month,
     period,
   });
-  console.log("query::::::", query);
 
   const statData = await sahmanahatumSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,

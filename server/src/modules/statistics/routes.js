@@ -9,6 +9,7 @@ const {
   getBorderCrossTotal,
   getBorderCrossCountries,
   getBorderCrossPeriods,
+  exportExcel,
 } = require("./controller");
 
 const statisticsRoute = express.Router();
@@ -22,5 +23,7 @@ statisticsRoute.post("/sahmanahatum/upload", uploadBorderCrossFile);
 statisticsRoute.post("/sahmanahatum/total", getBorderCrossTotal);
 statisticsRoute.post("/sahmanahatum/countries", getBorderCrossCountries);
 statisticsRoute.post("/sahmanahatum/periods", getBorderCrossPeriods);
+
+statisticsRoute.post("/export/excel", exportExcel);
 
 module.exports = statisticsRoute;

@@ -82,11 +82,16 @@ const periodsMap = {
   MONTHLY: "monthly",
 };
 
+const STATISTICS_TYPE_MAPS = {
+  B_CROSS_TOTAL: "borderCrossTotal",
+};
+
 module.exports = {
   statisticsBaseQuery,
   statisticsSequelize,
   decTypeTableNameMap,
   statByYearQuery,
+  STATISTICS_TYPE_MAPS,
   monthsMap,
   periodsMap,
 };

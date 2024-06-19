@@ -199,6 +199,7 @@ const formatPeriodBorderCrossQuery = ({ year, month, period }) => {
     case periodsMap.ANNUAL:
       return `SELECT 
             year AS main_column,
+            year AS 'key',
             SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) AS arm_in,
             SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_out,
             SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) - SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_net,
@@ -231,6 +232,7 @@ const formatPeriodBorderCrossQuery = ({ year, month, period }) => {
     case periodsMap.MONTHLY:
       return `SELECT 
           CONCAT(year, '-', LPAD(month, 2, '0')) AS main_column,
+          CONCAT(year, '-', LPAD(month, 2, '0')) AS 'key',
           SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) AS arm_in,
           SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_out,
           SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) - SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_net,
@@ -257,6 +259,7 @@ const formatPeriodBorderCrossQuery = ({ year, month, period }) => {
 function quarterlyQueryBuilder(years, quarter) {
   return `SELECT 
   CONCAT(year, ' Q', ${quarter}) AS main_column,
+  CONCAT(year, ' Q', ${quarter}) AS 'key',
   SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) AS arm_in,
   SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_out,
   SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) - SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_net,
@@ -282,6 +285,7 @@ function halfyearQueryBuilder(years, half) {
     half === 1 ? " AND month BETWEEN 1 AND 6" : " AND month BETWEEN 7 AND 12";
   return `SELECT 
   CONCAT(year, ' H', IF(month BETWEEN 1 AND 6, 1, 2)) AS main_column,
+  CONCAT(year, ' H', IF(month BETWEEN 1 AND 6, 1, 2)) AS 'key',
   SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) AS arm_in,
   SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_out,
   SUM(CASE WHEN country = 'ARMENIA' THEN in_count ELSE 0 END) - SUM(CASE WHEN country = 'ARMENIA' THEN out_count ELSE 0 END) AS arm_net,

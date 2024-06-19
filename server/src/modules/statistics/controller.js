@@ -1,3 +1,6 @@
+const excel = require("exceljs");
+const { STATISTICS_TYPE_MAPS } = require("./constants");
+
 const {
   getAsylumTotalDb,
   getAsylumApplicationsDb,
@@ -11,6 +14,42 @@ const {
   process.env.NODE_ENV === "local"
     ? require("./services-local")
     : require("./services");
+
+const exportExcel = async (req, res, next) => {
+  try {
+    const { filters } = req.body;
+
+    const { statisticsType, ...filterOptions } = filters;
+    let data;
+    switch (statisticsType) {
+      case STATISTICS_TYPE_MAPS.B_CROSS_TOTAL:
+        data = await getBorderCrossTotalDb(filterOptions);
+        break;
+      default:
+        data = "";
+    }
+
+    const workbook = new excel.Workbook();
+    const worksheet = workbook.addWorksheet("Sheet 1");
+
+    data.forEach((item, index) => {
+      worksheet.addRow(Object.values(item));
+    });
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=exported_data.xlsx"
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (err) {
+    next(err);
+  }
+};
 
 const getAsylumTotal = async (req, res, next) => {
   try {
@@ -126,4 +165,5 @@ module.exports = {
   getBorderCrossTotal,
   getBorderCrossCountries,
   getBorderCrossPeriods,
+  exportExcel,
 };
