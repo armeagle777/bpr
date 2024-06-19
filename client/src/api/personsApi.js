@@ -68,7 +68,7 @@ export const getFile = async ({ filterData }) => {
     responseType: "blob",
   };
 
-  const { data } = await serverApi.post(
+  const { data } = await personsApi.post(
     "/export/excel",
     { data: filterData },
     config

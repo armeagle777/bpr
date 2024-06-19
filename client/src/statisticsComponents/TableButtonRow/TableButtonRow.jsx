@@ -4,7 +4,7 @@ import { FaGripVertical } from "react-icons/fa";
 
 import ExportExcelButton from "./ExportExcelButton";
 
-const TableButtonRow = () => {
+const TableButtonRow = ({ filters }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (nextOpen, info) => {
@@ -42,7 +42,7 @@ const TableButtonRow = () => {
             COLUMNS
           </Button>
         </Dropdown> */}
-        <ExportExcelButton />
+        <ExportExcelButton filters={filters} />
       </Flex>
     </Flex>
   );

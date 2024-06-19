@@ -9,12 +9,13 @@ export const getStatisticsData = async (filterObj, url) => {
   return response.data;
 };
 
-export const getStatisticsExcel = async ({ filterData, url }) => {
+export const getStatisticsExcel = async (filters) => {
+  const fileUrl = `/statistics/export/excel`;
   const config = {
     responseType: "blob",
   };
 
-  const { data } = await serverApi.post(url, { data: filterData }, config);
+  const { data } = await statisticsApi.post(fileUrl, { filters }, config);
 
   const blob = new Blob([data], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

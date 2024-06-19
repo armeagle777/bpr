@@ -8,6 +8,7 @@ export const MOCK_COLUMNS = [
   },
   {
     title: "ՀՀ քաղաքացիներ",
+    key: "ՀՀ քաղաքացիներ",
     children: [
       {
         title: "In",
@@ -31,6 +32,7 @@ export const MOCK_COLUMNS = [
   },
   {
     title: "Օտարերկրացիներ",
+    key: "Օտարերկրացիներ",
     children: [
       {
         title: "In",
@@ -54,6 +56,7 @@ export const MOCK_COLUMNS = [
   },
   {
     title: "Ընդամենը",
+    key: "Ընդամենը",
     children: [
       {
         title: "In",

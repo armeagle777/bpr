@@ -194,22 +194,13 @@ export const MOCK_MONTHS = [
 ];
 
 export const MOCK_YEARS = [
-  {
-    label: "2022",
-    value: 2022,
-    key: 2022,
-  },
-  {
-    label: "2023",
-    value: 2023,
-    key: 2023,
-  },
-  {
-    label: "2024",
-    value: 2024,
-    key: 2024,
-  },
-];
+  2000, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
+  2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+].map((year) => ({
+  label: `${year}`,
+  value: year,
+  key: year,
+}));
 
 export const MOCK_PERIODS = [
   {
@@ -282,4 +273,8 @@ export const STATISTICS_FILTERS = {
 export const ANT_BTN_TYPES = {
   PRIMARY: "primary",
   DEFAULT: "default",
+};
+
+export const STATISTICS_TYPE_MAPS = {
+  B_CROSS_TOTAL: "borderCrossTotal",
 };

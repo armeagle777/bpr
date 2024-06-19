@@ -4,9 +4,9 @@ import { Button } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { FaDownload } from "react-icons/fa6";
 
-import { getFile } from "../../api/personsApi";
+import { getStatisticsExcel } from "../../api/statisticsApi";
 
-const ExportExcelButton = ({ data }) => {
+const ExportExcelButton = ({ filters }) => {
   const {
     data: fileData,
     isLoading,
@@ -14,7 +14,7 @@ const ExportExcelButton = ({ data }) => {
     isError,
     error,
     refetch,
-  } = useQuery(["excel", { filter: "asd" }], () => getFile({}), {
+  } = useQuery(["excel", filters], () => getStatisticsExcel(filters), {
     keepPreviousData: false,
     enabled: false,
     refetchOnWindowFocus: false,
