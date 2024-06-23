@@ -1,5 +1,10 @@
 const excel = require("exceljs");
 const { STATISTICS_TYPE_MAPS } = require("./constants");
+const {
+  mergeAndAlignCells,
+  formatExcelMetaData,
+  sanitizeData,
+} = require("./helpers");
 
 const {
   getAsylumTotalDb,
@@ -18,21 +23,48 @@ const {
 const exportExcel = async (req, res, next) => {
   try {
     const { filters } = req.body;
-
     const { statisticsType, ...filterOptions } = filters;
     let data;
     switch (statisticsType) {
       case STATISTICS_TYPE_MAPS.B_CROSS_TOTAL:
         data = await getBorderCrossTotalDb(filterOptions);
         break;
+      case STATISTICS_TYPE_MAPS.B_CROSS_COUNTRIES:
+        data = await getBorderCrossCountriesDb(filterOptions);
+        break;
+      case STATISTICS_TYPE_MAPS.B_CROSS_PERIOD:
+        data = await getBorderCrossPeriodsDb(filterOptions);
+        break;
+      case STATISTICS_TYPE_MAPS.ASYLUM_TOTAL:
+        data = await getAsylumTotalDb(filterOptions);
+        break;
+      case STATISTICS_TYPE_MAPS.ASYLUM_APPLICATIONS:
+        data = await getAsylumApplicationsDb(filterOptions);
+        break;
+      case STATISTICS_TYPE_MAPS.ASYLUM_DECISIONS:
+        data = await getAsylumDecisionsDb(filterOptions);
+        break;
+      case STATISTICS_TYPE_MAPS.ASYLUM_YEARS:
+        data = await getAsylumYearsDb(filterOptions);
+        break;
       default:
-        data = "";
+        data = [];
     }
+
+    const sanitizedData = sanitizeData(data);
+
+    const { headerRows, subHeaderRows, mergeCellRanges } =
+      formatExcelMetaData(statisticsType);
 
     const workbook = new excel.Workbook();
     const worksheet = workbook.addWorksheet("Sheet 1");
+    worksheet.getColumn(1).width = 20;
 
-    data.forEach((item, index) => {
+    worksheet.addRow(headerRows);
+    subHeaderRows && worksheet.addRow(subHeaderRows);
+    mergeAndAlignCells(worksheet, mergeCellRanges);
+
+    sanitizedData.forEach((item, index) => {
       worksheet.addRow(Object.values(item));
     });
     res.setHeader(
