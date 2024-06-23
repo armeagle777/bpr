@@ -5,7 +5,12 @@ import { FilterRow } from "./FilterRow";
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { MOCK_COLUMNS } from "./constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
-import { MOCK_PERIODS, MOCK_YEARS, MOCK_MONTHS } from "../../utils/constants";
+import {
+  MOCK_PERIODS,
+  MOCK_YEARS,
+  MOCK_MONTHS,
+  STATISTICS_TYPE_MAPS,
+} from "../../utils/constants";
 
 const StatisticsPeriodBordercross = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -29,6 +34,11 @@ const StatisticsPeriodBordercross = () => {
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "BORDERCROSS_PERIODS" });
 
+  const exportExcelFilters = {
+    ...filters,
+    statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_PERIOD,
+  };
+
   return (
     <Flex vertical>
       {fakeLoading ? (
@@ -46,6 +56,7 @@ const StatisticsPeriodBordercross = () => {
         />
       )}
       <DataTable
+        filters={exportExcelFilters}
         isLoading={isFetching}
         modifiedData={data}
         controlledColumns={MOCK_COLUMNS}

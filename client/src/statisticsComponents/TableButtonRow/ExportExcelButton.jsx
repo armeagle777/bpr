@@ -20,21 +20,30 @@ const ExportExcelButton = ({ filters }) => {
     refetchOnWindowFocus: false,
   });
 
+  if (isError) {
+    toast.error("Something went wrong", {
+      progress: undefined,
+    });
+  }
+
   useEffect(() => {
-    if (isFetching) {
-      try {
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(fileData);
-        link.download = "exported_data.xlsx";
-        link.click();
-      } catch (error) {
-        console.error("Error exporting Excel from React:", error);
-        toast.error(error.message || "Something went wrong", {
-          progress: undefined,
-        });
+    const downloadExcelFile = async () => {
+      if (fileData) {
+        try {
+          const blob = await fileData;
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "exported_data.xlsx";
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        } catch (error) {
+          console.error("Error exporting Excel from React:", error.message);
+        }
       }
-    }
-  }, [isFetching]);
+    };
+
+    downloadExcelFile();
+  }, [fileData]);
 
   const handleExportExcel = async () => {
     refetch();

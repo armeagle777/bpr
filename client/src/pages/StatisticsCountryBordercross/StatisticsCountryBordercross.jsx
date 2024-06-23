@@ -5,7 +5,12 @@ import { FilterRow } from "./FilterRow";
 import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { MOCK_COLUMNS } from "./constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
-import { MOCK_MONTHS, MOCK_PERIODS, MOCK_YEARS } from "../../utils/constants";
+import {
+  MOCK_MONTHS,
+  MOCK_PERIODS,
+  MOCK_YEARS,
+  STATISTICS_TYPE_MAPS,
+} from "../../utils/constants";
 
 const StatisticsCountryBordercross = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -29,6 +34,11 @@ const StatisticsCountryBordercross = () => {
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "BORDERCROSS_COUNTRIES" });
 
+  const exportExcelFilters = {
+    ...filters,
+    statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_COUNTRIES,
+  };
+
   return (
     <Flex vertical>
       {fakeLoading ? (
@@ -46,6 +56,7 @@ const StatisticsCountryBordercross = () => {
         />
       )}
       <DataTable
+        filters={exportExcelFilters}
         isLoading={isFetching}
         modifiedData={data}
         controlledColumns={MOCK_COLUMNS}

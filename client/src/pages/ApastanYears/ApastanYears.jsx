@@ -5,6 +5,7 @@ import { DataTable } from "../../statisticsComponents";
 import { MOCK_COLUMNS } from "./ApastanYears.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
 import { useEffect } from "react";
+import { STATISTICS_TYPE_MAPS } from "../../utils/constants";
 
 const ApastanYears = () => {
   const {
@@ -20,16 +21,20 @@ const ApastanYears = () => {
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "ASYLUM_YEARS" });
 
+  const exportExcelFilters = {
+    statisticsType: STATISTICS_TYPE_MAPS.ASYLUM_YEARS,
+  };
+
   useEffect(() => {
     refetch();
   }, []);
-  console.log("data:::::: ", data);
-  const fakeData = [];
+
   return (
     <Flex vertical>
       <DataTable
+        filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={fakeData}
+        modifiedData={data}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

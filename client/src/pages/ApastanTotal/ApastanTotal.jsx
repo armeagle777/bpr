@@ -5,7 +5,12 @@ import { DataTable, FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
 import { MOCK_COLUMNS } from "./ApastanTotal.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
-import { MOCK_MONTHS, MOCK_PERIODS, MOCK_YEARS } from "../../utils/constants";
+import {
+  MOCK_MONTHS,
+  MOCK_PERIODS,
+  MOCK_YEARS,
+  STATISTICS_TYPE_MAPS,
+} from "../../utils/constants";
 
 const ApastanTotal = () => {
   const [fakeLoading, setFakeLoading] = useState(true);
@@ -29,6 +34,11 @@ const ApastanTotal = () => {
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "ASYLUM_TOTAL" });
 
+  const exportExcelFilters = {
+    ...filters,
+    statisticsType: STATISTICS_TYPE_MAPS.ASYLUM_TOTAL,
+  };
+
   return (
     <Flex vertical>
       {fakeLoading ? (
@@ -46,6 +56,7 @@ const ApastanTotal = () => {
         />
       )}
       <DataTable
+        filters={exportExcelFilters}
         isLoading={isFetching}
         modifiedData={data}
         controlledColumns={MOCK_COLUMNS}

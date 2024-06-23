@@ -277,4 +277,10 @@ export const ANT_BTN_TYPES = {
 
 export const STATISTICS_TYPE_MAPS = {
   B_CROSS_TOTAL: "borderCrossTotal",
+  B_CROSS_COUNTRIES: "borderCrossCountries",
+  B_CROSS_PERIOD: "borderCrossPeriod",
+  ASYLUM_TOTAL: "asylumTotal",
+  ASYLUM_APPLICATIONS: "asylumApplications",
+  ASYLUM_DECISIONS: "asylumDecisions",
+  ASYLUM_YEARS: "asylumYears",
 };
