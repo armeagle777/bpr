@@ -206,7 +206,7 @@ const getPoliceByPnumDb = async (pnum) => {
   });
 
   if (!data?.INFO) {
-    return {};
+    return "";
   }
 
   const { INFO, TAB } = data;
