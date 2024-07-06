@@ -14,20 +14,15 @@ const PoliceTab = ({ pnum }) => {
   if (isError) {
     return <MuiAlert severity="error">{error.message}</MuiAlert>;
   }
-  const {
-    companies,
-    id_info,
-    address,
-    nationality_country_id,
-    full_name,
-    identification_no,
-  } = { ...data };
+
   return (
     <Stack spacing={2} flexDirection="column" sx={{ py: 3, px: 1 }}>
       {data?.length === 0 ? (
         <PoliceNotFound />
       ) : (
-        companies.map((company) => <p>Test</p>)
+        <MuiAlert variant="outlined" severity="info">
+          {data}
+        </MuiAlert>
       )}
     </Stack>
   );
