@@ -1,78 +1,78 @@
 const {
-    getPersonBySsnDb,
-    getSearchedPersonsDb,
-    getDocumentsBySsnDb,
-    getTaxBySsnDb,
-    getCompanyByHvhhDb,
-    createPdfBySsn,
+  getPersonBySsnDb,
+  getSearchedPersonsDb,
+  getDocumentsBySsnDb,
+  getTaxBySsnDb,
+  getCompanyByHvhhDb,
+  createPdfBySsn,
 } =
-    process.env.NODE_ENV === 'local'
-        ? require('./services-local')
-        : require('./services');
+  process.env.NODE_ENV === "local"
+    ? require("./services-local")
+    : require("./services");
 
 const downloadBprInfo = async (req, res, next) => {
-    try {
-        const createdFile = await createPdfBySsn(req);
-        res.download(createdFile);
-    } catch (error) {
-        next(error);
-    }
+  try {
+    const createdFile = await createPdfBySsn(req);
+    res.download(createdFile);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getPersonBySsn = async (req, res, next) => {
-    try {
-        const person = await getPersonBySsnDb(req.params);
+  try {
+    const person = await getPersonBySsnDb(req.params);
 
-        res.status(200).json(person);
-    } catch (err) {
-        next(err);
-    }
+    res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getSearchedPersons = async (req, res, next) => {
-    try {
-        const persons = await getSearchedPersonsDb(req.body);
+  try {
+    const persons = await getSearchedPersonsDb(req.body);
 
-        res.status(200).json(persons);
-    } catch (err) {
-        next(err);
-    }
+    res.status(200).json(persons);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getTaxBySsn = async (req, res, next) => {
-    try {
-        const { ssn } = req.params;
-        const person = await getTaxBySsnDb(ssn);
+  try {
+    const { ssn } = req.params;
+    const person = await getTaxBySsnDb(ssn);
 
-        res.status(200).json(person);
-    } catch (err) {
-        next(err);
-    }
+    res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getQkagInfoBySsn = async (req, res, next) => {
-    try {
-        const { ssn } = req.params;
-        const { firstName, lastName } = req.body;
+  try {
+    const { ssn } = req.params;
+    const { firstName, lastName } = req.body;
 
-        const documents = await getDocumentsBySsnDb(ssn, firstName, lastName);
+    const documents = await getDocumentsBySsnDb(ssn, firstName, lastName);
 
-        res.status(200).json(documents);
-    } catch (err) {
-        next(err);
-    }
+    res.status(200).json(documents);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getCompanyByHvhh = async (req, res, next) => {
-    try {
-        const { hvhh } = req.params;
+  try {
+    const { hvhh } = req.params;
 
-        const company = await getCompanyByHvhhDb(hvhh);
+    const company = await getCompanyByHvhhDb(hvhh);
 
-        res.status(200).json(company);
-    } catch (err) {
-        next(err);
-    }
+    res.status(200).json(company);
+  } catch (err) {
+    next(err);
+  }
 };
 // async getAll(req, res) {
 //     try {
@@ -128,10 +128,10 @@ const getCompanyByHvhh = async (req, res, next) => {
 // }
 
 module.exports = {
-    getPersonBySsn,
-    getSearchedPersons,
-    getQkagInfoBySsn,
-    getTaxBySsn,
-    getCompanyByHvhh,
-    downloadBprInfo,
+  getPersonBySsn,
+  getSearchedPersons,
+  getQkagInfoBySsn,
+  getTaxBySsn,
+  getCompanyByHvhh,
+  downloadBprInfo,
 };

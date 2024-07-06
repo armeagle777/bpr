@@ -5,6 +5,7 @@ const {
   formatExcelMetaData,
   sanitizeData,
 } = require("./helpers");
+const { createPdfBySsn } = require("./services");
 
 const {
   getAsylumTotalDb,
@@ -19,6 +20,15 @@ const {
   process.env.NODE_ENV === "local"
     ? require("./services-local")
     : require("./services");
+
+const exportPdf = async (req, res, next) => {
+  try {
+    const createdFile = await createPdfBySsn(req);
+    res.download(createdFile);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const exportExcel = async (req, res, next) => {
   try {
@@ -198,4 +208,5 @@ module.exports = {
   getBorderCrossCountries,
   getBorderCrossPeriods,
   exportExcel,
+  exportPdf,
 };

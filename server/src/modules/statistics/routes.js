@@ -10,6 +10,7 @@ const {
   getBorderCrossCountries,
   getBorderCrossPeriods,
   exportExcel,
+  exportPdf,
 } = require("./controller");
 
 const statisticsRoute = express.Router();
@@ -25,5 +26,6 @@ statisticsRoute.post("/sahmanahatum/countries", getBorderCrossCountries);
 statisticsRoute.post("/sahmanahatum/periods", getBorderCrossPeriods);
 
 statisticsRoute.post("/export/excel", exportExcel);
+statisticsRoute.post("/export/pdf", exportPdf);
 
 module.exports = statisticsRoute;
