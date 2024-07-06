@@ -192,28 +192,26 @@ const getPoliceByPnumDb = async (pnum) => {
     HAYR: "",
     BDATE: "",
     SSN: pnum,
-    // SSN: "1504860314",
     Dzev: 9,
     USER_ID: "MQC_S",
     PASSWORD: "mqc123",
     User: "MQC_S",
     STUGOX: "EKG",
   };
-
-  const { data } = axios.post(policeUrl, {
-    customer: JSON.stringify(requestBody),
+  const dataString = qs.stringify({ customer: JSON.stringify(requestBody) });
+  const { data } = await axios.post(policeUrl, dataString, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
   });
-  console.log("data::::::", data);
 
-  if (!data.taxPayersInfo) {
-    return [];
+  if (!data?.INFO) {
+    return {};
   }
 
-  const {
-    taxPayersInfo: { taxPayerInfo },
-  } = data;
+  const { INFO, TAB } = data;
 
-  return taxPayerInfo;
+  return INFO;
 };
 
 const getCompanyByHvhhDb = async (hvhh) => {
