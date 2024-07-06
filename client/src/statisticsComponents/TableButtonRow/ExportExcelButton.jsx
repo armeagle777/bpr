@@ -3,10 +3,26 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { FaDownload } from "react-icons/fa6";
+import { useLocation } from "react-router-dom";
 
-import { getStatisticsExcel } from "../../api/statisticsApi";
+import { getStatisticsFile } from "../../api/statisticsApi";
+import translations from "../../utils/translations/am.json";
+import { DOWNLOAD_FILE_TYPES } from "../../utils/constants";
+
+function generateFileName() {
+  const timestamp = new Date().toISOString().replace(/[:.-]/g, "");
+  const location = useLocation();
+  const pathname = location.pathname;
+  const segments = pathname.split("/");
+  const lastSegment =
+    segments[segments.length - 1] || segments[segments.length - 2];
+  return `${lastSegment}_${timestamp}`;
+}
 
 const ExportExcelButton = ({ filters }) => {
+  const { FILES } = translations;
+  const fileName = generateFileName();
+
   const {
     data: fileData,
     isLoading,
@@ -14,11 +30,15 @@ const ExportExcelButton = ({ filters }) => {
     isError,
     error,
     refetch,
-  } = useQuery(["excel", filters], () => getStatisticsExcel(filters), {
-    keepPreviousData: false,
-    enabled: false,
-    refetchOnWindowFocus: false,
-  });
+  } = useQuery(
+    [DOWNLOAD_FILE_TYPES.EXCEL, filters],
+    () => getStatisticsFile(filters, DOWNLOAD_FILE_TYPES.EXCEL),
+    {
+      keepPreviousData: false,
+      enabled: false,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   if (isError) {
     toast.error("Something went wrong", {
@@ -33,7 +53,7 @@ const ExportExcelButton = ({ filters }) => {
           const blob = await fileData;
           const link = document.createElement("a");
           link.href = window.URL.createObjectURL(blob);
-          link.download = "exported_data.xlsx";
+          link.download = `${fileName}.xlsx`;
           link.click();
           window.URL.revokeObjectURL(link.href);
         } catch (error) {
@@ -67,7 +87,7 @@ const ExportExcelButton = ({ filters }) => {
       }}
       onClick={handleExportExcel}
     >
-      EXPORT
+      {FILES.EXCEL_EXPORT_BTN_TEXT}
     </Button>
   );
 };

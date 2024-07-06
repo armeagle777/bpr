@@ -284,3 +284,13 @@ export const STATISTICS_TYPE_MAPS = {
   ASYLUM_DECISIONS: "asylumDecisions",
   ASYLUM_YEARS: "asylumYears",
 };
+
+export const DOWNLOAD_FILE_TYPES = {
+  EXCEL: "excel",
+  PDF: "pdf",
+};
+
+export const FILE_MIME_TYPES = {
+  EXCEL: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  PDF: "application/pdf",
+};

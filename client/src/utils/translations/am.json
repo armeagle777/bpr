@@ -17,7 +17,8 @@
     "MULTY_DECTYPES_PLACEHOLDER": "Ընտրեք որոշման տեսակը"
   },
   "FILES": {
-    "EXCEL_UPLOAD_SUCCESS": "Նիշքը հաջողությամբ բեռնվել է"
+    "EXCEL_UPLOAD_SUCCESS": "Նիշքը հաջողությամբ բեռնվել է",
+    "EXCEL_EXPORT_BTN_TEXT": "EXPORT"
   },
   "PAGE_TITLES": {
     "EATM_FAMS": "ԵԱՏՄ ընտանիքներից ստացված դիմումների վիճակագրություն",

@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { Flex } from "antd";
 
 import { FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
+import { useState } from "react";
 
 const StatisticsReports = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [fakeData, setFakeData] = useState([]);
-
   return (
     <Flex vertical>
       {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}

@@ -4,6 +4,7 @@ import CoPresentIcon from "@mui/icons-material/CoPresent";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import BusinessIcon from "@mui/icons-material/Business";
+import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import { Box, Button, Container, Stack } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -102,6 +103,7 @@ const PersonInfoPage = ({ personInfo }) => {
             <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
             <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
             <Tab icon={<BusinessIcon />} aria-label="business" />
+            <Tab icon={<LocalPoliceIcon />} aria-label="police" />
           </Tabs>
         </Box>
         <PDFGenerator
@@ -227,6 +229,9 @@ const PersonInfoPage = ({ personInfo }) => {
           />
         </TabPanel>
         <TabPanel value={value} index={3}>
+          <BusinessTab ssn={PNum || Certificate_Number} />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
           <BusinessTab ssn={PNum || Certificate_Number} />
         </TabPanel>
       </Box>
