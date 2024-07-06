@@ -28,6 +28,8 @@ const QkagDocument = ({ document, targetSsn }) => {
     person2,
     child,
     children,
+    presenter,
+    med,
   } = document;
   console.log("document>>>>>", document);
   const handleClick = () => {
@@ -64,8 +66,17 @@ const QkagDocument = ({ document, targetSsn }) => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <PersonRow role="male" person={person} targetSsn={targetSsn} />
-          <PersonRow role="female" person={person2} targetSsn={targetSsn} />
+          <PersonRow
+            role="male"
+            person={person}
+            targetSsn={targetSsn}
+            type={type}
+            presenter={presenter}
+            med={med}
+          />
+          {person2 && (
+            <PersonRow role="female" person={person2} targetSsn={targetSsn} />
+          )}
           {child && (
             <PersonRow role="baby" person={child} targetSsn={targetSsn} />
           )}
