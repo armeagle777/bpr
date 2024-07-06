@@ -27,6 +27,7 @@ import {
   formatCountryName,
   formatPersonData,
 } from "../../utils/helperFunctions";
+import PoliceTab from "../policeTab/PoliceTab";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
@@ -232,7 +233,7 @@ const PersonInfoPage = ({ personInfo }) => {
           <BusinessTab ssn={PNum || Certificate_Number} />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <BusinessTab ssn={PNum || Certificate_Number} />
+          <PoliceTab pnum={PNum} />
         </TabPanel>
       </Box>
       <SpeedDialButton />
