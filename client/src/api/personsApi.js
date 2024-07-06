@@ -63,6 +63,11 @@ export const getCompaniesBySsn = async (ssn) => {
   return response.data;
 };
 
+export const getPoliceByPnum = async (pnum) => {
+  const response = await personsApi.get(`/persons/${pnum}/police`);
+  return response.data;
+};
+
 export const getFile = async ({ filterData }) => {
   const config = {
     responseType: "blob",
