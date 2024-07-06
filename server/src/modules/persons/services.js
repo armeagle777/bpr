@@ -183,6 +183,39 @@ const getTaxBySsnDb = async (ssn) => {
   return taxPayerInfo;
 };
 
+const getPoliceByPnumDb = async (pnum) => {
+  const policeUrl = process.env.POLICE_URL;
+
+  const requestBody = {
+    first_name: "",
+    last_name: "",
+    HAYR: "",
+    BDATE: "",
+    SSN: pnum,
+    // SSN: "1504860314",
+    Dzev: 9,
+    USER_ID: "MQC_S",
+    PASSWORD: "mqc123",
+    User: "MQC_S",
+    STUGOX: "EKG",
+  };
+
+  const { data } = axios.post(policeUrl, {
+    customer: JSON.stringify(requestBody),
+  });
+  console.log("data::::::", data);
+
+  if (!data.taxPayersInfo) {
+    return [];
+  }
+
+  const {
+    taxPayersInfo: { taxPayerInfo },
+  } = data;
+
+  return taxPayerInfo;
+};
+
 const getCompanyByHvhhDb = async (hvhh) => {
   const petregistrUrl = process.env.PETREGISTR_URL;
 
@@ -213,4 +246,5 @@ module.exports = {
   getTaxBySsnDb,
   getCompanyByHvhhDb,
   createPdfBySsn,
+  getPoliceByPnumDb,
 };

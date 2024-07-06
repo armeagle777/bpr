@@ -1,3 +1,5 @@
+const { getPoliceByPnumDb } = require("./services");
+
 const {
   getPersonBySsnDb,
   getSearchedPersonsDb,
@@ -43,6 +45,17 @@ const getTaxBySsn = async (req, res, next) => {
   try {
     const { ssn } = req.params;
     const person = await getTaxBySsnDb(ssn);
+
+    res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getPoliceByPnum = async (req, res, next) => {
+  try {
+    const { pnum } = req.params;
+    const person = await getPoliceByPnumDb(pnum);
 
     res.status(200).json(person);
   } catch (err) {
@@ -134,4 +147,5 @@ module.exports = {
   getTaxBySsn,
   getCompanyByHvhh,
   downloadBprInfo,
+  getPoliceByPnum,
 };
