@@ -5,7 +5,7 @@ const {
   formatExcelMetaData,
   sanitizeData,
 } = require("./helpers");
-const { createPdfBySsn } = require("./services");
+const { createPdf } = require("./services");
 
 const {
   getAsylumTotalDb,
@@ -23,7 +23,7 @@ const {
 
 const exportPdf = async (req, res, next) => {
   try {
-    const createdFile = await createPdfBySsn(req);
+    const createdFile = await createPdf(req);
     res.download(createdFile);
   } catch (error) {
     next(error);

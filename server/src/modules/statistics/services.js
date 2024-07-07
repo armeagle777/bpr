@@ -29,22 +29,12 @@ const fakeData = {
   obs: "Graduated in 2014 by Federal University of Lavras, work with Full-Stack development and E-commerce.",
 };
 
-const createPdfBySsn = async (req) => {
+const createPdf = async (req) => {
   const { body } = req;
-  const { data } = { ...body };
-  const {
-    Citizenship_StoppedDate,
-    DeathDate,
-    IsDead,
-    Certificate_Number,
-    SSN_Indicator,
-    PNum,
-    documents,
-    addresses,
-  } = { ...data };
+  const { filters } = body;
+  const { year, period, statisticsType } = { ...filters };
 
-  const fileName = await createPDF(fakeData);
-  console.log("fileName::::::", fileName);
+  const fileName = await createPDF({ data: fakeData, statisticsType, period });
 
   return fileName;
 };
@@ -217,5 +207,5 @@ module.exports = {
   getBorderCrossTotalDb,
   getBorderCrossCountriesDb,
   getBorderCrossPeriodsDb,
-  createPdfBySsn,
+  createPdf,
 };

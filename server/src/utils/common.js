@@ -109,8 +109,17 @@ const { getCompanyByHvhhDb } =
 //     };
 // };
 
-const createPDF = async (data) => {
-  const generatedPath = path.join(process.cwd(), "src/pdf-templates/bpr.html");
+const createPDF = async ({ data, statisticsType, period }) => {
+  const templatePeriodMap = {
+    h1: "first_half",
+    h2: "second_half",
+    annual: "annual",
+  };
+  const templateName = `${statisticsType}_${templatePeriodMap[period]}`;
+  const generatedPath = path.join(
+    process.cwd(),
+    `src/pdf-templates/${templateName}.html`
+  );
 
   var templateHtml = fs.readFileSync(generatedPath, "utf8");
   var template = handlebars.compile(templateHtml);
@@ -227,8 +236,6 @@ const cronUpdateSphere = async () => {
         is_checked: 0,
       },
     });
-
-    console.log("unCheckedSpheres", unCheckedSpheres);
 
     if (unCheckedSpheres.length === 0) return;
 
