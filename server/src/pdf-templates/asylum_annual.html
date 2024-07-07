@@ -4,8 +4,12 @@
 	<title>Student's profile</title>
 	<head>
 	<style type="text/css">
+		@page {
+			size: A4 portrait;
+			margin: 0;
+		}
 		body{
-			width: 1200px;
+			width: 100%;
 			margin: 0;
 			padding: 0px;
 			font-size: 16px;
@@ -14,43 +18,40 @@
 			color: rgb(33,33,33);
 		}
 		.report-header{
-			background: rgb(178,230,212);
-			color: rgb(102,102,102);
 			padding: 15px;
-			padding-left: 200px;
 			box-sizing: border-box;
-			display: block;
-			position: relative;
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
 		}
 		.report-header .logo{
-			position: absolute;
-			top: 40px;
-			left: 15px;
 			width: 150px;
 		}
+		.report-header .header-titul{
+			padding: 0;
+		}
+
+		.header-titul p{
+			margin:0;
+			text-align: right;
+			font-size: 14px;
+			line-height: 14px;
+		}
 		.report-footer{
-			background: rgb(178,230,212);
 			color: rgb(102,102,102);
 			padding: 15px;
 			box-sizing: border-box;
 			display: block;
 			position: relative;
 		}
-		.report-body{
-			width: 70%;
-			display: inline-block;
-			position: relative;
-			padding: 15px;
-			box-sizing: border-box;
-			vertical-align: top;
+
+		.report-body .heders {
+			margin-top: 20px;
 		}
-		.report-photo{
-			width: 28%;
-			display: inline-block;
-			position: relative;
-			vertical-align: top;
-			box-sizing: border-box;
-			margin-top: 15px;
+
+		.report-body .heders h3,h4,h5,h6 {
+			margin: 8px;
+			text-align: center;
 		}
 		.report-body .info p{
 			border: #ccc solid 1px;
@@ -58,16 +59,31 @@
 			display: block;
 			position: relative;
 		}
+
+		
 	</style>
 	<meta charset="utf-8">
 </head>
 <body>
 	<div class="report-header">
-		<img src="logo.png" class="logo">
-		<h3>{{title}}</h3>
-		<p>{{date}}</p>
+		<img src="statistics_logo.png" class="logo">
+		<div class="header-titul">
+			<p>«Հաստատված է»</p>
+			<p>Հայաստանի Հանրապետության վիճակագրության պետական խորհրդի</p>
+			<p>04 հոկտեմբերի 2013թ. թիվ 28-Ա որոշմամբ</p>
+			<p><b>ՁԵՎ ԹԻՎ 2-Ապաստան</b></p>
+			<p><b>(տարեկան)</b></p>
+		</div>
 	</div>
 	<div class="report-body">
+		<div class="heders">
+			<h3>ՀՀ ԱԶԳԱՅԻՆ ՎԻՃԱԿԱԳՐԱԿԱՆ ԾԱՌԱՅՈՒԹՅՈՒՆ</h3>
+			<h5>ՎԱՐՉԱԿԱՆ ՌԵԳԻՍՏՐԻՑ ՍՏԱՑՎՈՂ</h5>
+			<h4>ՊԵՏԱԿԱՆ ՎԻՃԱԿԱԳՐԱԿԱՆ ԱՄՓՈՓ ՀԱՇՎԵՏՎՈՒԹՅՈՒՆ</h4>
+			<h6>ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆՈՒՄ ՄԻՋԱԶԳԱՅԻՆ ՊԱՇՏՊԱՆՈՒԹՅԱՆ ԿԱՐԻՔ ՈՒՆԵՑՈՂ ԱՆՁԱՆՑ ՎԵՐԱԲԵՐՅԱԼ</h6>
+			<h6>2016 թ.</h6>
+		</div>
+		
 		<div class="info">
 			<p>Student: {{name}}</p>
 			<p>OEN: {{oen}}</p>
@@ -78,9 +94,6 @@
 		<div class="obs">
 			<p>Obs: {{obs}}</p>
 		</div>
-	</div>
-	<div class="report-photo">
-		<img src="student.png">
 	</div>
 	<div class="report-footer">
 		ASYLUM ANUUAL
