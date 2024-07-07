@@ -232,10 +232,7 @@ const StaticsHeader = () => {
               >
                 Unstyled and compatible with any styling solution.
               </HeaderListItem>
-              <HeaderListItem
-                title="Ապաստան"
-                href="/statistics/reports?report_type=asylum"
-              >
+              <HeaderListItem title="Ապաստան" href="/statistics/asylum-reports">
                 Build high-quality, accessible design systems and web apps.
               </HeaderListItem>
               <HeaderListItem

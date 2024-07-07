@@ -14,6 +14,7 @@ import { WorkPermitStats } from "./pages/WorkPermitStats";
 import { WpOfficial } from "./pages/WpOfficial";
 import { StatisticsProfile } from "./pages/StatisticsProfile";
 import { StatisticsReports } from "./pages/StatisticsReports";
+import { AsylumReports } from "./pages/AsylumReports";
 import { StatisticsCitizenship } from "./pages/StatisticsCitizenship";
 import { StatisticsCountryBordercross } from "./pages/StatisticsCountryBordercross";
 import { StatisticsPeriodBordercross } from "./pages/StatisticsPeriodBordercross";
@@ -57,6 +58,7 @@ function App() {
           />
           <Route path="citizenship" element={<StatisticsCitizenship />} />
           <Route path="reports" element={<StatisticsReports />} />
+          <Route path="asylum-reports" element={<AsylumReports />} />
           <Route path="apastan-total" element={<ApastanTotal />} />
           <Route
             path="apastan-applications"
