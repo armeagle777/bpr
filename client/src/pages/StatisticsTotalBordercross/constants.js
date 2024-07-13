@@ -10,19 +10,19 @@ export const MOCK_COLUMNS = [
     title: "ՀՀ քաղաքացիներ",
     children: [
       {
-        title: "In",
+        title: "Մուտք",
         dataIndex: "arm_in",
         key: "arm_in",
         width: 150,
       },
       {
-        title: "Out",
+        title: "Ելք",
         dataIndex: "arm_out",
         key: "arm_out",
         width: 150,
       },
       {
-        title: "Net",
+        title: "Տարբերություն",
         dataIndex: "arm_net",
         key: "arm_net",
         width: 150,
@@ -33,19 +33,19 @@ export const MOCK_COLUMNS = [
     title: "Օտարերկրացիներ",
     children: [
       {
-        title: "In",
+        title: "Մուտք",
         dataIndex: "other_in",
         key: "other_in",
         width: 150,
       },
       {
-        title: "Out",
+        title: "Ելք",
         dataIndex: "other_out",
         key: "other_out",
         width: 150,
       },
       {
-        title: "Net",
+        title: "Տարբերություն",
         dataIndex: "other_net",
         key: "other_net",
         width: 150,
@@ -56,19 +56,19 @@ export const MOCK_COLUMNS = [
     title: "Ընդամենը",
     children: [
       {
-        title: "In",
+        title: "Մուտք",
         dataIndex: "total_in",
         key: "total_in",
         width: 150,
       },
       {
-        title: "Out",
+        title: "Ելք",
         dataIndex: "total_out",
         key: "total_out",
         width: 150,
       },
       {
-        title: "Net",
+        title: "Տարբերություն",
         dataIndex: "total_net",
         key: "total_net",
         width: 150,
