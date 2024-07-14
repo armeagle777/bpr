@@ -4,7 +4,15 @@ import { Flex } from "antd";
 import { FilterRow } from "../FilterRow";
 import { FiltersRowSkeleton } from "../../../statisticsComponents";
 
-const DealsContainer = ({ children, title }) => {
+const DealsContainer = ({
+  children,
+  title,
+  filters,
+  onFilter,
+  isDataLoading,
+  onFilterChange,
+  onResetFilters,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -24,7 +32,17 @@ const DealsContainer = ({ children, title }) => {
       >
         {title}
       </p>
-      {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
+      {isLoading ? (
+        <FiltersRowSkeleton />
+      ) : (
+        <FilterRow
+          filters={filters}
+          onFilter={onFilter}
+          isDataLoading={isDataLoading}
+          onFilterChange={onFilterChange}
+          onResetFilters={onResetFilters}
+        />
+      )}
       {children}
     </Flex>
   );

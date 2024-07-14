@@ -268,6 +268,9 @@ export const STATISTICS_FILTERS = {
   PERIOD: "period",
   MONTH: "month",
   BORDERCROSS_TYPE: "borderCross",
+  REPORT_TYPE: "report_type",
+  CLAIM_TYPE: "claim_type",
+  WP_TYPE: "wp_type",
 };
 
 export const ANT_BTN_TYPES = {
@@ -283,6 +286,7 @@ export const STATISTICS_TYPE_MAPS = {
   ASYLUM_APPLICATIONS: "asylumApplications",
   ASYLUM_DECISIONS: "asylumDecisions",
   ASYLUM_YEARS: "asylumYears",
+  WP_SIMPLE: "asylumYears",
 };
 
 export const DOWNLOAD_FILE_TYPES = {

@@ -4,6 +4,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 import "./styles.css";
 import HeaderListItem from "./HeaderListItem";
+import { WP_TYPE_MAPS } from "../../pages/WorkPermitStats/WorkPermitStats.constants";
 
 const StaticsHeader = () => {
   return (

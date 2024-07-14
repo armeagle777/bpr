@@ -17,6 +17,9 @@ const useFilterStatistics = ({ statisticsType }) => {
     period: "",
     month: "",
     decType: "",
+    claim_type: "",
+    report_type: "",
+    wp_type: "",
     borderCross: "",
   };
   // const initialFilters = {
@@ -33,6 +36,9 @@ const useFilterStatistics = ({ statisticsType }) => {
     if (filters.period) params.set("period", filters.period);
     if (filters.month) params.set("month", filters.month);
     if (filters.decType) params.set("decType", filters.decType);
+    if (filters.claim_type) params.set("claim_type", filters.claim_type);
+    if (filters.report_type) params.set("report_type", filters.report_type);
+    if (filters.wp_type) params.set("wp_type", filters.wp_type);
     if (filters.borderCross) params.set("borderCross", filters.borderCross);
 
     navigate({ search: params.toString() }, { replace: true });
@@ -55,6 +61,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     BORDERCROSS_TOTAL: "/sahmanahatum/total",
     BORDERCROSS_COUNTRIES: "/sahmanahatum/countries",
     BORDERCROSS_PERIODS: "/sahmanahatum/periods",
+    WP_SIMPLE: "/wp/simple",
   };
 
   const {

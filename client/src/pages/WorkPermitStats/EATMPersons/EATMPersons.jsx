@@ -1,16 +1,12 @@
 import React from "react";
 import { DataTable } from "../../../statisticsComponents";
-import {
-  MOCK_COLUMNS,
-  MOCK_DATA,
-} from "../../WorkPermitStats/WorkPermitStats.constants";
+import { MOCK_COLUMNS } from "../../WorkPermitStats/WorkPermitStats.constants";
 
-const EATMPersons = ({ isLoading }) => {
+const EATMPersons = ({ isLoading, data }) => {
   return (
     <DataTable
       isLoading={isLoading}
-      modifiedData={MOCK_DATA}
-      dropdownOptions={[]}
+      modifiedData={data}
       controlledColumns={MOCK_COLUMNS}
     />
   );
