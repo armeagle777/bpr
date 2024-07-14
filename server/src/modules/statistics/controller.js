@@ -16,6 +16,7 @@ const {
   getBorderCrossTotalDb,
   getBorderCrossCountriesDb,
   getBorderCrossPeriodsDb,
+  getSimpleWPStatisticsDb,
 } =
   process.env.NODE_ENV === "local"
     ? require("./services-local")
@@ -198,6 +199,24 @@ const getBorderCrossPeriods = async (req, res, next) => {
   }
 };
 
+const getSimpleWPStatistics = async (req, res, next) => {
+  try {
+    const { wp_type, report_type, year, period, month, claim_type } = req.body;
+    const data = await getSimpleWPStatisticsDb({
+      wp_type,
+      report_type,
+      year,
+      period,
+      month,
+      claim_type,
+    });
+
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAsylumTotal,
   getAsylumApplications,
@@ -207,6 +226,7 @@ module.exports = {
   getBorderCrossTotal,
   getBorderCrossCountries,
   getBorderCrossPeriods,
+  getSimpleWPStatistics,
   exportExcel,
   exportPdf,
 };

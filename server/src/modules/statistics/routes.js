@@ -9,6 +9,7 @@ const {
   getBorderCrossTotal,
   getBorderCrossCountries,
   getBorderCrossPeriods,
+  getSimpleWPStatistics,
   exportExcel,
   exportPdf,
 } = require("./controller");
@@ -24,6 +25,8 @@ statisticsRoute.post("/sahmanahatum/upload", uploadBorderCrossFile);
 statisticsRoute.post("/sahmanahatum/total", getBorderCrossTotal);
 statisticsRoute.post("/sahmanahatum/countries", getBorderCrossCountries);
 statisticsRoute.post("/sahmanahatum/periods", getBorderCrossPeriods);
+
+statisticsRoute.post("/wp/simple", getSimpleWPStatistics);
 
 statisticsRoute.post("/export/excel", exportExcel);
 statisticsRoute.post("/export/pdf", exportPdf);
