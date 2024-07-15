@@ -11,11 +11,14 @@ const {
 } = require("./constants");
 const {
   formatAsylumQuery,
-  formatSimpleWpQuery,
   formatTotalAsylumQuery,
   formatTotalBorderCrossQuery,
   formatPeriodBorderCrossQuery,
   formatCountryBorderCrossQuery,
+  formatEaeuEmployeeQuery,
+  formatEaeuEmployeeFamQuery,
+  formatWpQuery,
+  formatVolunteerQuery,
 } = require("./helpers");
 const { Cross, sahmanahatumSequelize } = require("../../config/sahmanahatumDb");
 const { createPDF } = require("../../utils/common");
@@ -223,7 +226,7 @@ const getSimpleWPStatisticsDb = async ({
       });
       break;
     case "volunteer":
-      query = query = formatVolunteerQuery({
+      query = formatVolunteerQuery({
         year,
         month,
         period,
@@ -235,59 +238,12 @@ const getSimpleWPStatisticsDb = async ({
       return null;
   }
 
-  const MOCK_DATA = [
-    {
-      country: "Ռուսաստան",
-      F_16: 332,
-      M_16: 933,
-      T_16: 1265,
-      F_35: 139,
-      M_35: 683,
-      T_35: 822,
-      F_65: 0,
-      M_65: 7,
-      T_65: 7,
-      F_T: 472,
-      M_T: 1625,
-      T_T: 2097,
-    },
-    {
-      country: "Ղազախստան",
-      F_16: 2,
-      M_16: 7,
-      T_16: 9,
-      F_35: 3,
-      M_35: 4,
-      T_35: 7,
-      F_65: 0,
-      M_65: 0,
-      T_65: 0,
-      F_T: 5,
-      M_T: 11,
-      T_T: 16,
-    },
-    {
-      country: "Բելառուս",
-      F_16: 12,
-      M_16: 11,
-      T_16: 23,
-      F_35: 6,
-      M_35: 11,
-      T_35: 17,
-      F_65: 0,
-      M_65: 0,
-      T_65: 0,
-      F_T: 18,
-      M_T: 22,
-      T_T: 40,
-    },
-  ];
   const statData = await wpSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,
   });
-  console.log("statData::::::", statData);
 
-  return statData;
+  const formatedData = statData?.map((row, index) => ({ ...row, key: index }));
+  return formatedData;
 };
 
 // Function to perform bulk upsert

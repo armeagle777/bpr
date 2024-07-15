@@ -577,14 +577,14 @@ const formatEaeuEmployeeQuery = ({
   let period_in_where_condition = "";
   let action = "";
   const claim_type_where_condion =
-    claim_type == "total" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
   if (report_type == 1) {
     period_in_where_condition = "stat_data.claim_date";
-    action = " AND stat_data.action != ''";
+    action = "";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action = ''";
+    action = " AND stat_data.action != ''";
   }
 
   const monthWhereCondition = month
@@ -649,22 +649,27 @@ const formatEaeuEmployeeFamQuery = ({
   claim_type,
   report_type,
 }) => {
-  // claim_type  may be 'total' || 'status_claim' || 'extension'
+  let period_in_where_condition = "";
+  let action = "";
 
   if (report_type == 1) {
-    $period_in_where_condition = "stat_data.claim_date";
+    period_in_where_condition = "stat_data.claim_date";
   } else {
-    $period_in_where_condition = "stat_data.log_date";
-    $action = " AND stat_data.action = ''"; //may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen' --- is used in where
+    period_in_where_condition = "stat_data.log_date";
+    action = " AND stat_data.action != ''";
   }
 
-  if (claim_type == "total") {
-    $claim_type_where_condion = "";
-  } else {
-    $claim_type_where_condion = ` AND stat_data.claim_type = '${claim_type}'`;
-  }
+  const claim_type_where_condion =
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
-  return `SELECT stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
+  const monthWhereCondition = month
+    ? ` AND month(${period_in_where_condition}) = '${month}'`
+    : "";
+
+  return `SELECT 
+  stat_data.name_en, 
+  stat_data.name_am, 
+  stat_data.name_ru, 
   count(stat_data.id) as grand_total,
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
   count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
@@ -682,7 +687,7 @@ const formatEaeuEmployeeFamQuery = ({
   count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
   from
   (
-  SELECT a.id, 
+  SELECT a.id,
   a.created_at as claim_date, 
   a.type as claim_type, 
   b.citizenship_id, 
@@ -703,26 +708,34 @@ const formatEaeuEmployeeFamQuery = ({
     f.action, 
     date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id)
    as stat_data
-  where 1  
-   and year(${period_in_where_condition}) = '${year}' and 
-   month(${period_in_where_condition}) = '${month}' and
+  where  
+   year(${period_in_where_condition}) = '${year}'
+   ${claim_type_where_condion} 
+   ${monthWhereCondition}
    ${action}
-  group by stat_data.citizenship_id`;
+  group by stat_data.citizenship_id,
+  stat_data.name_en, 
+  stat_data.name_am, 
+  stat_data.name_ru`;
 };
 const formatWpQuery = ({ year, month, period, claim_type, report_type }) => {
-  // claim_type = "" may be 'total' || 'status_claim' || 'extension'
+  let period_in_where_condition = "";
+  let action = "";
+
   if (report_type == 1) {
-    $period_in_where_condition = "stat_data.claim_date";
+    period_in_where_condition = "stat_data.claim_date";
   } else {
-    $period_in_where_condition = "stat_data.log_date";
-    $action = " AND stat_data.action = ''"; //may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen' --- is used in where
+    period_in_where_condition = "stat_data.log_date";
+    action = " AND stat_data.action != ''";
   }
 
-  if (claim_type == "total") {
-    $claim_type_where_condion = "";
-  } else {
-    $claim_type_where_condion = ` AND stat_data.claim_type = '${claim_type}'`;
-  }
+  const claim_type_where_condion =
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
+
+  const monthWhereCondition = month
+    ? ` AND month(${period_in_where_condition}) = '${month}'`
+    : "";
+
   return `SELECT stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
   count(stat_data.id) as grand_total,
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
@@ -748,9 +761,10 @@ const formatWpQuery = ({ year, month, period, claim_type, report_type }) => {
   inner join countries d on b.citizenship_id = d.id 
   left join 
   (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
-  where 1  
-   and year(${period_in_where_condition}) = '${year}' and 
-   month(${period_in_where_condition}) = '${month}' and
+  where   
+   year(${period_in_where_condition}) = '${year}' 
+   ${claim_type_where_condion}
+   ${monthWhereCondition}
    ${action}
   group by stat_data.citizenship_id`;
 };
@@ -762,6 +776,10 @@ const formatVolunteerQuery = ({
   claim_type,
   report_type,
 }) => {
+  const monthWhereCondition = month
+    ? ` AND month(stat_data.claim_date) < ${month}`
+    : "";
+
   return `select stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
   count(stat_data.id) as grand_total,
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
@@ -800,10 +818,10 @@ const formatVolunteerQuery = ({
   (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id
   inner join (select * from vacancies r where r.type = '3') as e on a.vacancy_id = e.id 
   ) as stat_data
-  where 1  
-   and year(stat_data.claim_date) = '${year}' and 
-   month(stat_data.claim_date) < ${month} and
-   stat_data.action = 'allow'
+  where  
+   year(stat_data.claim_date) = '${year}'
+   AND stat_data.action = 'allow'
+   ${monthWhereCondition}
   group by stat_data.citizenship_id`;
 };
 
