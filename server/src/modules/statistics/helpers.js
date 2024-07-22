@@ -566,12 +566,6 @@ const formatEaeuEmployeeQuery = ({
   claim_type,
   report_type,
 }) => {
-  console.log("year::::::", year);
-  console.log("month::::::", month);
-  console.log("period::::::", period);
-  console.log("claim_type::::::", claim_type);
-  console.log("report_type::::::", report_type);
-
   // claim_type  may be 'total' || 'status_claim' || 'extension'
   // action  may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen'
   let period_in_where_condition = "";
@@ -825,6 +819,224 @@ const formatVolunteerQuery = ({
   group by stat_data.citizenship_id`;
 };
 
+const formatEaeuOfficialQuery = ({ year, period, claim_type, report_type }) => {
+  // claim_type  may be 'total' || 'status_claim' || 'extension'
+  // action  may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen'
+  let period_in_where_condition = "";
+  let action = "";
+  const claim_type_where_condion =
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
+
+  if (report_type == 1) {
+    period_in_where_condition = "stat_data.claim_date";
+    action = "";
+  } else {
+    period_in_where_condition = "stat_data.log_date";
+    action = " AND stat_data.action != ''";
+  }
+
+  let monthWhereCondition = "";
+  if (period == periodsMap.H1) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (1,2) `;
+    ` AND month() = '${month}'`;
+  } else if (period == periodsMap.H2) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (3,4) `;
+  }
+
+  return `SELECT 
+  stat_data.name_en, 
+  stat_data.name_am, 
+  stat_data.name_ru, 
+  count(stat_data.id) as grand_total,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+
+  from
+  (
+  SELECT a.id, 
+  a.created_at as claim_date, 
+  a.type as claim_type, 
+  b.citizenship_id, 
+  c.gender_id, 
+  d.name_am, 
+  d.name_en, 
+  d.name_ru, 
+  b.birthday_year, 
+  year(a.created_at) - b.birthday_year as age, 
+  g.action, 
+  g.log_date 
+  FROM claims a 
+  inner join eaeu_employees b on a.eaeu_employee_id = b.id
+  inner join users c on b.user_id = c.id
+  inner join countries d on b.citizenship_id = d.id 
+  left join 
+  (select f.claim_id, f.action, 
+    date(f.created_at) as log_date from ms_logs f 
+    where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g 
+    ON a.id = g.claim_id
+  ) as stat_data
+  where 
+  year(${period_in_where_condition}) = '${year}' 
+   ${claim_type_where_condion}
+   ${monthWhereCondition}
+   ${action}
+  group by stat_data.citizenship_id`;
+};
+
+const formatEaeuEmployeeFamOfficialQuery = ({
+  year,
+  month,
+  period,
+  claim_type,
+  report_type,
+}) => {
+  let period_in_where_condition = "";
+  let action = "";
+
+  if (report_type == 1) {
+    period_in_where_condition = "stat_data.claim_date";
+  } else {
+    period_in_where_condition = "stat_data.log_date";
+    action = " AND stat_data.action != ''";
+  }
+
+  const claim_type_where_condion =
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
+
+  let monthWhereCondition = "";
+  if (period == periodsMap.H1) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (1,2) `;
+    ` AND month() = '${month}'`;
+  } else if (period == periodsMap.H2) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (3,4) `;
+  }
+
+  return `SELECT 
+  stat_data.name_en, 
+  stat_data.name_am, 
+  stat_data.name_ru, 
+  count(stat_data.id) as grand_total,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  from
+  (
+  SELECT a.id,
+  a.created_at as claim_date, 
+  a.type as claim_type, 
+  b.citizenship_id, 
+  b.gender_id, 
+  d.name_am, 
+  d.name_en, 
+  d.name_ru, 
+  b.birthday_year, 
+  year(a.created_at) - b.birthday_year as age, 
+  g.action, 
+  g.log_date 
+  FROM claims a 
+  inner join eaeu_employee_family_members b on a.eaeu_employee_family_member_id = b.id
+  inner join countries d on b.citizenship_id = d.id 
+  left join 
+  (select 
+    f.claim_id, 
+    f.action, 
+    date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id)
+   as stat_data
+  where  
+   year(${period_in_where_condition}) = '${year}'
+   ${claim_type_where_condion} 
+   ${monthWhereCondition}
+   ${action}
+  group by stat_data.citizenship_id,
+  stat_data.name_en, 
+  stat_data.name_am, 
+  stat_data.name_ru`;
+};
+
+const formatWpOfficialQuery = ({
+  year,
+  month,
+  period,
+  claim_type,
+  report_type,
+}) => {
+  let period_in_where_condition = "";
+  let action = "";
+
+  if (report_type == 1) {
+    period_in_where_condition = "stat_data.claim_date";
+  } else {
+    period_in_where_condition = "stat_data.log_date";
+    action = " AND stat_data.action != ''";
+  }
+
+  const claim_type_where_condion =
+    claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
+
+  let monthWhereCondition = "";
+  if (period == periodsMap.H1) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (1,2) `;
+    ` AND month() = '${month}'`;
+  } else if (period == periodsMap.H2) {
+    monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (3,4) `;
+  }
+
+  return `SELECT stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
+  count(stat_data.id) as grand_total,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  from
+  (
+  SELECT a.id, a.created_at as claim_date, a.type as claim_type, b.citizenship_id, c.gender_id, d.name_am, d.name_en, d.name_ru, b.birthday_year, year(a.created_at) - b.birthday_year as age, g.action, g.log_date 
+  FROM claims a 
+  inner join employees b on a.employee_id = b.id
+  inner join users c on b.user_id = c.id
+  inner join countries d on b.citizenship_id = d.id 
+  left join 
+  (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
+  where   
+   year(${period_in_where_condition}) = '${year}' 
+   ${claim_type_where_condion}
+   ${monthWhereCondition}
+   ${action}
+  group by stat_data.citizenship_id`;
+};
+
 module.exports = {
   sanitizeData,
   formatAsylumQuery,
@@ -838,4 +1050,7 @@ module.exports = {
   formatTotalBorderCrossQuery,
   formatPeriodBorderCrossQuery,
   formatCountryBorderCrossQuery,
+  formatEaeuOfficialQuery,
+  formatEaeuEmployeeFamOfficialQuery,
+  formatWpOfficialQuery,
 };

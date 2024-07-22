@@ -20,6 +20,9 @@ const {
   formatEaeuEmployeeFamQuery,
   formatWpQuery,
   formatVolunteerQuery,
+  formatEaeuOfficialQuery,
+  formatEaeuEmployeeFamOfficialQuery,
+  formatWpOfficialQuery,
 } = require("./helpers");
 const { Cross, sahmanahatumSequelize } = require("../../config/sahmanahatumDb");
 const { createPDF } = require("../../utils/common");
@@ -237,6 +240,56 @@ const getSimpleWPStatisticsDb = async ({
   return formatedData;
 };
 
+//TODO wp statistics
+const getOfficialWPStatisticsDb = async ({
+  year,
+  month,
+  period,
+  wp_type,
+  claim_type,
+  report_type,
+}) => {
+  let query;
+  switch (wp_type) {
+    case "eaeu_employee":
+      query = formatEaeuOfficialQuery({
+        year,
+        month,
+        period,
+        claim_type,
+        report_type,
+      });
+      break;
+    case "eaeu_employee_family":
+      query = formatEaeuEmployeeFamOfficialQuery({
+        year,
+        month,
+        period,
+        claim_type,
+        report_type,
+      });
+      break;
+    case "work_permit":
+      query = formatWpOfficialQuery({
+        year,
+        month,
+        period,
+        claim_type,
+        report_type,
+      });
+      break;
+    default:
+      return [];
+  }
+
+  const statData = await wpSequelize.query(query, {
+    type: Sequelize.QueryTypes.SELECT,
+  });
+
+  // const formatedData = statData?.map((row, index) => ({ ...row, key: index }));
+  return statData;
+};
+
 // Function to perform bulk upsert
 async function bulkUpsert(model, data) {
   const query = `
@@ -257,7 +310,6 @@ const createPdfService = async (req) => {
   const { body } = req;
   const { filters } = body;
   const { year, period, statisticsType } = { ...filters };
-  console.log("statisticsType", statisticsType);
   switch (statisticsType) {
     case "asylum":
       {
@@ -347,9 +399,159 @@ const createPdfService = async (req) => {
         }
       }
       break;
-    case "wp":
+    case "wp_1":
       {
-        tableData = {};
+        const table_1_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type: 1,
+        });
+        const table_2_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type: 2,
+        });
+        //TODO define report_type
+        const table_3_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type,
+        });
+
+        //TODO define report_type
+        const table_4_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type,
+        });
+
+        //TODO define report_type
+        const table_5_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type,
+        });
+
+        tableData = {
+          table_1_data,
+          table_2_data,
+          table_3_data,
+          table_4_data,
+          table_5_data,
+        };
+      }
+      break;
+    case "wp_2":
+      {
+        //wp_type -> eaeu_employee , eaeu_employee_family , work_permit
+        const table_1_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee_family",
+          claim_type: "all",
+          report_type: 1,
+        });
+        const table_2_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee_family",
+          claim_type: "all",
+          report_type: 2,
+        });
+        //TODO define report_type
+        const table_3_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee_family",
+          claim_type: "all",
+          report_type,
+        });
+        //TODO define report_type
+        const table_4_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee_family",
+          claim_type: "all",
+          report_type,
+        });
+
+        tableData = {
+          table_1_data,
+          table_2_data,
+          table_3_data,
+          table_4_data,
+        };
+      }
+      break;
+    case "wp_3":
+      {
+        //wp_type -> eaeu_employee , eaeu_employee_family , work_permit
+        const table_1_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type: 1,
+        });
+
+        const table_2_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type: 2,
+        });
+        //TODO define report_type
+        const table_3_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type,
+        });
+        //TODO define report_type
+        const table_4_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type,
+        });
+        //TODO define report_type
+        const table_5_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type,
+        });
+        //TODO define report_type
+        const table_6_data = getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "work_permit",
+          claim_type: "all",
+          report_type,
+        });
+
+        tableData = {
+          table_1_data,
+          table_2_data,
+          table_3_data,
+          table_4_data,
+          table_5_data,
+          table_6_data,
+        };
       }
       break;
     default:
@@ -361,7 +563,6 @@ const createPdfService = async (req) => {
     statisticsType,
     period,
   });
-  console.log("tableData", tableData);
   return fileName;
 };
 
