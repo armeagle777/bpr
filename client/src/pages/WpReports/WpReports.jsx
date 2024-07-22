@@ -4,14 +4,14 @@ import { FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
 import { useState } from "react";
 
-const StatisticsReports = () => {
+const WpReports = () => {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <Flex vertical>
       {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
-      <p>Here will be the tables from photo "Ընդհանուր հաշվետվություններ"</p>
+      <p>Wp reports</p>
     </Flex>
   );
 };
 
-export default StatisticsReports;
+export default WpReports;

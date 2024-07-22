@@ -1,17 +1,17 @@
 import { Flex, Button } from "antd";
-import { FaFilter, FaFileExcel } from "react-icons/fa";
+import { FaFileExcel } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
 import { useQuery } from "@tanstack/react-query";
 
 import translations from "../../../utils/translations/am.json";
-import { FilterMultySelect } from "../../../statisticsComponents";
-import { MOCK_COUNTRIES_OPTIONS } from "../constants";
-import { MOCK_PERIODS, MOCK_YEARS } from "../../../utils/constants";
-import { useEffect } from "react";
+import { FilterSelect } from "../../../statisticsComponents";
+import { ANT_BTN_TYPES, MOCK_YEARS } from "../../../utils/constants";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import { DOWNLOAD_FILE_TYPES } from "../../../utils/constants";
 import { getStatisticsFile } from "../../../api/statisticsApi";
+import { MOCK_REPORT_PERIODS } from "../constants";
 
 function generateFileName() {
   const timestamp = new Date().toISOString().replace(/[:.-]/g, "");
@@ -24,10 +24,14 @@ function generateFileName() {
 }
 
 const FilterRow = ({}) => {
+  const [filters, setFilters] = useState({
+    year: undefined,
+    period: undefined,
+    statisticsType: `wp_1`,
+  });
   const { FILTER_ROW } = translations;
 
   const fileName = generateFileName();
-  const fakeFilters = {};
 
   const {
     data: fileData,
@@ -37,8 +41,8 @@ const FilterRow = ({}) => {
     error,
     refetch,
   } = useQuery(
-    [DOWNLOAD_FILE_TYPES.PDF, fakeFilters],
-    () => getStatisticsFile(fakeFilters, DOWNLOAD_FILE_TYPES.PDF),
+    [DOWNLOAD_FILE_TYPES.PDF, filters],
+    () => getStatisticsFile(filters, DOWNLOAD_FILE_TYPES.PDF),
     {
       keepPreviousData: false,
       enabled: false,
@@ -75,21 +79,55 @@ const FilterRow = ({}) => {
     refetch();
   };
 
+  const handleChangeFilters = (filter) => {
+    const { name, value } = filter;
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+  };
+
+  const handleWpTypeChange = (value) => {
+    setFilters((prev) => ({ ...prev, statisticsType: `wp_${value}` }));
+  };
+
   return (
     <Flex style={{ width: "60%", gap: 10 }}>
-      <FilterMultySelect
-        placeholder={FILTER_ROW.MULTY_COUNTRIES_PLACEHOLDER}
-        options={MOCK_COUNTRIES_OPTIONS}
+      <FilterSelect
+        placeholder="Wp Type"
+        options={[
+          {
+            label: "Հավելված 1",
+            value: "1",
+            key: "1",
+          },
+          {
+            label: "Հավելված 2",
+            value: "2",
+            key: "2",
+          },
+          {
+            label: "Հավելված 3",
+            value: "3",
+            key: "3",
+          },
+        ]}
+        onChange={handleWpTypeChange}
       />
-      <FilterMultySelect
+      <FilterSelect
         placeholder={FILTER_ROW.MULTY_YEARS_PLACEHOLDER}
         options={MOCK_YEARS}
+        onChange={(value) => handleChangeFilters({ name: "year", value })}
       />
-      <FilterMultySelect
+      <FilterSelect
         placeholder={FILTER_ROW.MULTY_PERIODS_PLACEHOLDER}
-        options={MOCK_PERIODS}
+        options={MOCK_REPORT_PERIODS}
+        onChange={(value) => handleChangeFilters({ name: "period", value })}
       />
-      <Button type="primary" icon={<FaFileExcel />} onClick={handleExportExcel}>
+      <Button
+        type={ANT_BTN_TYPES.PRIMARY}
+        icon={<FaFileExcel />}
+        onClick={handleExportExcel}
+        loading={isFetching}
+        disabled={!filters.year || !filters.period}
+      >
         {FILTER_ROW.EXPORT_BTN_TITLE}
       </Button>
       <Button type="default" icon={<GrPowerReset />}>

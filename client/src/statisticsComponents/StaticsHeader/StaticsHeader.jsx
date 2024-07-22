@@ -243,10 +243,7 @@ const StaticsHeader = () => {
                 A quick tutorial to get you up and running with Radix
                 Primitives.
               </HeaderListItem>
-              <HeaderListItem
-                title="Կացություն"
-                href="/statistics/reports?report_type=stay"
-              >
+              <HeaderListItem title="Կացություն" href="/statistics/wp-reports">
                 Unstyled and compatible with any styling solution.
               </HeaderListItem>
               <HeaderListItem
