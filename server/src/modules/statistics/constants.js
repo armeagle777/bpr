@@ -32,21 +32,21 @@ count(if(EAEU_STAT.sex = 2, EAEU_STAT.personal_id, null)) AS TOTAL_FEMALE,
 count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 0 AND EAEU_STAT.age <= 13, EAEU_STAT.personal_id, null)) AS MALE_0_13,
 count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 0 AND EAEU_STAT.age <= 13, EAEU_STAT.personal_id, null)) AS FEMALE_0_13,
 count(if(EAEU_STAT.age >= 0 AND EAEU_STAT.age <= 13, EAEU_STAT.personal_id, null)) AS TOTAL_0_13,
-count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 14 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS MALE_14_17,
-count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 14 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS FEMALE_14_17,
-count(if(EAEU_STAT.age >= 14 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS TOTAL_14_17,
-count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 18 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS MALE_18_34,
-count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 18 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS FEMALE_18_34,
-count(if(EAEU_STAT.age >= 18 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS TOTAL_18_34,
-count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 35 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS MALE_35_64,
-count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 35 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS FEMALE_35_64,
-count(if(EAEU_STAT.age >= 35 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS TOTAL_35_64,    
+count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age > 13 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS MALE_14_17,
+count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age > 13 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS FEMALE_14_17,
+count(if(EAEU_STAT.age > 13 AND EAEU_STAT.age <= 17, EAEU_STAT.personal_id, null)) AS TOTAL_14_17,
+count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age > 17 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS MALE_18_34,
+count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age > 17 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS FEMALE_18_34,
+count(if(EAEU_STAT.age > 17 AND EAEU_STAT.age <= 34, EAEU_STAT.personal_id, null)) AS TOTAL_18_34,
+count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age > 34 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS MALE_35_64,
+count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age > 34 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS FEMALE_35_64,
+count(if(EAEU_STAT.age > 34 AND EAEU_STAT.age <= 64, EAEU_STAT.personal_id, null)) AS TOTAL_35_64,    
 count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 2020, EAEU_STAT.personal_id, null)) AS MALE_UNKNOWN,
 count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 2020, EAEU_STAT.personal_id, null)) AS FEMALE_UNKNOWN,
 count(if(EAEU_STAT.age >= 2020, EAEU_STAT.personal_id, null)) AS TOTAL_UNKNOWN,
-count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age >= 65, EAEU_STAT.personal_id, null)) AS MALE_65_PLUS,
-count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age >= 65, EAEU_STAT.personal_id, null)) AS FEMALE_65_PLUS,
-count(if(EAEU_STAT.age >= 65, EAEU_STAT.personal_id, null)) AS TOTAL_65_PLUS`;
+count(if(EAEU_STAT.sex = 1 AND EAEU_STAT.age > 64, EAEU_STAT.personal_id, null)) AS MALE_65_PLUS,
+count(if(EAEU_STAT.sex = 2 AND EAEU_STAT.age > 64, EAEU_STAT.personal_id, null)) AS FEMALE_65_PLUS,
+count(if(EAEU_STAT.age > 64, EAEU_STAT.personal_id, null)) AS TOTAL_65_PLUS`;
 
 const decTypeTableNameMap = {
   1: "refugees",
@@ -92,6 +92,40 @@ const STATISTICS_TYPE_MAPS = {
   ASYLUM_YEARS: "asylumYears",
 };
 
+const getCurrentDate = () => {
+  const monthLocaleMaps = {
+    "01": "Հունվարի",
+    "02": "Փետրվարի",
+    "03": "Մարտի",
+    "04": "Ապրիլի",
+    "05": "Մայիսի",
+    "06": "Հունիսի",
+    "07": "Հուլիսի",
+    "08": "Օգոստոսի",
+    "09": "Սեպտեմբերի",
+    10: "Հոկտեմբերի",
+    11: "Նոյեմբերի",
+    12: "Դեկտեմբերի",
+  };
+  const curDate = new Date().toLocaleString();
+  const [date, time] = curDate.split(", ");
+  const [day, month, year] = date.split(".");
+  return { day, month: monthLocaleMaps[month], year };
+};
+
+const reportsBasicData = {
+  reporterBody:
+    "Հայաստանի Հանրապետության տարածքային կառավարման նախարարության միգրացիոն պետական ծառայությունը",
+  reporterPhoneNumbers: ["060-000-000", "060-275-019"],
+  reporterEmail: "aghazaryann@.gov.am",
+  reporterHead: "Ղազարյան Արմեն",
+  reporterPerson: "Բախշեցյան Վահան",
+  reporterDevision: "Մարդահամարի եւ ժողովրդագրության բաժին",
+  devisionPhone: "52-45-28",
+  devisionEmail: "info@armstat.am",
+  reportingDate: getCurrentDate(), // { day: "", month: "", year: "" },
+};
+
 module.exports = {
   statisticsBaseQuery,
   statisticsSequelize,
@@ -100,4 +134,5 @@ module.exports = {
   STATISTICS_TYPE_MAPS,
   monthsMap,
   periodsMap,
+  reportsBasicData,
 };

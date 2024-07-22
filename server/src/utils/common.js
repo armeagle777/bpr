@@ -115,12 +115,19 @@ const createPDF = async ({ data, statisticsType, period }) => {
     h2: "second_half",
     annual: "annual",
   };
-  const templateName = `${statisticsType}_${templatePeriodMap[period]}`;
+  const templateName =
+    statisticsType === "asylum"
+      ? `${statisticsType}_${templatePeriodMap[period]}`
+      : statisticsType;
   const generatedPath = path.join(
     process.cwd(),
     `src/pdf-templates/${templateName}.html`
   );
-
+  console.log("templateName", templateName);
+  // Register the 'sum' helper
+  handlebars.registerHelper("sum", function (a, b) {
+    return a + b;
+  });
   var templateHtml = fs.readFileSync(generatedPath, "utf8");
   var template = handlebars.compile(templateHtml);
   var html = template(data);

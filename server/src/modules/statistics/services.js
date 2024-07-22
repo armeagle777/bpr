@@ -8,6 +8,7 @@ const {
   statByYearQuery,
   statisticsSequelize,
   decTypeTableNameMap,
+  reportsBasicData,
 } = require("./constants");
 const {
   formatAsylumQuery,
@@ -32,16 +33,6 @@ const fakeData = {
   birthdate: "12/07/1990",
   course: "Computer Science",
   obs: "Graduated in 2014 by Federal University of Lavras, work with Full-Stack development and E-commerce.",
-};
-
-const createPdf = async (req) => {
-  const { body } = req;
-  const { filters } = body;
-  const { year, period, statisticsType } = { ...filters };
-
-  const fileName = await createPDF({ data: fakeData, statisticsType, period });
-
-  return fileName;
 };
 
 const getAsylumTotalDb = async ({ year, period, month }) => {
@@ -261,15 +252,128 @@ async function bulkUpsert(model, data) {
   });
 }
 
+const createPdfService = async (req) => {
+  let tableData;
+  const { body } = req;
+  const { filters } = body;
+  const { year, period, statisticsType } = { ...filters };
+  console.log("statisticsType", statisticsType);
+  switch (statisticsType) {
+    case "asylum":
+      {
+        if (period === "annual") {
+          const table_annual_1 = await getAsylumDecisionsDb({
+            year,
+            period: "annual",
+            decType: "2",
+          });
+          const table_annual_2_a = await getAsylumDecisionsDb({
+            year,
+            period: "annual",
+            decType: "1",
+          });
+          const table_annual_2_b = await getAsylumDecisionsDb({
+            year,
+            period: "annual",
+            decType: "4",
+          });
+          tableData = { table_annual_1, table_annual_2_a, table_annual_2_b };
+        } else if (period === "h1") {
+          const table_halfOne_1 = await getAsylumApplicationsDb({
+            year,
+            period: "h1",
+          });
+          const table_halfOne_2 = await getAsylumDecisionsDb({
+            year,
+            period: "h1",
+            decType: "3",
+          });
+          const table_halfOne_3 = await getAsylumDecisionsDb({
+            year,
+            period: "h1",
+            decType: "2",
+          });
+          const table_halfOne_4_a = await getAsylumDecisionsDb({
+            year,
+            period: "h1",
+            decType: "1",
+          });
+          const table_halfOne_4_b = await getAsylumDecisionsDb({
+            year,
+            period: "h1",
+            decType: "4",
+          });
+
+          tableData = {
+            table_halfOne_1,
+            table_halfOne_2,
+            table_halfOne_3,
+            table_halfOne_4_a,
+            table_halfOne_4_b,
+          };
+        } else if (period === "h2") {
+          const table_halfTwo_1 = await getAsylumApplicationsDb({
+            year,
+            period: "h2",
+          });
+          const table_halfTwo_2 = await getAsylumDecisionsDb({
+            year,
+            period: "h2",
+            decType: "3",
+          });
+          const table_halfTwo_3 = await getAsylumDecisionsDb({
+            year,
+            period: "h2",
+            decType: "2",
+          });
+          const table_halfTwo_4_a = await getAsylumDecisionsDb({
+            year,
+            period: "h2",
+            decType: "1",
+          });
+          const table_halfTwo_4_b = await getAsylumDecisionsDb({
+            year,
+            period: "h2",
+            decType: "4",
+          });
+
+          tableData = {
+            table_halfTwo_1,
+            table_halfTwo_2,
+            table_halfTwo_3,
+            table_halfTwo_4_a,
+            table_halfTwo_4_b,
+          };
+        }
+      }
+      break;
+    case "wp":
+      {
+        tableData = {};
+      }
+      break;
+    default:
+      tableData = {};
+  }
+
+  const fileName = await createPDF({
+    data: { reportsBasicData, tableData, year },
+    statisticsType,
+    period,
+  });
+  console.log("tableData", tableData);
+  return fileName;
+};
+
 module.exports = {
   getAsylumTotalDb,
-  getAsylumApplicationsDb,
-  getAsylumDecisionsDb,
   getAsylumYearsDb,
+  createPdfService,
   insertDataFromFile,
+  getAsylumDecisionsDb,
   getBorderCrossTotalDb,
-  getBorderCrossCountriesDb,
+  getAsylumApplicationsDb,
   getBorderCrossPeriodsDb,
   getSimpleWPStatisticsDb,
-  createPdf,
+  getBorderCrossCountriesDb,
 };

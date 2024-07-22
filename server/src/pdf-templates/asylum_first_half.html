@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Student's profile</title>
+	<title>Asylum annual report</title>
 	<head>
 	<style type="text/css">
+		@page {
+			size: A4 portrait;
+			margin: 0;
+		}
 		body{
-			width: 1200px;
+			width: 100%;
 			margin: 0;
 			padding: 0px;
 			font-size: 16px;
@@ -14,76 +18,674 @@
 			color: rgb(33,33,33);
 		}
 		.report-header{
-			background: rgb(178,230,212);
-			color: rgb(102,102,102);
 			padding: 15px;
-			padding-left: 200px;
 			box-sizing: border-box;
-			display: block;
-			position: relative;
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
 		}
 		.report-header .logo{
-			position: absolute;
-			top: 40px;
-			left: 15px;
 			width: 150px;
 		}
-		.report-footer{
-			background: rgb(178,230,212);
-			color: rgb(102,102,102);
-			padding: 15px;
-			box-sizing: border-box;
-			display: block;
-			position: relative;
+		.report-header .header-titul{
+			padding: 0;
 		}
-		.report-body{
-			width: 70%;
+
+		.header-titul p{
+			margin:0;
+			text-align: right;
+			font-size: 14px;
+			line-height: 14px;
+		}
+
+		.report-body .heders {
+			margin-top: 20px;
+		}
+
+		.report-body .heders h3,h4,h5,h6 {
+			margin: 8px;
+			text-align: center;
+		}
+		.info{
+			border:1px solid #000;
+		}
+
+		.info-body{
+			border-top: 1px solid #000;
+		}
+		.info-presenter{
+			border-top: 1px solid #000;
+		}
+		.signature-line{
+			border-bottom: 1px solid #000;
 			display: inline-block;
 			position: relative;
-			padding: 15px;
-			box-sizing: border-box;
-			vertical-align: top;
+			width: 200px;
 		}
-		.report-photo{
-			width: 28%;
+		.signature-text{
 			display: inline-block;
-			position: relative;
-			vertical-align: top;
-			box-sizing: border-box;
-			margin-top: 15px;
+			position: absolute;
+			bottom:-14px;
+			left:10px;
+			font-size: 10px;
+			line-height: 10px;
 		}
-		.report-body .info p{
-			border: #ccc solid 1px;
-			padding: 5px;
-			display: block;
-			position: relative;
+		.info-footer{
+			border-top: 1px solid #000;
+		}
+		.tables{
+
+		}
+		.tables .table{
+			width: 100%;
+			margin-top: 10px;
+		}
+		.tables table,th,td{
+			border: 1px solid black;
+  			border-collapse: collapse;
 		}
 	</style>
 	<meta charset="utf-8">
 </head>
 <body>
 	<div class="report-header">
-		<img src="logo.png" class="logo">
-		<h3>{{title}}</h3>
-		<p>{{date}}</p>
+		<img src="statistics_logo.png" class="logo">
+		<div class="header-titul">
+			<p>«Հաստատված է»</p>
+			<p>Հայաստանի Հանրապետության վիճակագրության պետական խորհրդի</p>
+			<p>04 հոկտեմբերի 2013թ. թիվ 28-Ա որոշմամբ</p>
+			<p><b>ՁԵՎ ԹԻՎ 1-Ապաստան</b></p>
+			<p><b>(կիսամյակային)</b></p>
+		</div>
 	</div>
 	<div class="report-body">
+		<div class="heders">
+			<h3>ՀՀ ԱԶԳԱՅԻՆ ՎԻՃԱԿԱԳՐԱԿԱՆ ԾԱՌԱՅՈՒԹՅՈՒՆ</h3>
+			<h5>ՎԱՐՉԱԿԱՆ ՌԵԳԻՍՏՐԻՑ ՍՏԱՑՎՈՂ</h5>
+			<h4>ՊԵՏԱԿԱՆ ՎԻՃԱԿԱԳՐԱԿԱՆ ԱՄՓՈՓ ՀԱՇՎԵՏՎՈՒԹՅՈՒՆ</h4>
+			<h6>ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅՈՒՆՈՒՄ ՄԻՋԱԶԳԱՅԻՆ ՊԱՇՏՊԱՆՈՒԹՅԱՆ ԿԱՐԻՔ ՈՒՆԵՑՈՂ ԱՆՁԱՆՑ ՎԵՐԱԲԵՐՅԱԼ</h6>
+			<h6>{{year}} թ. առաջին կիսամյակ</h6>
+		</div>
+		
 		<div class="info">
-			<p>Student: {{name}}</p>
-			<p>OEN: {{oen}}</p>
-			<p>Age: {{age}}</p>
-			<p>Birthdate: {{birthdate}}</p>
-			<p>Course: {{course}}</p>
+			<div class="info-header">
+				<p>Ներկայացվում է համաձայն «Պետական վիճակագրության մասին» Հայաստանի Հանրապետության 2000թ. ապրիլի 4-ի ՀՕ-48 օրենքի, Հայաստանի Հանրապետության վիճակագրության պետական խորհրդի 2002թ. մայիսի 10-ի «Վարչական (տեղեկատվական) ռեգիստրների վարման եւ դրանցից տեղեկատվության ստացման կարգը հաստատելու մասին» թիվ 109 որոշմամբ հաստատված կարգի</p>
+			</div>
+			<div class="info-body">
+				<p><b>Հաշվետվության ներկայացման ժամկետը`</b></p>
+				<p>մինչեւ հաշվետու ժամանակաշրջանին հաջորդող ամսվա 20-ը</p>
+			</div>
+			<div class="info-presenter">
+				<p>Ներկայացնում է <b><u>{{reportsBasicData.reporterBody}}</u></b></p>
+				<p><span class="left">Հեռախոսահամար(ներ)</span><span class="right">{{reportsBasicData.reporterPhoneNumbers}}</span></p>
+				<p><span class="left">Էլեկտրոնային փոստ</span><span class="right">{{reportsBasicData.reporterEmail}}</span></p>
+				<p>
+					<span class="left">Ղեկավար</span><span class="right">{{reportsBasicData.reporterHead}} 
+						<span class="signature-line">
+							<span class="signature-text">(Ազգանուն, անուն, ստորագրություն)</span>
+						</span>
+					</span>
+				</p>
+				<p>
+					<span class="left">Լրացնող (գլխավոր հաշվապահ կամ այլ լիազորված անձ)</span>
+					<span class="right">{{reportsBasicData.reporterPerson}}
+						<span class="signature-line">
+							<span class="signature-text">(Ազգանուն, անուն, ստորագրություն)</span>
+						</span>
+					</span>
+				</p>
+				<p>
+					<span class="left">Լրացվել է</span>
+					<span class="right">« {{reportsBasicData.reportingDate.day}} » {{reportsBasicData.reportingDate.month}} {{reportsBasicData.reportingDate.year}} թ.</span>
+				</p>
+				<p>Ներկայացվում է <b><i>{{reportsBasicData.reporterDevision}}</i></b> {{reportsBasicData.devisionPhone}}, e-mail: <a href="#">{{reportsBasicData.devisionEmail}}</a></p>
+			</div>
+			<div class="info-footer">
+				<p>Պետական վիճակագրության մասին օրենսդրության խախտումը վիճակագրական տեղեկություններ տրամադրողների, ինչպես նաեւ պետական վիճակագրություն իրականացնող մարմնի պաշտոնատար անձանց համար առաջացնում է պատասխանատվություն` օրենքով սահմանված կարգով:</p>
+			</div>
 		</div>
-		<div class="obs">
-			<p>Obs: {{obs}}</p>
+		<div class="tables">
+			<h6>Բաժին 1. Ապաստան հայցող անձանց բաշխումն ըստ սեռի, տարիքային խմբերի եւ քաղաքացիության երկրների</h6>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th rowspan="3">Ընդամենը ապաստան հայցող անձինք</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#if tableData.table_halfOne_1.length}}
+					<tr>
+						<td>Ընդամենը</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						{{#each tableData.table_halfOne_1}}
+							<tr>
+								<td>{{this.country_arm}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.MALE_0_13}}</td>
+								<td>{{this.FEMALE_0_13}}</td>
+								<td>{{this.MALE_14_17}}</td>
+								<td>{{this.FEMALE_14_17}}</td>
+								<td>{{this.MALE_18_34}}</td>
+								<td>{{this.FEMALE_18_34}}</td>
+								<td>{{this.MALE_35_64}}</td>
+								<td>{{this.FEMALE_35_64}}</td>
+								<td>{{sum this.MALE_65_PLUS  this.MALE_UNKNOWN}}</td>
+								<td>{{sum this.FEMALE_65_PLUS  this.FEMALE_UNKNOWN}}</td>
+							</tr>
+						{{/each}}
+						{{else}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					{{/if}}
+				</tbody>
+			</table>
+
+			<h6>Բաժին 2. Ապաստան հայցող անձանց բաշխումն ըստ կասեցված կամ կարճված դիմումների քանակի, սեռի, տարիքային խմբերի եւ քաղաքացիության երկրների</h6>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th colspan="2">Ընդամենը</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th rowspan="2">դիմումներ</th>
+						<th rowspan="2">անձինք</th>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#if tableData.table_halfOne_2.length}}
+					<tr>
+						<td>Ընդամենը</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						{{#each tableData.table_halfOne_2}}
+							<tr>
+								<td>{{this.country_arm}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.MALE_0_13}}</td>
+								<td>{{this.FEMALE_0_13}}</td>
+								<td>{{this.MALE_14_17}}</td>
+								<td>{{this.FEMALE_14_17}}</td>
+								<td>{{this.MALE_18_34}}</td>
+								<td>{{this.FEMALE_18_34}}</td>
+								<td>{{this.MALE_35_64}}</td>
+								<td>{{this.FEMALE_35_64}}</td>
+								<td>{{sum this.MALE_65_PLUS  this.MALE_UNKNOWN}}</td>
+								<td>{{sum this.FEMALE_65_PLUS  this.FEMALE_UNKNOWN}}</td>
+							</tr>
+						{{/each}}
+						{{else}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					{{/if}}
+				</tbody>
+			</table>
+
+			<h6>Բաժին 3. Միգրացիոն պետական ծառայության կամ դատական մարմինների կողմից կայացված վերջնական որոշումների հիման վրա ապաստանի հայցի մերժում ստացած անձանց բաշխումն ըստ սեռի, տարիքային խմբերի եւ քաղաքացիության երկրների</h6>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th rowspan="3">Ընդամենը հայցի մերժում ստացած անձինք</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#if tableData.table_halfOne_3.length}}
+					<tr>
+						<td>Ընդամենը</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						{{#each tableData.table_halfOne_3}}
+							<tr>
+								<td>{{this.country_arm}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.MALE_0_13}}</td>
+								<td>{{this.FEMALE_0_13}}</td>
+								<td>{{this.MALE_14_17}}</td>
+								<td>{{this.FEMALE_14_17}}</td>
+								<td>{{this.MALE_18_34}}</td>
+								<td>{{this.FEMALE_18_34}}</td>
+								<td>{{this.MALE_35_64}}</td>
+								<td>{{this.FEMALE_35_64}}</td>
+								<td>{{sum this.MALE_65_PLUS  this.MALE_UNKNOWN}}</td>
+								<td>{{sum this.FEMALE_65_PLUS  this.FEMALE_UNKNOWN}}</td>
+							</tr>
+						{{/each}}
+						{{else}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					{{/if}}
+				</tbody>
+			</table>
+
+			<h6>Բաժին 4. Միգրացիոն պետական ծառայության կամ դատական մարմինների կողմից կայացված վերջնական որոշումների հիման վրա փախստական ճանաչված կամ այլեւս փախստական չհամարվող անձանց բաշխումն ըստ սեռի, տարիքային խմբերի եւ քաղաքացիության երկրների</h6>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th rowspan="3">Ընդամենը անձինք</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#if tableData.table_halfOne_4_a.length}}
+					<tr>
+						<td>Շնորհվել է փախստականի կարգավիճակ</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						{{#each tableData.table_halfOne_4_a}}
+							<tr>
+								<td>{{this.country_arm}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.MALE_0_13}}</td>
+								<td>{{this.FEMALE_0_13}}</td>
+								<td>{{this.MALE_14_17}}</td>
+								<td>{{this.FEMALE_14_17}}</td>
+								<td>{{this.MALE_18_34}}</td>
+								<td>{{this.FEMALE_18_34}}</td>
+								<td>{{this.MALE_35_64}}</td>
+								<td>{{this.FEMALE_35_64}}</td>
+								<td>{{sum this.MALE_65_PLUS  this.MALE_UNKNOWN}}</td>
+								<td>{{sum this.FEMALE_65_PLUS  this.FEMALE_UNKNOWN}}</td>
+							</tr>
+						{{/each}}
+						{{else}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					{{/if}}
+				</tbody>
+			</table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th rowspan="3">Ընդամենը անձինք</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#if tableData.table_halfOne_4_b.length}}
+					<tr>
+						<td>Շնորհվել է փախստականի կարգավիճակ</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Դադարեցվել է փախստականի կարգավիճակը</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						{{#each tableData.table_halfOne_4_b}}
+							<tr>
+								<td>{{this.country_arm}}</td>
+								<td>{{this.TOTAL_APPLICATIONS}}</td>
+								<td>{{this.MALE_0_13}}</td>
+								<td>{{this.FEMALE_0_13}}</td>
+								<td>{{this.MALE_14_17}}</td>
+								<td>{{this.FEMALE_14_17}}</td>
+								<td>{{this.MALE_18_34}}</td>
+								<td>{{this.FEMALE_18_34}}</td>
+								<td>{{this.MALE_35_64}}</td>
+								<td>{{this.FEMALE_35_64}}</td>
+								<td>{{sum this.MALE_65_PLUS  this.MALE_UNKNOWN}}</td>
+								<td>{{sum this.FEMALE_65_PLUS  this.FEMALE_UNKNOWN}}</td>
+							</tr>
+						{{/each}}
+						{{else}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					{{/if}}
+				</tbody>
+			</table>
+
+			<h6>Բաժին 5. Միգրացիոն պետական ծառայության կամ դատական մարմինների կողմից կայացված վերջնական որոշումների հիման վրա ժամանակավոր պաշտպանված ճանաչված կամ այլեւս ժամանակավոր պաշտպանված չհամարվող անձանց բաշխումն ըստ սեռի,տարիքային խմբերի եւ քաղաքացիության երկրների</h6>
+			<table class="table">
+				<thead>
+					<tr>
+						<th rowspan="3">Քաղաքացիության երկիրը</th>
+						<th rowspan="3">Ընդամենը անձինք</th>
+						<th colspan="10">այդ թվում՝ ըստ տարիքային խմբերի եւ սեռի</th>
+					</tr>
+					<tr>
+						<th colspan="2">0-13</th>
+						<th colspan="2">14-17</th>
+						<th colspan="2">18-34</th>
+						<th colspan="2">35-64</th>
+						<th colspan="2">65+</th>
+					</tr>
+					<tr>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+						<th>տղամարդ</th>
+						<th>կին</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Տրամադրվել է ժամանակավոր պաշտպանություն</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Զրկվել է ժամանակավոր պաշտպանությունիցը</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-	</div>
-	<div class="report-photo">
-		<img src="student.png">
-	</div>
-	<div class="report-footer">
-		ASYLUM FIRST_HALF
 	</div>
 </body>
 </html>
