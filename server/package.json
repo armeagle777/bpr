@@ -26,6 +26,7 @@
     "handlebars": "^4.7.7",
     "morgan": "^1.10.0",
     "mysql2": "^3.4.4",
+    "pdf-lib": "^1.17.1",
     "puppeteer": "^20.9.0",
     "sequelize": "^6.32.1",
     "uuid": "^9.0.0",

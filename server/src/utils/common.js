@@ -4,6 +4,7 @@ const axios = require("axios");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
 const { Op } = require("sequelize");
+const { PDFDocument } = require("pdf-lib");
 
 const { activityCodes } = require("./spheres");
 const { Sphere } = require("../config/sphereDatabase");
@@ -119,9 +120,19 @@ const createPDF = async ({ data, statisticsType, period }) => {
     statisticsType === "asylum"
       ? `${statisticsType}_${templatePeriodMap[period]}`
       : statisticsType;
+
+  const titulName =
+    statisticsType === "asylum"
+      ? `${statisticsType}_${templatePeriodMap[period]}_titul`
+      : `${statisticsType}_titul`;
+
   const generatedPath = path.join(
     process.cwd(),
     `src/pdf-templates/${templateName}.html`
+  );
+  const titulGeneratedPath = path.join(
+    process.cwd(),
+    `src/pdf-templates/${titulName}.html`
   );
 
   // Register the 'sum' and 'eq' helpers
@@ -144,14 +155,13 @@ const createPDF = async ({ data, statisticsType, period }) => {
   handlebars.registerHelper("getCountryData", function (data, countryName) {
     return data[countryName] || 0;
   });
-  var templateHtml = fs.readFileSync(generatedPath, "utf8");
-  var template = handlebars.compile(templateHtml);
-  var html = template(data);
 
   var milis = new Date();
   milis = milis.getTime();
 
-  var pdfPath = path.join("src", "pdf", `${milis}.pdf`);
+  var titulPath = path.join("src", "pdf", `titul.pdf`);
+  var contentPath = path.join("src", "pdf", `content.pdf`);
+  var responseFilePath = path.join("src", "pdf", `${milis}.pdf`);
 
   const optionsPortrait = {
     width: "210mm",
@@ -160,7 +170,7 @@ const createPDF = async ({ data, statisticsType, period }) => {
     footerTemplate: "<p></p>",
     displayHeaderFooter: false,
     printBackground: true,
-    path: pdfPath,
+    path: titulPath,
   };
 
   const optionsLandscape = {
@@ -170,26 +180,64 @@ const createPDF = async ({ data, statisticsType, period }) => {
     footerTemplate: "<p></p>",
     displayHeaderFooter: false,
     printBackground: true,
-    path: pdfPath,
+    path: contentPath,
   };
-
-  const options =
-    statisticsType === "asylum" ? optionsLandscape : optionsLandscape;
 
   const browser = await puppeteer.launch({
     args: ["--no-sandbox"],
     headless: "new",
   });
 
+  const titulTemplateHtml = fs.readFileSync(titulGeneratedPath, "utf8");
+  var titulTemplate = handlebars.compile(titulTemplateHtml);
+  var firstPageHtml = titulTemplate(data);
+
+  var contentTemplateHtml = fs.readFileSync(generatedPath, "utf8");
+  var contentTemplate = handlebars.compile(contentTemplateHtml);
+  var contentPageHtml = contentTemplate(data);
+
   var page = await browser.newPage();
 
-  await page.setContent(html, {
+  await page.setContent(firstPageHtml, {
     waitUntil: "networkidle0",
   });
+  await page.pdf(optionsPortrait);
 
-  await page.pdf(options);
+  await page.setContent(contentPageHtml, {
+    waitUntil: "networkidle0",
+  });
+  await page.pdf(optionsLandscape);
+
+  // await page.pdf(options);
   await browser.close();
-  return pdfPath;
+
+  // Combine the PDFs
+  const firstPagePdfBytes = fs.readFileSync(titulPath);
+  const remainingPagesPdfBytes = fs.readFileSync(contentPath);
+
+  const firstPagePdf = await PDFDocument.load(firstPagePdfBytes);
+  const remainingPagesPdf = await PDFDocument.load(remainingPagesPdfBytes);
+
+  const combinedPdf = await PDFDocument.create();
+  const [firstPage] = await combinedPdf.copyPages(firstPagePdf, [0]);
+  combinedPdf.addPage(firstPage);
+
+  const remainingPages = await combinedPdf.copyPages(
+    remainingPagesPdf,
+    remainingPagesPdf.getPageIndices()
+  );
+  for (const page of remainingPages) {
+    combinedPdf.addPage(page);
+  }
+
+  const combinedPdfBytes = await combinedPdf.save();
+  fs.writeFileSync(responseFilePath, combinedPdfBytes);
+
+  // Clean up temporary files
+  fs.unlinkSync(titulPath);
+  fs.unlinkSync(contentPath);
+
+  return responseFilePath;
 };
 
 const isPetregisterDataAvailable = (data) => {
