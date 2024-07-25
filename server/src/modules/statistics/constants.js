@@ -117,9 +117,9 @@ const reportsBasicData = {
   reporterBody:
     "Հայաստանի Հանրապետության տարածքային կառավարման նախարարության միգրացիոն պետական ծառայությունը",
   reporterPhoneNumbers: ["060-000-000", "060-275-019"],
-  reporterEmail: "aghazaryann@.gov.am",
+  reporterEmail: "aghazaryann@gov.am",
   reporterHead: "Ղազարյան Արմեն",
-  reporterPerson: "Բախշեցյան Վահան",
+  reporterPerson: "Մաթևոսյան Վարդան",
   reporterDevision: "Մարդահամարի եւ ժողովրդագրության բաժին",
   devisionPhone: "52-45-28",
   devisionEmail: "info@armstat.am",

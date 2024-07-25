@@ -565,6 +565,7 @@ const formatEaeuEmployeeQuery = ({
   period,
   claim_type,
   report_type,
+  decType,
 }) => {
   // claim_type  may be 'total' || 'status_claim' || 'extension'
   // action  may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen'
@@ -578,7 +579,7 @@ const formatEaeuEmployeeQuery = ({
     action = "";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   const monthWhereCondition = month
@@ -642,6 +643,7 @@ const formatEaeuEmployeeFamQuery = ({
   period,
   claim_type,
   report_type,
+  decType,
 }) => {
   let period_in_where_condition = "";
   let action = "";
@@ -650,7 +652,7 @@ const formatEaeuEmployeeFamQuery = ({
     period_in_where_condition = "stat_data.claim_date";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   const claim_type_where_condion =
@@ -712,7 +714,14 @@ const formatEaeuEmployeeFamQuery = ({
   stat_data.name_am, 
   stat_data.name_ru`;
 };
-const formatWpQuery = ({ year, month, period, claim_type, report_type }) => {
+const formatWpQuery = ({
+  year,
+  month,
+  period,
+  decType,
+  claim_type,
+  report_type,
+}) => {
   let period_in_where_condition = "";
   let action = "";
 
@@ -720,7 +729,7 @@ const formatWpQuery = ({ year, month, period, claim_type, report_type }) => {
     period_in_where_condition = "stat_data.claim_date";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   const claim_type_where_condion =
@@ -819,7 +828,13 @@ const formatVolunteerQuery = ({
   group by stat_data.citizenship_id`;
 };
 
-const formatEaeuOfficialQuery = ({ year, period, claim_type, report_type }) => {
+const formatEaeuOfficialQuery = ({
+  year,
+  period,
+  claim_type,
+  report_type,
+  decType,
+}) => {
   // claim_type  may be 'total' || 'status_claim' || 'extension'
   // action  may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen'
   let period_in_where_condition = "";
@@ -832,13 +847,12 @@ const formatEaeuOfficialQuery = ({ year, period, claim_type, report_type }) => {
     action = "";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   let monthWhereCondition = "";
   if (period == periodsMap.H1) {
     monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (1,2) `;
-    ` AND month() = '${month}'`;
   } else if (period == periodsMap.H2) {
     monthWhereCondition = ` AND QUARTER(${period_in_where_condition}) IN (3,4) `;
   }
@@ -847,17 +861,54 @@ const formatEaeuOfficialQuery = ({ year, period, claim_type, report_type }) => {
   stat_data.name_en, 
   stat_data.name_am, 
   stat_data.name_ru, 
+
   count(stat_data.id) as grand_total,
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
   count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
-  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.age < 16, stat_data.id, null)) as total_under_16,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 16, stat_data.id, null)) as male_under_16,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 16, stat_data.id, null)) as female_under_16,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as total_16_19,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as male_16_19,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as female_16_19,
+
+  count(if(stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as total_20_24,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as male_20_24,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as female_20_24,
+
+  count(if(stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as total_25_29,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as male_25_29,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as female_25_29,
+
+  count(if(stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as total_30_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as male_30_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as female_30_34,
+
+  count(if(stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as total_35_39,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as male_35_39,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as female_35_39,
+
+  count(if(stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as total_40_44,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as male_40_44,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as female_40_44,
+
+  count(if(stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as total_45_49,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as male_45_49,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as female_45_49,
+
+  count(if(stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as total_50_54,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as male_50_54,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as female_50_54,
+
+  count(if(stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as total_55_59,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as male_55_59,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as female_55_59,
+  
+  count(if(stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as total_60_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as male_60_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as female_60_64,
   
   count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
@@ -901,6 +952,7 @@ const formatEaeuEmployeeFamOfficialQuery = ({
   period,
   claim_type,
   report_type,
+  decType,
 }) => {
   let period_in_where_condition = "";
   let action = "";
@@ -909,7 +961,7 @@ const formatEaeuEmployeeFamOfficialQuery = ({
     period_in_where_condition = "stat_data.claim_date";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   const claim_type_where_condion =
@@ -931,13 +983,49 @@ const formatEaeuEmployeeFamOfficialQuery = ({
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
   count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
-  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.age < 16, stat_data.id, null)) as total_under_16,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 16, stat_data.id, null)) as male_under_16,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 16, stat_data.id, null)) as female_under_16,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as total_16_19,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as male_16_19,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as female_16_19,
+
+  count(if(stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as total_20_24,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as male_20_24,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as female_20_24,
+
+  count(if(stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as total_25_29,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as male_25_29,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as female_25_29,
+
+  count(if(stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as total_30_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as male_30_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as female_30_34,
+
+  count(if(stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as total_35_39,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as male_35_39,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as female_35_39,
+
+  count(if(stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as total_40_44,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as male_40_44,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as female_40_44,
+
+  count(if(stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as total_45_49,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as male_45_49,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as female_45_49,
+
+  count(if(stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as total_50_54,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as male_50_54,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as female_50_54,
+
+  count(if(stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as total_55_59,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as male_55_59,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as female_55_59,
+  
+  count(if(stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as total_60_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as male_60_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as female_60_64,
   
   count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
@@ -982,6 +1070,7 @@ const formatWpOfficialQuery = ({
   period,
   claim_type,
   report_type,
+  decType,
 }) => {
   let period_in_where_condition = "";
   let action = "";
@@ -990,7 +1079,7 @@ const formatWpOfficialQuery = ({
     period_in_where_condition = "stat_data.claim_date";
   } else {
     period_in_where_condition = "stat_data.log_date";
-    action = " AND stat_data.action != ''";
+    action = ` AND stat_data.action = '${decType}' `;
   }
 
   const claim_type_where_condion =
@@ -1009,13 +1098,49 @@ const formatWpOfficialQuery = ({
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
   count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
-  count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.age < 16, stat_data.id, null)) as total_under_16,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 16, stat_data.id, null)) as male_under_16,
+  count(if(stat_data.gender_id = 2 and stat_data.age < 16, stat_data.id, null)) as female_under_16,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as total_16_19,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as male_16_19,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 16 and stat_data.age < 20, stat_data.id, null)) as female_16_19,
+
+  count(if(stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as total_20_24,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as male_20_24,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 20 and stat_data.age < 25, stat_data.id, null)) as female_20_24,
+
+  count(if(stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as total_25_29,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as male_25_29,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 25 and stat_data.age < 30, stat_data.id, null)) as female_25_29,
+
+  count(if(stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as total_30_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as male_30_34,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 30 and stat_data.age < 35, stat_data.id, null)) as female_30_34,
+
+  count(if(stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as total_35_39,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as male_35_39,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 40, stat_data.id, null)) as female_35_39,
+
+  count(if(stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as total_40_44,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as male_40_44,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 40 and stat_data.age < 45, stat_data.id, null)) as female_40_44,
+
+  count(if(stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as total_45_49,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as male_45_49,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 45 and stat_data.age < 50, stat_data.id, null)) as female_45_49,
+
+  count(if(stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as total_50_54,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as male_50_54,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 50 and stat_data.age < 55, stat_data.id, null)) as female_50_54,
+
+  count(if(stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as total_55_59,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as male_55_59,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 55 and stat_data.age < 60, stat_data.id, null)) as female_55_59,
+  
+  count(if(stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as total_60_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as male_60_64,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 60 and stat_data.age < 65, stat_data.id, null)) as female_60_64,
   
   count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
@@ -1037,6 +1162,121 @@ const formatWpOfficialQuery = ({
   group by stat_data.citizenship_id`;
 };
 
+const mapWpData = (data) => {
+  const ageGenderCombinations = [
+    { label: "Ընդամենը  16-19 տարեկան", field: "total_16_19" },
+    { label: "Արական", field: "male_16_19" },
+    { label: "Իգական", field: "female_16_19" },
+    { label: "Ընդամենը  20-24 տարեկան", field: "total_20_24" },
+    { label: "Արական", field: "male_20_24" },
+    { label: "Իգական", field: "female_20_24" },
+    { label: "Ընդամենը  25-29 տարեկան", field: "total_25_29" },
+    { label: "Արական", field: "male_25_29" },
+    { label: "Իգական", field: "female_25_29" },
+    { label: "Ընդամենը  30-34 տարեկան", field: "total_30_34" },
+    { label: "Արական", field: "male_30_34" },
+    { label: "Իգական", field: "female_30_34" },
+    { label: "Ընդամենը  35-39 տարեկան", field: "total_35_39" },
+    { label: "Արական", field: "male_35_39" },
+    { label: "Իգական", field: "female_35_39" },
+    { label: "Ընդամենը 40-44 տարեկան", field: "total_40_44" },
+    { label: "Արական", field: "male_40_44" },
+    { label: "Իգական", field: "female_40_44" },
+    { label: "Ընդամենը 45-49 տարեկան", field: "total_45_49" },
+    { label: "Արական", field: "male_45_49" },
+    { label: "Իգական", field: "female_45_49" },
+    { label: "Ընդամենը 50-54 տարեկան", field: "total_50_54" },
+    { label: "Արական", field: "male_50_54" },
+    { label: "Իգական", field: "female_50_54" },
+    { label: "Ընդամենը 55-59 տարեկան", field: "total_55_59" },
+    { label: "Արական", field: "male_55_59" },
+    { label: "Իգական", field: "female_55_59" },
+    { label: "Ընդամենը 60-64 տարեկան", field: "total_60_64" },
+    { label: "Արական", field: "male_60_64" },
+    { label: "Իգական", field: "female_60_64" },
+    { label: "Ընդամենը 65+ տարեկան", field: "total_upper_65" },
+    { label: "Արական", field: "male_upper_65" },
+    { label: "Իգական", field: "female_upper_65" },
+  ];
+
+  const arrayOfObjects = ageGenderCombinations.map((combination) => {
+    const rowData = data.reduce((acc, country) => {
+      acc[country.name_en] = country[combination.field];
+      return acc;
+    }, {});
+
+    // Calculate the total of the row
+    const total = Object.values(rowData).reduce((sum, value) => sum + value, 0);
+    rowData.total = total;
+
+    return {
+      ageGender: combination.label,
+      ...rowData,
+    };
+  });
+
+  return arrayOfObjects;
+};
+
+const mapEaeuFamData = (data) => {
+  const ageGenderCombinations = [
+    { label: "Ընդամենը  0-15 տարեկան", field: "total_under_16" },
+    { label: "Արական", field: "male_under_16" },
+    { label: "Իգական", field: "female_under_16" },
+    { label: "Ընդամենը  16-19 տարեկան", field: "total_16_19" },
+    { label: "Արական", field: "male_16_19" },
+    { label: "Իգական", field: "female_16_19" },
+    { label: "Ընդամենը  20-24 տարեկան", field: "total_20_24" },
+    { label: "Արական", field: "male_20_24" },
+    { label: "Իգական", field: "female_20_24" },
+    { label: "Ընդամենը  25-29 տարեկան", field: "total_25_29" },
+    { label: "Արական", field: "male_25_29" },
+    { label: "Իգական", field: "female_25_29" },
+    { label: "Ընդամենը  30-34 տարեկան", field: "total_30_34" },
+    { label: "Արական", field: "male_30_34" },
+    { label: "Իգական", field: "female_30_34" },
+    { label: "Ընդամենը  35-39 տարեկան", field: "total_35_39" },
+    { label: "Արական", field: "male_35_39" },
+    { label: "Իգական", field: "female_35_39" },
+    { label: "Ընդամենը 40-44 տարեկան", field: "total_40_44" },
+    { label: "Արական", field: "male_40_44" },
+    { label: "Իգական", field: "female_40_44" },
+    { label: "Ընդամենը 45-49 տարեկան", field: "total_45_49" },
+    { label: "Արական", field: "male_45_49" },
+    { label: "Իգական", field: "female_45_49" },
+    { label: "Ընդամենը 50-54 տարեկան", field: "total_50_54" },
+    { label: "Արական", field: "male_50_54" },
+    { label: "Իգական", field: "female_50_54" },
+    { label: "Ընդամենը 55-59 տարեկան", field: "total_55_59" },
+    { label: "Արական", field: "male_55_59" },
+    { label: "Իգական", field: "female_55_59" },
+    { label: "Ընդամենը 60-64 տարեկան", field: "total_60_64" },
+    { label: "Արական", field: "male_60_64" },
+    { label: "Իգական", field: "female_60_64" },
+    { label: "Ընդամենը 65+ տարեկան", field: "total_upper_65" },
+    { label: "Արական", field: "male_upper_65" },
+    { label: "Իգական", field: "female_upper_65" },
+  ];
+
+  const arrayOfObjects = ageGenderCombinations.map((combination) => {
+    const rowData = data.reduce((acc, country) => {
+      acc[country.name_am] = country[combination.field];
+      return acc;
+    }, {});
+
+    // Calculate the total of the row
+    const total = Object.values(rowData).reduce((sum, value) => sum + value, 0);
+    rowData.total = total;
+
+    return {
+      ageGender: combination.label,
+      ...rowData,
+    };
+  });
+
+  return { arrayOfObjects, countries: data.map((country) => country.name_am) };
+};
+
 module.exports = {
   sanitizeData,
   formatAsylumQuery,
@@ -1053,4 +1293,6 @@ module.exports = {
   formatEaeuOfficialQuery,
   formatEaeuEmployeeFamOfficialQuery,
   formatWpOfficialQuery,
+  mapWpData,
+  mapEaeuFamData,
 };

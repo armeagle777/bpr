@@ -123,10 +123,26 @@ const createPDF = async ({ data, statisticsType, period }) => {
     process.cwd(),
     `src/pdf-templates/${templateName}.html`
   );
-  console.log("templateName", templateName);
-  // Register the 'sum' helper
+
+  // Register the 'sum' and 'eq' helpers
   handlebars.registerHelper("sum", function (a, b) {
     return a + b;
+  });
+  handlebars.registerHelper("sumAll", function () {
+    let sum = 0;
+    for (let i = 0; i < arguments.length - 1; i++) {
+      sum += arguments[i];
+    }
+    return sum;
+  });
+  handlebars.registerHelper("eq", function (a, b) {
+    return a === b;
+  });
+  handlebars.registerHelper("incrementIndex", function (index) {
+    return index + 1;
+  });
+  handlebars.registerHelper("getCountryData", function (data, countryName) {
+    return data[countryName] || 0;
   });
   var templateHtml = fs.readFileSync(generatedPath, "utf8");
   var template = handlebars.compile(templateHtml);
@@ -137,18 +153,28 @@ const createPDF = async ({ data, statisticsType, period }) => {
 
   var pdfPath = path.join("src", "pdf", `${milis}.pdf`);
 
-  var options = {
-    width: "1230px",
+  const optionsPortrait = {
+    width: "210mm",
+    height: "297mm",
     headerTemplate: "<p></p>",
     footerTemplate: "<p></p>",
     displayHeaderFooter: false,
-    margin: {
-      top: "10px",
-      bottom: "30px",
-    },
     printBackground: true,
     path: pdfPath,
   };
+
+  const optionsLandscape = {
+    width: "297mm",
+    height: "210mm",
+    headerTemplate: "<p></p>",
+    footerTemplate: "<p></p>",
+    displayHeaderFooter: false,
+    printBackground: true,
+    path: pdfPath,
+  };
+
+  const options =
+    statisticsType === "asylum" ? optionsPortrait : optionsLandscape;
 
   const browser = await puppeteer.launch({
     args: ["--no-sandbox"],

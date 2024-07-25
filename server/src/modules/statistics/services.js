@@ -23,6 +23,8 @@ const {
   formatEaeuOfficialQuery,
   formatEaeuEmployeeFamOfficialQuery,
   formatWpOfficialQuery,
+  mapWpData,
+  mapEaeuFamData,
 } = require("./helpers");
 const { Cross, sahmanahatumSequelize } = require("../../config/sahmanahatumDb");
 const { createPDF } = require("../../utils/common");
@@ -189,6 +191,7 @@ const getSimpleWPStatisticsDb = async ({
   wp_type,
   claim_type,
   report_type,
+  decType,
 }) => {
   let query;
   switch (wp_type) {
@@ -199,6 +202,7 @@ const getSimpleWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     case "eaeu_employee_family":
@@ -208,6 +212,7 @@ const getSimpleWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     case "work_permit":
@@ -217,6 +222,7 @@ const getSimpleWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     case "volunteer":
@@ -226,6 +232,7 @@ const getSimpleWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     default:
@@ -248,6 +255,7 @@ const getOfficialWPStatisticsDb = async ({
   wp_type,
   claim_type,
   report_type,
+  decType,
 }) => {
   let query;
   switch (wp_type) {
@@ -258,6 +266,7 @@ const getOfficialWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     case "eaeu_employee_family":
@@ -267,6 +276,7 @@ const getOfficialWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     case "work_permit":
@@ -276,6 +286,7 @@ const getOfficialWPStatisticsDb = async ({
         period,
         claim_type,
         report_type,
+        decType,
       });
       break;
     default:
@@ -305,8 +316,119 @@ async function bulkUpsert(model, data) {
   });
 }
 
+const calculateTotals = (data) => {
+  const totals = {};
+
+  const columnsToTotal = [
+    "TOTAL_APPLICATIONS",
+    "TOTAL_MALE",
+    "TOTAL_FEMALE",
+    "MALE_0_13",
+    "FEMALE_0_13",
+    "TOTAL_0_13",
+    "MALE_14_17",
+    "FEMALE_14_17",
+    "TOTAL_14_17",
+    "MALE_18_34",
+    "FEMALE_18_34",
+    "TOTAL_18_34",
+    "MALE_35_64",
+    "FEMALE_35_64",
+    "TOTAL_35_64",
+    "MALE_UNKNOWN",
+    "FEMALE_UNKNOWN",
+    "TOTAL_UNKNOWN",
+    "MALE_65_PLUS",
+    "FEMALE_65_PLUS",
+    "TOTAL_65_PLUS",
+  ];
+
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      const tableData = data[key];
+      const totalObject = {};
+
+      columnsToTotal.forEach((column) => {
+        totalObject[column] = tableData.reduce(
+          (sum, row) => sum + row[column],
+          0
+        );
+      });
+
+      totals[`${key}_totals`] = totalObject;
+    }
+  }
+
+  return totals;
+};
+
+const calculateWp3Totals = (data) => {
+  const totals = {};
+
+  const columnsToTotal = [
+    "grand_total",
+    "total_male",
+    "total_female",
+    "total_under_16",
+    "male_under_16",
+    "female_under_16",
+    "total_16_19",
+    "male_16_19",
+    "female_16_19",
+    "total_20_24",
+    "male_20_24",
+    "female_20_24",
+    "total_25_29",
+    "male_25_29",
+    "female_25_29",
+    "total_30_34",
+    "male_30_34",
+    "female_30_34",
+    "total_35_39",
+    "male_35_39",
+    "female_35_39",
+    "total_40_44",
+    "male_40_44",
+    "female_40_44",
+    "total_45_49",
+    "male_45_49",
+    "female_45_49",
+    "total_50_54",
+    "male_50_54",
+    "female_50_54",
+    "total_55_59",
+    "male_55_59",
+    "female_55_59",
+    "total_60_64",
+    "male_60_64",
+    "female_60_64",
+    "total_upper_65",
+    "male_upper_65",
+    "female_upper_65",
+  ];
+
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      const tableData = data[key];
+      const totalObject = {};
+
+      columnsToTotal.forEach((column) => {
+        totalObject[column] = tableData.reduce(
+          (sum, row) => sum + row[column],
+          0
+        );
+      });
+
+      totals[`${key}_totals`] = totalObject;
+    }
+  }
+
+  return totals;
+};
+
 const createPdfService = async (req) => {
   let tableData;
+  let totalTableData = {};
   const { body } = req;
   const { filters } = body;
   const { year, period, statisticsType } = { ...filters };
@@ -397,106 +519,107 @@ const createPdfService = async (req) => {
             table_halfTwo_4_b,
           };
         }
+        totalTableData = calculateTotals(tableData);
       }
       break;
     case "wp_1":
       {
-        const table_1_data = getOfficialWPStatisticsDb({
+        const table_1_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee",
           claim_type: "all",
           report_type: 1,
         });
-        const table_2_data = getOfficialWPStatisticsDb({
+        const table_2_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee",
           claim_type: "all",
           report_type: 2,
+          decType: "allow",
         });
-        //TODO define report_type
-        const table_3_data = getOfficialWPStatisticsDb({
+        const table_3_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee",
           claim_type: "all",
-          report_type,
-        });
-
-        //TODO define report_type
-        const table_4_data = getOfficialWPStatisticsDb({
-          year,
-          period,
-          wp_type: "eaeu_employee",
-          claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "cease",
         });
 
-        //TODO define report_type
-        const table_5_data = getOfficialWPStatisticsDb({
+        const table_4_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "reject",
+        });
+
+        const table_5_data = await getOfficialWPStatisticsDb({
+          year,
+          period,
+          wp_type: "eaeu_employee",
+          claim_type: "all",
+          report_type: 2,
+          decType: "terminate",
         });
 
         tableData = {
-          table_1_data,
-          table_2_data,
-          table_3_data,
-          table_4_data,
-          table_5_data,
+          table_1_data: mapWpData(table_1_data),
+          table_2_data: mapWpData(table_2_data),
+          table_3_data: mapWpData(table_3_data),
+          table_4_data: mapWpData(table_4_data),
+          table_5_data: mapWpData(table_5_data),
         };
       }
       break;
     case "wp_2":
       {
-        //wp_type -> eaeu_employee , eaeu_employee_family , work_permit
-        const table_1_data = getOfficialWPStatisticsDb({
+        const table_1_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee_family",
           claim_type: "all",
           report_type: 1,
         });
-        const table_2_data = getOfficialWPStatisticsDb({
+        const table_2_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee_family",
           claim_type: "all",
           report_type: 2,
+          decType: "allow",
         });
-        //TODO define report_type
-        const table_3_data = getOfficialWPStatisticsDb({
+        const table_3_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee_family",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "cease",
         });
-        //TODO define report_type
-        const table_4_data = getOfficialWPStatisticsDb({
+        const table_4_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "eaeu_employee_family",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "reject",
         });
 
         tableData = {
-          table_1_data,
-          table_2_data,
-          table_3_data,
-          table_4_data,
+          table_1_data: mapEaeuFamData(table_1_data),
+          table_2_data: mapEaeuFamData(table_2_data),
+          table_3_data: mapEaeuFamData(table_3_data),
+          table_4_data: mapEaeuFamData(table_4_data),
         };
       }
       break;
     case "wp_3":
       {
-        //wp_type -> eaeu_employee , eaeu_employee_family , work_permit
-        const table_1_data = getOfficialWPStatisticsDb({
+        const table_1_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
@@ -504,44 +627,45 @@ const createPdfService = async (req) => {
           report_type: 1,
         });
 
-        const table_2_data = getOfficialWPStatisticsDb({
+        const table_2_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
           claim_type: "all",
           report_type: 2,
+          decType: "allow",
         });
-        //TODO define report_type
-        const table_3_data = getOfficialWPStatisticsDb({
+        const table_3_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "reject",
         });
-        //TODO define report_type
-        const table_4_data = getOfficialWPStatisticsDb({
+        const table_4_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "cease",
         });
-        //TODO define report_type
-        const table_5_data = getOfficialWPStatisticsDb({
+        const table_5_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "terminate",
         });
-        //TODO define report_type
-        const table_6_data = getOfficialWPStatisticsDb({
+        const table_6_data = await getOfficialWPStatisticsDb({
           year,
           period,
           wp_type: "work_permit",
           claim_type: "all",
-          report_type,
+          report_type: 2,
+          decType: "terminate",
         });
 
         tableData = {
@@ -552,14 +676,16 @@ const createPdfService = async (req) => {
           table_5_data,
           table_6_data,
         };
+        totalTableData = calculateWp3Totals(tableData);
       }
       break;
     default:
       tableData = {};
   }
 
+  console.log("totalTableData ", totalTableData);
   const fileName = await createPDF({
-    data: { reportsBasicData, tableData, year },
+    data: { reportsBasicData, tableData, totalTableData, year, period },
     statisticsType,
     period,
   });

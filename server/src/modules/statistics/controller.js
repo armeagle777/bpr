@@ -201,10 +201,12 @@ const getBorderCrossPeriods = async (req, res, next) => {
 
 const getSimpleWPStatistics = async (req, res, next) => {
   try {
-    const { wp_type, report_type, year, period, month, claim_type } = req.body;
+    const { wp_type, decType, report_type, year, period, month, claim_type } =
+      req.body;
     const data = await getSimpleWPStatisticsDb({
       wp_type,
       report_type,
+      decType,
       year,
       period,
       month,

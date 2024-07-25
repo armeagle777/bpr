@@ -6,7 +6,7 @@
 	<style type="text/css">
 		@page {
 			size: A4 portrait;
-			margin: 0;
+			margin: 10px 10px;
 		}
 		body{
 			width: 100%;
@@ -84,6 +84,7 @@
 			border: 1px solid black;
   			border-collapse: collapse;
 		}
+		.tables table thead {display: table-row-group;}
 	</style>
 	<meta charset="utf-8">
 </head>
@@ -174,21 +175,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#if tableData.table_halfTwo_1.length}}
 					<tr>
 						<td>Ընդամենը</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{totalTableData.table_halfTwo_1_totals.TOTAL_APPLICATIONS}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.MALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.FEMALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.MALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.FEMALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.MALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.FEMALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.MALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.FEMALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.MALE_65_PLUS}}</td>
+						<td>{{totalTableData.table_halfTwo_1_totals.FEMALE_65_PLUS}}</td>
 					</tr>
+					{{#if tableData.table_halfTwo_1.length}}
 						{{#each tableData.table_halfTwo_1}}
 							<tr>
 								<td>{{this.country_arm}}</td>
@@ -255,22 +256,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#if tableData.table_halfTwo_2.length}}
 					<tr>
 						<td>Ընդամենը</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{totalTableData.table_halfTwo_2_totals.TOTAL_APPLICATIONS}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.MALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.FEMALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.MALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.FEMALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.MALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.FEMALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.MALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.FEMALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.MALE_65_PLUS}}</td>
+						<td>{{totalTableData.table_halfTwo_2_totals.FEMALE_65_PLUS}}</td>
 					</tr>
+					{{#if tableData.table_halfTwo_2.length}}
 						{{#each tableData.table_halfTwo_2}}
 							<tr>
 								<td>{{this.country_arm}}</td>
@@ -336,21 +336,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#if tableData.table_halfTwo_3.length}}
 					<tr>
 						<td>Ընդամենը</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{totalTableData.table_halfTwo_3_totals.TOTAL_APPLICATIONS}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.MALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.FEMALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.MALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.FEMALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.MALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.FEMALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.MALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.FEMALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.MALE_65_PLUS}}</td>
+						<td>{{totalTableData.table_halfTwo_3_totals.FEMALE_65_PLUS}}</td>
 					</tr>
+					{{#if tableData.table_halfTwo_3.length}}
 						{{#each tableData.table_halfTwo_3}}
 							<tr>
 								<td>{{this.country_arm}}</td>
@@ -415,20 +415,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#if tableData.table_halfTwo_4_a.length}}
 					<tr>
 						<td>Շնորհվել է փախստականի կարգավիճակ</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.TOTAL_APPLICATIONS}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.MALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.FEMALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.MALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.FEMALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.MALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.FEMALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.MALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.FEMALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.MALE_65_PLUS}}</td>
+						<td>{{totalTableData.table_halfTwo_4_a_totals.FEMALE_65_PLUS}}</td>
 					</tr>
 					<tr>
 						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
@@ -444,6 +443,7 @@
 						<td></td>
 						<td></td>
 					</tr>
+					{{#if tableData.table_halfTwo_4_a.length}}
 						{{#each tableData.table_halfTwo_4_a}}
 							<tr>
 								<td>{{this.country_arm}}</td>
@@ -506,48 +506,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#if tableData.table_halfTwo_4_b.length}}
-					<tr>
-						<td>Շնորհվել է փախստականի կարգավիճակ</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
 					<tr>
 						<td>Դադարեցվել է փախստականի կարգավիճակը</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.TOTAL_APPLICATIONS}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.MALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.FEMALE_0_13}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.MALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.FEMALE_14_17}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.MALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.FEMALE_18_34}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.MALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.FEMALE_35_64}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.MALE_65_PLUS}}</td>
+						<td>{{totalTableData.table_halfTwo_4_b_totals.FEMALE_65_PLUS}}</td>
 					</tr>
 					<tr>
 						<td><b><i>այդ թվում`</i> ըստ քաղաքացիության երկրների</b></td>
@@ -563,6 +534,7 @@
 						<td></td>
 						<td></td>
 					</tr>
+					{{#if tableData.table_halfTwo_4_b.length}}
 						{{#each tableData.table_halfTwo_4_b}}
 							<tr>
 								<td>{{this.country_arm}}</td>
