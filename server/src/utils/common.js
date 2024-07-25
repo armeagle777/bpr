@@ -174,7 +174,7 @@ const createPDF = async ({ data, statisticsType, period }) => {
   };
 
   const options =
-    statisticsType === "asylum" ? optionsPortrait : optionsLandscape;
+    statisticsType === "asylum" ? optionsLandscape : optionsLandscape;
 
   const browser = await puppeteer.launch({
     args: ["--no-sandbox"],
