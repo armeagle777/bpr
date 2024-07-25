@@ -683,7 +683,6 @@ const createPdfService = async (req) => {
       tableData = {};
   }
 
-  console.log("totalTableData ", totalTableData);
   const fileName = await createPDF({
     data: { reportsBasicData, tableData, totalTableData, year, period },
     statisticsType,

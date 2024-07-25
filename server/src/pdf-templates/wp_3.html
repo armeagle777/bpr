@@ -8,6 +8,14 @@
 			/* size: A4 landscape; */
 			margin: 10px 10px;
 		}
+		@media print {
+            h3 {
+                page-break-before: always;
+            }
+        }
+        h3:first-of-type {
+            page-break-before: auto;
+        }
 		
 		body{
 			width: 100%;
