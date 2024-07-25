@@ -137,3 +137,10 @@ export const WP_TYPE_MAPS = {
   EAEU_EMP: "eaeu_employee",
   EAEU_EMP_FAM: "eaeu_employee_family",
 };
+
+export const WP_DEC_TYPES = [
+  { label: "Բավարարում", value: "allow", key: "allow" },
+  { label: "Մերժում", value: "reject", key: "reject" },
+  { label: "Կարճում", value: "cease", key: "cease" },
+  { label: "Դադարեցում", value: "terminate", key: "terminate" },
+];
