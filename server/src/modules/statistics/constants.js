@@ -115,8 +115,8 @@ const getCurrentDate = () => {
 
 const reportsBasicData = {
   reporterBody:
-    "Հայաստանի Հանրապետության տարածքային կառավարման նախարարության միգրացիոն պետական ծառայությունը",
-  reporterPhoneNumbers: ["060-000-000", "060-275-019"],
+    "Հայաստանի Հանրապետության Ներքին գործերի նախարարության միգրացիայի և քաղաքացիության ծառայությունը",
+  reporterPhoneNumbers: ["011-275-021", "011-275-019"],
   reporterEmail: "aghazaryann@gov.am",
   reporterHead: "Ղազարյան Արմեն",
   reporterPerson: "Մաթևոսյան Վարդան",
