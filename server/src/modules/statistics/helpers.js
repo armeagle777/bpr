@@ -763,7 +763,11 @@ const formatWpQuery = ({
   inner join users c on b.user_id = c.id
   inner join countries d on b.citizenship_id = d.id 
   left join 
-  (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
+  (select 
+    f.claim_id, 
+    f.action, 
+    date(f.created_at) as log_date 
+    from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
   where   
    year(${period_in_where_condition}) = '${year}' 
    ${claim_type_where_condion}
@@ -1277,6 +1281,19 @@ const mapEaeuFamData = (data) => {
   return { arrayOfObjects, countries: data.map((country) => country.name_am) };
 };
 
+const formatStatisticsPeriodsQuery = (statisticsType) => {
+  switch (statisticsType) {
+    case "asylum":
+      return "SELECT DISTINCT YEAR(mul_date) AS Year FROM tb_case ORDER BY Year DESC";
+    case "wp":
+      return "SELECT DISTINCT YEAR(created_at) AS Year FROM ms_logs ORDER BY Year DESC";
+    case "sahmanahatum":
+      return "SELECT DISTINCT year AS Year FROM crosses ORDER BY Year DESC";
+    default:
+      return "";
+  }
+};
+
 module.exports = {
   sanitizeData,
   formatAsylumQuery,
@@ -1295,4 +1312,5 @@ module.exports = {
   formatWpOfficialQuery,
   mapWpData,
   mapEaeuFamData,
+  formatStatisticsPeriodsQuery,
 };

@@ -5,7 +5,7 @@ const {
   formatExcelMetaData,
   sanitizeData,
 } = require("./helpers");
-const { createPdfService } = require("./services");
+const { createPdfService, getStatisticsPeriodsDataDb } = require("./services");
 
 const {
   getAsylumTotalDb,
@@ -219,6 +219,17 @@ const getSimpleWPStatistics = async (req, res, next) => {
   }
 };
 
+const getStatisticsPeriodsData = async (req, res, next) => {
+  try {
+    const { statisticsType } = req.params;
+    const data = await getStatisticsPeriodsDataDb(statisticsType);
+
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAsylumTotal,
   getAsylumApplications,
@@ -231,4 +242,5 @@ module.exports = {
   getSimpleWPStatistics,
   exportExcel,
   exportPdf,
+  getStatisticsPeriodsData,
 };

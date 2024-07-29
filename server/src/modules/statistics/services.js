@@ -25,6 +25,7 @@ const {
   formatWpOfficialQuery,
   mapWpData,
   mapEaeuFamData,
+  formatStatisticsPeriodsQuery,
 } = require("./helpers");
 const { Cross, sahmanahatumSequelize } = require("../../config/sahmanahatumDb");
 const { createPDF } = require("../../utils/common");
@@ -691,6 +692,26 @@ const createPdfService = async (req) => {
   return fileName;
 };
 
+const getStatisticsPeriodsDataDb = async (statisticsType) => {
+  const query = formatStatisticsPeriodsQuery(statisticsType);
+  const sequelizeClient =
+    statisticsType === "asylum"
+      ? statisticsSequelize
+      : statisticsType === "sahmanahatum"
+      ? sahmanahatumSequelize
+      : wpSequelize;
+
+  const periodsData = await sequelizeClient.query(query, {
+    type: Sequelize.QueryTypes.SELECT,
+  });
+
+  return periodsData.map(({ Year }) => ({
+    label: `${Year}`,
+    value: Year,
+    key: Year,
+  }));
+};
+
 module.exports = {
   getAsylumTotalDb,
   getAsylumYearsDb,
@@ -702,4 +723,5 @@ module.exports = {
   getBorderCrossPeriodsDb,
   getSimpleWPStatisticsDb,
   getBorderCrossCountriesDb,
+  getStatisticsPeriodsDataDb,
 };

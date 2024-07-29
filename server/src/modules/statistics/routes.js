@@ -12,6 +12,7 @@ const {
   getSimpleWPStatistics,
   exportExcel,
   exportPdf,
+  getStatisticsPeriodsData,
 } = require("./controller");
 
 const statisticsRoute = express.Router();
@@ -30,5 +31,7 @@ statisticsRoute.post("/wp/simple", getSimpleWPStatistics);
 
 statisticsRoute.post("/export/excel", exportExcel);
 statisticsRoute.post("/export/pdf", exportPdf);
+
+statisticsRoute.get("/periods/:statisticsType", getStatisticsPeriodsData);
 
 module.exports = statisticsRoute;
