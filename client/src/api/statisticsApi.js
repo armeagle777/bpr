@@ -10,6 +10,13 @@ export const getStatisticsData = async (filterObj, url) => {
   return response.data;
 };
 
+export const getStatisticsPeriodsData = async (statisticsType) => {
+  const response = await statisticsApi.get(
+    `/statistics/periods/${statisticsType}`
+  );
+  return response.data;
+};
+
 export const getStatisticsFile = async (filters, fileType) => {
   const mimeType =
     fileType === DOWNLOAD_FILE_TYPES.PDF

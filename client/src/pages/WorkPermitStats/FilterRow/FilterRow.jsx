@@ -12,12 +12,11 @@ import {
 import {
   ANT_BTN_TYPES,
   MOCK_PERIODS,
-  MOCK_YEARS,
   STATISTICS_FILTERS,
 } from "../../../utils/constants";
 
-// month
 const FilterRow = ({
+  years,
   filters,
   onFilter,
   isDataLoading,
@@ -25,7 +24,7 @@ const FilterRow = ({
   onResetFilters,
 }) => {
   const { FILTER_ROW } = translations;
-  console.log("v", filters);
+
   return (
     <Flex style={{ width: "60%", gap: 10 }}>
       <FilterSelect
@@ -53,7 +52,7 @@ const FilterRow = ({
         />
       )}
       <FilterSelect
-        options={MOCK_YEARS}
+        options={years}
         onChange={(e) =>
           onFilterChange({
             name: STATISTICS_FILTERS.YEAR,

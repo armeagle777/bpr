@@ -32,7 +32,7 @@ const WorkPermitStats = () => {
   };
   const { PAGE_TITLES } = translations;
   const initialTab = WP_TYPE_MAPS.VOLUNTEER;
-  console.log("data", data);
+
   useEffect(() => {
     handleFilterChange({
       name: STATISTICS_FILTERS.WP_TYPE,

@@ -7,19 +7,19 @@ import { MOCK_COLUMNS } from "./constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
 import {
   MOCK_PERIODS,
-  MOCK_YEARS,
   MOCK_MONTHS,
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
+import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
 
 const StatisticsPeriodBordercross = () => {
-  const [fakeLoading, setFakeLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setFakeLoading(false);
-    }, 2000);
-  }, []);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "BORDERCROSS" });
 
   const {
     data,
@@ -41,12 +41,12 @@ const StatisticsPeriodBordercross = () => {
 
   return (
     <Flex vertical>
-      {fakeLoading ? (
+      {isYearsFetching ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
           filters={filters}
-          years={MOCK_YEARS}
+          years={years}
           periods={MOCK_PERIODS}
           months={MOCK_MONTHS}
           onFilter={handleFilter}

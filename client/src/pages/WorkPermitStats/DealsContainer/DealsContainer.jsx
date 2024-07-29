@@ -3,6 +3,7 @@ import { Flex } from "antd";
 
 import { FilterRow } from "../FilterRow";
 import { FiltersRowSkeleton } from "../../../statisticsComponents";
+import useStatisticsPeriodsData from "../../../hooks/useStatisticsPeriodsData";
 
 const DealsContainer = ({
   children,
@@ -13,12 +14,14 @@ const DealsContainer = ({
   onFilterChange,
   onResetFilters,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "WP" });
+
   return (
     <Flex vertical>
       <p
@@ -32,10 +35,11 @@ const DealsContainer = ({
       >
         {title}
       </p>
-      {isLoading ? (
+      {isYearsFetching ? (
         <FiltersRowSkeleton />
       ) : (
         <FilterRow
+          years={years}
           filters={filters}
           onFilter={onFilter}
           isDataLoading={isDataLoading}
