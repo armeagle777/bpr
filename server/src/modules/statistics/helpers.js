@@ -323,14 +323,32 @@ const formatAsylumQuery = ({ table_name, year, month, period }) => {
           INNER JOIN tb_country c ON    a.citizenship = c.country_id 
           WHERE ${quarter_where_condition}  d.decision_type=4 AND d.actual=1) EAEU_STAT    
       group by EAEU_STAT.country_arm`,
-    asylum_closed: ` FROM (
+    asylum_closed: `
+    ,APP_STATS.TOTAL_APPLICATIONS AS TOTAL_APPLICATIONS_FROM_APPLICATIONS  
+    FROM (
           SELECT    a.personal_id,    c.country_arm,    YEAR(d.decison_date) - a.b_year AS age,    a.sex FROM    tb_person a 
           INNER JOIN tb_decisions d ON d.case_id = a.case_id 
           INNER JOIN tb_country c ON    a.citizenship = c.country_id 
-          WHERE ${quarter_where_condition}  d.decision_type=5 AND d.actual=1) EAEU_STAT    
+          WHERE ${quarter_where_condition}  d.decision_type=5 AND d.actual=1) EAEU_STAT
+          INNER JOIN (
+            SELECT
+              c.country_arm,
+              COUNT(d.case_id) AS TOTAL_APPLICATIONS
+            FROM
+              tb_decisions d
+              INNER JOIN tb_case csa ON csa.case_id=d.case_id
+              INNER JOIN tb_person prs on prs.case_id=csa.case_id AND prs.role=1
+            INNER JOIN
+              tb_country c ON prs.citizenship = c.country_id
+            WHERE 
+              ${quarter_where_condition} 
+              d.decision_type = 5
+              AND d.actual = 1
+            GROUP BY
+              c.country_arm
+          ) APP_STATS ON EAEU_STAT.country_arm = APP_STATS.country_arm    
       group by EAEU_STAT.country_arm`,
   };
-
   return statisticsBaseQuery + statisticsQueriesFrom[table_name];
 };
 

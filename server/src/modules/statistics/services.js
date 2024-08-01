@@ -321,6 +321,7 @@ const calculateTotals = (data) => {
   const totals = {};
 
   const columnsToTotal = [
+    "TOTAL_APPLICATIONS_FROM_APPLICATIONS",
     "TOTAL_APPLICATIONS",
     "TOTAL_MALE",
     "TOTAL_FEMALE",
