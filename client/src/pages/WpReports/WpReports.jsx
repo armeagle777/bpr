@@ -3,13 +3,19 @@ import { Flex } from "antd";
 import { FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
 import { useState } from "react";
+import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
 
 const WpReports = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "WP" });
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
-      <p>Wp reports</p>
+      {isYearsFetching ? <FiltersRowSkeleton /> : <FilterRow years={years} />}
     </Flex>
   );
 };

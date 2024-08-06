@@ -16,7 +16,6 @@ const AsylumReports = () => {
   return (
     <Flex vertical>
       {isYearsFetching ? <FiltersRowSkeleton /> : <FilterRow years={years} />}
-      <p>Asylum reports"</p>
     </Flex>
   );
 };
