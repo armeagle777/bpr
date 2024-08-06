@@ -2,14 +2,20 @@ import { Flex } from "antd";
 
 import { FiltersRowSkeleton } from "../../statisticsComponents";
 import { FilterRow } from "./FilterRow";
-import { useState } from "react";
+import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
 
 const AsylumReports = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: years,
+    isLoading: isYearsLoading,
+    isFetching: isYearsFetching,
+    isError: isYearsError,
+    error: yearsError,
+  } = useStatisticsPeriodsData({ statisticsType: "ASYLUM" });
 
   return (
     <Flex vertical>
-      {isLoading ? <FiltersRowSkeleton /> : <FilterRow />}
+      {isYearsFetching ? <FiltersRowSkeleton /> : <FilterRow years={years} />}
       <p>Asylum reports"</p>
     </Flex>
   );

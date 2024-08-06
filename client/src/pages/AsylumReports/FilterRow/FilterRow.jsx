@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import translations from "../../../utils/translations/am.json";
 import { FilterSelect } from "../../../statisticsComponents";
-import { ANT_BTN_TYPES, MOCK_YEARS } from "../../../utils/constants";
+import { ANT_BTN_TYPES } from "../../../utils/constants";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
@@ -23,7 +23,7 @@ function generateFileName() {
   return `${lastSegment}_${timestamp}`;
 }
 
-const FilterRow = ({}) => {
+const FilterRow = ({ years }) => {
   const [filters, setFilters] = useState({
     year: undefined,
     period: undefined,
@@ -88,7 +88,7 @@ const FilterRow = ({}) => {
     <Flex style={{ width: "60%", gap: 10 }}>
       <FilterSelect
         placeholder={FILTER_ROW.MULTY_YEARS_PLACEHOLDER}
-        options={MOCK_YEARS}
+        options={years}
         onChange={(value) => handleChangeFilters({ name: "year", value })}
       />
       <FilterSelect
