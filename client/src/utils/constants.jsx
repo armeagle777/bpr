@@ -82,6 +82,25 @@ export const deathReasons = {
   8: "Ահաբեկչական գործողությունների հետևանքով",
 };
 
+export const eduLevelsMap = {
+  none: "Չունի",
+  sec: "Միջնակարգ",
+  secpro: "Միջնակարգ մասնագիտական",
+  high: "Բարձրագույն",
+  bach: "Թերի բարձրագույն",
+  defsec: "Թերի միջնակարգ",
+  mast: "Մագիստրատուրա",
+  primary: "Տարրական",
+  highschool: "Ավագ դպրոց",
+};
+
+export const maritalStatusesMap = {
+  m: "Ամուսնացած",
+  u: "Ամուսնացած չի եղել",
+  d: "Ամուսնալուծված",
+  w: "Այրի",
+};
+
 export const bprDocumentTypes = {
   ID_CARD: "ID քարտ",
   NON_BIOMETRIC_PASSPORT: "ՀՀ անձնագիր",

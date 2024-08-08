@@ -6,14 +6,19 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 
-import { qkagDocumentTypes } from "../../utils/constants";
+import {
+  eduLevelsMap,
+  maritalStatusesMap,
+  qkagDocumentTypes,
+} from "../../utils/constants";
 import { formatDates } from "../../utils/helperFunctions";
 import useFetchPerson from "../../hooks/useFetchPerson";
 import { Skeleton } from "@mui/material";
 
-const PersonRow = ({ role, person, targetSsn, type, presenter, med }) => {
+const PersonRow = ({ role, person, targetSsn, isPresenter }) => {
   const {
     psn,
+    gender,
     id_type,
     id_number,
     citizenship,
@@ -23,12 +28,17 @@ const PersonRow = ({ role, person, targetSsn, type, presenter, med }) => {
     new_last_name,
     base_info,
     resident,
+    education_level,
+    employment_status,
+    marital_status,
+    marriage_number,
   } = { ...person };
   const { country, region, community, street, house_type, house } = {
     ...resident,
   };
   const { name, last_name, fathers_name, birth_date } = { ...base_info };
-
+  const roleImageSrc =
+    role === "baby" ? "baby" : gender === "1" ? "male" : "female";
   const { data: bprData, isLoading, isError, error } = useFetchPerson(psn);
   const imageUrl = bprData?.documents?.find((doc) => doc.Photo_ID)?.Photo_ID;
 
@@ -57,19 +67,19 @@ const PersonRow = ({ role, person, targetSsn, type, presenter, med }) => {
               src={
                 imageUrl
                   ? `data:image/jpeg;base64,${imageUrl}`
-                  : `../src/assets/${role}.png`
+                  : `../src/assets/${roleImageSrc}.png`
               }
             />
           )}
         </ListItemAvatar>
         <ListItemText
-          primary={`${last_name} ${name}${
-            fathers_name ? ` ${fathers_name}` : ""
-          }`}
+          primary={`${
+            isPresenter ? "Ներկայացուցիչ - " : ""
+          }${last_name} ${name}${fathers_name ? ` ${fathers_name}` : ""}`}
           secondary={
             <>
               <Typography
-                sx={{ display: "inline" }}
+                sx={{ display: "inline", fontWeight: "bold" }}
                 component="span"
                 variant="body2"
                 color="text.primary"
@@ -82,7 +92,7 @@ const PersonRow = ({ role, person, targetSsn, type, presenter, med }) => {
                   )} ; `
                 : ""}
               <Typography
-                sx={{ display: "inline" }}
+                sx={{ display: "inline", fontWeight: "bold" }}
                 component="span"
                 variant="body2"
                 color="text.primary"
@@ -94,57 +104,68 @@ const PersonRow = ({ role, person, targetSsn, type, presenter, med }) => {
                   ? region || ""
                   : `${region || ""}, ${community || ""}`
               } ${street || ""} ${house_type || ""} ${house || ""}`}
-              {type === "death" && (
+              {(education_level ||
+                employment_status ||
+                marital_status ||
+                marriage_number) && (
                 <>
                   <br />
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    Ներկայացուցիչ:
-                  </Typography>{" "}
-                  {presenter.base_info.last_name || ""}{" "}
-                  {presenter.base_info.name || ""}{" "}
-                  {presenter.base_info.fathers_name || ""}
-                  <br />
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    մահվան ա/թ:
-                  </Typography>{" "}
-                  {med.death.date},{" "}
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    մահվան վայր:
-                  </Typography>{" "}
-                  {med.death.place || ""} ,{" "}
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    մահվան պատճառ:
-                  </Typography>{" "}
-                  {med.death.reason} ,{" "}
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    գրանցող մարմին:
-                  </Typography>{" "}
-                  {med.institution_name}
+                  {education_level && (
+                    <>
+                      <Typography
+                        sx={{ display: "inline", fontWeight: "bold" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Կրթություն:
+                      </Typography>{" "}
+                      {eduLevelsMap[education_level] || ""}
+                      {"; "}
+                    </>
+                  )}
+                  {employment_status && (
+                    <>
+                      <Typography
+                        sx={{ display: "inline", fontWeight: "bold" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Աշխատանք:
+                      </Typography>{" "}
+                      {employment_status}
+                      {"; "}
+                    </>
+                  )}
+                  {marital_status && (
+                    <>
+                      <br />
+                      <Typography
+                        sx={{ display: "inline", fontWeight: "bold" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Ամուսնական կարգավիճակ:
+                      </Typography>{" "}
+                      {maritalStatusesMap[marital_status] || ""}
+                      {"; "}
+                    </>
+                  )}
+                  {marriage_number && (
+                    <>
+                      <Typography
+                        sx={{ display: "inline", fontWeight: "bold" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Ամուսնությունների քանակ:
+                      </Typography>{" "}
+                      {marriage_number || ""}
+                    </>
+                  )}
                 </>
               )}
             </>

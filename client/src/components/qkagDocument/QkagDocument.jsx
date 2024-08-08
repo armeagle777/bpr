@@ -11,10 +11,11 @@ import { useState } from "react";
 import { documentNames } from "../../utils/constants";
 import { formatDates } from "../../utils/helperFunctions";
 import PersonRow from "./PersonRow";
-import { IconButton } from "@mui/material";
+
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import BPR from "../pdf-templates/BPR";
+
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
+import MedRow from "./MedRow";
 
 const QkagDocument = ({ document, targetSsn }) => {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,7 @@ const QkagDocument = ({ document, targetSsn }) => {
     cert_num,
     cert_num2,
     cert_date,
+    full_ref_num,
     person,
     person2,
     child,
@@ -31,11 +33,19 @@ const QkagDocument = ({ document, targetSsn }) => {
     presenter,
     med,
   } = document;
-  console.log("document>>>>>", document);
+
+  const areSamePerson = ({ presenter, person, person2 }) => {
+    return (
+      (presenter?.base_info?.name === person?.base_info?.name &&
+        presenter?.base_info?.last_name === person?.base_info?.last_name) ||
+      (presenter?.base_info?.name === person2?.base_info?.name &&
+        presenter?.base_info?.last_name === person2?.base_info?.last_name)
+    );
+  };
+
   const handleClick = () => {
     setOpen(!open);
   };
-
   return (
     <List
       sx={{ width: "100%" }}
@@ -52,7 +62,9 @@ const QkagDocument = ({ document, targetSsn }) => {
         <ListItemText
           primary={`${cert_num}${
             cert_num2 ? `-${cert_num2}` : ""
-          } | ${formatDates(cert_date)} | ${office_name}`}
+          } | ${formatDates(cert_date)} | ${office_name} | ${
+            full_ref_num || ""
+          }`}
         />
         <PDFGenerator
           PDFTemplate={documentNames[type]["template"]}
@@ -66,20 +78,20 @@ const QkagDocument = ({ document, targetSsn }) => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <PersonRow
-            role="male"
-            person={person}
-            targetSsn={targetSsn}
-            type={type}
-            presenter={presenter}
-            med={med}
-          />
-          {person2 && (
-            <PersonRow role="female" person={person2} targetSsn={targetSsn} />
-          )}
+          <PersonRow person={person} targetSsn={targetSsn} />
+          {person2 && <PersonRow person={person2} targetSsn={targetSsn} />}
           {child && (
             <PersonRow role="baby" person={child} targetSsn={targetSsn} />
           )}
+          {med?.document_number && <MedRow med={med} />}
+          {presenter?.base_info &&
+            !areSamePerson({ presenter, person, person2 }) && (
+              <PersonRow
+                isPresenter={true}
+                person={presenter}
+                targetSsn={presenter.psn}
+              />
+            )}
         </List>
       </Collapse>
     </List>

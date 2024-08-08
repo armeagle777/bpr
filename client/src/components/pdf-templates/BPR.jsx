@@ -145,7 +145,6 @@ const BPR = ({ data }) => {
     addresses,
     documents,
   } = { ...data };
-
   const validDocuments = documents.filter(
     (d) =>
       d.Document_Status === "VALID" || d.Document_Status === "PRIMARY_VALID"
@@ -184,7 +183,6 @@ const BPR = ({ data }) => {
       Building_Type +
       " - " +
       Apartment || "";
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>

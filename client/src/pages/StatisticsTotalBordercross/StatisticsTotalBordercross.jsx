@@ -33,6 +33,36 @@ const StatisticsTotalBordercross = () => {
     handleFilterChange,
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "BORDERCROSS_TOTAL" });
+
+  const totals = data.reduce(
+    (acc, item) => {
+      acc.arm_in += +item.arm_in;
+      acc.arm_out += +item.arm_out;
+      acc.arm_net += +item.arm_net;
+      acc.other_in += +item.other_in;
+      acc.other_out += +item.other_out;
+      acc.other_net += +item.other_net;
+      acc.total_in += +item.total_in;
+      acc.total_out += +item.total_out;
+      acc.total_net += +item.total_net;
+      return acc;
+    },
+    {
+      key: "Ընդամենը",
+      main_column: "Ընդամենը",
+      arm_in: 0,
+      arm_out: 0,
+      arm_net: 0,
+      other_in: 0,
+      other_out: 0,
+      other_net: 0,
+      total_in: 0,
+      total_out: 0,
+      total_net: 0,
+    }
+  );
+  const dataWithTotals = [totals, ...data];
+
   const exportExcelFilters = {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_TOTAL,
@@ -57,7 +87,7 @@ const StatisticsTotalBordercross = () => {
       )}
       <DataTable
         filters={exportExcelFilters}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         isLoading={isFetching}
         controlledColumns={MOCK_COLUMNS}
       />
