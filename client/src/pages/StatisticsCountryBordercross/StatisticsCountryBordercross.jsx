@@ -11,6 +11,7 @@ import {
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
 import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
+import { addTotals } from "../../utils/helperFunctions";
 
 const StatisticsCountryBordercross = () => {
   const {
@@ -34,37 +35,11 @@ const StatisticsCountryBordercross = () => {
     handleResetFilters,
   } = useFilterStatistics({ statisticsType: "BORDERCROSS_COUNTRIES" });
 
-  const totals = data.reduce(
-    (acc, item) => {
-      acc.air_in += +item.air_in;
-      acc.air_out += +item.air_out;
-      acc.air_net += +item.air_net;
-      acc.land_in += +item.land_in;
-      acc.land_out += +item.land_out;
-      acc.land_net += +item.land_net;
-      acc.railway_in += +item.railway_in;
-      acc.railway_out += +item.railway_out;
-      acc.railway_net += +item.railway_net;
-      return acc;
-    },
-    {
-      country: "Ընդամենը",
-      air_in: 0,
-      air_out: 0,
-      air_net: 0,
-      land_in: 0,
-      land_out: 0,
-      land_net: 0,
-      railway_in: 0,
-      railway_out: 0,
-      railway_net: 0,
-    }
-  );
-  const dataWithTotals = [totals, ...data];
   const exportExcelFilters = {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_COUNTRIES,
   };
+  const dataWithTotals = addTotals(data);
 
   return (
     <Flex vertical>

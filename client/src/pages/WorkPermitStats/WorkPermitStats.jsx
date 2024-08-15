@@ -12,6 +12,7 @@ import {
 } from "../../utils/constants";
 import { useEffect } from "react";
 import { WP_TYPE_MAPS } from "./WorkPermitStats.constants";
+import { addTotals } from "../../utils/helperFunctions";
 
 const WorkPermitStats = () => {
   const {
@@ -39,7 +40,7 @@ const WorkPermitStats = () => {
       value: initialTab,
     });
   }, []);
-
+  const dataWithTotals = addTotals(data);
   const tabItems = {
     [WP_TYPE_MAPS.EAEU_EMP]: {
       key: 1,
@@ -53,7 +54,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <EATMPersons data={data} isLoading={isFetching} />
+          <EATMPersons data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },
@@ -69,7 +70,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <EATMFams data={data} isLoading={isFetching} />
+          <EATMFams data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },
@@ -85,7 +86,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <JKK data={data} isLoading={isFetching} />
+          <JKK data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },
@@ -101,7 +102,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <Volunteer data={data} isLoading={isFetching} />
+          <Volunteer data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },

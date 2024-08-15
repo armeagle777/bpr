@@ -11,6 +11,7 @@ import {
   STATISTICS_TYPE_MAPS,
 } from "../../utils/constants";
 import useStatisticsPeriodsData from "../../hooks/useStatisticsPeriodsData";
+import { addTotals } from "../../utils/helperFunctions";
 
 const ApastanApplications = () => {
   const {
@@ -38,7 +39,7 @@ const ApastanApplications = () => {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.ASYLUM_APPLICATIONS,
   };
-
+  const dataWithTotals = addTotals(data);
   return (
     <Flex vertical>
       {isYearsFetching ? (
@@ -58,7 +59,7 @@ const ApastanApplications = () => {
       <DataTable
         filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>

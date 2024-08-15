@@ -6,6 +6,7 @@ import { MOCK_COLUMNS } from "./ApastanYears.constants";
 import useFilterStatistics from "../../hooks/useFilterStatistics";
 import { useEffect } from "react";
 import { STATISTICS_TYPE_MAPS } from "../../utils/constants";
+import { addTotals } from "../../utils/helperFunctions";
 
 const ApastanYears = () => {
   const {
@@ -28,13 +29,13 @@ const ApastanYears = () => {
   useEffect(() => {
     refetch();
   }, []);
-
+  const dataWithTotals = addTotals(data);
   return (
     <Flex vertical>
       <DataTable
         filters={exportExcelFilters}
         isLoading={isFetching}
-        modifiedData={data}
+        modifiedData={dataWithTotals}
         controlledColumns={MOCK_COLUMNS}
       />
     </Flex>
