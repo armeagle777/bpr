@@ -8,15 +8,15 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
-Font.register({
-  family: "GHEA-grapalat",
-  src: "/Fonts/GHEAGrpalatReg.otf",
-});
+// Font.register({
+//   family: "GHEA-grapalat",
+//   src: "/Fonts/GHEAGrpalatReg.otf",
+// });
 
-Font.register({
-  family: "GHEA-grapalat-italic",
-  src: "/Fonts/GHEAGrapalatRit.otf",
-});
+// Font.register({
+//   family: "GHEA-grapalat-italic",
+//   src: "/Fonts/GHEAGrapalatRit.otf",
+// });
 
 const styles = StyleSheet.create({
   page: {
