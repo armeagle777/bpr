@@ -12,7 +12,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-import { LockOutlinedIcon } from "@mui/icons-material";
+import LockOutlinedIcon from "@mui/icons-material/lock";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
