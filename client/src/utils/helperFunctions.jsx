@@ -301,7 +301,7 @@ export const addTotals = (arr) => {
     if (typeof arr[0][key] === "number") {
       acc[key] = 0;
     } else {
-      acc[key] = key === "key" ? "total" : "Total";
+      acc[key] = key === "key" ? "total" : "Ընդամենը";
     }
     return acc;
   }, {});
