@@ -157,8 +157,15 @@ const getBorderCrossTotalDb = async ({ year, period, month, borderCross }) => {
   const statData = await sahmanahatumSequelize.query(query, {
     type: Sequelize.QueryTypes.SELECT,
   });
-
-  return statData;
+  const numericData = statData.map((item) => {
+    return Object.fromEntries(
+      Object.entries(item).map(([key, value]) => [
+        key,
+        isNaN(value) ? value : +value,
+      ])
+    );
+  });
+  return numericData;
 };
 
 const getBorderCrossCountriesDb = async ({ year, period, month }) => {
@@ -172,7 +179,16 @@ const getBorderCrossCountriesDb = async ({ year, period, month }) => {
     type: Sequelize.QueryTypes.SELECT,
   });
 
-  return statData;
+  const numericData = statData.map((item) => {
+    return Object.fromEntries(
+      Object.entries(item).map(([key, value]) => [
+        key,
+        isNaN(value) ? value : +value,
+      ])
+    );
+  });
+
+  return numericData;
 };
 
 const getBorderCrossPeriodsDb = async ({ year, period, month }) => {
@@ -186,7 +202,15 @@ const getBorderCrossPeriodsDb = async ({ year, period, month }) => {
     type: Sequelize.QueryTypes.SELECT,
   });
 
-  return statData;
+  const numericData = statData.map((item) => {
+    return Object.fromEntries(
+      Object.entries(item).map(([key, value]) => [
+        key,
+        key === "main_column" || isNaN(value) ? String(value) : +value,
+      ])
+    );
+  });
+  return numericData;
 };
 
 const getSimpleWPStatisticsDb = async ({
@@ -710,11 +734,12 @@ const getStatisticsPeriodsDataDb = async (statisticsType) => {
     type: Sequelize.QueryTypes.SELECT,
   });
 
-  return periodsData.map(({ Year }) => ({
+  const formatedYears = periodsData.map(({ Year }) => ({
     label: `${Year}`,
     value: Year,
     key: Year,
   }));
+  return formatedYears;
 };
 
 module.exports = {
