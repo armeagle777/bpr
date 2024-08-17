@@ -87,7 +87,11 @@ const getAsylumYearsDb = async () => {
   const statData = await statisticsSequelize.query(statByYearQuery, {
     type: Sequelize.QueryTypes.SELECT,
   });
-  return statData;
+  return statData.map((row) => ({
+    ...row,
+    period_year: String(row.period_year),
+    key: row.period_year,
+  }));
 };
 
 const insertDataFromFile = async (files) => {
