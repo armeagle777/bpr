@@ -248,7 +248,7 @@ const getSimpleWPStatisticsDb = async ({
     type: Sequelize.QueryTypes.SELECT,
   });
 
-  const formatedData = statData?.map((row, index) => ({ ...row, key: index }));
+  const formatedData = statData?.map((row, index) => ({ ...row, key: v4() }));
   return formatedData;
 };
 
