@@ -7,21 +7,28 @@ import {
   Font,
   Image,
 } from "@react-pdf/renderer";
+import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
+import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
 
 Font.register({
-  family: "GHEA-grapalat",
-  src: "/Fonts/GHEAGrpalatReg.otf",
-});
-
-Font.register({
-  family: "GHEA-grapalat-italic",
-  src: "/Fonts/GHEAGrapalatRit.otf",
+  family: "Arial",
+  fontStyle: "normal",
+  fontWeight: "normal",
+  fonts: [
+    {
+      src: Arial,
+    },
+    {
+      src: BoldArial,
+      fontWeight: "bold",
+    },
+  ],
 });
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "#f7f7ff",
-    fontFamily: "GHEA-grapalat",
+    fontFamily: "Arial",
     fontSize: 12,
     color: "#6A6A6A",
   },
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   asideRowTitle: {
-    fontFamily: "GHEA-grapalat-italic",
+    fontFamily: "Arial",
     fontSize: 8,
     marginBottom: 6,
   },
@@ -82,7 +89,7 @@ const styles = StyleSheet.create({
   },
   mainSectionTitle: {
     width: "100%",
-    fontFamily: "GHEA-grapalat",
+    fontFamily: "Arial",
     fontSize: 8,
     fontWeight: "bold",
     paddingBottom: 4,

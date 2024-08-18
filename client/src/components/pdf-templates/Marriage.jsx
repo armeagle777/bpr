@@ -21,7 +21,7 @@ import {
 const styles = StyleSheet.create({
   page: {
     flexDirection: "row",
-    fontFamily: "GHEA-grapalat",
+    // fontFamily: "GHEA-grapalat",
     fontSize: 12,
     color: "#6A6A6A",
   },
