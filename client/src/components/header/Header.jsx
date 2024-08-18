@@ -1,6 +1,4 @@
 import { useState } from "react";
-import AdbIcon from "@mui/icons-material/Adb";
-import MenuIcon from "@mui/icons-material/Menu";
 import { CardMedia } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -88,12 +86,6 @@ const Header = () => {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               <Link to="register">Պետ․Ռեգիստր</Link>
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link to="statistics">Վիճակագրություն</Link>
             </Button>
           </Box>
 
