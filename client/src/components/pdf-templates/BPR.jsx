@@ -159,6 +159,14 @@ const BPR = ({ data }) => {
   const invalidDocuments = documents?.filter(
     (d) => d.Document_Status === "INVALID"
   );
+  console.log("documents", validDocuments[0]);
+  const mainDocument =
+    validDocuments?.length > 0
+      ? validDocuments[0]
+      : invalidDocuments?.length > 0
+      ? invalidDocuments[0]
+      : {};
+  const personInfo = mainDocument?.Person || {};
   const currentAddress =
     addresses?.find(
       (a) => a.RegistrationData.Registration_Type === "CURRENT"
@@ -198,8 +206,10 @@ const BPR = ({ data }) => {
           <View style={styles.aside}>
             <View style={styles.asideSection}>
               <Image src="/male.png" style={styles.asideImage} />
-              <Text>Վարդգես Գասպարի</Text>
-              <Text> Վարպետի</Text>
+              <Text>
+                {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
+              </Text>
+              <Text>{personInfo.Patronymic_Name || ""}</Text>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Ծննդ. ամսաթիվ</Text>
                 <Text style={styles.asideRowBody}>12/12/2000թ.</Text>
