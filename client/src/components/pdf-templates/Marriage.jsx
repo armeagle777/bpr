@@ -8,16 +8,6 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
-// Font.register({
-//   family: "GHEA-grapalat",
-//   src: "/Fonts/GHEAGrpalatReg.otf",
-// });
-
-// Font.register({
-//   family: "GHEA-grapalat-italic",
-//   src: "/Fonts/GHEAGrapalatRit.otf",
-// });
-
 const styles = StyleSheet.create({
   page: {
     flexDirection: "row",
@@ -49,7 +39,7 @@ const Marriage = ({ data }) => (
       <View style={styles.content}>
         <Text style={styles.header}>Ամուսնության գրանցման</Text>
       </View>
-      <Image src="./birth.jpg" style={styles.imageOverlay} />
+      <Image src="/birth.jpg" style={styles.imageOverlay} />
     </Page>
   </Document>
 );

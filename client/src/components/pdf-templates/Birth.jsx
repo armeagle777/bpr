@@ -10,6 +10,7 @@ import {
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
+import birthImage from "../../assets/birth.jpg";
 
 Font.register({
   family: "Arial",
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
-    padding: "200px 10px 10px",
+    padding: "200px 0 0 20px",
   },
   imageOverlay: {
     position: "absolute",
@@ -47,7 +48,9 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 14,
+    // fontFamily: "Arial",
+    fontWeight: "bold",
   },
 });
 
@@ -57,7 +60,7 @@ const Birth = ({ data }) => (
       <View style={styles.content}>
         <Text style={styles.header}>Ծննդյան գրանցման</Text>
       </View>
-      <Image src="./birth.jpg" style={styles.imageOverlay} />
+      <Image src={birthImage} style={styles.imageOverlay} />
     </Page>
   </Document>
 );

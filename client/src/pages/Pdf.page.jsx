@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const Pdf = () => {
   return (
     <PDFViewer style={styles.pdfContainer}>
-      <Marriage />
+      <Birth />
     </PDFViewer>
   );
 };
