@@ -9,6 +9,7 @@ import {
 } from "@react-pdf/renderer";
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
+import { bprDocumentTypes } from "../../utils/constants";
 
 Font.register({
   family: "Arial",
@@ -53,9 +54,9 @@ const styles = StyleSheet.create({
       "0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54)",
   },
   asideImage: {
-    width: "60px",
-    height: "60px",
-    borderRadius: "50%",
+    width: "70px",
+    height: "80px",
+    // borderRadius: "50%",
   },
   asideRow: {
     padding: "5px",
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   },
   documentsRowIcon: {
     height: "30px",
-    width: "15%",
+    width: "20%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -145,9 +146,9 @@ const styles = StyleSheet.create({
 
 const BPR = ({ data }) => {
   const {
-    Citizenship_StoppedDate,
-    DeathDate,
     IsDead,
+    DeathDate,
+    Citizenship_StoppedDate,
     PNum = "",
     addresses = [],
     documents,
@@ -159,7 +160,7 @@ const BPR = ({ data }) => {
   const invalidDocuments = documents?.filter(
     (d) => d.Document_Status === "INVALID"
   );
-  console.log("documents", validDocuments[0]);
+
   const mainDocument =
     validDocuments?.length > 0
       ? validDocuments[0]
@@ -169,7 +170,7 @@ const BPR = ({ data }) => {
   const personInfo = mainDocument?.Person || {};
   const currentAddress =
     addresses?.find(
-      (a) => a.RegistrationData.Registration_Type === "CURRENT"
+      (a) => a.RegistrationData?.Registration_Type === "CURRENT"
     ) || addresses[0];
 
   const { RegistrationAddress } = { ...currentAddress };
@@ -199,13 +200,21 @@ const BPR = ({ data }) => {
       Building_Type +
       " - " +
       Apartment || "";
+  console.log("addresses>>>>", addresses);
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.container}>
           <View style={styles.aside}>
             <View style={styles.asideSection}>
-              <Image src="/male.png" style={styles.asideImage} />
+              <Image
+                src={
+                  mainDocument.Photo_ID
+                    ? `data:application/pdf;base64,${mainDocument.Photo_ID}`
+                    : "/male.png"
+                }
+                style={styles.asideImage}
+              />
               <Text>
                 {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
               </Text>
@@ -221,7 +230,7 @@ const BPR = ({ data }) => {
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Ազգություն</Text>
                 <Text style={styles.asideRowBody}>
-                  {personInfo.Nationality.NationalityName}
+                  {personInfo.Nationality?.NationalityName || ""}
                 </Text>
               </View>
               <View style={styles.asideRow}>
@@ -269,57 +278,107 @@ const BPR = ({ data }) => {
           <View style={styles.main}>
             <View style={styles.mainSection}>
               <Text style={styles.mainSectionTitle}>Փաստաթղթեր</Text>
-              <View style={styles.documentsRow}>
-                <View style={styles.documentsRowIcon}>
-                  <Text style={styles.documentIconText}>Անվավեր</Text>
-                  <Text style={styles.documentIconText}>Անձնագիր</Text>
-                </View>
-                <View style={styles.documentsRowBody}>
-                  <Text style={styles.documentsBodyTitle}>
-                    Գասպարի Վարդգես Վարպետի
-                  </Text>
-                  <Text style={styles.documentsBodyText}>
-                    AV0536594 07/11/2022 012 07/11/2032
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.documentsRow}>
-                <View style={styles.documentsRowIcon}>
-                  <Text style={styles.documentIconText}>Վավեր</Text>
-                  <Text style={styles.documentIconText}>ID քարտ</Text>
-                </View>
-                <View style={styles.documentsRowBody}>
-                  <Text style={styles.documentsBodyTitle}>
-                    Գասպարի Վարդգես Վարպետի
-                  </Text>
-                  <Text style={styles.documentsBodyText}>
-                    AV0536594 07/11/2022 012 07/11/2032
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.documentsRow}>
-                <View style={styles.documentsRowIcon}>
-                  <Text style={styles.documentIconText}>Վավեր</Text>
-                  <Text style={styles.documentIconText}>Անձնագիր</Text>
-                </View>
-                <View style={styles.documentsRowBody}>
-                  <Text style={styles.documentsBodyTitle}>
-                    Գասպարի Վարդգես Վարպետի
-                  </Text>
-                  <Text style={styles.documentsBodyText}>
-                    AV0536594 07/11/2022 012 07/11/2032
-                  </Text>
-                </View>
-              </View>
+              {validDocuments?.length > 0 &&
+                validDocuments.map((doc) => (
+                  <View style={styles.documentsRow} key={doc.Document_Number}>
+                    <View style={styles.documentsRowIcon}>
+                      <Text style={styles.documentIconText}>
+                        {doc.Document_Status === "VALID" ||
+                        doc.Document_Status === "PRIMARY_VALID"
+                          ? "Վավեր"
+                          : "Անվավեր"}
+                      </Text>
+                      <Text style={styles.documentIconText}>
+                        {bprDocumentTypes[doc.Document_Type]}
+                      </Text>
+                    </View>
+                    <View style={styles.documentsRowBody}>
+                      <Text style={styles.documentsBodyTitle}>
+                        {doc.Person?.Last_Name || ""}{" "}
+                        {doc.Person?.First_Name || ""}{" "}
+                        {doc.Person?.Patronymic_Name || ""}
+                      </Text>
+                      <Text style={styles.documentsBodyText}>
+                        {doc.Document_Number || ""}{" "}
+                        {doc.PassportData?.Passport_Issuance_Date || ""}{" "}
+                        {doc.Document_Department}{" "}
+                        {doc.PassportData?.Passport_Validity_Date}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              {invalidDocuments?.length > 0 &&
+                invalidDocuments.map((doc) => (
+                  <View style={styles.documentsRow} key={doc.Document_Number}>
+                    <View style={styles.documentsRowIcon}>
+                      <Text style={styles.documentIconText}>
+                        {doc.Document_Status === "VALID" ||
+                        doc.Document_Status === "PRIMARY_VALID"
+                          ? "Վավեր"
+                          : "Անվավեր"}
+                      </Text>
+                      <Text style={styles.documentIconText}>
+                        {bprDocumentTypes[doc.Document_Type]}
+                      </Text>
+                    </View>
+                    <View style={styles.documentsRowBody}>
+                      <Text style={styles.documentsBodyTitle}>
+                        {doc.Person?.Last_Name || ""}{" "}
+                        {doc.Person?.First_Name || ""}{" "}
+                        {doc.Person?.Patronymic_Name || ""}
+                      </Text>
+                      <Text style={styles.documentsBodyText}>
+                        {doc.Document_Number || ""}{" "}
+                        {doc.PassportData?.Passport_Issuance_Date || ""}{" "}
+                        {doc.Document_Department}{" "}
+                        {doc.PassportData?.Passport_Validity_Date}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
             </View>
             <View style={styles.mainSection}>
               <Text style={styles.mainSectionTitle}>Գրանցման հասցեներ</Text>
-              <View style={styles.addressesRow}>
-                <View style={styles.addressesRowIcon}></View>
-                <View style={styles.addressesRowBody}>
-                  <Text>Test</Text>
-                </View>
-              </View>
+              {addresses?.length > 0 &&
+                addresses.map((addr, index) => {
+                  const { RegistrationAddress, RegistrationData } = addr;
+                  return (
+                    <View style={styles.documentsRow} key={index}>
+                      <View style={styles.documentsRowIcon}>
+                        <Text style={styles.documentIconText}>
+                          {RegistrationData?.Registration_Status || ""}
+                        </Text>
+                        <Text style={styles.documentIconText}>
+                          {RegistrationData?.Registration_Type === "OLD"
+                            ? "Հին"
+                            : "ՆԵրկա"}
+                        </Text>
+                      </View>
+                      <View style={styles.documentsRowBody}>
+                        <Text style={styles.documentsBodyTitle}>
+                          {RegistrationAddress?.Region || ""}
+                          {", "}
+                          {(RegistrationAddress?.Community &&
+                            RegistrationAddress?.Community !==
+                              RegistrationAddress?.Region &&
+                            RegistrationAddress?.Community) ||
+                            ""}{" "}
+                          {RegistrationAddress?.Residence || ""}{" "}
+                          {RegistrationAddress?.Street || ""}{" "}
+                          {RegistrationAddress?.Building || ""}{" "}
+                          {RegistrationAddress?.Building_Type || ""}{" "}
+                          {RegistrationAddress?.Apartment || ""}
+                        </Text>
+                        <Text style={styles.documentsBodyText}>
+                          {RegistrationData?.Registration_Aim?.AimName || ""}
+                          {" :"}
+                          {RegistrationData?.Registration_Date || ""}{" "}
+                          {RegistrationData?.Registration_Department || ""}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
             </View>
           </View>
         </View>

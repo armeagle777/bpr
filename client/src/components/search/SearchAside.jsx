@@ -13,7 +13,7 @@ const minDistance = 10;
 
 const SearchAside = ({ showExtended, persons }) => {
   const [value, setValue] = useState([20, 37]);
-  console.log(persons);
+
   const filterCounts = persons.reduce((acc, el) => {
     //Gender
     if (el.documents.find((doc) => doc.Person?.Genus === "M")) {

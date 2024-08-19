@@ -348,7 +348,7 @@ const ExcelDataTable = ({ isError, error, isLoading, rowData = [] }) => {
       ),
     [order, orderBy, page, rowsPerPage]
   );
-  console.log("rowData", rowData);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>

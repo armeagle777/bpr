@@ -13,7 +13,14 @@ import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import BPR from "../pdf-templates/BPR";
 
 const SearchRow = ({ personInfo }) => {
-  const { PNum, addresses = [], documents = [] } = personInfo;
+  const {
+    PNum,
+    addresses = [],
+    documents = [],
+    IsDead,
+    DeathDate,
+    Citizenship_StoppedDate,
+  } = personInfo;
   const navigate = useNavigate();
 
   const addressLine = formatAddressString(addresses);
@@ -89,7 +96,14 @@ const SearchRow = ({ personInfo }) => {
             buttonText="Արտահանել"
             variant="outlined"
             Icon={PictureAsPdfIcon}
-            data={{ addresses, documents }}
+            data={{
+              addresses,
+              documents,
+              PNum,
+              IsDead,
+              DeathDate,
+              Citizenship_StoppedDate,
+            }}
           />
           <Button
             onClick={infoClickHandler}
