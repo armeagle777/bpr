@@ -46,6 +46,12 @@ const QkagDocument = ({ document, targetSsn }) => {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const qkagDocumentName =
+    (person?.base_info?.name || "") +
+    "_" +
+    (person2?.base_info?.last_name || "") +
+    `_${type}`;
   return (
     <List
       sx={{ width: "100%" }}
@@ -68,7 +74,7 @@ const QkagDocument = ({ document, targetSsn }) => {
         />
         <PDFGenerator
           PDFTemplate={documentNames[type]["template"]}
-          fileName={`qkag.pdf`}
+          fileName={`${qkagDocumentName}.pdf`}
           buttonText=""
           variant="text"
           Icon={PictureAsPdfIcon}
