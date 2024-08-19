@@ -149,19 +149,20 @@ const BPR = ({ data }) => {
     DeathDate,
     IsDead,
     PNum = "",
-    addresses,
+    addresses = [],
     documents,
   } = { ...data };
-  const validDocuments = documents.filter(
+  const validDocuments = documents?.filter(
     (d) =>
       d.Document_Status === "VALID" || d.Document_Status === "PRIMARY_VALID"
   );
-  const invalidDocuments = documents.filter(
+  const invalidDocuments = documents?.filter(
     (d) => d.Document_Status === "INVALID"
   );
   const currentAddress =
-    addresses.find((a) => a.RegistrationData.Registration_Type === "CURRENT") ||
-    addresses[0];
+    addresses?.find(
+      (a) => a.RegistrationData.Registration_Type === "CURRENT"
+    ) || addresses[0];
 
   const { RegistrationAddress } = { ...currentAddress };
   const {
