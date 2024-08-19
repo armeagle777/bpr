@@ -212,7 +212,7 @@ const BPR = ({ data }) => {
               <Text>{personInfo.Patronymic_Name || ""}</Text>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Ծննդ. ամսաթիվ</Text>
-                <Text style={styles.asideRowBody}>12/12/2000թ.</Text>
+                <Text style={styles.asideRowBody}>{personInfo.Birth_Date}</Text>
               </View>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>ՀԾՀ</Text>
@@ -220,15 +220,25 @@ const BPR = ({ data }) => {
               </View>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Ազգություն</Text>
-                <Text style={styles.asideRowBody}>ՀԱՅ</Text>
+                <Text style={styles.asideRowBody}>
+                  {personInfo.Nationality.NationalityName}
+                </Text>
               </View>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Քաղաքացիություն</Text>
-                <Text style={styles.asideRowBody}>ՀՀ</Text>
+                <Text style={styles.asideRowBody}>
+                  {personInfo.Citizenship?.Citizenship?.map(
+                    (ctz) => ctz.CountryName
+                  ) || ""}
+                </Text>
               </View>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Ծննդավայր</Text>
-                <Text style={styles.asideRowBody}>ԵՐԵՎԱՆ</Text>
+                <Text style={styles.asideRowBody}>
+                  {personInfo.Birth_Region ||
+                    personInfo.Birth_Country?.CountryName ||
+                    ""}
+                </Text>
               </View>
               <View style={styles.asideRow}>
                 <Text style={styles.asideRowTitle}>Հասցե</Text>
