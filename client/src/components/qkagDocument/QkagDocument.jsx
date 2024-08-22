@@ -16,6 +16,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import MedRow from "./MedRow";
+import Qkag from "../pdf-templates/Qkag";
 
 const QkagDocument = ({ document, targetSsn }) => {
   const [open, setOpen] = useState(false);
@@ -73,12 +74,12 @@ const QkagDocument = ({ document, targetSsn }) => {
           }`}
         />
         <PDFGenerator
-          PDFTemplate={documentNames[type]["template"]}
-          fileName={`${qkagDocumentName}.pdf`}
+          PDFTemplate={Qkag}
+          fileName={`${qkagDocumentName}_qkag.pdf`}
           buttonText=""
           variant="text"
           Icon={PictureAsPdfIcon}
-          data={[]}
+          data={document}
         />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>

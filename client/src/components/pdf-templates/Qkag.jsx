@@ -11,6 +11,7 @@ import {
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
 import birthImage from "../../assets/birth.jpg";
+import { documentNames } from "../../utils/constants";
 
 Font.register({
   family: "Arial",
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Birth = ({ data }) => {
+const Qkag = ({ data }) => {
   const {
     type,
     office_name,
@@ -103,7 +104,7 @@ const Birth = ({ data }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.content}>
-          <Text style={styles.header}>Ծննդյան գրանցման</Text>
+          <Text style={styles.header}>{documentNames[type]["name"]}</Text>
         </View>
         {person && <PersonRow />}
         {person2 && <PersonRow />}
@@ -118,4 +119,4 @@ const Birth = ({ data }) => {
   );
 };
 
-export default Birth;
+export default Qkag;
