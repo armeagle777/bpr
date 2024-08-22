@@ -54,15 +54,68 @@ const styles = StyleSheet.create({
   },
 });
 
-const Birth = ({ data }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.content}>
-        <Text style={styles.header}>Ծննդյան գրանցման</Text>
+const Birth = ({ data }) => {
+  const {
+    type,
+    office_name,
+    cert_num,
+    cert_num2,
+    cert_date,
+    full_ref_num,
+    person,
+    person2,
+    child,
+    children,
+    presenter,
+    med,
+  } = data;
+
+  const PersonRow = ({}) => {
+    return (
+      <View>
+        <Text style={styles.header}>Person</Text>
+        <Text>Left</Text>
+        <Text>Right</Text>
       </View>
-      <Image src={birthImage} style={styles.imageOverlay} />
-    </Page>
-  </Document>
-);
+    );
+  };
+
+  const MedRow = ({}) => {
+    return (
+      <View>
+        <Text style={styles.header}>Med</Text>
+        <Text>Left</Text>
+        <Text>Right</Text>
+      </View>
+    );
+  };
+
+  const areSamePerson = ({ presenter, person, person2 }) => {
+    return (
+      (presenter?.base_info?.name === person?.base_info?.name &&
+        presenter?.base_info?.last_name === person?.base_info?.last_name) ||
+      (presenter?.base_info?.name === person2?.base_info?.name &&
+        presenter?.base_info?.last_name === person2?.base_info?.last_name)
+    );
+  };
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.content}>
+          <Text style={styles.header}>Ծննդյան գրանցման</Text>
+        </View>
+        {person && <PersonRow />}
+        {person2 && <PersonRow />}
+        {child && <PersonRow />}
+        {presenter && !areSamePerson({ presenter, person, person2 }) && (
+          <PersonRow />
+        )}
+        {med && <MedRow />}
+        <Image src={birthImage} style={styles.imageOverlay} />
+      </Page>
+    </Document>
+  );
+};
 
 export default Birth;
