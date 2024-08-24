@@ -1,0 +1,43 @@
+import { Image, Text, View } from "@react-pdf/renderer";
+
+import AsideRow from "./AsideRow";
+import { styles } from "../templates.constants";
+
+const AsideBar = ({
+  PNum,
+  IsDead,
+  imageSrc,
+  DeathDate,
+  personInfo,
+  Citizenship_StoppedDate,
+}) => {
+  return (
+    <View style={styles.aside}>
+      <View style={styles.asideSection}>
+        <Image src={imageSrc} style={styles.asideImage} />
+        <Text>
+          {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
+        </Text>
+        <Text>{personInfo.Patronymic_Name || ""}</Text>
+        <AsideRow label={"Ծննդ. ամսաթիվ"} text={personInfo.Birth_Date} />
+        <AsideRow label={"ՀԾՀ"} text={PNum} />
+        <AsideRow
+          label={"Ազգություն"}
+          text={personInfo.Nationality?.NationalityName || ""}
+        />
+        <AsideRow label={"Քաղաքացիություն"} text={ctzText} />
+        <AsideRow label={"Ծննդավայր"} text={birthRegion} />
+        <AsideRow label={"Հասցե"} text={currentAddress && fullAddress} />
+        {Citizenship_StoppedDate && (
+          <AsideRow
+            label={"Քաղաքացիությունը դադարացրել է"}
+            text={Citizenship_StoppedDate}
+          />
+        )}
+        {IsDead && <AsideRow label={"Մահացել է"} text={DeathDate} />}
+      </View>
+    </View>
+  );
+};
+
+export default AsideBar;

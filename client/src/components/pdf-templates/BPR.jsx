@@ -1,15 +1,14 @@
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Font,
-  Image,
-} from "@react-pdf/renderer";
+import { Page, Text, View, Font, Image, Document } from "@react-pdf/renderer";
+
+import { styles } from "./templates.constants";
+import AsideRow from "./components/AsideRow";
+import BprAddressRow from "./components/BprAddressRow";
+import BprDocumentRow from "./components/BprDocumentRow";
+
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import { bprDocumentTypes } from "../../utils/constants";
+import { formatBprData } from "./templates.helpers";
+import AsideBar from "./components/AsideBar";
 
 Font.register({
   family: "Arial",
@@ -26,189 +25,26 @@ Font.register({
   ],
 });
 
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: "#f7f7ff",
-    fontFamily: "Arial",
-    fontSize: 12,
-    color: "#6A6A6A",
-  },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    gap: "10px",
-    padding: "20px 10px",
-  },
-  aside: {
-    width: "35%",
-  },
-  asideSection: {
-    backgroundColor: "#fff",
-    padding: "10px 5px",
-    marginBottom: 10,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    boxShadow:
-      "0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54)",
-  },
-  asideImage: {
-    width: "70px",
-    height: "80px",
-    // borderRadius: "50%",
-  },
-  asideRow: {
-    padding: "5px",
-    marginTop: 5,
-    borderTop: "0.5px solid #6A6A6A",
-    width: "100%",
-  },
-  asideRowTitle: {
-    fontFamily: "Arial",
-    fontSize: 8,
-    marginBottom: 6,
-  },
-  asideRowBody: {
-    fontSize: 10,
-  },
-  main: {
-    width: "65%",
-    display: "flex",
-    flexDirection: "column",
-    gap: 15,
-  },
-  mainSection: {
-    backgroundColor: "#fff",
-    padding: "10px 5px",
-    display: "flex",
-    justifyContent: "center",
-    gap: 6,
-    alignItems: "center",
-    boxShadow:
-      "0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54)",
-  },
-  mainSectionTitle: {
-    width: "100%",
-    fontFamily: "Arial",
-    fontSize: 8,
-    fontWeight: "bold",
-    paddingBottom: 4,
-    borderBottom: "0.5px solid #6A6A6A",
-  },
-  documentsRow: {
-    width: "100%",
-    padding: 10,
-    backgroundColor: "#dadada21",
-    display: "flex",
-    flexDirection: "row",
-  },
-  documentsRowIcon: {
-    height: "30px",
-    width: "20%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderRight: "0.5px solid #6A6A6A",
-  },
-  documentIconText: {
-    fontSize: 8,
-  },
-  documentsRowBody: {
-    width: "85%",
-    paddingLeft: 4,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  documentsBodyTitle: {
-    fontSize: 10,
-    fontWeight: "bold",
-  },
-  documentsBodyText: {
-    fontSize: 8,
-  },
-  documentColumn: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  addressesRow: {
-    width: "100%",
-    padding: 10,
-    display: "flex",
-    flexDirection: "row",
-  },
-  addressesRowIcon: {
-    height: "30px",
-    width: "20%",
-  },
-  addressesRowBody: {
-    width: "80%",
-  },
-  title: {
-    textAlign: "center",
-    paddingTop: "10px",
-    fontFamily: "Arial",
-  },
-});
-
 const BPR = ({ data }) => {
   const {
     IsDead,
     DeathDate,
-    Citizenship_StoppedDate,
     PNum = "",
-    addresses = [],
     documents,
+    addresses = [],
+    Citizenship_StoppedDate,
   } = { ...data };
-  const validDocuments = documents?.filter(
-    (d) =>
-      d.Document_Status === "VALID" || d.Document_Status === "PRIMARY_VALID"
-  );
-  const invalidDocuments = documents?.filter(
-    (d) => d.Document_Status === "INVALID"
-  );
 
-  const mainDocument =
-    validDocuments?.length > 0
-      ? validDocuments[0]
-      : invalidDocuments?.length > 0
-      ? invalidDocuments[0]
-      : {};
-  const personInfo = mainDocument?.Person || {};
-  const currentAddress =
-    addresses?.find(
-      (a) => a.RegistrationData?.Registration_Type === "CURRENT"
-    ) || addresses[0];
-
-  const { RegistrationAddress } = { ...currentAddress };
   const {
-    Apartment = "",
-    Building = "",
-    Building_Type = "",
-    Community = "",
-    LocationCode = "",
-    Postal_Index = "",
-    Region = "",
-    Residence = "",
-    Street = "",
-  } = { ...RegistrationAddress };
-
-  const regionCommunity =
-    Region === Community ? Region : Region + ", " + Community;
-
-  const fullAddress =
-    regionCommunity +
-      ", " +
-      Residence +
-      " " +
-      Street +
-      " " +
-      Building +
-      Building_Type +
-      " - " +
-      Apartment || "";
+    ctzText,
+    imageSrc,
+    personInfo,
+    fullAddress,
+    birthRegion,
+    currentAddress,
+    validDocuments,
+    invalidDocuments,
+  } = formatBprData({ addresses, documents });
 
   return (
     <Document>
@@ -217,159 +53,24 @@ const BPR = ({ data }) => {
           <Text>ԲՊՌ Տեղեկանք</Text>
         </View>
         <View style={styles.container}>
-          <View style={styles.aside}>
-            <View style={styles.asideSection}>
-              <Image
-                src={
-                  mainDocument.Photo_ID
-                    ? `data:application/pdf;base64,${mainDocument.Photo_ID}`
-                    : "/male.png"
-                }
-                style={styles.asideImage}
-              />
-              <Text>
-                {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
-              </Text>
-              <Text>{personInfo.Patronymic_Name || ""}</Text>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>Ծննդ. ամսաթիվ</Text>
-                <Text style={styles.asideRowBody}>{personInfo.Birth_Date}</Text>
-              </View>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>ՀԾՀ</Text>
-                <Text style={styles.asideRowBody}>{PNum}</Text>
-              </View>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>Ազգություն</Text>
-                <Text style={styles.asideRowBody}>
-                  {personInfo.Nationality?.NationalityName || ""}
-                </Text>
-              </View>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>Քաղաքացիություն</Text>
-                <Text style={styles.asideRowBody}>
-                  {personInfo.Citizenship?.Citizenship?.map(
-                    (ctz) => ctz.CountryName
-                  ) || ""}
-                </Text>
-              </View>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>Ծննդավայր</Text>
-                <Text style={styles.asideRowBody}>
-                  {personInfo.Birth_Region ||
-                    personInfo.Birth_Country?.CountryName ||
-                    ""}
-                </Text>
-              </View>
-              <View style={styles.asideRow}>
-                <Text style={styles.asideRowTitle}>Հասցե</Text>
-                <Text style={styles.asideRowBody}>
-                  {currentAddress && fullAddress}
-                </Text>
-              </View>
-              {Citizenship_StoppedDate && (
-                <View style={styles.asideRow}>
-                  <Text style={styles.asideRowTitle}>
-                    Քաղաքացիությունը դադարացրել է
-                  </Text>
-                  <Text style={styles.asideRowBody}>
-                    {Citizenship_StoppedDate}
-                  </Text>
-                </View>
-              )}
-              {IsDead && (
-                <View style={styles.asideRow}>
-                  <Text style={styles.asideRowTitle}>Մահացել է</Text>
-                  {DeathDate && (
-                    <Text style={styles.asideRowBody}>{DeathDate}</Text>
-                  )}
-                </View>
-              )}
-            </View>
-          </View>
+          <AsideBar
+            PNum={PNum}
+            IsDead={IsDead}
+            imageSrc={imageSrc}
+            DeathDate={DeathDate}
+            personInfo={personInfo}
+            Citizenship_StoppedDate={Citizenship_StoppedDate}
+          />
           <View style={styles.main}>
             <View style={styles.mainSection}>
               <Text style={styles.mainSectionTitle}>Փաստաթղթեր</Text>
               {validDocuments?.length > 0 &&
                 validDocuments.map((doc) => (
-                  <View style={styles.documentsRow} key={doc.Document_Number}>
-                    <View style={styles.documentsRowIcon}>
-                      <Text style={styles.documentIconText}>
-                        {doc.Document_Status === "VALID" ||
-                        doc.Document_Status === "PRIMARY_VALID"
-                          ? "Վավեր"
-                          : "Անվավեր"}
-                      </Text>
-                      <Text style={styles.documentIconText}>
-                        {bprDocumentTypes[doc.Document_Type]}
-                      </Text>
-                    </View>
-                    <View style={styles.documentsRowBody}>
-                      <View style={styles.row}>
-                        <View style={styles.documentColumn}>
-                          <Text style={styles.documentsLabel}>Փաստաթղթի N</Text>
-                          <Text style={styles.documentsBodyText}>
-                            {doc.Document_Number || ""}
-                          </Text>
-                        </View>
-                        <View style={styles.documentColumn}>
-                          <Text style={styles.documentsLabel}>Տրվել է</Text>
-                          <Text style={styles.documentsBodyText}>
-                            {doc.PassportData?.Passport_Issuance_Date || ""}
-                          </Text>
-                        </View>
-                        <View style={styles.documentColumn}>
-                          <Text style={styles.documentsLabel}>Կողմից</Text>
-                          <Text style={styles.documentsBodyText}>
-                          {doc.Document_Department}
-                          </Text>
-                        </View>
-                      </View>
-                        <View style={styles.documentColumn}>
-                          <Text style={styles.documentsLabel}>Վավեր է</Text>
-                          <Text style={styles.documentsBodyText}>
-                          {doc.PassportData?.Passport_Validity_Date}
-                          </Text>
-                        </View>
-                      </View>
-                      <View style={styles.row}>
-                        <Text style={styles.documentsBodyTitle}>
-                          {doc.Person?.Last_Name || ""}{" "}
-                          {doc.Person?.First_Name || ""}{" "}
-                          {doc.Person?.Patronymic_Name || ""}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
+                  <BprDocumentRow key={doc.Document_Number} doc={doc} />
                 ))}
               {invalidDocuments?.length > 0 &&
                 invalidDocuments.map((doc) => (
-                  <View style={styles.documentsRow} key={doc.Document_Number}>
-                    <View style={styles.documentsRowIcon}>
-                      <Text style={styles.documentIconText}>
-                        {doc.Document_Status === "VALID" ||
-                        doc.Document_Status === "PRIMARY_VALID"
-                          ? "Վավեր"
-                          : "Անվավեր"}
-                      </Text>
-                      <Text style={styles.documentIconText}>
-                        {bprDocumentTypes[doc.Document_Type]}
-                      </Text>
-                    </View>
-                    <View style={styles.documentsRowBody}>
-                      <Text style={styles.documentsBodyTitle}>
-                        {doc.Person?.Last_Name || ""}{" "}
-                        {doc.Person?.First_Name || ""}{" "}
-                        {doc.Person?.Patronymic_Name || ""}
-                      </Text>
-                      <Text style={styles.documentsBodyText}>
-                        {doc.Document_Number || ""}{" "}
-                        {doc.PassportData?.Passport_Issuance_Date || ""}{" "}
-                        {doc.Document_Department}{" "}
-                        {doc.PassportData?.Passport_Validity_Date}
-                      </Text>
-                    </View>
-                  </View>
+                  <BprDocumentRow key={doc.Document_Number} doc={doc} />
                 ))}
             </View>
             <View style={styles.mainSection}>
@@ -378,40 +79,11 @@ const BPR = ({ data }) => {
                 addresses.map((addr, index) => {
                   const { RegistrationAddress, RegistrationData } = addr;
                   return (
-                    <View style={styles.documentsRow} key={index}>
-                      <View style={styles.documentsRowIcon}>
-                        <Text style={styles.documentIconText}>
-                          {RegistrationData?.Registration_Status || ""}
-                        </Text>
-                        <Text style={styles.documentIconText}>
-                          {RegistrationData?.Registration_Type === "OLD"
-                            ? "Հին"
-                            : "ՆԵրկա"}
-                        </Text>
-                      </View>
-                      <View style={styles.documentsRowBody}>
-                        <Text style={styles.documentsBodyTitle}>
-                          {RegistrationAddress?.Region || ""}
-                          {", "}
-                          {(RegistrationAddress?.Community &&
-                            RegistrationAddress?.Community !==
-                              RegistrationAddress?.Region &&
-                            RegistrationAddress?.Community) ||
-                            ""}{" "}
-                          {RegistrationAddress?.Residence || ""}{" "}
-                          {RegistrationAddress?.Street || ""}{" "}
-                          {RegistrationAddress?.Building || ""}{" "}
-                          {RegistrationAddress?.Building_Type || ""}{" "}
-                          {RegistrationAddress?.Apartment || ""}
-                        </Text>
-                        <Text style={styles.documentsBodyText}>
-                          {RegistrationData?.Registration_Aim?.AimName || ""}
-                          {" :"}
-                          {RegistrationData?.Registration_Date || ""}{" "}
-                          {RegistrationData?.Registration_Department || ""}
-                        </Text>
-                      </View>
-                    </View>
+                    <BprAddressRow
+                      key={index}
+                      RegistrationAddress={RegistrationAddress}
+                      RegistrationDat={RegistrationData}
+                    />
                   );
                 })}
             </View>
