@@ -1,9 +1,6 @@
 import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { StyleSheet } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
-import Birth from "../components/pdf-templates/Birth";
-import Divorce from "../components/pdf-templates/Divorce";
-import Marriage from "../components/pdf-templates/Marriage";
 import BPR from "../components/pdf-templates/BPR";
 
 const styles = StyleSheet.create({

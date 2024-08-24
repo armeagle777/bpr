@@ -4,7 +4,7 @@ import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
 import DescriptionIcon from "@mui/icons-material/Description";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import Birth from "../components/pdf-templates/Birth";
+import Birth from "../components/pdf-templates/Qkag";
 import Marriage from "../components/pdf-templates/Marriage";
 import Paternity from "../components/pdf-templates/Paternity";
 import Divorce from "../components/pdf-templates/Divorce";
