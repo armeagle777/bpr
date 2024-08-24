@@ -129,6 +129,10 @@ const styles = StyleSheet.create({
   documentsBodyText: {
     fontSize: 8,
   },
+  documentColumn: {
+    display: "flex",
+    flexDirection: "column",
+  },
   addressesRow: {
     width: "100%",
     padding: 10,
@@ -141,6 +145,11 @@ const styles = StyleSheet.create({
   },
   addressesRowBody: {
     width: "80%",
+  },
+  title: {
+    textAlign: "center",
+    paddingTop: "10px",
+    fontFamily: "Arial",
   },
 });
 
@@ -200,10 +209,13 @@ const BPR = ({ data }) => {
       Building_Type +
       " - " +
       Apartment || "";
-  console.log("addresses>>>>", addresses);
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        <View style={styles.title}>
+          <Text>ԲՊՌ Տեղեկանք</Text>
+        </View>
         <View style={styles.container}>
           <View style={styles.aside}>
             <View style={styles.asideSection}>
@@ -293,17 +305,40 @@ const BPR = ({ data }) => {
                       </Text>
                     </View>
                     <View style={styles.documentsRowBody}>
-                      <Text style={styles.documentsBodyTitle}>
-                        {doc.Person?.Last_Name || ""}{" "}
-                        {doc.Person?.First_Name || ""}{" "}
-                        {doc.Person?.Patronymic_Name || ""}
-                      </Text>
-                      <Text style={styles.documentsBodyText}>
-                        {doc.Document_Number || ""}{" "}
-                        {doc.PassportData?.Passport_Issuance_Date || ""}{" "}
-                        {doc.Document_Department}{" "}
-                        {doc.PassportData?.Passport_Validity_Date}
-                      </Text>
+                      <View style={styles.row}>
+                        <View style={styles.documentColumn}>
+                          <Text style={styles.documentsLabel}>Փաստաթղթի N</Text>
+                          <Text style={styles.documentsBodyText}>
+                            {doc.Document_Number || ""}
+                          </Text>
+                        </View>
+                        <View style={styles.documentColumn}>
+                          <Text style={styles.documentsLabel}>Տրվել է</Text>
+                          <Text style={styles.documentsBodyText}>
+                            {doc.PassportData?.Passport_Issuance_Date || ""}
+                          </Text>
+                        </View>
+                        <View style={styles.documentColumn}>
+                          <Text style={styles.documentsLabel}>Կողմից</Text>
+                          <Text style={styles.documentsBodyText}>
+                          {doc.Document_Department}
+                          </Text>
+                        </View>
+                      </View>
+                        <View style={styles.documentColumn}>
+                          <Text style={styles.documentsLabel}>Վավեր է</Text>
+                          <Text style={styles.documentsBodyText}>
+                          {doc.PassportData?.Passport_Validity_Date}
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={styles.row}>
+                        <Text style={styles.documentsBodyTitle}>
+                          {doc.Person?.Last_Name || ""}{" "}
+                          {doc.Person?.First_Name || ""}{" "}
+                          {doc.Person?.Patronymic_Name || ""}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 ))}
