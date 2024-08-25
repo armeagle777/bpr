@@ -1,13 +1,12 @@
-import { Page, Text, View, Font, Image, Document } from "@react-pdf/renderer";
+import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import { styles } from "./templates.constants";
-import AsideRow from "./components/AsideRow";
+import { BPR_FAKE_DATA, styles } from "./templates.constants";
 import BprAddressRow from "./components/BprAddressRow";
 import BprDocumentRow from "./components/BprDocumentRow";
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import { formatBprData } from "./templates.helpers";
+import { formatBprData, formatDate } from "./templates.helpers";
 import AsideBar from "./components/AsideBar";
 
 Font.register({
@@ -33,7 +32,7 @@ const BPR = ({ data }) => {
     documents,
     addresses = [],
     Citizenship_StoppedDate,
-  } = { ...data };
+  } = data ? { ...data } : BPR_FAKE_DATA;
 
   const {
     ctzText,
@@ -46,6 +45,9 @@ const BPR = ({ data }) => {
     invalidDocuments,
   } = formatBprData({ addresses, documents });
 
+  const currentUser = "Վ. Մաթևոսյան";
+  const currentDate = formatDate(new Date());
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -56,9 +58,13 @@ const BPR = ({ data }) => {
           <AsideBar
             PNum={PNum}
             IsDead={IsDead}
+            ctzText={ctzText}
             imageSrc={imageSrc}
             DeathDate={DeathDate}
             personInfo={personInfo}
+            birthRegion={birthRegion}
+            fullAddress={fullAddress}
+            currentAddress={currentAddress}
             Citizenship_StoppedDate={Citizenship_StoppedDate}
           />
           <View style={styles.main}>
@@ -82,12 +88,18 @@ const BPR = ({ data }) => {
                     <BprAddressRow
                       key={index}
                       RegistrationAddress={RegistrationAddress}
-                      RegistrationDat={RegistrationData}
+                      RegistrationData={RegistrationData}
                     />
                   );
                 })}
             </View>
           </View>
+        </View>
+        <View style={styles.waterMarkContainer}>
+          <Text style={styles.waterMark}>
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}
+            օգտատերի կողմից {currentDate}
+          </Text>
         </View>
       </Page>
     </Document>

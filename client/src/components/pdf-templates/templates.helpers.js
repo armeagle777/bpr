@@ -86,3 +86,20 @@ export const formatBprData = ({ documents, addresses }) => {
     invalidDocuments,
   };
 };
+
+export const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based in JavaScript
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
+export const checkSamePerson = ({ presenter, person, person2 }) => {
+  return (
+    (presenter?.base_info?.name === person?.base_info?.name &&
+      presenter?.base_info?.last_name === person?.base_info?.last_name) ||
+    (presenter?.base_info?.name === person2?.base_info?.name &&
+      presenter?.base_info?.last_name === person2?.base_info?.last_name)
+  );
+};

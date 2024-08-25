@@ -1,36 +1,10 @@
-import { View } from "@react-pdf/renderer";
+import { View, Text } from "@react-pdf/renderer";
+
+import { styles } from "../templates.constants";
 
 const BprAddressRow = ({ RegistrationData, RegistrationAddress }) => {
-  const styles = StyleSheet.create({
-    documentsRow: {
-      width: "100%",
-      padding: 10,
-      backgroundColor: "#dadada21",
-      display: "flex",
-      flexDirection: "row",
-    },
-    documentsRowIcon: {
-      height: "30px",
-      width: "20%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderRight: "0.5px solid #6A6A6A",
-    },
-    documentIconText: {
-      fontSize: 8,
-    },
-    documentsRowBody: {
-      width: "85%",
-      paddingLeft: 4,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-    },
-  });
   return (
-    <View style={styles.documentsRow} key={index}>
+    <View style={styles.documentsRow}>
       <View style={styles.documentsRowIcon}>
         <Text style={styles.documentIconText}>
           {RegistrationData?.Registration_Status || ""}
@@ -40,7 +14,7 @@ const BprAddressRow = ({ RegistrationData, RegistrationAddress }) => {
         </Text>
       </View>
       <View style={styles.documentsRowBody}>
-        <Text style={styles.documentsBodyTitle}>
+        <Text style={styles.addressTitle}>
           {RegistrationAddress?.Region || ""}
           {", "}
           {(RegistrationAddress?.Community &&
@@ -53,11 +27,17 @@ const BprAddressRow = ({ RegistrationData, RegistrationAddress }) => {
           {RegistrationAddress?.Building_Type || ""}{" "}
           {RegistrationAddress?.Apartment || ""}
         </Text>
-        <Text style={styles.documentsBodyText}>
+        <Text style={styles.addressBody}>
           {RegistrationData?.Registration_Aim?.AimName || ""}
-          {" :"}
-          {RegistrationData?.Registration_Date || ""}{" "}
+          {": "}
+          {RegistrationData?.Registration_Date || ""}
+          {" | "}
           {RegistrationData?.Registration_Department || ""}
+          {RegistrationData?.Registered_Date &&
+            (` - ${RegistrationData.Registered_Date} | ${
+              RegistrationData?.Registered_Department || ""
+            }` ||
+              "")}
         </Text>
       </View>
     </View>

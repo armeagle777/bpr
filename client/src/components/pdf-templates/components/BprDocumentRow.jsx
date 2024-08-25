@@ -1,6 +1,6 @@
 import { Text, View } from "@react-pdf/renderer";
 import { bprDocumentTypes } from "../../../utils/constants";
-
+import { styles } from "../templates.constants";
 const BprDocumentRow = ({ doc }) => {
   return (
     <View style={styles.documentsRow} key={doc.Document_Number}>

@@ -6,15 +6,21 @@ import { styles } from "../templates.constants";
 const AsideBar = ({
   PNum,
   IsDead,
+  ctzText,
   imageSrc,
   DeathDate,
   personInfo,
+  fullAddress,
+  birthRegion,
+  currentAddress,
   Citizenship_StoppedDate,
 }) => {
   return (
     <View style={styles.aside}>
       <View style={styles.asideSection}>
-        <Image src={imageSrc} style={styles.asideImage} />
+        <View style={styles.imageContainer}>
+          <Image src={imageSrc} style={styles.asideImage} />
+        </View>
         <Text>
           {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
         </Text>

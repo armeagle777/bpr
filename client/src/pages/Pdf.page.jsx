@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
 import BPR from "../components/pdf-templates/BPR";
+import Qkag from "../components/pdf-templates/Qkag";
 
 const styles = StyleSheet.create({
   pdfContainer: {
@@ -13,7 +14,8 @@ const styles = StyleSheet.create({
 const Pdf = () => {
   return (
     <PDFViewer style={styles.pdfContainer}>
-      <BPR />
+      {/* <BPR /> */}
+      <Qkag />
     </PDFViewer>
   );
 };

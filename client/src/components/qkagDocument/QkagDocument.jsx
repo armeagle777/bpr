@@ -34,7 +34,7 @@ const QkagDocument = ({ document, targetSsn }) => {
     presenter,
     med,
   } = document;
-
+  console.log(">>>>document", document);
   const areSamePerson = ({ presenter, person, person2 }) => {
     return (
       (presenter?.base_info?.name === person?.base_info?.name &&

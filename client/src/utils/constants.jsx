@@ -4,49 +4,46 @@ import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
 import DescriptionIcon from "@mui/icons-material/Description";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import Birth from "../components/pdf-templates/Qkag";
-import Marriage from "../components/pdf-templates/Marriage";
-import Paternity from "../components/pdf-templates/Paternity";
-import Divorce from "../components/pdf-templates/Divorce";
+import Qkag from "../components/pdf-templates/Qkag";
 
 export const documentNames = {
   marriage: {
     name: "Ամուսնության Վկայական",
     icon: <MarriageIcon color="primary" />,
-    template: Marriage,
+    template: Qkag,
   },
   birth: {
     name: "Ծննդյան Վկայական",
     icon: <BirthIcon color="primary" />,
-    template: Birth,
+    template: Qkag,
   },
   divorce: {
     name: "Ամուսնալուծության Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
-    template: Divorce,
+    template: Qkag,
   },
   death: {
     //TODO Make template Death
     name: "Մահվան Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
-    template: Paternity,
+    template: Qkag,
   },
   adoption: {
     //TODO Make template Adoption
     name: "Որդեգրման վկայական",
     icon: <HeartBrokenIcon color="primary" />,
-    template: Paternity,
+    template: Qkag,
   },
   paternity: {
     name: "Հայրության ճանաչման Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
-    template: Paternity,
+    template: Qkag,
   },
   chname: {
     //TODO Make template Chname
     name: "Անվանափոխության Վկայական",
     icon: <HeartBrokenIcon color="primary" />,
-    template: Paternity,
+    template: Qkag,
   },
 };
 
