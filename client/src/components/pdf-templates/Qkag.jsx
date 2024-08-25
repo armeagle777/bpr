@@ -5,7 +5,7 @@ import MedSection from "./components/MedSection";
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import bgImage from "../../assets/birth.jpg";
+import bgImage from "../../assets/qkag.png";
 
 import {
   QKAG_FAKE_DATA,

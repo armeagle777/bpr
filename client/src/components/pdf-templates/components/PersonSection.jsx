@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import { qkagDocStyles } from "../templates.constants";
 import QkagDocRow from "./QkagDocRow";
 
