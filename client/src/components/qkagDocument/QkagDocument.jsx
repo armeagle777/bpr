@@ -34,7 +34,6 @@ const QkagDocument = ({ document, targetSsn }) => {
     presenter,
     med,
   } = document;
-  console.log(">>>>document", document);
   const areSamePerson = ({ presenter, person, person2 }) => {
     return (
       (presenter?.base_info?.name === person?.base_info?.name &&
@@ -49,10 +48,10 @@ const QkagDocument = ({ document, targetSsn }) => {
   };
 
   const qkagDocumentName =
-    (person?.base_info?.name || "") +
-    "_" +
-    (person2?.base_info?.last_name || "") +
-    `_${type}`;
+    type === "birth"
+      ? `${child.base_info.name}_${child.base_info.last_name}_birth`
+      : `${person?.base_info?.name}_${person?.base_info?.last_name}_${type}`;
+
   return (
     <List
       sx={{ width: "100%" }}
@@ -75,7 +74,7 @@ const QkagDocument = ({ document, targetSsn }) => {
         />
         <PDFGenerator
           PDFTemplate={Qkag}
-          fileName={`${qkagDocumentName}_qkag.pdf`}
+          fileName={`${qkagDocumentName}.pdf`}
           buttonText=""
           variant="text"
           Icon={PictureAsPdfIcon}

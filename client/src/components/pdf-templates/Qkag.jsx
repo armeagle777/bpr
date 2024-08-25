@@ -11,8 +11,9 @@ import {
   QKAG_FAKE_DATA,
   QkagDocNameMaps,
   qkagDocStyles,
+  styles,
 } from "./templates.constants";
-import { checkSamePerson } from "./templates.helpers";
+import { checkSamePerson, formatDate } from "./templates.helpers";
 
 Font.register({
   family: "Arial",
@@ -44,25 +45,54 @@ const Qkag = ({ data }) => {
     presenter,
     med,
   } = data ? { ...data } : QKAG_FAKE_DATA;
-
+  const currentUser = "Վ. Մաթևոսյան";
+  const currentDate = formatDate(new Date());
   const areSamePerson = checkSamePerson({ presenter, person, person2 });
 
   return (
     <Document>
       <Page size="A4" style={qkagDocStyles.page}>
         <View style={qkagDocStyles.container}>
-          <View style={qkagDocStyles.title}>
+          <View style={qkagDocStyles.titleContainer}>
+            <Text style={qkagDocStyles.header}>ՊԵՏԱԿԱՆ ՎԿԱՅԱԿԱՆ</Text>
             <Text style={qkagDocStyles.header}>
               {type ? QkagDocNameMaps[type]["name"] : ""}
             </Text>
           </View>
-          {child && <PersonSection {...child} title={"Քաղաքացի"} />}
-          {person && <PersonSection {...person} title={"հայրը"} />}
-          {person2 && <PersonSection {...person2} title={"մայրը"} />}
+          {child && (
+            <PersonSection
+              {...child}
+              title={QkagDocNameMaps[type]["child"] || "Քաղաքացի"}
+            />
+          )}
+          {person && (
+            <PersonSection
+              {...person}
+              title={QkagDocNameMaps[type]["person"] || "հայրը"}
+            />
+          )}
+          {person2 && (
+            <PersonSection
+              {...person2}
+              title={QkagDocNameMaps[type]["person2"] || "մայրը"}
+            />
+          )}
           {presenter && !areSamePerson && (
             <PersonSection {...presenter} title={"Ներկայացուցիչ"} />
           )}
-          {med && <MedSection {...med} title={"Բժշկական հաստատություն"} />}
+          {med?.institution_name && (
+            <MedSection {...med} title={"Բժշկական հաստատություն"} />
+          )}
+        </View>
+        <View style={qkagDocStyles.footer}>
+          <Text>Վկայականի N : {cert_num}</Text>
+          <Text>Վկայականի ա/թ : {cert_date}</Text>
+        </View>
+        <View style={styles.waterMarkContainer}>
+          <Text style={styles.waterMark}>
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}
+            օգտատերի կողմից {currentDate}
+          </Text>
         </View>
         <Image src={bgImage} style={qkagDocStyles.imageOverlay} />
       </Page>
