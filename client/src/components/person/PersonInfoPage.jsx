@@ -83,7 +83,7 @@ const PersonInfoPage = ({ personInfo }) => {
   //     const fileName = `bpr_${firstName}_${lastName}.pdf`;
   //     await downloadPdf(url, fileName, personInfo);
   // };
-
+  console.log("personInfo", personInfo);
   return (
     <Container>
       <Stack direction="row" sx={{ pt: 4, justifyContent: "space-between" }}>
