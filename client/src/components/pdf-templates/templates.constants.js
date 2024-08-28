@@ -465,38 +465,45 @@ export const QkagDocNameMaps = {
     name: "Ամուսնության Վկայական",
     person: "Ամուսին",
     person2: "Կին",
+    presenter: "Ներկայացուցիչ",
   },
   birth: {
     name: "Ծննդյան Վկայական",
     child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
+    presenter: "Ներկայացուցիչ",
   },
   divorce: {
     name: "Ամուսնալուծության Վկայական",
     person: "Ամուսին",
     person2: "Կին",
     child: "Երեխա",
+    presenter: "Ներկայացուցիչ",
   },
   death: {
     name: "Մահվան Վկայական",
     person: "Քաղաքացի",
+    presenter: "Ներկայացուցիչ",
   },
   adoption: {
     name: "Որդեգրման Վկայական",
     child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
+    presenter: "Ներկայացուցիչ",
   },
   paternity: {
     name: "Հայրության ճանաչման Վկայական",
     child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
+    presenter: "Ներկայացուցիչ",
   },
   chname: {
     name: "Անվանափոխության Վկայական",
     person: "Քաղաքացի",
+    presenter: "Ներկայացուցիչ",
   },
 };
 

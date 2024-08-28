@@ -85,7 +85,12 @@ const NewQkag = ({ data }) => {
                   title={QkagDocNameMaps[type]["person2"] || "մայրը"}
                 />
               )}
-              {presenter && !areSamePerson && <QkagPersonRow {...presenter} />}
+              {presenter && !areSamePerson && (
+                <QkagPersonRow
+                  {...presenter}
+                  title={QkagDocNameMaps[type]["presenter"] || ""}
+                />
+              )}
             </View>
           </View>
         </View>
