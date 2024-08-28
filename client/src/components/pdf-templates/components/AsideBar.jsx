@@ -18,13 +18,16 @@ const AsideBar = ({
   return (
     <View style={styles.aside}>
       <View style={styles.asideSection}>
-        <View style={styles.imageContainer}>
-          <Image src={imageSrc} style={styles.asideImage} />
+        <View style={styles.profileContainer}>
+          <View style={styles.imageContainer}>
+            <Image src={imageSrc} style={styles.asideImage} />
+          </View>
+          <Text>
+            {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
+          </Text>
+          <Text>{personInfo.Patronymic_Name || ""}</Text>
         </View>
-        <Text>
-          {personInfo?.First_Name || ""} {personInfo?.Last_Name || ""}
-        </Text>
-        <Text>{personInfo.Patronymic_Name || ""}</Text>
+
         <AsideRow label={"Ծննդ. ամսաթիվ"} text={personInfo.Birth_Date} />
         <AsideRow label={"ՀԾՀ"} text={PNum} />
         <AsideRow

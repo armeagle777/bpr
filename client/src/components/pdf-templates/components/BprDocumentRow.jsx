@@ -42,7 +42,8 @@ const BprDocumentRow = ({ doc }) => {
             </Text>
           </View>
         </View>
-        <View style={styles.row}>
+        <View>
+          <Text style={styles.aahLabel}>ԱԱՀ ըստ փաստաթղթի</Text>
           <Text style={styles.documentsBodyTitle}>
             {doc.Person?.Last_Name || ""} {doc.Person?.First_Name || ""}{" "}
             {doc.Person?.Patronymic_Name || ""}

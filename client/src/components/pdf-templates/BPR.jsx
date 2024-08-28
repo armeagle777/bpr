@@ -1,6 +1,6 @@
 import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import { styles } from "./templates.constants";
+import { BPR_FAKE_DATA, styles } from "./templates.constants";
 import BprAddressRow from "./components/BprAddressRow";
 import BprDocumentRow from "./components/BprDocumentRow";
 
@@ -8,6 +8,7 @@ import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
 import { formatBprData, formatDate } from "./templates.helpers";
 import AsideBar from "./components/AsideBar";
+import BprHeader from "./components/BprHeader";
 
 Font.register({
   family: "Arial",
@@ -32,7 +33,7 @@ const BPR = ({ data }) => {
     documents,
     addresses = [],
     Citizenship_StoppedDate,
-  } = { ...data };
+  } = data ? { ...data } : BPR_FAKE_DATA;
 
   const {
     ctzText,
@@ -51,8 +52,9 @@ const BPR = ({ data }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        <BprHeader />
         <View style={styles.title}>
-          <Text>ԲՊՌ Տեղեկանք</Text>
+          <Text>Անձի որոնման արդյունքներն ըստ ԲՊՌ-ի</Text>
         </View>
         <View style={styles.container}>
           <AsideBar
@@ -95,9 +97,9 @@ const BPR = ({ data }) => {
             </View>
           </View>
         </View>
-        <View style={styles.waterMarkContainer}>
-          <Text style={styles.waterMark}>
-            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}
+        <View style={styles.footer}>
+          <Text>
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}{" "}
             օգտատերի կողմից {currentDate}
           </Text>
         </View>
