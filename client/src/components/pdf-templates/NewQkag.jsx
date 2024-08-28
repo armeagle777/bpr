@@ -92,7 +92,7 @@ const NewQkag = ({ data }) => {
         <View style={styles.footer}>
           <Text>
             Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}{" "}
-            օգտատերի կողմից {currentDate}
+            օգտատիրոջ կողմից {currentDate}
           </Text>
         </View>
       </Page>

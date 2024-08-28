@@ -29,47 +29,35 @@ const QkagAside = ({
           label={"Փաստաթղթի անվանումը"}
           text={QkagDocNameMaps[type]["name"]}
         />
-        <AsideRow label={"Փաստաթղթի N"} text={cert_num || ""} />
+        {cert_num && <AsideRow label={"Փաստաթղթի N"} text={cert_num || ""} />}
         {cert_num2 && <AsideRow label={"Ազգություն"} text={cert_num2 || ""} />}
-        <AsideRow label={"Գրանցման ա/թ"} text={cert_date || ""} />
-        <AsideRow label={"Գրանցող մարմին"} text={office_name || ""} />
-        <AsideRow label={"Հսկիչ N"} text={full_ref_num || ""} />
+        {cert_date && (
+          <AsideRow label={"Գրանցման ա/թ"} text={cert_date || ""} />
+        )}
+        {office_name && (
+          <AsideRow label={"Գրանցող մարմին"} text={office_name || ""} />
+        )}
+        {full_ref_num && (
+          <AsideRow label={"Հսկիչ N"} text={full_ref_num || ""} />
+        )}
         {institution_name && (
-          <AsideRow
-            label={"Քաղաքացիությունը դադարացրել է"}
-            text={institution_name}
-          />
+          <AsideRow label={"Բուժհաստատություն"} text={institution_name} />
         )}
         {title && (
           <AsideRow label={"Քաղաքացիությունը դադարացրել է"} text={title} />
         )}
         {document_name && (
-          <AsideRow
-            label={"Քաղաքացիությունը դադարացրել է"}
-            text={document_name}
-          />
+          <AsideRow label={"Փ/թ անվանում"} text={document_name} />
         )}
         {document_number && (
-          <AsideRow
-            label={"Քաղաքացիությունը դադարացրել է"}
-            text={document_number}
-          />
+          <AsideRow label={"Փաստաթղթի N"} text={document_number} />
         )}
         {document_date && (
-          <AsideRow
-            label={"Քաղաքացիությունը դադարացրել է"}
-            text={document_date}
-          />
+          <AsideRow label={"Փաստաթղթի ա/թ"} text={document_date} />
         )}
-        {place && (
-          <AsideRow label={"Քաղաքացիությունը դադարացրել է"} text={place} />
-        )}
-        {date && (
-          <AsideRow label={"Քաղաքացիությունը դադարացրել է"} text={date} />
-        )}
-        {reason && (
-          <AsideRow label={"Քաղաքացիությունը դադարացրել է"} text={reason} />
-        )}
+        {place && <AsideRow label={"Մահվան վայր"} text={place} />}
+        {date && <AsideRow label={"Մահվան ա/թ"} text={date} />}
+        {reason && <AsideRow label={"Մահվան պատճառ"} text={reason} />}
       </View>
     </View>
   );

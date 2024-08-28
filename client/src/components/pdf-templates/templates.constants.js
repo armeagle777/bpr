@@ -467,8 +467,8 @@ export const QkagDocNameMaps = {
     person2: "Կին",
   },
   birth: {
-    name: "Ծննդի Վկայական",
-    child: "Քաղաքացի",
+    name: "Ծննդյան Վկայական",
+    child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
   },
@@ -484,13 +484,13 @@ export const QkagDocNameMaps = {
   },
   adoption: {
     name: "Որդեգրման Վկայական",
-    child: "Քաղաքացի",
+    child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
   },
   paternity: {
     name: "Հայրության ճանաչման Վկայական",
-    child: "Քաղաքացի",
+    child: "Երեխա",
     person: "Հայր",
     person2: "Մայր",
   },
