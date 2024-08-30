@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { Stack } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 
 import SearchBody from "../components/search/SearchBody";
 import SearchPageSkileton from "../components/searchPageSkileton/SearchPageSkileton";
-import SearchInput from "../components/search/SearchInput";
 import { usePersons } from "../components/context/persons";
 import PersonNotFound from "../components/notFound/PersonNotFound";
-import { createSearchParamsObject } from "../utils/helperFunctions";
 import SearchHeader from "../components/search/SearchHeader";
 
 const Search = () => {
@@ -15,7 +12,6 @@ const Search = () => {
     persons,
     isInitialLoading,
     setSearchParams,
-    searchParams,
     currentPage,
     changePage,
     totalCount,
