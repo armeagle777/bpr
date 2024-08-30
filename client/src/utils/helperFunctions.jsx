@@ -261,39 +261,6 @@ export const formatedData = (periods) => {
   );
 };
 
-export const createSearchParamsObject = (searchInputValue) => {
-  const searchParamsObj = searchInputValue
-    .split(" ")
-    .reduce((acc, el, index, arr) => {
-      switch (arr.length) {
-        case 1:
-          {
-            if (el.length === 10) {
-              acc.ssn = el;
-            } else {
-              acc.documentNumber = el;
-            }
-          }
-          break;
-        default: {
-          if (el.search(/\/|\./i) !== -1) {
-            acc.birthDate = el.replace(/\./g, "/");
-          } else if (index === 0) {
-            acc.firstName = el.replace(/և/g, "եվ").toUpperCase();
-          } else if (index === 1) {
-            acc.lastName = el.replace(/և/g, "եվ").toUpperCase();
-          } else {
-            acc.patronomicName = el.toUpperCase();
-          }
-        }
-      }
-
-      return acc;
-    }, {});
-
-  return searchParamsObj;
-};
-
 export const addTotals = (arr) => {
   if (arr.length === 0) return arr;
 

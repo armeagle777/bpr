@@ -18,7 +18,7 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
   const [filterProps, setFilterProps] = useState(initialFilterProps);
   const onInputChange = (event) => {
     const { name, value } = event.target;
-    setFilterProps({ ...filterProps, [name]: value });
+    setFilterProps({ ...filterProps, [name]: value.trim().toUpperCase() });
   };
 
   const handleClearButton = () => {
