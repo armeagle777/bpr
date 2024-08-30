@@ -11,6 +11,8 @@ const personsRoute = require("./modules/persons/routes");
 const companiesRoute = require("./modules/companies/routes");
 const sphereRoute = require("./modules/sphere/routes");
 const statisticsRoute = require("./modules/statistics/routes");
+const usersRouter = require("./modules/users/routes");
+const tokenRouter = require("./modules/token/routes");
 const { sphereSequelize } = require("./config/sphereDatabase");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
@@ -43,6 +45,9 @@ app.use(
     createParentPath: true,
   })
 );
+
+app.use("/api/users", usersRouter);
+app.use("/api/token", tokenRouter);
 
 app.use("/api/persons", personsRoute);
 app.use("/api/petregistr", companiesRoute);

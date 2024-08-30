@@ -1,19 +1,16 @@
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
 const axios = require("axios");
+const { log } = require("console");
+const { Op } = require("sequelize");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
-const { Op } = require("sequelize");
 const { PDFDocument } = require("pdf-lib");
 
 const { activityCodes } = require("./spheres");
 const { Sphere } = require("../config/sphereDatabase");
 const { bulkUpsert } = require("../modules/sphere/services");
-const { log } = require("console");
-const { getCompanyByHvhhDb } =
-  process.env.NODE_ENV === "local"
-    ? require("../modules/persons/services-local")
-    : require("../modules/persons/services");
+const { getCompanyByHvhhDb } = require("../modules/persons/services");
 // const jwt = require('jsonwebtoken');
 // const nodemailer = require('nodemailer');
 // const ApiError = require('../exceptions/api-error');

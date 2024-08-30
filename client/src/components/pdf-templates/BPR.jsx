@@ -33,7 +33,7 @@ const BPR = ({ data }) => {
     documents,
     addresses = [],
     Citizenship_StoppedDate,
-  } = data ? { ...data } : BPR_FAKE_DATA;
+  } = { ...data };
 
   const {
     ctzText,

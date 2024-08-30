@@ -1,19 +1,13 @@
-import { Document, Page, Text, View, Font, Image } from "@react-pdf/renderer";
+import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import PersonSection from "./components/PersonSection";
-import MedSection from "./components/MedSection";
+import { QkagDocNameMaps, qkagStyles as styles } from "./templates.constants";
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import bgImage from "../../assets/qkag.png";
-
-import {
-  QKAG_FAKE_DATA,
-  QkagDocNameMaps,
-  qkagDocStyles,
-  styles,
-} from "./templates.constants";
 import { checkSamePerson, formatDate } from "./templates.helpers";
+import BprHeader from "./components/BprHeader";
+import QkagAside from "./components/QkagAside";
+import QkagPersonRow from "./components/QkagPersonRow";
 
 Font.register({
   family: "Arial",
@@ -44,57 +38,64 @@ const Qkag = ({ data }) => {
     children,
     presenter,
     med,
-  } = data ? { ...data } : QKAG_FAKE_DATA;
+  } = { ...data };
   const currentUser = "Վ. Մաթևոսյան";
   const currentDate = formatDate(new Date());
   const areSamePerson = checkSamePerson({ presenter, person, person2 });
 
   return (
     <Document>
-      <Page size="A4" style={qkagDocStyles.page}>
-        <View style={qkagDocStyles.container}>
-          <View style={qkagDocStyles.titleContainer}>
-            <Text style={qkagDocStyles.header}>ՊԵՏԱԿԱՆ ՎԿԱՅԱԿԱՆ</Text>
-            <Text style={qkagDocStyles.header}>
-              {type ? QkagDocNameMaps[type]["name"] : ""}
-            </Text>
+      <Page size="A4" style={styles.page}>
+        <BprHeader />
+        <View style={styles.title}>
+          <Text>Փաստաթղթի որոնման արդյունքներն ըստ ՔԿԱԳ-ի</Text>
+        </View>
+        <View style={styles.container}>
+          <QkagAside
+            type={type}
+            office_name={office_name}
+            cert_num={cert_num}
+            cert_num2={cert_num2}
+            cert_date={cert_date}
+            full_ref_num={full_ref_num}
+            med={med}
+          />
+          <View style={styles.main}>
+            <View style={styles.mainSection}>
+              <Text style={styles.mainSectionTitle}>Անձնական տվյալներ</Text>
+              {child && (
+                <QkagPersonRow
+                  {...child}
+                  title={QkagDocNameMaps[type]["child"] || "Քաղաքացի"}
+                />
+              )}
+              {person && (
+                <QkagPersonRow
+                  {...person}
+                  title={QkagDocNameMaps[type]["person"] || "հայրը"}
+                />
+              )}
+              {person2 && (
+                <QkagPersonRow
+                  {...person2}
+                  title={QkagDocNameMaps[type]["person2"] || "մայրը"}
+                />
+              )}
+              {presenter && !areSamePerson && (
+                <QkagPersonRow
+                  {...presenter}
+                  title={QkagDocNameMaps[type]["presenter"] || ""}
+                />
+              )}
+            </View>
           </View>
-          {child && (
-            <PersonSection
-              {...child}
-              title={QkagDocNameMaps[type]["child"] || "Քաղաքացի"}
-            />
-          )}
-          {person && (
-            <PersonSection
-              {...person}
-              title={QkagDocNameMaps[type]["person"] || "հայրը"}
-            />
-          )}
-          {person2 && (
-            <PersonSection
-              {...person2}
-              title={QkagDocNameMaps[type]["person2"] || "մայրը"}
-            />
-          )}
-          {presenter && !areSamePerson && (
-            <PersonSection {...presenter} title={"Ներկայացուցիչ"} />
-          )}
-          {med?.institution_name && (
-            <MedSection {...med} title={"Բժշկական հաստատություն"} />
-          )}
         </View>
-        <View style={qkagDocStyles.footer}>
-          <Text>Վկայականի N : {cert_num}</Text>
-          <Text>Վկայականի ա/թ : {cert_date}</Text>
-        </View>
-        <View style={styles.waterMarkContainer}>
-          <Text style={styles.waterMark}>
-            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}
-            օգտատերի կողմից {currentDate}
+        <View style={styles.footer}>
+          <Text>
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}{" "}
+            օգտատիրոջ կողմից {currentDate}
           </Text>
         </View>
-        <Image src={bgImage} style={qkagDocStyles.imageOverlay} />
       </Page>
     </Document>
   );
