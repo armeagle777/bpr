@@ -1,49 +1,34 @@
 import {
   Box,
-  Link,
   Grid,
   Paper,
   Avatar,
-  Button,
-  Checkbox,
   TextField,
   Typography,
   CssBaseline,
-  FormControlLabel,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-// import LockOutlinedIcon from "@mui/icons-material/lock";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import useAuthData from "../../hooks/useAuthData";
+import LoginBg from "../../assets/login_bg.jpg";
+import Alert from "@mui/material/Alert";
+import Copyright from "./Copyright";
 
 const defaultTheme = createTheme();
 
 function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const {
+    error,
+    isError,
+    onSubmit,
+    password,
+    isLoading,
+    identifier,
+    setPassword,
+    checkErrors,
+    setIdentifier,
+  } = useAuthData();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -55,8 +40,7 @@ function Login() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
+            backgroundImage: `url(${LoginBg})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -80,58 +64,45 @@ function Login() {
               {/* <LockOutlinedIcon /> */}
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Որոնման Համակարգ
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Էլ։ փոստ"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Գաղտնաբառ"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
+              <LoadingButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                loading={isLoading}
               >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+                Մուտք
+              </LoadingButton>
+              {isError && (
+                <Alert severity="error">{error.response.data.message}</Alert>
+              )}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

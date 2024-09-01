@@ -9,7 +9,6 @@ const PersonsContext = createContext(null);
 export const PersonsProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("searchParams:::::: ", searchParams);
 
   const {
     data: persons,

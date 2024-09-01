@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { PersonSearch, RestartAlt } from "@mui/icons-material";
-import { Box, Button, Stack, TextField, Slide } from "@mui/material";
-import { FocusTrap } from "@mui/base/FocusTrap";
+import { Box, Button, Stack, TextField } from "@mui/material";
 
 const initialFilterProps = {
   ssn: "",
@@ -17,38 +16,54 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
   const [isNameRowOpen, setIsNameRowOpen] = useState(
     !!filterProps.firstName.length
   );
-  const [foxusOpen, setFoxusOpen] = useState(false);
+
   const onNameFocus = () => {
     setIsNameRowOpen(true);
-    setTimeout(() => {
-      setFoxusOpen(true);
-    }, 300);
   };
+
+  const onNameBlur = () => {
+    if (!filterProps.firstName.length) {
+      setIsNameRowOpen(false);
+    }
+  };
+
   useEffect(() => {
-    let timeoutId;
     if (filterProps.firstName.length === 0) {
       setIsNameRowOpen(false);
-      timeoutId = setTimeout(() => {
-        setFoxusOpen(false);
-      }, 700);
     } else if (filterProps.firstName.length > 0 && !isNameRowOpen) {
-      onNameFocus();
+      setIsNameRowOpen(true);
     }
-
-    return () => clearTimeout(timeoutId);
   }, [filterProps.firstName]);
 
-  const isResetBtnDisabled = useMemo(
-    () => !Object.values(filterProps).filter((value) => !!value).length,
-    [filterProps]
-  );
-  const isSearchBtnActive = useMemo(() => {
+  const {
+    ssnDisabled,
+    nameDisabled,
+    docnumDisabled,
+    isSearchBtnActive,
+    isResetBtnDisabled,
+  } = useMemo(() => {
     const { ssn, lastName, firstName, documentNumber } = filterProps;
-    return (
+
+    const isResetBtnDisabled = !Object.values(filterProps).filter(
+      (value) => !!value
+    ).length;
+
+    const isSearchBtnActive =
       (ssn && ssn.length === 10) ||
-      !!documentNumber ||
-      (!!firstName && !!lastName)
-    );
+      (!!documentNumber && documentNumber.length >= 8) ||
+      (!!firstName && !!lastName);
+
+    const nameDisabled = !!ssn || !!documentNumber;
+    const docnumDisabled = !!firstName || !!ssn;
+    const ssnDisabled = !!firstName || !!documentNumber;
+
+    return {
+      ssnDisabled,
+      nameDisabled,
+      docnumDisabled,
+      isSearchBtnActive,
+      isResetBtnDisabled,
+    };
   }, [filterProps]);
 
   const onInputChange = (event) => {
@@ -94,6 +109,8 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
           onChange={onInputChange}
           value={filterProps.firstName}
           onFocus={onNameFocus}
+          onBlur={onNameBlur}
+          disabled={nameDisabled}
         />
 
         <Box
@@ -134,28 +151,24 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
           />
         </Box>
 
-        {!foxusOpen && (
-          <FocusTrap disableEnforceFocus open>
-            <>
-              <TextField
-                type="search"
-                label="Անձնագիր"
-                id="documentNumber"
-                name="documentNumber"
-                onChange={onInputChange}
-                value={filterProps.documentNumber}
-              />
-              <TextField
-                id="ssn"
-                name="ssn"
-                label="ՀԾՀ"
-                type="search"
-                value={filterProps.ssn}
-                onChange={onInputChange}
-              />
-            </>
-          </FocusTrap>
-        )}
+        <TextField
+          type="search"
+          label="Անձնագիր"
+          id="documentNumber"
+          name="documentNumber"
+          onChange={onInputChange}
+          value={filterProps.documentNumber}
+          disabled={docnumDisabled}
+        />
+        <TextField
+          id="ssn"
+          name="ssn"
+          label="ՀԾՀ"
+          type="search"
+          value={filterProps.ssn}
+          onChange={onInputChange}
+          disabled={ssnDisabled}
+        />
         <Button
           size="large"
           sx={{ py: 2 }}

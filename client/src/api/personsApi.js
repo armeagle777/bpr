@@ -2,7 +2,19 @@ import axios from "axios";
 
 const personsApi = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
+  withCredentials: true,
 });
+
+// Auth endpoints
+export const login = async (credentials) => {
+  const response = await personsApi.post("/users/login", credentials);
+  return response.data;
+};
+
+export const logOut = async () => {
+  const response = await personsApi.post("/users/logout");
+  return response.data;
+};
 
 // export const getAdvertisements = async (pageNumber) => {
 //     const response = await personsApi.get(

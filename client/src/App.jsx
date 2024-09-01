@@ -11,11 +11,20 @@ import Pdf from "./pages/Pdf.page";
 import FileUpload from "./pages/FileUpload.page";
 import { Login } from "./pages/Login";
 
+import RequireAuth from "@auth-kit/react-router/RequireAuth";
+
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Layout />}>
+      <Route
+        path="/"
+        element={
+          <RequireAuth fallbackPath={"/login"}>
+            <Layout />
+          </RequireAuth>
+        }
+      >
         <Route path="pdf" element={<Pdf />} />
         <Route index element={<Home />} />
         <Route path="bpr" element={<Search />} />

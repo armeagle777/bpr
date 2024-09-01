@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { Divider, ListItemIcon } from "@mui/material";
 import { PersonAdd, Settings, Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import useAuthData from "../../hooks/useAuthData";
 
 const settings = ["Profile", "Users", "Logout"];
 
@@ -21,6 +22,8 @@ const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const open = Boolean(anchorElUser);
+
+  const { onLogout } = useAuthData();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -32,6 +35,11 @@ const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const logOut = () => {
+    setAnchorElUser(null);
+    onLogout();
   };
 
   return (
@@ -160,7 +168,7 @@ const Header = () => {
                 </ListItemIcon>
                 Settings
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem onClick={logOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>

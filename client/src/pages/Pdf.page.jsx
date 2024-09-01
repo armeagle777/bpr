@@ -3,6 +3,7 @@ import { StyleSheet } from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
 import BPR from "../components/pdf-templates/BPR";
 import Qkag from "../components/pdf-templates/Qkag";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const styles = StyleSheet.create({
   pdfContainer: {
@@ -12,6 +13,9 @@ const styles = StyleSheet.create({
 });
 
 const Pdf = () => {
+  const auth = useAuthUser();
+  console.log("{auth.user}:::::: ", auth.user);
+
   return (
     <PDFViewer style={styles.pdfContainer}>
       {/* <BPR /> */}

@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import AuthProvider from "react-auth-kit/AuthProvider";
+import createStore from "react-auth-kit/createStore";
 
 import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
@@ -18,16 +19,23 @@ const queryClient = new QueryClient({
   },
 });
 
+const store = createStore({
+  authName: "_auth",
+  authType: "localstorage",
+  refresh: true,
+  cookieDomain: window.location.hostname,
+});
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <QueryClientProvider client={queryClient}>
-    <PersonsProvider>
-      <CompaniesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CompaniesProvider>
-    </PersonsProvider>
-  </QueryClientProvider>
-  // </React.StrictMode>
+  <AuthProvider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <PersonsProvider>
+        <CompaniesProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CompaniesProvider>
+      </PersonsProvider>
+    </QueryClientProvider>
+  </AuthProvider>
 );
