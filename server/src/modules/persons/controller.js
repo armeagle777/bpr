@@ -7,10 +7,7 @@ const {
   getTaxBySsnDb,
   getCompanyByHvhhDb,
   createPdfBySsn,
-} =
-  process.env.NODE_ENV === "local"
-    ? require("./services-local")
-    : require("./services");
+} = require("./services");
 
 const downloadBprInfo = async (req, res, next) => {
   try {

@@ -103,7 +103,7 @@ const getSearchedPersonsDb = async (body) => {
   }
 
   if (documentNumber) {
-    searchData.docnum = birthDate;
+    searchData.docnum = documentNumber;
   }
 
   var queryData = qs.stringify(searchData);

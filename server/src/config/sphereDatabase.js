@@ -62,70 +62,59 @@ const Sphere = sphereSequelize.define(
   }
 );
 
-const User = sphereSequelize.define("User", {
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+const User = sphereSequelize.define(
+  "User",
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: DataTypes.TEXT("long"),
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isActivated: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    activationLink: {
+      type: DataTypes.STRING(255),
+      unique: false,
     },
   },
-  password: {
-    type: DataTypes.TEXT("long"),
-  },
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  isActivated: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  activationLink: {
-    type: DataTypes.STRING(255),
-    unique: true,
-  },
-  createdAt: {
-    type: "TIMESTAMP",
-    defaultValue: sphereSequelize.literal("CURRENT_TIMESTAMP"),
-    allowNull: false,
-  },
-  updatedAt: {
-    type: "TIMESTAMP",
-    defaultValue: sphereSequelize.literal(
-      "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-    ),
-    allowNull: false,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-const Token = sphereSequelize.define("Token", {
-  refreshToken: { type: DataTypes.TEXT("long") },
-  userId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: User,
-      key: "id",
+const Token = sphereSequelize.define(
+  "Token",
+  {
+    refreshToken: { type: DataTypes.TEXT("long") },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
     },
-    allowNull: false,
   },
-  createdAt: {
-    type: "TIMESTAMP",
-    defaultValue: sphereSequelize.literal("CURRENT_TIMESTAMP"),
-    allowNull: false,
-  },
-  updatedAt: {
-    type: "TIMESTAMP",
-    defaultValue: sphereSequelize.literal(
-      "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-    ),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 User.hasMany(Token, {
   foreignKey: "userId",
@@ -138,4 +127,4 @@ Token.belongsTo(User, {
 
 sphereSequelize.authenticate();
 
-module.exports = { sphereSequelize, Sphere };
+module.exports = { sphereSequelize, Sphere, User, Token };

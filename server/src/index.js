@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
+const cookieParser = require("cookie-parser");
 var CronJob = require("cron").CronJob;
 
 dotenv.config();
@@ -37,9 +38,16 @@ const updateSphereTextJob = new CronJob(
 );
 
 const app = express();
-app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   fileUpload({
     createParentPath: true,

@@ -9,9 +9,10 @@ const {
   sendActivationMail,
   validateRefreshToken,
 } = require("../../utils/common");
+const { User } = require("../../config/sphereDatabase");
 
 const registrationDB = async (body) => {
-  const candidate = await user.findUnique({
+  const candidate = await User.findOne({
     where: {
       email: body.email,
     },
@@ -22,19 +23,15 @@ const registrationDB = async (body) => {
 
   const hashedPassword = await bcrypt.hash(body.password, 7);
   const activationLink = uuid.v4();
-  const newUser = await user.create({
-    data: {
-      ...body,
-      password: hashedPassword,
-      activationLink,
-    },
+  const newUser = await User.create({
+    ...body,
+    password: hashedPassword,
+    activationLink,
   });
 
-  await sendActivationMail(body.email, activationLink);
-
+  // await sendActivationMail(body.email, activationLink);
   const userData = createUserData(newUser);
   const tokens = await generateTokens(userData);
-
   const tokenData = await saveTokenDB(userData.id, tokens.refreshToken);
 
   return {
@@ -44,7 +41,7 @@ const registrationDB = async (body) => {
 };
 
 const loginDB = async (email, password) => {
-  const candidate = await user.findUnique({
+  const candidate = await User.findOne({
     where: {
       email,
     },
@@ -65,16 +62,17 @@ const loginDB = async (email, password) => {
 
 const logoutDB = async (refreshToken) => {
   const userInfo = await validateRefreshToken(refreshToken);
+
   const deletedToken = await deleteTokenDB(userInfo.id);
   return deletedToken;
 };
 
 const getAllUsersDB = async () => {
   try {
-    const allUsers = await user.findMany({
-      include: {
-        token: true,
-      },
+    const allUsers = await User.findAll({
+      // include: {
+      //   token: true,
+      // },
     });
     return { users: allUsers };
   } catch (err) {

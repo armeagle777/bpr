@@ -11,72 +11,69 @@ const { activityCodes } = require("./spheres");
 const { Sphere } = require("../config/sphereDatabase");
 const { bulkUpsert } = require("../modules/sphere/services");
 const { getCompanyByHvhhDb } = require("../modules/persons/services");
-// const jwt = require('jsonwebtoken');
-// const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 // const ApiError = require('../exceptions/api-error');
-// const sendActivationMail = async (to, link) => {
-//     try {
-//         const transporter = nodemailer.createTransport({
-//             host: process.env.MAIL_HOST,
-//             port: process.env.MAIL_PORT,
-//             secure: false,
-//             auth: {
-//                 user: process.env.MAIL_USER,
-//                 pass: process.env.MAIL_PASS,
-//             },
-//         });
+const sendActivationMail = async (to, link) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
+      secure: true,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
 
-//         await transporter.sendMail({
-//             from: 'Best Application',
-//             to,
-//             subject: 'Activate your account',
-//             text: '',
-//             html: `
-//                 <div>
-//                     <h1>Activate your account</h1>
-//                     <p>Please click on the link below to activate your account</p>
-//                     <a href="${process.env.API_URL}/api/users/active/${link}">${process.env.API_URL}/api/users/active/${link}</a>
-//                 </div>
-//                 `,
-//         });
-//     } catch (err) {
-//         console.log(err);
-//     }
-// };
+    await transporter.sendMail({
+      from: "Best Application",
+      to,
+      subject: "Activate your account",
+      text: "",
+      html: `
+                <div>
+                    <h1>Activate your account</h1>
+                    <p>Please click on the link below to activate your account</p>
+                    <a href="${process.env.API_URL}/api/users/active/${link}">${process.env.API_URL}/api/users/active/${link}</a>
+                </div>
+                `,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-// const generateTokens = async (payload) => {
-//     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-//         expiresIn: '1d',
-//     });
+const generateTokens = async (payload) => {
+  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1d",
+  });
 
-//     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-//         expiresIn: '30d',
-//     });
+  const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: "30d",
+  });
 
-//     return { accessToken, refreshToken };
-// };
+  return { accessToken, refreshToken };
+};
 
-// const createUserData = (userObject) => {
-//     return {
-//         id: userObject.id,
-//         email: userObject.email,
-//         firstName: userObject.firstName,
-//         lastName: userObject.lastName,
-//         isActivated: userObject.isActivated,
-//     };
-// };
+const createUserData = (userObject) => {
+  return {
+    id: userObject.id,
+    email: userObject.email,
+    firstName: userObject.firstName,
+    lastName: userObject.lastName,
+    isActivated: userObject.isActivated,
+  };
+};
 
-// const validateRefreshToken = async (refreshToken) => {
-//     try {
-//         const decoded = jwt.verify(
-//             refreshToken,
-//             process.env.REFRESH_TOKEN_SECRET
-//         );
-//         return decoded;
-//     } catch (err) {
-//         return null;
-//     }
-// };
+const validateRefreshToken = async (refreshToken) => {
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    return decoded;
+  } catch (err) {
+    return null;
+  }
+};
 
 // const validateAccessToken = (accessToken) => {
 //     try {
@@ -352,6 +349,10 @@ const cronUpdateSphere = async () => {
 
 module.exports = {
   createPDF,
+  createUserData,
+  generateTokens,
   cronUpdateSphere,
+  sendActivationMail,
   cronUpdateSphereText,
+  validateRefreshToken,
 };

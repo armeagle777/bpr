@@ -4,21 +4,19 @@ const {
   validateRefreshToken,
 } = require("../../utils/common");
 const ApiError = require("../../exceptions/api-error");
+const { Token } = require("../../config/sphereDatabase");
 
 const saveTokenDB = async (userId, refreshToken) => {
   try {
-    const tokenData = await token.upsert({
-      where: {
+    const [tokenData, created] = await Token.upsert(
+      {
         userId: userId,
+        refreshToken: refreshToken,
       },
-      update: {
-        refreshToken,
-      },
-      create: {
-        userId,
-        refreshToken,
-      },
-    });
+      {
+        returning: true,
+      }
+    );
     return tokenData;
   } catch (err) {
     throw ApiError.BadRequest(err.message);
@@ -27,7 +25,7 @@ const saveTokenDB = async (userId, refreshToken) => {
 
 const deleteTokenDB = async (userId) => {
   try {
-    const tokenData = await token.delete({
+    const tokenData = await Token.destroy({
       where: {
         userId,
       },
