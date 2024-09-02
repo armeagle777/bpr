@@ -8,12 +8,15 @@ import {
   CssBaseline,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useAuthData from "../../hooks/useAuthData";
 import LoginBg from "../../assets/login_bg.jpg";
 import Alert from "@mui/material/Alert";
 import Copyright from "./Copyright";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const defaultTheme = createTheme();
 
@@ -29,6 +32,15 @@ function Login() {
     checkErrors,
     setIdentifier,
   } = useAuthData();
+
+  const auth = useAuthUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth) {
+      navigate("/");
+    }
+  }, [auth]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -101,7 +113,9 @@ function Login() {
                 Մուտք
               </LoadingButton>
               {isError && (
-                <Alert severity="error">{error.response.data.message}</Alert>
+                <Alert severity="error">
+                  {error?.response?.data?.message || ""}
+                </Alert>
               )}
               <Copyright sx={{ mt: 5 }} />
             </Box>
