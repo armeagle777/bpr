@@ -17,6 +17,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import MedRow from "./MedRow";
 import Qkag from "../pdf-templates/Qkag";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const QkagDocument = ({ document, targetSsn }) => {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,8 @@ const QkagDocument = ({ document, targetSsn }) => {
         presenter?.base_info?.last_name === person2?.base_info?.last_name)
     );
   };
+
+  const user = useAuthUser();
 
   const handleClick = () => {
     setOpen(!open);
@@ -79,6 +82,7 @@ const QkagDocument = ({ document, targetSsn }) => {
           variant="text"
           Icon={PictureAsPdfIcon}
           data={document}
+          userFullName={`${user.firstName} ${user.lastName}`}
         />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>

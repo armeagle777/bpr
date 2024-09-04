@@ -25,7 +25,7 @@ Font.register({
   ],
 });
 
-const BPR = ({ data }) => {
+const BPR = ({ data, userFullName }) => {
   const {
     IsDead,
     DeathDate,
@@ -46,7 +46,6 @@ const BPR = ({ data }) => {
     invalidDocuments,
   } = formatBprData({ addresses, documents });
 
-  const currentUser = "Վ. Մաթևոսյան";
   const currentDate = formatDate(new Date());
 
   return (
@@ -99,8 +98,8 @@ const BPR = ({ data }) => {
         </View>
         <View style={styles.footer}>
           <Text>
-            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}{" "}
-            օգտատերի կողմից {currentDate}
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {userFullName}{" "}
+            օգտատիրոջ կողմից {currentDate}
           </Text>
         </View>
       </Page>

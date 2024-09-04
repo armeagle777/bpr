@@ -24,7 +24,7 @@ Font.register({
   ],
 });
 
-const Qkag = ({ data }) => {
+const Qkag = ({ data, userFullName }) => {
   const {
     type,
     office_name,
@@ -39,7 +39,6 @@ const Qkag = ({ data }) => {
     presenter,
     med,
   } = { ...data };
-  const currentUser = "Վ. Մաթևոսյան";
   const currentDate = formatDate(new Date());
   const areSamePerson = checkSamePerson({ presenter, person, person2 });
 
@@ -92,7 +91,7 @@ const Qkag = ({ data }) => {
         </View>
         <View style={styles.footer}>
           <Text>
-            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {currentUser}{" "}
+            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում {userFullName}{" "}
             օգտատիրոջ կողմից {currentDate}
           </Text>
         </View>

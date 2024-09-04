@@ -28,6 +28,7 @@ import {
   formatPersonData,
 } from "../../utils/helperFunctions";
 import PoliceTab from "../policeTab/PoliceTab";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
@@ -69,6 +70,8 @@ const PersonInfoPage = ({ personInfo }) => {
     addresses,
     documents,
   } = formatPersonData(personInfo);
+
+  const user = useAuthUser();
 
   const images = filterImageSrcs(documents, gender, birthDate);
 
@@ -114,6 +117,7 @@ const PersonInfoPage = ({ personInfo }) => {
           variant="contained"
           Icon={PictureAsPdfIcon}
           data={personInfo}
+          userFullName={`${user.firstName} ${user.lastName}`}
         />
       </Stack>
       <Stack direction="row" sx={{ mt: 2 }}>

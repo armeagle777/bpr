@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 const Pdf = () => {
   const auth = useAuthUser();
-  console.log("{auth.user}:::::: ", auth.user);
+  console.log("{auth.user}:::::: ", auth);
 
   return (
     <PDFViewer style={styles.pdfContainer}>

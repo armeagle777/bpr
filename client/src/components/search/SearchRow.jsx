@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 import { formatAddressString } from "../../utils/helperFunctions";
 import { searchRowPersonData } from "../../utils/helperFunctions";
@@ -36,6 +37,7 @@ const SearchRow = ({ personInfo }) => {
     middleName,
     birthDate,
   } = searchRowPersonData(documents);
+  const user = useAuthUser();
 
   const noImageSrc =
     gender === "M" ? "./src/assets/male.png" : "./src/assets/female.png";
@@ -104,6 +106,7 @@ const SearchRow = ({ personInfo }) => {
               DeathDate,
               Citizenship_StoppedDate,
             }}
+            userFullName={`${user.firstName} ${user.lastName}`}
           />
           <Button
             onClick={infoClickHandler}
