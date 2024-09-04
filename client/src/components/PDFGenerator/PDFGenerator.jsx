@@ -10,9 +10,13 @@ const PDFGenerator = ({
   Icon,
   iconButton,
   data,
+  userFullName,
 }) => {
   return (
-    <PDFDownloadLink document={<PDFTemplate data={data} />} fileName={fileName}>
+    <PDFDownloadLink
+      document={<PDFTemplate data={data} userFullName={userFullName} />}
+      fileName={fileName}
+    >
       {({ blob, url, loading, error }) => {
         return iconButton ? (
           <IconButton aria-label="export">
