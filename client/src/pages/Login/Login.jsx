@@ -3,9 +3,11 @@ import {
   Grid,
   Paper,
   Avatar,
+  Switch,
   TextField,
   Typography,
   CssBaseline,
+  FormControlLabel,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -30,11 +32,14 @@ function Login() {
     identifier,
     setPassword,
     checkErrors,
+    switchServers,
+    outerNetwork,
     setIdentifier,
   } = useAuthData();
 
   const auth = useAuthUser();
   const navigate = useNavigate();
+  const label = { inputProps: { "aria-label": "Switch demo" } };
 
   useEffect(() => {
     if (auth) {
@@ -103,18 +108,33 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                loading={isLoading}
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                Մուտք
-              </LoadingButton>
+                <FormControlLabel
+                  onChange={switchServers}
+                  control={<Switch />}
+                  label="Ընտրել ցանցը"
+                />
+                <LoadingButton
+                  type="submit"
+                  // fullWidth
+                  variant="contained"
+                  sx={{ width: "60%" }}
+                  loading={isLoading}
+                >
+                  Մուտք
+                </LoadingButton>
+              </Box>
+
               {isError && (
                 <Alert severity="error">
-                  {error?.response?.data?.message || ""}
+                  {error?.response?.data?.message || "Ինչ-որ բան այնպես չէ"}
                 </Alert>
               )}
               <Copyright sx={{ mt: 5 }} />

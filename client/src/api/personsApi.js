@@ -1,7 +1,12 @@
 import axios from "axios";
 
+const baseUrl =
+  localStorage.getItem("serverSwitch") === "true"
+    ? import.meta.env.VITE_SERVER_URL
+    : import.meta.env.VITE_SERVER_OUT_URL;
+
 const personsApi = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: baseUrl,
   withCredentials: true,
 });
 
