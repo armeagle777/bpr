@@ -40,7 +40,7 @@ const updateSphereTextJob = new CronJob(
 const app = express();
 app.use(
   cors({
-    origin: true,
+    origin: "http://192.168.3.253:5173",
     optionsSuccessStatus: 200,
     credentials: true,
   })
