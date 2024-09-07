@@ -5,6 +5,35 @@ const personsApi = axios.create({
   withCredentials: true,
 });
 
+personsApi.interceptors.request.use((config) => {
+  config.headers.authorization = `Bearer ${localStorage.getItem("_auth")}`;
+  return config;
+});
+
+// personsApi.interceptors.response.use(
+//   (config) => config,
+//   async (error) => {
+//     const originalRequest = error.config;
+//     if (
+//       error.response.status === 401 &&
+//       error.config &&
+//       !originalRequest._isRetry
+//     ) {
+//       try {
+//         const response = await axios.get(
+//           `${process.env.REACT_APP_API_URL}/token/refresh`,
+//           { withCredentials: true }
+//         );
+//         localStorage.setItem("token", response.data.accessToken);
+//         return personsApi.request(originalRequest);
+//       } catch (error) {
+//         console.log("error:::::: User Not authorized");
+//       }
+//     }
+//     throw error;
+//   }
+// );
+
 // Auth endpoints
 export const login = async (credentials) => {
   const response = await personsApi.post("/users/login", credentials);
