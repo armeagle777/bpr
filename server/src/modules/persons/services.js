@@ -5,6 +5,7 @@ const { defaultAddress, defaultDocument } = require("../../utils/constants");
 
 const ApiError = require("../../exceptions/api-error");
 const { createPDF } = require("../../utils/common");
+const { createLog } = require("../log/services");
 
 const fakeData = {
   title: "A new Brazilian School",
@@ -29,16 +30,16 @@ const createPdfBySsn = async (req) => {
     documents,
     addresses,
   } = { ...data };
-
   const fileName = await createPDF(fakeData);
 
   return fileName;
 };
 
-const getPersonBySsnDb = async (params) => {
+const getPersonBySsnDb = async (req) => {
+  const params = req.params;
   const bprUrl = process.env.BPR_URL;
   const { ssn } = params;
-
+  await createLog({ req, logText: ssn });
   var queryData = qs.stringify({
     psn: ssn,
     addresses: "ALL",
@@ -68,7 +69,8 @@ const getPersonBySsnDb = async (params) => {
   return { addresses, documents, ...restInfo };
 };
 
-const getSearchedPersonsDb = async (body) => {
+const getSearchedPersonsDb = async (req) => {
+  const body = req.body;
   const bprUrl = process.env.BPR_URL;
 
   const {
@@ -79,11 +81,13 @@ const getSearchedPersonsDb = async (body) => {
     documentNumber,
     ssn,
   } = body;
+  let logText;
 
   const searchData = { addresses: "ALL" };
 
   if (ssn) {
     searchData.psn = ssn;
+    logText = ssn;
   }
 
   if (firstName) {
@@ -92,21 +96,27 @@ const getSearchedPersonsDb = async (body) => {
 
   if (lastName) {
     searchData.last_name = lastName;
+    logText = `${firstName} ${lastName}`;
   }
 
   if (patronomicName) {
     searchData.middle_name = patronomicName;
+    logText = `${firstName} ${lastName} ${patronomicName}`;
   }
 
   if (birthDate) {
     searchData.birth_date = birthDate;
+    logText = `${firstName} ${lastName} ${patronomicName} ${birthDate}`;
   }
 
   if (documentNumber) {
     searchData.docnum = documentNumber;
+    logText = documentNumber;
   }
 
   var queryData = qs.stringify(searchData);
+
+  await createLog({ req, logText });
 
   var config = {
     method: "post",
@@ -214,7 +224,9 @@ const getPoliceByPnumDb = async (pnum) => {
   return INFO;
 };
 
-const getCompanyByHvhhDb = async (hvhh) => {
+const getCompanyByHvhhDb = async (req) => {
+  const { hvhh } = req.params;
+  await createLog({ req, logText: hvhh });
   const petregistrUrl = process.env.PETREGISTR_URL;
 
   const options = {

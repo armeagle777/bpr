@@ -96,4 +96,9 @@ const defaultAddress = [
 
 const sphereCronConfig = "0 20 * * *";
 
+const logtypeNamePathMaps = {
+  "/bpr": "Որոնում",
+  "/bpr": "Որոնում",
+};
+
 module.exports = { defaultDocument, defaultAddress, sphereCronConfig };

@@ -20,7 +20,7 @@ const downloadBprInfo = async (req, res, next) => {
 
 const getPersonBySsn = async (req, res, next) => {
   try {
-    const person = await getPersonBySsnDb(req.params);
+    const person = await getPersonBySsnDb(req);
 
     res.status(200).json(person);
   } catch (err) {
@@ -30,7 +30,7 @@ const getPersonBySsn = async (req, res, next) => {
 
 const getSearchedPersons = async (req, res, next) => {
   try {
-    const persons = await getSearchedPersonsDb(req.body);
+    const persons = await getSearchedPersonsDb(req);
 
     res.status(200).json(persons);
   } catch (err) {
@@ -75,9 +75,7 @@ const getQkagInfoBySsn = async (req, res, next) => {
 
 const getCompanyByHvhh = async (req, res, next) => {
   try {
-    const { hvhh } = req.params;
-
-    const company = await getCompanyByHvhhDb(hvhh);
+    const company = await getCompanyByHvhhDb(req);
 
     res.status(200).json(company);
   } catch (err) {

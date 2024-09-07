@@ -68,7 +68,7 @@ const User = sphereSequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: false,
       validate: {
         isEmail: true,
       },
@@ -91,6 +91,10 @@ const User = sphereSequelize.define(
     activationLink: {
       type: DataTypes.STRING(255),
       unique: false,
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
@@ -116,6 +120,20 @@ const Token = sphereSequelize.define(
   }
 );
 
+const Role = sphereSequelize.define(
+  "Role",
+  {
+    name: { type: DataTypes.STRING, allowNull: false },
+    value: { type: DataTypes.INTEGER, allowNull: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+User.belongsToMany(Role, { through: "User_Roles" });
+Role.belongsToMany(User, { through: "User_Roles" });
+
 User.hasMany(Token, {
   foreignKey: "userId",
   onDelete: "CASCADE",
@@ -125,6 +143,68 @@ Token.belongsTo(User, {
   foreignKey: "userId",
 });
 
+const LogType = sphereSequelize.define(
+  "LogType",
+  {
+    name: { type: DataTypes.STRING, allowNull: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Log = sphereSequelize.define(
+  "Log",
+  {
+    text: { type: DataTypes.STRING, allowNull: false },
+    logTypeId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: LogType,
+        key: "id",
+      },
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+User.hasMany(Log, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Log.belongsTo(User, {
+  foreignKey: "userId",
+});
+
+LogType.hasMany(Log, {
+  foreignKey: "logTypeId",
+  onDelete: "CASCADE",
+});
+
+Log.belongsTo(LogType, {
+  foreignKey: "logTypeId",
+});
+
 sphereSequelize.authenticate();
 
-module.exports = { sphereSequelize, Sphere, User, Token };
+module.exports = {
+  sphereSequelize,
+  Sphere,
+  User,
+  Token,
+  Role,
+  Log,
+  LogType,
+};

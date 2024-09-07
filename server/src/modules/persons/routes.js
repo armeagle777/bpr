@@ -1,4 +1,5 @@
 const express = require("express");
+const { authMiddleware } = require("../../middlewares/authMiddleware");
 
 const {
   getPersonBySsn,
@@ -12,12 +13,12 @@ const {
 
 const personsRoute = express.Router();
 
-personsRoute.get("/:ssn/bpr", getPersonBySsn);
-personsRoute.post("/download", downloadBprInfo);
-personsRoute.post("/bpr", getSearchedPersons);
-personsRoute.get("/:ssn/tax", getTaxBySsn);
-personsRoute.get("/:pnum/police", getPoliceByPnum);
-personsRoute.post("/:ssn/qkag", getQkagInfoBySsn);
-personsRoute.get("/:hvhh/petregistr", getCompanyByHvhh);
+personsRoute.get("/:ssn/bpr", authMiddleware, getPersonBySsn);
+personsRoute.post("/download", authMiddleware, downloadBprInfo);
+personsRoute.post("/bpr", authMiddleware, getSearchedPersons);
+personsRoute.get("/:ssn/tax", authMiddleware, getTaxBySsn);
+personsRoute.get("/:pnum/police", authMiddleware, getPoliceByPnum);
+personsRoute.post("/:ssn/qkag", authMiddleware, getQkagInfoBySsn);
+personsRoute.get("/:hvhh/petregistr", authMiddleware, getCompanyByHvhh);
 
 module.exports = personsRoute;
