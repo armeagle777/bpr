@@ -96,42 +96,42 @@ const Users = () => {
 
   const columns = [
     {
-      title: "id",
+      title: "#",
       dataIndex: "id",
       editable: false,
     },
     {
-      title: "firstName",
+      title: "Անուն",
       dataIndex: "firstName",
       editable: true,
       required: true,
     },
     {
-      title: "lastName",
+      title: "Ազգանուն",
       dataIndex: "lastName",
       editable: true,
       required: true,
     },
     {
-      title: "email",
+      title: "Էլ. փոստ",
       dataIndex: "email",
       editable: true,
       required: true,
     },
     {
-      title: "phoneNumber",
+      title: "Հեռ.",
       dataIndex: "phoneNumber",
       editable: true,
       regex: /^0\d{8}$/,
       placeholder: "0xxaabbcc",
     },
     {
-      title: "password",
+      title: "Գաղտնաբառ",
       dataIndex: "password",
       editable: true,
     },
     {
-      title: "operation",
+      title: "...",
       dataIndex: "operation",
       render: (_, record) => {
         const editable = isEditing(record);
@@ -143,10 +143,10 @@ const Users = () => {
                 marginInlineEnd: 8,
               }}
             >
-              Save
+              Պահպանել
             </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+            <Popconfirm title="Համոզվածե՞ք" onConfirm={cancel}>
+              <a>Չեղարկել</a>
             </Popconfirm>
           </span>
         ) : (
@@ -154,7 +154,7 @@ const Users = () => {
             disabled={editingKey !== ""}
             onClick={() => edit(record)}
           >
-            Edit
+            Խմբագրել
           </Typography.Link>
         );
       },

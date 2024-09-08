@@ -49,7 +49,11 @@ const NewUserForm = ({
           },
         ]}
       >
-        <Input prefix={<PhoneOutlined />} placeholder="Հեռ. 0XXaabbcc" />
+        <Input
+          prefix={<PhoneOutlined />}
+          placeholder="Հեռ. 0XXaabbcc"
+          autocomplete="off"
+        />
       </Form.Item>
       <Form.Item
         hasFeedback
@@ -69,7 +73,11 @@ const NewUserForm = ({
           },
         ]}
       >
-        <Input prefix={<MailOutlined />} placeholder="Էլ. փոստ" />
+        <Input
+          prefix={<MailOutlined />}
+          placeholder="Էլ. փոստ"
+          autocomplete="username"
+        />
       </Form.Item>
       <Form.Item
         name="password"

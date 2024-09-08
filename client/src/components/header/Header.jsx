@@ -15,12 +15,14 @@ import { Divider, ListItemIcon } from "@mui/material";
 import { PersonAdd, Save, Logout, Share, Group } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthData from "../../hooks/useAuthData";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const open = Boolean(anchorElUser);
 
   const navigate = useNavigate();
+  const user = useAuthUser();
 
   const { onLogout } = useAuthData();
 
@@ -46,9 +48,6 @@ const Header = () => {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                    /> */}
           <CardMedia
             component="img"
             sx={{ width: 50 }}
@@ -63,33 +62,35 @@ const Header = () => {
             sx={{
               width: 400,
               mr: 2,
+              ml: 2,
               display: { xs: "none", md: "flex" },
               fontWeight: 300,
               color: "inherit",
               textDecoration: "none",
             }}
           >
-            ՀՀ Միգրացիոն ծառայություն
+            ՀՀ ՆԳՆ ՄՔԾ
           </Typography>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "flex" },
+              paddingLeft: 20,
             }}
           >
             <Button sx={{ my: 2, color: "white", display: "block" }}>
-              <Link to="bpr">ԲՊՌ</Link>
+              <Link to="/">Անձի Որոնում</Link>
             </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            {/* <Button sx={{ my: 2, color: "white", display: "block" }}>
               <Link to="workpermit">Աշխ․ Թույլտվություն</Link>
-            </Button>
+            </Button> */}
             <Button sx={{ my: 2, color: "white", display: "block" }}>
-              <Link to="register">Պետ․Ռեգիստր</Link>
+              <Link to="register">ԻԱՊՌ</Link>
             </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Account settings">
+            <Tooltip title={`${user.firstName || ""} ${user.lastName || ""}`}>
               <IconButton
                 onClick={handleOpenUserMenu}
                 size="small"
@@ -100,9 +101,12 @@ const Header = () => {
               >
                 <Avatar
                   sx={{ width: 32, height: 32 }}
-                  alt="Remy Sharp"
-                  src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                />
+                  alt={`${user?.firstName} ${user?.lastName}`}
+                  // src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                >
+                  {user?.firstName?.[0]}
+                  {user?.lastName?.[0]}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -142,68 +146,35 @@ const Header = () => {
             >
               <MenuItem onClick={() => onUserMenuClick("/profile")}>
                 <Avatar />
-                My Account
+                Օգտահաշիվ
               </MenuItem>
               <Divider />
               <MenuItem onClick={() => onUserMenuClick("/users")}>
                 <ListItemIcon>
                   <Group fontSize="small" />
                 </ListItemIcon>
-                Users
+                Օգտատերեր
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
                 <ListItemIcon>
                   <Share fontSize="small" />
                 </ListItemIcon>
-                Shared searches
+                Նամականի
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
                 <ListItemIcon>
                   <Save fontSize="small" />
                 </ListItemIcon>
-                My saved searches
+                Պահպանված որոնումներ
               </MenuItem>
 
               <MenuItem onClick={logOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
-                Logout
+                Ելք
               </MenuItem>
             </Menu>
-            {/* <Tooltip title='Open settings'>
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar
-                                    alt='Remy Sharp'
-                                    src='https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg'
-                                />
-                            </IconButton>
-                        </Tooltip> */}
-            {/* <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
           </Box>
         </Toolbar>
       </Container>

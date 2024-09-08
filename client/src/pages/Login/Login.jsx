@@ -19,6 +19,7 @@ import Alert from "@mui/material/Alert";
 import Copyright from "./Copyright";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Logo from "../../assets/logo.png";
 
 const defaultTheme = createTheme();
 
@@ -76,11 +77,19 @@ function Login() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              {/* <LockOutlinedIcon /> */}
-            </Avatar>
+            <Avatar
+              sx={{
+                m: 1,
+                width: 40,
+                height: 40,
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                backgroundColor: "transparent",
+              }}
+              src={Logo}
+            />
             <Typography component="h1" variant="h5">
-              Որոնման Համակարգ
+              Ներքին Որոնման Համակարգ
             </Typography>
             <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
               <TextField
