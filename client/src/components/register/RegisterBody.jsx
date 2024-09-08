@@ -14,9 +14,15 @@ const RegisterBody = () => {
     return <MuiAlert severity="error">{error.message}</MuiAlert>;
   }
 
-  if (!data) return null;
+  if (!data || (Array.isArray(data) && !data.length)) return null;
 
-  return <div>{!!data?.length && <CompanyInfo company={data} />}</div>;
+  return (
+    <div>
+      {((Array.isArray(data) && !!data.length) || data) && (
+        <CompanyInfo company={data} />
+      )}
+    </div>
+  );
 };
 
 export default RegisterBody;

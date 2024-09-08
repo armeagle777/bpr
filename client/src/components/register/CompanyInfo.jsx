@@ -363,7 +363,7 @@ const CompanyInfo = ({ company }) => {
             >
               {Object.keys(docs)?.map((doc) => {
                 return (
-                  <>
+                  <React.Fragment key={doc}>
                     <Button
                       startIcon={
                         companyDocumentNames[doc].icon ||
@@ -406,7 +406,7 @@ const CompanyInfo = ({ company }) => {
                         </a>
                       </MenuItem>
                     </Menu>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </Stack>
