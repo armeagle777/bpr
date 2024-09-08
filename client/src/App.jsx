@@ -12,6 +12,8 @@ import FileUpload from "./pages/FileUpload.page";
 import { Login } from "./pages/Login";
 
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
+import Profile from "./pages/Profile/Profile";
+import Users from "./pages/Users/Users";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         </Route>
         <Route path="register" element={<Register />} />
         <Route path="register/:taxId" element={<Register />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="users" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>
     </Routes>

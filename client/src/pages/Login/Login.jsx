@@ -39,7 +39,6 @@ function Login() {
 
   const auth = useAuthUser();
   const navigate = useNavigate();
-  const label = { inputProps: { "aria-label": "Switch demo" } };
 
   useEffect(() => {
     if (auth) {
@@ -118,12 +117,11 @@ function Login() {
               >
                 <FormControlLabel
                   onChange={switchServers}
-                  control={<Switch />}
+                  control={<Switch defaultChecked={outerNetwork} />}
                   label="Ընտրել ցանցը"
                 />
                 <LoadingButton
                   type="submit"
-                  // fullWidth
                   variant="contained"
                   sx={{ width: "60%" }}
                   loading={isLoading}

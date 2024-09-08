@@ -1,5 +1,6 @@
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 
 const ApiError = require("../../exceptions/api-error");
 const { saveTokenDB, deleteTokenDB } = require("../token/services");
@@ -9,7 +10,7 @@ const {
   sendActivationMail,
   validateRefreshToken,
 } = require("../../utils/common");
-const { User } = require("../../config/sphereDatabase");
+const { User, Role } = require("../../config/sphereDatabase");
 
 const registrationDB = async (body) => {
   const candidate = await User.findOne({
@@ -38,6 +39,42 @@ const registrationDB = async (body) => {
     ...tokens,
     user: userData,
   };
+};
+
+const updateUserDB = async (req) => {
+  const { params, body } = req;
+  const { id } = params;
+
+  if (id != body.id) {
+    throw ApiError.BadRequest("Incorrect data");
+  }
+  const dublicateUser = await User.findOne({
+    where: {
+      email: body.email,
+      id: {
+        [Op.not]: +id,
+      },
+    },
+  });
+
+  if (dublicateUser) {
+    throw ApiError.BadRequest("User with this email already exists");
+  }
+
+  const user = await User.findByPk(+id);
+
+  if (!user) {
+    throw ApiError.BadRequest("User doesn't exists");
+  }
+
+  if (body.password) {
+    const hashedPassword = await bcrypt.hash(body.password, 7);
+    body.password = hashedPassword;
+  }
+
+  const updatedCandidate = await user.update(body);
+
+  return updatedCandidate;
 };
 
 const loginDB = async (email, password) => {
@@ -70,11 +107,38 @@ const logoutDB = async (refreshToken) => {
 const getAllUsersDB = async () => {
   try {
     const allUsers = await User.findAll({
-      // include: {
-      //   token: true,
-      // },
+      attributes: {
+        exclude: ["password", "activationLink", "createdAt", "updatedAt"],
+        // include: [
+        //   {
+        //     model: Role,
+        //     through: { attributes: [] },
+        //     attributes: ["name", "value"],
+        //   },
+        // ],
+      },
     });
     return { users: allUsers };
+  } catch (err) {
+    return {
+      error: err.message,
+    };
+  }
+};
+
+const checkEmailDB = async (req) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      throw ApiError.BadRequest("Email field is empty");
+    }
+    const dublicateUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (dublicateUser) return { isValid: false };
+    return { isValid: true };
   } catch (err) {
     return {
       error: err.message,
@@ -101,6 +165,8 @@ const activationUserDB = async (link) => {
 module.exports = {
   loginDB,
   logoutDB,
+  updateUserDB,
+  checkEmailDB,
   getAllUsersDB,
   registrationDB,
   activationUserDB,

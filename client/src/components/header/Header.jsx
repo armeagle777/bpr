@@ -12,25 +12,20 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { Divider, ListItemIcon } from "@mui/material";
-import { PersonAdd, Settings, Logout } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { PersonAdd, Save, Logout, Share, Group } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthData from "../../hooks/useAuthData";
 
-const settings = ["Profile", "Users", "Logout"];
-
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const open = Boolean(anchorElUser);
+
+  const navigate = useNavigate();
 
   const { onLogout } = useAuthData();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -40,6 +35,11 @@ const Header = () => {
   const logOut = () => {
     setAnchorElUser(null);
     onLogout();
+  };
+
+  const onUserMenuClick = (path) => {
+    setAnchorElUser(null);
+    navigate(path || "/");
   };
 
   return (
@@ -77,22 +77,13 @@ const Header = () => {
               display: { xs: "flex", md: "flex" },
             }}
           >
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
               <Link to="bpr">ԲՊՌ</Link>
             </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
               <Link to="workpermit">Աշխ․ Թույլտվություն</Link>
             </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
               <Link to="register">Պետ․Ռեգիստր</Link>
             </Button>
           </Box>
@@ -149,25 +140,30 @@ const Header = () => {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Avatar /> Profile
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Avatar /> My account
+              <MenuItem onClick={() => onUserMenuClick("/profile")}>
+                <Avatar />
+                My Account
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem onClick={() => onUserMenuClick("/users")}>
                 <ListItemIcon>
-                  <PersonAdd fontSize="small" />
+                  <Group fontSize="small" />
                 </ListItemIcon>
-                Add another account
+                Users
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
                 <ListItemIcon>
-                  <Settings fontSize="small" />
+                  <Share fontSize="small" />
                 </ListItemIcon>
-                Settings
+                Shared searches
               </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <ListItemIcon>
+                  <Save fontSize="small" />
+                </ListItemIcon>
+                My saved searches
+              </MenuItem>
+
               <MenuItem onClick={logOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />

@@ -1,6 +1,8 @@
 const {
   loginDB,
   logoutDB,
+  updateUserDB,
+  checkEmailDB,
   getAllUsersDB,
   registrationDB,
   activationUserDB,
@@ -22,6 +24,26 @@ const registration = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  try {
+    const user = await updateUserDB(req);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
+const checkEmail = async (req, res, next) => {
+  try {
+    const email = await checkEmailDB(req);
+    res.status(200).json(email);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -37,6 +59,7 @@ const login = async (req, res, next) => {
     next(err);
   }
 };
+
 const logout = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
@@ -47,6 +70,7 @@ const logout = async (req, res, next) => {
     next(err);
   }
 };
+
 const activate = async (req, res, next) => {
   try {
     await activationUserDB(req.params.link);
@@ -65,7 +89,15 @@ const getUsers = async (req, res, next) => {
   }
 };
 
-module.exports = { registration, login, logout, activate, getUsers };
+module.exports = {
+  login,
+  logout,
+  activate,
+  getUsers,
+  checkEmail,
+  updateUser,
+  registration,
+};
 
 // import { responseDataCreator, sendActivationKey } from '../../helpers/common.js'
 // import { ERROR_MESSAGES } from '../../helpers/constants.js'

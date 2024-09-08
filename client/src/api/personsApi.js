@@ -50,6 +50,26 @@ export const logOut = async () => {
   return response.data;
 };
 
+export const getUsers = async () => {
+  const response = await personsApi.get("/users");
+  return response.data;
+};
+
+export const createUser = async (data) => {
+  const response = await personsApi.post(`/users/registration`, data);
+  return response.data;
+};
+
+export const updateUser = async ({ id, data }) => {
+  const response = await personsApi.put(`/users/${id}`, data);
+  return response.data;
+};
+
+export const checkEmail = async (email) => {
+  const response = await personsApi.post(`/users/check/email`, { email });
+  return response.data;
+};
+
 // export const getAdvertisements = async (pageNumber) => {
 //     const response = await personsApi.get(
 //         `/advertisements?_limit=10&_page=${pageNumber}`

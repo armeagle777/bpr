@@ -5,6 +5,8 @@ const {
   logout,
   activate,
   getUsers,
+  updateUser,
+  checkEmail,
   registration,
 } = require("./controller");
 
@@ -27,6 +29,12 @@ router.get(
 );
 
 router.post(
+  "/check/email",
+  // authMiddleware,
+  checkEmail
+);
+
+router.post(
   "/registration",
   // validateSchema(registerUserSchema),
   registration
@@ -35,6 +43,12 @@ router.post(
   "/login",
   // validateSchema(loginUserSchema),
   login
+);
+
+router.put(
+  "/:id",
+  // validateSchema(loginUserSchema),
+  updateUser
 );
 router.post("/logout", logout);
 
