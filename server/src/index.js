@@ -40,11 +40,17 @@ const updateSphereTextJob = new CronJob(
 const app = express();
 app.use(
   cors({
-    origin: ["http://192.168.3.253:5173", "http://localhost:5173"],
+    origin: [
+      "http://192.168.3.253:5173",
+      "http://localhost:5173",
+      "http://localhost",
+      "http://192.168.3.179",
+    ],
     optionsSuccessStatus: 200,
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
