@@ -29,6 +29,7 @@ import {
 } from "../../utils/helperFunctions";
 import PoliceTab from "../policeTab/PoliceTab";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import useLikesData from "../../hooks/useLikesData";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
