@@ -52,7 +52,7 @@ const NewUserForm = ({
         <Input
           prefix={<PhoneOutlined />}
           placeholder="Հեռ. 0XXaabbcc"
-          autocomplete="off"
+          autoComplete="off"
         />
       </Form.Item>
       <Form.Item
@@ -76,7 +76,7 @@ const NewUserForm = ({
         <Input
           prefix={<MailOutlined />}
           placeholder="Էլ. փոստ"
-          autocomplete="username"
+          autoComplete="username"
         />
       </Form.Item>
       <Form.Item

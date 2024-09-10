@@ -32,6 +32,8 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
+  const { onLikeToggle, isLoading, isError, error, data, mergedColumns } =
+    useLikesData();
 
   const {
     titlePerson: {
@@ -240,7 +242,7 @@ const PersonInfoPage = ({ personInfo }) => {
           <PoliceTab pnum={PNum} />
         </TabPanel>
       </Box>
-      <SpeedDialButton />
+      <SpeedDialButton onLikeToggle={onLikeToggle} uid={PNum} />
     </Container>
   );
 };

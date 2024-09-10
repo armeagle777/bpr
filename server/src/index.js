@@ -14,6 +14,7 @@ const sphereRoute = require("./modules/sphere/routes");
 const statisticsRoute = require("./modules/statistics/routes");
 const usersRouter = require("./modules/users/routes");
 const tokenRouter = require("./modules/token/routes");
+const likesRouter = require("./modules/like/routes");
 const { sphereSequelize } = require("./config/sphereDatabase");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
@@ -62,6 +63,7 @@ app.use(
 
 app.use("/api/users", usersRouter);
 app.use("/api/token", tokenRouter);
+app.use("/api/likes", likesRouter);
 
 app.use("/api/persons", personsRoute);
 app.use("/api/petregistr", companiesRoute);

@@ -70,6 +70,16 @@ export const checkEmail = async (email) => {
   return response.data;
 };
 
+export const getLikes = async () => {
+  const response = await personsApi.get(`/likes`);
+  return response.data;
+};
+
+export const toggleLike = async (uid) => {
+  const response = await personsApi.post(`/likes/like/${uid}`);
+  return response.data;
+};
+
 // export const getAdvertisements = async (pageNumber) => {
 //     const response = await personsApi.get(
 //         `/advertisements?_limit=10&_page=${pageNumber}`

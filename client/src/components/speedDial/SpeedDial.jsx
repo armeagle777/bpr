@@ -5,12 +5,11 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
 import ShareIcon from "@mui/icons-material/Share";
 
-const actions = [
-  { icon: <SaveIcon />, name: "Save" },
-  { icon: <ShareIcon />, name: "Share" },
-];
-
-const SpeedDialButton = () => {
+const SpeedDialButton = ({ onLikeToggle, uid }) => {
+  const actions = [
+    { icon: <SaveIcon />, name: "Պահպանել", onClick: () => onLikeToggle(uid) },
+    { icon: <ShareIcon />, name: "Կիսվել" },
+  ];
   return (
     <SpeedDial
       ariaLabel="SpeedDial basic example"

@@ -197,6 +197,34 @@ Log.belongsTo(LogType, {
   foreignKey: "logTypeId",
 });
 
+const Like = sphereSequelize.define(
+  "Like",
+  {
+    uid: { type: DataTypes.STRING, allowNull: false },
+    text: { type: DataTypes.STRING, allowNull: false },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+User.hasMany(Like, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Like.belongsTo(User, {
+  foreignKey: "userId",
+});
+
 sphereSequelize.authenticate();
 
 module.exports = {
@@ -207,4 +235,5 @@ module.exports = {
   Role,
   Log,
   LogType,
+  Like,
 };
