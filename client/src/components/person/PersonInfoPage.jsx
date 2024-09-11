@@ -33,8 +33,7 @@ import useLikesData from "../../hooks/useLikesData";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
-  const { onLikeToggle, isLoading, isError, error, data, mergedColumns } =
-    useLikesData();
+  const { onLikeToggle } = useLikesData();
 
   const {
     titlePerson: {
@@ -89,6 +88,9 @@ const PersonInfoPage = ({ personInfo }) => {
   //     const fileName = `bpr_${firstName}_${lastName}.pdf`;
   //     await downloadPdf(url, fileName, personInfo);
   // };
+  const likeToggleText = middleName
+    ? `${firstName} ${lastName} ${middleName}`
+    : `${firstName} ${lastName}`;
 
   return (
     <Container>
@@ -243,7 +245,11 @@ const PersonInfoPage = ({ personInfo }) => {
           <PoliceTab pnum={PNum} />
         </TabPanel>
       </Box>
-      <SpeedDialButton onLikeToggle={onLikeToggle} uid={PNum} />
+      <SpeedDialButton
+        onLikeToggle={onLikeToggle}
+        uid={PNum}
+        text={likeToggleText}
+      />
     </Container>
   );
 };

@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-import { toggleLike } from "../api/personsApi";
+import { DeleteOutlined } from "@ant-design/icons";
+import { getLikes, toggleLike } from "../api/personsApi";
 import { toast } from "react-toastify";
-import { useState } from "react";
-import { Form, Popconfirm, Typography } from "antd";
+import { Link } from "react-router-dom";
+import { Button, Form, Popconfirm, Typography, message } from "antd";
 
 const useLikesData = () => {
   const queryClient = useQueryClient();
@@ -17,113 +17,73 @@ const useLikesData = () => {
     }
   );
 
-  const toggleLikeMutation = useMutation((uid) => toggleLike(uid), {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries("likes");
-      toast.success("Հաջողությամբ խմբագրվել է", {
-        progress: undefined,
-      });
-    },
-    onError: (error, variables, context, mutation) => {
-      toast.error(error.response?.data?.message || error.message, {
-        progress: undefined,
-      });
-    },
-  });
+  const toggleLikeMutation = useMutation(
+    ({ uid, text }) => toggleLike({ uid, text }),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("likes");
+        message.success("Հաջողությամբ կատարվել է");
+      },
+      onError: (error, variables, context, mutation) => {
+        message.error("Ինչ-որ բան այնպես չէ");
+      },
+    }
+  );
 
   const modifiedLikesData = data?.likes?.map((likeRow) => ({
     ...likeRow,
     key: likeRow.id.toString(),
   }));
 
+  const confirm = (e) => {
+    console.log(e);
+    message.success("Click on Yes");
+  };
+  const cancel = (e) => {
+    console.log(":>");
+  };
   const columns = [
     {
       title: "#",
       dataIndex: "id",
-      editable: false,
     },
     {
-      title: "Անուն",
-      dataIndex: "firstName",
-      editable: true,
-      required: true,
+      title: "ՀԾՀ / ՀՎՀՀ",
+      dataIndex: "uid",
+      render: (_, record) => {
+        const { uid } = record;
+        const destinationUrl =
+          uid.length === 10 ? `/bpr/${uid}` : `/register/${uid}`;
+        return <Link to={destinationUrl}>{uid}</Link>;
+      },
     },
     {
-      title: "Ազգանուն",
-      dataIndex: "lastName",
-      editable: true,
-      required: true,
-    },
-    {
-      title: "Էլ. փոստ",
-      dataIndex: "email",
-      editable: true,
-      required: true,
-    },
-    {
-      title: "Հեռ.",
-      dataIndex: "phoneNumber",
-      editable: true,
-      regex: /^0\d{8}$/,
-      placeholder: "0xxaabbcc",
-    },
-    {
-      title: "Գաղտնաբառ",
-      dataIndex: "password",
-      editable: true,
+      title: "Տվյալներ",
+      dataIndex: "text",
     },
     {
       title: "...",
       dataIndex: "operation",
       render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginInlineEnd: 8,
-              }}
-            >
-              Պահպանել
-            </Typography.Link>
-            <Popconfirm title="Համոզվածե՞ք" onConfirm={cancel}>
-              <a>Չեղարկել</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
+        return (
+          <Popconfirm
+            title="Հեռացնել պահպանված որոնման տողը"
+            description="Համոզվածե՞ք"
+            onConfirm={() => onLikeToggle({ uid: record.uid })}
+            onCancel={cancel}
+            okText="Հեռացնել"
+            cancelText="Չեղարկել"
+            placement="left"
           >
-            Խմբագրել
-          </Typography.Link>
+            <Button danger icon={<DeleteOutlined />} />
+          </Popconfirm>
         );
       },
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        required: col.required,
-        editing: isEditing(record),
-        ...(col.regex && { regex: col.regex }),
-        ...(col.placeholder && { placeholder: col.placeholder }),
-      }),
-    };
-  });
-
-  const onLikeToggle = (uid) => {
-    toggleLikeMutation.mutate(uid);
+  const onLikeToggle = ({ uid, text }) => {
+    toggleLikeMutation.mutate({ uid, text });
   };
 
   return {
@@ -131,8 +91,9 @@ const useLikesData = () => {
     isLoading,
     isError,
     error,
-    data,
-    mergedColumns,
+    data: modifiedLikesData,
+    columns,
+    cancel,
   };
 };
 

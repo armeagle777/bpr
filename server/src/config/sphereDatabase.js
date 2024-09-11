@@ -198,7 +198,7 @@ Log.belongsTo(LogType, {
 });
 
 const Like = sphereSequelize.define(
-  "Like",
+  "Likes",
   {
     uid: { type: DataTypes.STRING, allowNull: false },
     text: { type: DataTypes.STRING, allowNull: false },

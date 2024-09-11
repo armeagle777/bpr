@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { authMiddleware } = require("../../middlewares/authMiddleware");
-const { createLike } = require("./controller");
+const { createLike, getLikes } = require("./controller");
 
 // const {
 //   loginUserSchema,
@@ -14,6 +14,13 @@ router.post(
   authMiddleware,
   // validateSchema(registerUserSchema),
   createLike
+);
+
+router.get(
+  "/",
+  authMiddleware,
+  // validateSchema(registerUserSchema),
+  getLikes
 );
 
 module.exports = router;

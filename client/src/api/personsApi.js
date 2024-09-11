@@ -75,8 +75,8 @@ export const getLikes = async () => {
   return response.data;
 };
 
-export const toggleLike = async (uid) => {
-  const response = await personsApi.post(`/likes/like/${uid}`);
+export const toggleLike = async ({ uid, text }) => {
+  const response = await personsApi.post(`/likes/like/${uid}`, { text });
   return response.data;
 };
 

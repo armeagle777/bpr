@@ -161,7 +161,7 @@ const Header = () => {
                 </ListItemIcon>
                 Նամականի
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem onClick={() => onUserMenuClick("/likes")}>
                 <ListItemIcon>
                   <Save fontSize="small" />
                 </ListItemIcon>
