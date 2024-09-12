@@ -8,6 +8,7 @@ const {
   updateUser,
   checkEmail,
   registration,
+  toggleUserActive,
 } = require("./controller");
 
 // const {
@@ -50,6 +51,13 @@ router.put(
   // validateSchema(loginUserSchema),
   updateUser
 );
+
+router.put(
+  "/active/:id",
+  // validateSchema(loginUserSchema),
+  toggleUserActive
+);
+
 router.post("/logout", logout);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const {
   getAllUsersDB,
   registrationDB,
   activationUserDB,
+  toggleUserActiveDB,
 } = require("./services");
 
 const registration = async (req, res, next) => {
@@ -27,6 +28,16 @@ const registration = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const user = await updateUserDB(req);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
+const toggleUserActive = async (req, res, next) => {
+  try {
+    const user = await toggleUserActiveDB(req);
     res.status(200).json(user);
   } catch (err) {
     console.log("Error crating User:", err);
@@ -97,6 +108,7 @@ module.exports = {
   checkEmail,
   updateUser,
   registration,
+  toggleUserActive,
 };
 
 // import { responseDataCreator, sendActivationKey } from '../../helpers/common.js'

@@ -225,6 +225,54 @@ Like.belongsTo(User, {
   foreignKey: "userId",
 });
 
+const Share = sphereSequelize.define(
+  "Share",
+  {
+    uid: { type: DataTypes.STRING, allowNull: false },
+    text: { type: DataTypes.STRING, allowNull: false },
+    comment: { type: DataTypes.STRING, allowNull: false },
+    isRead: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+    fromUserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
+    },
+    toUserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+User.hasMany(Share, {
+  foreignKey: "fromUserId",
+  as: "SharesSent",
+  onDelete: "CASCADE",
+});
+User.hasMany(Share, {
+  foreignKey: "toUserId",
+  as: "SharesReceived",
+  onDelete: "CASCADE",
+});
+
+Share.belongsTo(User, {
+  foreignKey: "fromUserId",
+  as: "Sender",
+});
+Share.belongsTo(User, {
+  foreignKey: "toUserId",
+  as: "Receiver",
+});
+
 sphereSequelize.authenticate();
 
 module.exports = {
@@ -236,4 +284,5 @@ module.exports = {
   Log,
   LogType,
   Like,
+  Share,
 };

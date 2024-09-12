@@ -41,6 +41,35 @@ const registrationDB = async (body) => {
   };
 };
 
+const toggleUserActiveDB = async (req) => {
+  const { params, body } = req;
+  const { id } = params;
+
+  if (id != body.id) {
+    throw ApiError.BadRequest("Incorrect data");
+  }
+
+  const user = await User.findByPk(+id, {
+    attributes: {
+      exclude: ["password", "activationLink"],
+    },
+  });
+
+  if (!user) {
+    throw ApiError.BadRequest("User doesn't exists");
+  }
+
+  const isActivated = !user.isActivated;
+
+  if (!isActivated) {
+    await deleteTokenDB(user.id);
+  }
+
+  const updatedUser = await user.update({ isActivated });
+
+  return updatedUser;
+};
+
 const updateUserDB = async (req) => {
   const { params, body } = req;
   const { id } = params;
@@ -83,8 +112,13 @@ const loginDB = async (email, password) => {
       email,
     },
   });
+
   if (!candidate) {
     throw ApiError.BadRequest("User not found");
+  }
+
+  if (!candidate.isActivated) {
+    throw ApiError.BadRequest("Ձեր լիազորությունները կասեցված են");
   }
 
   const isPassEqual = await bcrypt.compare(password, candidate.password);
@@ -170,6 +204,7 @@ module.exports = {
   getAllUsersDB,
   registrationDB,
   activationUserDB,
+  toggleUserActiveDB,
 };
 // import { prisma } from '../../services/Prisma.js'
 // import bcrypt from 'bcryptjs'
