@@ -4,11 +4,13 @@ import {
   checkEmail,
   createUser,
   getUsers,
+  toggleUserActive,
   updateUser,
 } from "../api/personsApi";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { Form, Popconfirm, Typography } from "antd";
+import { Form, message, Popconfirm, Typography } from "antd";
+import IosSwitch from "../components/IosSwitch/IosSwitch";
 
 const useUsersData = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +42,19 @@ const useUsersData = () => {
         toast.error(error.response?.data?.message || error.message, {
           progress: undefined,
         });
+      },
+    }
+  );
+
+  const toggleActiveMutation = useMutation(
+    ({ id, data }) => toggleUserActive({ id, data }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("users");
+        message.success("Հաջողությամբ խմբագրվել է");
+      },
+      onError: (error, variables, context, mutation) => {
+        message.error(error.response?.data?.message || error.message);
       },
     }
   );
@@ -112,6 +127,10 @@ const useUsersData = () => {
     }
   };
 
+  const onToggle = ({ id, data }) => {
+    toggleActiveMutation.mutate({ id, data });
+  };
+
   const onModalClose = () => {
     setIsModalOpen(false);
   };
@@ -155,6 +174,19 @@ const useUsersData = () => {
       title: "Գաղտնաբառ",
       dataIndex: "password",
       editable: true,
+    },
+    {
+      title: "Ակտիվ կարգավիճակ",
+      dataIndex: "isActivated",
+      editable: false,
+      render: (_, record) => {
+        return (
+          <IosSwitch
+            defaultChecked={record.isActivated}
+            onChange={() => onToggle({ id: record.id, data: record })}
+          />
+        );
+      },
     },
     {
       title: "...",

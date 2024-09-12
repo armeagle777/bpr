@@ -30,10 +30,12 @@ import {
 import PoliceTab from "../policeTab/PoliceTab";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import useLikesData from "../../hooks/useLikesData";
+import Drawer from "../Drawer/Drawer";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
   const { onLikeToggle } = useLikesData();
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const {
     titlePerson: {
@@ -91,6 +93,14 @@ const PersonInfoPage = ({ personInfo }) => {
   const likeToggleText = middleName
     ? `${firstName} ${lastName} ${middleName}`
     : `${firstName} ${lastName}`;
+
+  const onDrawerClose = () => {
+    setDrawerOpen(false);
+  };
+
+  const onDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
 
   return (
     <Container>
@@ -245,8 +255,17 @@ const PersonInfoPage = ({ personInfo }) => {
           <PoliceTab pnum={PNum} />
         </TabPanel>
       </Box>
+      <Drawer
+        open={drawerOpen}
+        title={"Կիսվել այլոց հետ"}
+        onClose={onDrawerClose}
+        // loading
+      >
+        <p>asd</p>
+      </Drawer>
       <SpeedDialButton
         onLikeToggle={onLikeToggle}
+        onShareClick={onDrawerOpen}
         uid={PNum}
         text={likeToggleText}
       />

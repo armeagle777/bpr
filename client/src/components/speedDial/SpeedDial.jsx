@@ -5,14 +5,14 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
 import ShareIcon from "@mui/icons-material/Share";
 
-const SpeedDialButton = ({ onLikeToggle, uid, text }) => {
+const SpeedDialButton = ({ onLikeToggle, uid, text, onShareClick }) => {
   const actions = [
     {
       icon: <SaveIcon />,
       name: "Պահպանել",
       onClick: () => onLikeToggle({ uid, text }),
     },
-    { icon: <ShareIcon />, name: "Կիսվել" },
+    { icon: <ShareIcon />, name: "Կիսվել", onClick: { onShareClick } },
   ];
   return (
     <SpeedDial

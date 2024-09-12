@@ -65,6 +65,11 @@ export const updateUser = async ({ id, data }) => {
   return response.data;
 };
 
+export const toggleUserActive = async ({ id, data }) => {
+  const response = await personsApi.put(`/users/active/${id}`, data);
+  return response.data;
+};
+
 export const checkEmail = async (email) => {
   const response = await personsApi.post(`/users/check/email`, { email });
   return response.data;
