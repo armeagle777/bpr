@@ -31,13 +31,17 @@ import PoliceTab from "../policeTab/PoliceTab";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import useLikesData from "../../hooks/useLikesData";
 import Drawer from "../Drawer/Drawer";
-import { Form, Input, Select, Space } from "antd";
+import { Form, Input, Select } from "antd";
+import useShareData from "../../hooks/useShareData";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
   const { onLikeToggle } = useLikesData();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [shareForm] = Form.useForm();
+
+  const { onShareSubmit, shareForm, getUsersLodaing, usersOptions } =
+    useShareData();
+
   const {
     titlePerson: {
       PNum,
@@ -106,21 +110,6 @@ const PersonInfoPage = ({ personInfo }) => {
 
   const handleReceiverChange = (value) => {
     console.log(`selected ${value}`);
-  };
-
-  const receiverOptions = [
-    {
-      label: "Asd asdyan",
-      value: 12,
-    },
-    {
-      label: "Varazdat Boshyan",
-      value: 13,
-    },
-  ];
-
-  const onShareSubmit = (values) => {
-    console.log(values);
   };
 
   return (
@@ -280,7 +269,7 @@ const PersonInfoPage = ({ personInfo }) => {
         open={drawerOpen}
         title={<p>Կիսվել այլոց հետ</p>}
         onClose={onDrawerClose}
-        // loading
+        loading={getUsersLodaing}
       >
         <Form layout="vertical" form={shareForm} onFinish={onShareSubmit}>
           <Form.Item
@@ -311,7 +300,7 @@ const PersonInfoPage = ({ personInfo }) => {
               }}
               placeholder="Ընտրեք ստացողներին"
               onChange={handleReceiverChange}
-              options={receiverOptions}
+              options={usersOptions}
             />
           </Form.Item>
           <Form.Item name="comment" label="Հաղորդագրություն">
@@ -334,7 +323,7 @@ const PersonInfoPage = ({ personInfo }) => {
                   style={{ marginLeft: "10px" }}
                   variant="outlined"
                   htmlType="submit"
-                  // loading={isLoading}
+                  // loading={getUsersLodaing}
                   disabled={
                     !shareForm.isFieldsTouched(false) ||
                     !!shareForm

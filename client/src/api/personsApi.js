@@ -80,6 +80,16 @@ export const getLikes = async () => {
   return response.data;
 };
 
+export const getShares = async () => {
+  const response = await personsApi.get(`/shares`);
+  return response.data;
+};
+
+export const shareInfo = async (data) => {
+  const response = await personsApi.post(`/shares/share`, data);
+  return response.data;
+};
+
 export const toggleLike = async ({ uid, text }) => {
   const response = await personsApi.post(`/likes/like/${uid}`, { text });
   return response.data;

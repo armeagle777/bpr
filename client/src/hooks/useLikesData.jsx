@@ -35,10 +35,6 @@ const useLikesData = () => {
     key: likeRow.id.toString(),
   }));
 
-  const confirm = (e) => {
-    console.log(e);
-    message.success("Click on Yes");
-  };
   const cancel = (e) => {
     console.log(":>");
   };
