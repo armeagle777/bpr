@@ -4,8 +4,10 @@ import { getLightUsers, getShares, shareInfo } from "../api/personsApi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button, Form, Popconfirm, Typography, message } from "antd";
+import { useState } from "react";
 
 const useShareData = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const queryClient = useQueryClient();
   const [shareForm] = Form.useForm();
 
@@ -29,6 +31,8 @@ const useShareData = () => {
   const submitShareMutation = useMutation((data) => shareInfo(data), {
     onSuccess: (data) => {
       queryClient.invalidateQueries("shares");
+      shareForm.resetFields();
+      setDrawerOpen(false);
       message.success("Հաջողությամբ կատարվել է");
     },
     onError: (error, variables, context, mutation) => {
@@ -100,6 +104,8 @@ const useShareData = () => {
     error,
     getUsersLodaing,
     usersOptions,
+    drawerOpen,
+    setDrawerOpen,
   };
 };
 

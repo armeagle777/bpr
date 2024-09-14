@@ -37,10 +37,15 @@ import useShareData from "../../hooks/useShareData";
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
   const { onLikeToggle } = useLikesData();
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const { onShareSubmit, shareForm, getUsersLodaing, usersOptions } =
-    useShareData();
+  const {
+    onShareSubmit,
+    shareForm,
+    getUsersLodaing,
+    usersOptions,
+    drawerOpen,
+    setDrawerOpen,
+  } = useShareData();
 
   const {
     titlePerson: {
