@@ -31,7 +31,7 @@ import PoliceTab from "../policeTab/PoliceTab";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import useLikesData from "../../hooks/useLikesData";
 import Drawer from "../Drawer/Drawer";
-import { Form, Input, Select } from "antd";
+import { Form, Input, Select, Button as AntButton } from "antd";
 import useShareData from "../../hooks/useShareData";
 
 const PersonInfoPage = ({ personInfo }) => {
@@ -312,14 +312,14 @@ const PersonInfoPage = ({ personInfo }) => {
           <Form.Item shouldUpdate>
             {() => (
               <>
-                <Button
+                <AntButton
                   color="secondary"
                   variant="outlined"
                   onClick={onDrawerClose}
                 >
                   Չեղարկել
-                </Button>
-                <Button
+                </AntButton>
+                <AntButton
                   style={{ marginLeft: "10px" }}
                   variant="outlined"
                   htmlType="submit"
@@ -332,7 +332,7 @@ const PersonInfoPage = ({ personInfo }) => {
                   }
                 >
                   Կիսվել
-                </Button>
+                </AntButton>
               </>
             )}
           </Form.Item>

@@ -55,6 +55,11 @@ export const getUsers = async () => {
   return response.data;
 };
 
+export const getLightUsers = async () => {
+  const response = await personsApi.get("/users/light");
+  return response.data;
+};
+
 export const createUser = async (data) => {
   const response = await personsApi.post(`/users/registration`, data);
   return response.data;

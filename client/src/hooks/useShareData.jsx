@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DeleteOutlined } from "@ant-design/icons";
-import { getShares, getUsers, shareInfo } from "../api/personsApi";
+import { getLightUsers, getShares, shareInfo } from "../api/personsApi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button, Form, Popconfirm, Typography, message } from "antd";
@@ -14,12 +14,13 @@ const useShareData = () => {
     () => getShares(),
     {
       keepPreviousData: true,
+      enabled: false,
     }
   );
 
   const { isLoading: getUsersLodaing, data: usersData } = useQuery(
-    ["users"],
-    () => getUsers(),
+    ["users-light"],
+    () => getLightUsers(),
     {
       keepPreviousData: true,
     }
@@ -40,7 +41,10 @@ const useShareData = () => {
     key: shareRow.id.toString(),
   }));
 
-  const usersOptions = usersData?.map((user) => console.log("User", user));
+  const usersOptions = usersData?.users?.map((user) => ({
+    label: `${user.firstName[0]}. ${user.lastName}`,
+    value: user.id,
+  }));
 
   // const columns = [
   //   {
@@ -83,6 +87,7 @@ const useShareData = () => {
   // ];
 
   const onShareSubmit = (values) => {
+    console.log("Values >>>>>>>", values);
     submitShareMutation.mutate(values);
   };
 
