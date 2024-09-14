@@ -1,6 +1,6 @@
-import { Drawer as AntDrawer } from "antd";
+import { Drawer as AntDrawer, Button, Space } from "antd";
 
-const Drawer = ({ open, children, title, onClose, loading }) => {
+const Drawer = ({ open, children, title, onClose, loading, extra }) => {
   return (
     <AntDrawer
       closable
@@ -10,6 +10,8 @@ const Drawer = ({ open, children, title, onClose, loading }) => {
       open={open}
       loading={loading}
       onClose={onClose}
+      zIndex={10000}
+      extra={extra}
     >
       {children}
     </AntDrawer>

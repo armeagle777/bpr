@@ -12,7 +12,7 @@ const SpeedDialButton = ({ onLikeToggle, uid, text, onShareClick }) => {
       name: "Պահպանել",
       onClick: () => onLikeToggle({ uid, text }),
     },
-    { icon: <ShareIcon />, name: "Կիսվել", onClick: { onShareClick } },
+    { icon: <ShareIcon />, name: "Կիսվել", onClick: onShareClick },
   ];
   return (
     <SpeedDial
