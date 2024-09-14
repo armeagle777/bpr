@@ -7,6 +7,7 @@ const {
   registrationDB,
   activationUserDB,
   toggleUserActiveDB,
+  getAllUsersLightDB,
 } = require("./services");
 
 const registration = async (req, res, next) => {
@@ -100,6 +101,15 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getUsersLight = async (req, res, next) => {
+  try {
+    const users = await getAllUsersLightDB();
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   login,
   logout,
@@ -108,6 +118,7 @@ module.exports = {
   checkEmail,
   updateUser,
   registration,
+  getUsersLight,
   toggleUserActive,
 };
 

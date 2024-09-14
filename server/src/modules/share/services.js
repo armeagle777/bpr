@@ -19,18 +19,23 @@ const getSharesDB = async (req) => {
 const shareInfoDb = async (req) => {
   const { user, params, body } = req;
   const { id: userId } = user;
-  console.log("body In Share::::::", body);
 
-  const { uid, text, comment, users } = body;
-
-  const newLikeRow = await Like.create({
+  const { uid, text, comment, receivers } = body;
+  if (!uid || !text || !receivers.length) {
+    throw ApiError.BadRequest("Missing fields");
+  }
+  const insertions = receivers?.map((receiverId) => ({
     uid,
-    userId,
     text,
-  });
+    comment,
+    fromUserId: userId,
+    toUserId: receiverId,
+  }));
+
+  const newLikeRows = await Share.bulkCreate(insertions);
 
   return {
-    data: newLikeRow,
+    data: newLikeRows,
   };
 };
 

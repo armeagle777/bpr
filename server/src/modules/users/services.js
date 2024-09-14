@@ -143,13 +143,29 @@ const getAllUsersDB = async () => {
     const allUsers = await User.findAll({
       attributes: {
         exclude: ["password", "activationLink", "createdAt", "updatedAt"],
-        // include: [
-        //   {
-        //     model: Role,
-        //     through: { attributes: [] },
-        //     attributes: ["name", "value"],
-        //   },
-        // ],
+      },
+    });
+    return { users: allUsers };
+  } catch (err) {
+    return {
+      error: err.message,
+    };
+  }
+};
+
+const getAllUsersLightDB = async () => {
+  try {
+    const allUsers = await User.findAll({
+      where: { isActivated: true },
+      attributes: {
+        exclude: [
+          "password",
+          "activationLink",
+          "createdAt",
+          "updatedAt",
+          "phoneNumber",
+          "isActivated",
+        ],
       },
     });
     return { users: allUsers };
@@ -205,6 +221,7 @@ module.exports = {
   registrationDB,
   activationUserDB,
   toggleUserActiveDB,
+  getAllUsersLightDB,
 };
 // import { prisma } from '../../services/Prisma.js'
 // import bcrypt from 'bcryptjs'

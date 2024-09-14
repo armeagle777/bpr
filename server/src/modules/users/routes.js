@@ -1,5 +1,5 @@
 const router = require("express").Router();
-// const { authMiddleware } = require("../../middlewares/authMiddleware");
+const { authMiddleware } = require("../../middlewares/authMiddleware");
 const {
   login,
   logout,
@@ -8,6 +8,7 @@ const {
   updateUser,
   checkEmail,
   registration,
+  getUsersLight,
   toggleUserActive,
 } = require("./controller");
 
@@ -23,11 +24,8 @@ router.get(
   // validateSchema(activateUserSchema),
   activate
 );
-router.get(
-  "/",
-  // authMiddleware,
-  getUsers
-);
+router.get("/", authMiddleware, getUsers);
+router.get("/light", authMiddleware, getUsersLight);
 
 router.post(
   "/check/email",
