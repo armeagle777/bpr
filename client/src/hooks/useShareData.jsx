@@ -50,50 +50,55 @@ const useShareData = () => {
     value: user.id,
   }));
 
-  // const columns = [
-  //   {
-  //     title: "#",
-  //     dataIndex: "id",
-  //   },
-  //   {
-  //     title: "ՀԾՀ / ՀՎՀՀ",
-  //     dataIndex: "uid",
-  //     render: (_, record) => {
-  //       const { uid } = record;
-  //       const destinationUrl =
-  //         uid.length === 10 ? `/bpr/${uid}` : `/register/${uid}`;
-  //       return <Link to={destinationUrl}>{uid}</Link>;
-  //     },
-  //   },
-  //   {
-  //     title: "Տվյալներ",
-  //     dataIndex: "text",
-  //   },
-  //   {
-  //     title: "...",
-  //     dataIndex: "operation",
-  //     render: (_, record) => {
-  //       return (
-  //         <Popconfirm
-  //           title="Հեռացնել պահպանված որոնման տողը"
-  //           description="Համոզվածե՞ք"
-  //           onConfirm={() => onLikeToggle({ uid: record.uid })}
-  //           onCancel={cancel}
-  //           okText="Հեռացնել"
-  //           cancelText="Չեղարկել"
-  //           placement="left"
-  //         >
-  //           <Button danger icon={<DeleteOutlined />} />
-  //         </Popconfirm>
-  //       );
-  //     },
-  //   },
-  // ];
+  const columns = [
+    {
+      title: "#",
+      dataIndex: "id",
+    },
+    {
+      title: "ՀԾՀ / ՀՎՀՀ",
+      dataIndex: "uid",
+      render: (_, record) => {
+        const { uid } = record;
+        const destinationUrl =
+          uid.length === 10 ? `/bpr/${uid}` : `/register/${uid}`;
+        return <Link to={destinationUrl}>{uid}</Link>;
+      },
+    },
+    {
+      title: "Տվյալներ",
+      dataIndex: "text",
+    },
+    {
+      title: "Մեկնաբանություն",
+      dataIndex: "comment",
+    },
+    {
+      title: "...",
+      dataIndex: "operation",
+      render: (_, record) => {
+        return (
+          <Popconfirm
+            title="Հեռացնել տվյալ տողը"
+            description="Համոզվածե՞ք"
+            onConfirm={() => onLikeToggle({ uid: record.uid })}
+            onCancel={onCancel}
+            okText="Հեռացնել"
+            cancelText="Չեղարկել"
+            placement="left"
+          >
+            <Button danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+        );
+      },
+    },
+  ];
 
   const onShareSubmit = (values) => {
-    console.log("Values >>>>>>>", values);
     submitShareMutation.mutate(values);
   };
+
+  const onCancel = () => console.log("canceled");
 
   return {
     sharesData: modifiedSharesData,
@@ -106,6 +111,8 @@ const useShareData = () => {
     usersOptions,
     drawerOpen,
     setDrawerOpen,
+    onCancel,
+    columns,
   };
 };
 

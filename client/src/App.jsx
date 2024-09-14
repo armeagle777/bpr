@@ -13,6 +13,7 @@ import RequireAuth from "@auth-kit/react-router/RequireAuth";
 import Profile from "./pages/Profile/Profile";
 import Users from "./pages/Users/Users";
 import Likes from "./pages/Likes/Likes";
+import Shares from "./pages/Shares/Shares";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="register/:taxId" element={<Register />} />
         <Route path="profile" element={<Profile />} />
         <Route path="likes" element={<Likes />} />
+        <Route path="shares" element={<Shares />} />
         <Route path="users" element={<Users />} />
         <Route path="/*" element={<NotFound />} />
       </Route>

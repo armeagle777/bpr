@@ -155,7 +155,7 @@ const Header = () => {
                 </ListItemIcon>
                 Օգտատերեր
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem onClick={() => onUserMenuClick("/shares")}>
                 <ListItemIcon>
                   <Share fontSize="small" />
                 </ListItemIcon>
