@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button, Form, Popconfirm, Typography, message } from "antd";
 import { useState } from "react";
+import { formatDate } from "../components/pdf-templates/templates.helpers";
 
 const useShareData = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -16,7 +17,6 @@ const useShareData = () => {
     () => getShares(),
     {
       keepPreviousData: true,
-      enabled: false,
     }
   );
 
@@ -72,6 +72,22 @@ const useShareData = () => {
     {
       title: "Մեկնաբանություն",
       dataIndex: "comment",
+    },
+    {
+      title: "Ումից",
+      dataIndex: "Sender",
+      render: (_, record) => {
+        return record.Sender.firstName + " " + record.Sender.lastName;
+      },
+    },
+    {
+      title: "Մեկնաբանություն",
+      dataIndex: "comment",
+    },
+    {
+      title: "Ստեղծման ա/թ",
+      dataIndex: "createdAt",
+      render: (_, record) => formatDate(new Date(record.createdAt)),
     },
     {
       title: "...",

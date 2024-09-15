@@ -176,7 +176,7 @@ const useUsersData = () => {
       editable: true,
     },
     {
-      title: "Ակտիվ կարգավիճակ",
+      title: "Կարգավիճակ",
       dataIndex: "isActivated",
       editable: false,
       render: (_, record) => {

@@ -1,6 +1,7 @@
 import { Alert, Table } from "antd";
 import { Box } from "@mui/material";
 import useShareData from "../../hooks/useShareData";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 const Shares = () => {
   const { sharesData, isLoading, isError, error, onCancel, columns } =
@@ -14,6 +15,7 @@ const Shares = () => {
         padding: "30px 10px",
       }}
     >
+      <PageTitle>Ստացված հաղորդագրություններ</PageTitle>
       <Table
         bordered
         dataSource={sharesData}

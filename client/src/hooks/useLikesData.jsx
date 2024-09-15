@@ -4,6 +4,7 @@ import { getLikes, toggleLike } from "../api/personsApi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button, Form, Popconfirm, Typography, message } from "antd";
+import { formatDate } from "../components/pdf-templates/templates.helpers";
 
 const useLikesData = () => {
   const queryClient = useQueryClient();
@@ -56,6 +57,11 @@ const useLikesData = () => {
     {
       title: "Տվյալներ",
       dataIndex: "text",
+    },
+    {
+      title: "Ստեղծման ա/թ",
+      dataIndex: "createdAt",
+      render: (_, record) => formatDate(new Date(record.createdAt)),
     },
     {
       title: "...",
