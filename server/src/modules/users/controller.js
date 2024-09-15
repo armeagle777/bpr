@@ -103,7 +103,7 @@ const getUsers = async (req, res, next) => {
 
 const getUsersLight = async (req, res, next) => {
   try {
-    const users = await getAllUsersLightDB();
+    const users = await getAllUsersLightDB(req);
     res.status(200).json(users);
   } catch (err) {
     next(err);

@@ -1,16 +1,22 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 const ApiError = require("../../exceptions/api-error");
-const { Share } = require("../../config/sphereDatabase");
+const { Share, User } = require("../../config/sphereDatabase");
 
 const getSharesDB = async (req) => {
   const { user } = req;
   const { id: userId } = user;
   const shares = await Share.findAll({
     where: { toUserId: userId },
-    attributes: { exclude: ["toUserId"] },
+    attributes: { exclude: ["toUserId", "fromUserId"] },
+    include: [
+      {
+        model: User,
+        as: "Sender",
+        attributes: ["firstName", "lastName"],
+      },
+    ],
   });
-
   return {
     shares,
   };

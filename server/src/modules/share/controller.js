@@ -13,7 +13,7 @@ const shareInfo = async (req, res, next) => {
 const getShares = async (req, res, next) => {
   try {
     const shares = await getSharesDB(req);
-    res.status(200).json(likes);
+    res.status(200).json(shares);
   } catch (err) {
     console.log("Error crating User:", err);
     next(err);

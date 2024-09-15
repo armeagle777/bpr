@@ -153,10 +153,11 @@ const getAllUsersDB = async () => {
   }
 };
 
-const getAllUsersLightDB = async () => {
+const getAllUsersLightDB = async (req) => {
   try {
+    const { user } = req;
     const allUsers = await User.findAll({
-      where: { isActivated: true },
+      where: { isActivated: true, id: { [Op.ne]: user.id } },
       attributes: {
         exclude: [
           "password",
