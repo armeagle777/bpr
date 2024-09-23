@@ -68,7 +68,7 @@ const User = sphereSequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      // unique: false,
+      unique: true,
       validate: {
         isEmail: true,
       },
@@ -90,7 +90,7 @@ const User = sphereSequelize.define(
     },
     activationLink: {
       type: DataTypes.STRING(255),
-      unique: false,
+      unique: true,
     },
     phoneNumber: {
       type: DataTypes.STRING,
@@ -124,15 +124,13 @@ const Role = sphereSequelize.define(
   "Role",
   {
     name: { type: DataTypes.STRING, allowNull: false },
-    value: { type: DataTypes.INTEGER, allowNull: false },
   },
   {
     timestamps: true,
   }
 );
-
-User.belongsToMany(Role, { through: "User_Roles" });
-Role.belongsToMany(User, { through: "User_Roles" });
+Role.hasMany(User);
+User.belongsTo(Role);
 
 User.hasMany(Token, {
   foreignKey: "userId",
@@ -273,6 +271,21 @@ Share.belongsTo(User, {
   as: "Receiver",
 });
 
+const Permission = sphereSequelize.define(
+  "Permission",
+  {
+    uid: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, allowNull: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+Permission.belongsToMany(Role, { through: "Permission_Roles" });
+Role.belongsToMany(Permission, { through: "Permission_Roles" });
+
 sphereSequelize.authenticate();
 
 module.exports = {
@@ -285,4 +298,5 @@ module.exports = {
   LogType,
   Like,
   Share,
+  Permission,
 };

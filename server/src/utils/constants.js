@@ -96,4 +96,56 @@ const defaultAddress = [
 
 const sphereCronConfig = "0 20 * * *";
 
-module.exports = { defaultDocument, defaultAddress, sphereCronConfig };
+const ERROR_MESSAGES = {
+  MIDDLEWARE_MESSAGES: {
+    NOT_AUTHORIZED: "Մուտք եղեք համակարգ",
+    HAS_NO_RIGHTS: "Լիազորությունները բացակյում են",
+    NO_USER_INFO: "Խնդրում ենք կրկին մուտք գործել համակարգ",
+  },
+};
+
+const permissionsMap = {
+  BPR: {
+    uid: "1000",
+    name: "ԲՊՌ",
+    description: "ԲՊՌ Որոնում",
+  },
+  PETREGISTER: {
+    uid: "2000",
+    name: "ՊետՌեգիստր",
+    description: "Ռեգիստրի Որոնում",
+  },
+  POLICE: {
+    uid: "3000",
+    name: "ՆԳՆ",
+    description: "Ոստիկանության Որոնում",
+  },
+  TAX: {
+    uid: "4000",
+    name: "ՊԵԿ",
+    description: "Հարկային Որոնում",
+  },
+  ZAQS: {
+    uid: "5000",
+    name: "ՔԿԱԳ",
+    description: "ՔԿԱԳ Որոնում",
+  },
+  STATISTICS: {
+    uid: "6000",
+    name: "Վիճակագրություն",
+    description: "Վիճակագրական տվյալներ",
+  },
+  ADMIN: {
+    uid: "9999",
+    name: "Ադմինիստրատոր",
+    description: "Ադմինիստրատոր",
+  },
+};
+
+module.exports = {
+  defaultDocument,
+  defaultAddress,
+  sphereCronConfig,
+  ERROR_MESSAGES,
+  permissionsMap,
+};

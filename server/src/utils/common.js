@@ -63,6 +63,8 @@ const createUserData = (userObject) => {
     firstName: userObject.firstName,
     lastName: userObject.lastName,
     isActivated: userObject.isActivated,
+    Role: userObject.Role.name,
+    permissions: userObject.Role.Permissions.map((p) => p.uid),
   };
 };
 

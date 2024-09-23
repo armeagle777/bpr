@@ -7,7 +7,7 @@
     "db": "json-server -w ../data/data.json -p 8000",
     "dev": "nodemon ./src/index",
     "prod": "NODE_ENV='production' node ./src/index",
-    "seed": "NODE_ENV='production' && npx sequelize-cli db:seed:all --config ./src/config/config.js"
+    "seed": "npx sequelize-cli db:seed:all --config ./src/config/config.js"
   },
   "keywords": [],
   "author": "",

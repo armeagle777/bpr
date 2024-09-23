@@ -10,12 +10,14 @@ const {
   sendActivationMail,
   validateRefreshToken,
 } = require("../../utils/common");
-const { User, Role } = require("../../config/sphereDatabase");
+const { User, Role, Permission } = require("../../config/sphereDatabase");
 
 const registrationDB = async (body) => {
+  const { firstName, lastName, email, password, role } = body;
+
   const candidate = await User.findOne({
     where: {
-      email: body.email,
+      email: email,
     },
   });
   if (candidate) {
@@ -24,14 +26,37 @@ const registrationDB = async (body) => {
 
   const hashedPassword = await bcrypt.hash(body.password, 7);
   const activationLink = uuid.v4();
+  const foundRole = await Role.findByPk(parseInt(role, 10));
+
+  if (!foundRole) {
+    throw ApiError.BadRequest("Role not found");
+  }
   const newUser = await User.create({
-    ...body,
+    firstName,
+    lastName,
+    email,
+    RoleId: foundRole.id,
     password: hashedPassword,
     activationLink,
   });
 
+  const createdUserWithRole = await User.findByPk(newUser.id, {
+    include: [
+      {
+        model: Role,
+        attributes: ["id", "name"],
+        include: [
+          {
+            model: Permission,
+            attributes: ["id", "name"],
+          },
+        ],
+      },
+    ],
+  });
+
   // await sendActivationMail(body.email, activationLink);
-  const userData = createUserData(newUser);
+  const userData = createUserData(createdUserWithRole);
   const tokens = await generateTokens(userData);
   const tokenData = await saveTokenDB(userData.id, tokens.refreshToken);
 
@@ -73,6 +98,7 @@ const toggleUserActiveDB = async (req) => {
 const updateUserDB = async (req) => {
   const { params, body } = req;
   const { id } = params;
+  delete body.Role;
 
   if (id != body.id) {
     throw ApiError.BadRequest("Incorrect data");
@@ -99,6 +125,8 @@ const updateUserDB = async (req) => {
   if (body.password) {
     const hashedPassword = await bcrypt.hash(body.password, 7);
     body.password = hashedPassword;
+  } else {
+    delete body.password;
   }
 
   const updatedCandidate = await user.update(body);
@@ -111,6 +139,18 @@ const loginDB = async (email, password) => {
     where: {
       email,
     },
+    include: [
+      {
+        model: Role,
+        attributes: ["id", "name"],
+        include: [
+          {
+            model: Permission,
+            attributes: ["id", "name", "uid"],
+          },
+        ],
+      },
+    ],
   });
 
   if (!candidate) {
@@ -144,6 +184,12 @@ const getAllUsersDB = async () => {
       attributes: {
         exclude: ["password", "activationLink", "createdAt", "updatedAt"],
       },
+      include: [
+        {
+          model: Role,
+          attributes: ["id", "name"],
+        },
+      ],
     });
     return { users: allUsers };
   } catch (err) {

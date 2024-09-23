@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { authMiddleware } = require("../../middlewares/authMiddleware");
+const { rolesMiddleware } = require("../../middlewares/rolesMiddleware");
+const { permissionsMap } = require("../../utils/constants");
 const {
   login,
   logout,
@@ -11,6 +13,7 @@ const {
   getUsersLight,
   toggleUserActive,
 } = require("./controller");
+const { BPR, ADMIN, TAX, ZAQS, POLICE, PETREGISTER } = permissionsMap;
 
 // const {
 //   loginUserSchema,
@@ -24,17 +27,19 @@ router.get(
   // validateSchema(activateUserSchema),
   activate
 );
-router.get("/", authMiddleware, getUsers);
+router.get("/", rolesMiddleware([ADMIN.uid]), getUsers);
 router.get("/light", authMiddleware, getUsersLight);
 
 router.post(
   "/check/email",
   // authMiddleware,
+  rolesMiddleware([ADMIN.uid]),
   checkEmail
 );
 
 router.post(
   "/registration",
+  rolesMiddleware([ADMIN.uid]),
   // validateSchema(registerUserSchema),
   registration
 );
@@ -52,10 +57,11 @@ router.put(
 
 router.put(
   "/active/:id",
+  rolesMiddleware([ADMIN.uid]),
   // validateSchema(loginUserSchema),
   toggleUserActive
 );
 
-router.post("/logout", logout);
+router.post("/logout", authMiddleware, logout);
 
 module.exports = router;
