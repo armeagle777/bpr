@@ -5,7 +5,7 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 
 const NewUserForm = ({
   form,
@@ -13,6 +13,7 @@ const NewUserForm = ({
   onFinish,
   onCancel,
   isLoading,
+  rolesOptions,
 }) => {
   const layout = {
     labelCol: {
@@ -22,6 +23,11 @@ const NewUserForm = ({
       span: 24,
     },
   };
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
   return (
     <Form {...layout} form={form} name="new_user" onFinish={onFinish}>
       <Form.Item
@@ -88,6 +94,23 @@ const NewUserForm = ({
           prefix={<LockOutlined />}
           type="password"
           placeholder="Գաղտնաբառ"
+        />
+      </Form.Item>
+      <Form.Item
+        name="role"
+        label="Դերը"
+        rules={[{ required: true, message: "Դերի դաշտը պարտադիր է" }]}
+      >
+        <Select
+          allowClear
+          style={{
+            width: "100%",
+          }}
+          placeholder="Դեր"
+          // defaultValue={["a10", "c12"]}
+          onChange={handleChange}
+          options={rolesOptions}
+          getPopupContainer={(trigger) => trigger.parentNode}
         />
       </Form.Item>
       <Form.Item

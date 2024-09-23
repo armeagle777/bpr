@@ -70,7 +70,7 @@ const useLikesData = () => {
         return (
           <Popconfirm
             title="Հեռացնել պահպանված որոնման տողը"
-            description="Համոզվածե՞ք"
+            description="Համոզվա՞ծ եք"
             onConfirm={() => onLikeToggle({ uid: record.uid })}
             onCancel={cancel}
             okText="Հեռացնել"

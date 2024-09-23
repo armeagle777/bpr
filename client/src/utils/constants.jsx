@@ -209,15 +209,6 @@ export const MOCK_MONTHS = [
   },
 ];
 
-export const MOCK_YEARS = [
-  2000, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
-  2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
-].map((year) => ({
-  label: `${year}`,
-  value: year,
-  key: year,
-}));
-
 export const MOCK_PERIODS = [
   {
     label: "1-ին կիսամյակ",
@@ -313,4 +304,42 @@ export const DOWNLOAD_FILE_TYPES = {
 export const FILE_MIME_TYPES = {
   EXCEL: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   PDF: "application/pdf",
+};
+
+export const permissionsMap = {
+  BPR: {
+    uid: "1000",
+    name: "ԲՊՌ",
+    description: "ԲՊՌ Որոնում",
+  },
+  PETREGISTER: {
+    uid: "2000",
+    name: "ՊետՌեգիստր",
+    description: "Ռեգիստրի Որոնում",
+  },
+  POLICE: {
+    uid: "3000",
+    name: "ՆԳՆ",
+    description: "Ոստիկանության Որոնում",
+  },
+  TAX: {
+    uid: "4000",
+    name: "ՊԵԿ",
+    description: "Հարկային Որոնում",
+  },
+  ZAQS: {
+    uid: "5000",
+    name: "ՔԿԱԳ",
+    description: "ՔԿԱԳ Որոնում",
+  },
+  STATISTICS: {
+    uid: "6000",
+    name: "Վիճակագրություն",
+    description: "Վիճակագրական տվյալներ",
+  },
+  ADMIN: {
+    uid: "9999",
+    name: "Ադմինիստրատոր",
+    description: "Ադմինիստրատոր",
+  },
 };

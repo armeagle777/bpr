@@ -24,7 +24,11 @@ const Search = () => {
   }
 
   if (isError) {
-    return <MuiAlert severity="error">{error.message}</MuiAlert>;
+    return (
+      <MuiAlert severity="error">
+        {error.response?.data?.message || error.message}
+      </MuiAlert>
+    );
   }
 
   return (

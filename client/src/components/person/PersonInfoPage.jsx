@@ -26,6 +26,7 @@ import {
   filterImageSrcs,
   formatCountryName,
   formatPersonData,
+  userHasPermission,
 } from "../../utils/helperFunctions";
 import PoliceTab from "../policeTab/PoliceTab";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -33,6 +34,7 @@ import useLikesData from "../../hooks/useLikesData";
 import Drawer from "../Drawer/Drawer";
 import { Form, Input, Select, Button as AntButton } from "antd";
 import useShareData from "../../hooks/useShareData";
+import { permissionsMap } from "../../utils/constants";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
@@ -134,10 +136,22 @@ const PersonInfoPage = ({ personInfo }) => {
             aria-label="personal-info-tabs"
           >
             <Tab icon={<CoPresentIcon />} aria-label="documents" />
-            <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
-            <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
-            <Tab icon={<BusinessIcon />} aria-label="business" />
-            <Tab icon={<LocalPoliceIcon />} aria-label="police" />
+            {userHasPermission(
+              [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && <Tab icon={<AttachMoneyIcon />} aria-label="finances" />}
+            {userHasPermission(
+              [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && <Tab icon={<FamilyRestroomIcon />} aria-label="family" />}
+            {userHasPermission(
+              [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && <Tab icon={<BusinessIcon />} aria-label="business" />}
+            {userHasPermission(
+              [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && <Tab icon={<LocalPoliceIcon />} aria-label="police" />}
           </Tabs>
         </Box>
         <PDFGenerator
@@ -253,22 +267,42 @@ const PersonInfoPage = ({ personInfo }) => {
         <TabPanel value={value} index={0}>
           <Documents documents={documents} addresses={addresses} />
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Finances ssn={PNum || Certificate_Number} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Family
-            ssn={PNum || Certificate_Number}
-            firstName={firstName}
-            lastName={lastName}
-          />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <BusinessTab ssn={PNum || Certificate_Number} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <PoliceTab pnum={PNum} />
-        </TabPanel>
+        {userHasPermission(
+          [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={1}>
+            <Finances ssn={PNum || Certificate_Number} />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={2}>
+            <Family
+              ssn={PNum || Certificate_Number}
+              firstName={firstName}
+              lastName={lastName}
+            />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={3}>
+            <BusinessTab ssn={PNum || Certificate_Number} />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={4}>
+            <PoliceTab pnum={PNum} />
+          </TabPanel>
+        )}
       </Box>
       <Drawer
         open={drawerOpen}

@@ -1,11 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
-  checkEmail,
-  createUser,
+  createRole,
+  getPermissions,
   getRoles,
-  getUsers,
-  toggleUserActive,
+  updateRole,
   updateUser,
 } from "../api/personsApi";
 import { toast } from "react-toastify";
@@ -13,37 +12,36 @@ import { useState } from "react";
 import { Form, message, Popconfirm, Select, Typography } from "antd";
 import IosSwitch from "../components/IosSwitch/IosSwitch";
 
-const useUsersData = () => {
+const useRolesData = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingKey, setEditingKey] = useState("");
   const queryClient = useQueryClient();
-  const [newUserForm] = Form.useForm();
+  const [newRoleForm] = Form.useForm();
   const [form] = Form.useForm();
 
   const isEditing = (record) => record.key === editingKey;
 
-  const {
-    isLoading: isRolesLoading,
-    isError: isRolesError,
-    error: rolesError,
-    data: roles,
-  } = useQuery(["roles"], () => getRoles(), {
-    keepPreviousData: true,
-  });
-
   const { isLoading, isError, error, data } = useQuery(
-    ["users"],
-    () => getUsers(),
+    ["roles"],
+    () => getRoles(),
     {
       keepPreviousData: true,
     }
   );
 
-  const editUserMutation = useMutation(
-    ({ id, data }) => updateUser({ id, data }),
+  const {
+    isLoading: isLoadingPermissions,
+    isError: isErrorPermissions,
+    data: permissions,
+  } = useQuery(["permissions"], () => getPermissions(), {
+    keepPreviousData: true,
+  });
+
+  const editRoleMutation = useMutation(
+    ({ id, data }) => updateRole({ id, data }),
     {
       onSuccess: (data) => {
-        queryClient.invalidateQueries("users");
+        queryClient.invalidateQueries("roles");
         toast.success("Հաջողությամբ խմբագրվել է", {
           progress: undefined,
         });
@@ -56,22 +54,9 @@ const useUsersData = () => {
     }
   );
 
-  const toggleActiveMutation = useMutation(
-    ({ id, data }) => toggleUserActive({ id, data }),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("users");
-        message.success("Հաջողությամբ խմբագրվել է");
-      },
-      onError: (error, variables, context, mutation) => {
-        message.error(error.response?.data?.message || error.message);
-      },
-    }
-  );
-
-  const createUserMutation = useMutation((data) => createUser(data), {
+  const createRoleMutation = useMutation((data) => createRole(data), {
     onSuccess: (data) => {
-      queryClient.invalidateQueries("users");
+      queryClient.invalidateQueries("roles");
       toast.success("Հաջողությամբ գրանցվել է", {
         progress: undefined,
       });
@@ -83,33 +68,15 @@ const useUsersData = () => {
     },
   });
 
-  const checkEmailInBackend = async (email) => {
-    try {
-      const response = await checkEmail(email);
-      if (response.isValid) {
-        return Promise.resolve();
-      }
-      return Promise.reject("Այս էլ. փոստն արդեն գրանցված է");
-    } catch (error) {
-      return Promise.reject("Սերվերի հետ կապի խնդիր");
-    }
-  };
-
-  const rolesOptions = roles?.roles?.map((p) => ({
-    label: p.name,
-    value: p.id,
-  }));
-
   const onFinish = (values) => {
-    createUserMutation.mutate(values);
-    newUserForm.resetFields();
+    createRoleMutation.mutate(values);
+    newRoleForm.resetFields();
     setIsModalOpen(false);
   };
 
-  const modifiedUsersData = data?.users?.map((user) => ({
-    ...user,
-    password: "",
-    key: user.id.toString(),
+  const modifiedRolesData = data?.roles?.map((role) => ({
+    ...role,
+    key: role.id.toString(),
   }));
 
   const edit = (record) => {
@@ -129,21 +96,17 @@ const useUsersData = () => {
   const save = async (key) => {
     try {
       const row = await form.validateFields();
-      const index = modifiedUsersData.findIndex((item) => key === item.key);
+      const index = modifiedRolesData.findIndex((item) => key === item.key);
 
       if (index > -1) {
-        const item = modifiedUsersData[index];
+        const item = modifiedRolesData[index];
         const newItem = { ...item, ...row };
-        editUserMutation.mutate({ id: item.id, data: newItem });
+        editRoleMutation.mutate({ id: item.id, data: newItem });
         setEditingKey("");
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
-  };
-
-  const onToggle = ({ id, data }) => {
-    toggleActiveMutation.mutate({ id, data });
   };
 
   const onModalClose = () => {
@@ -154,9 +117,14 @@ const useUsersData = () => {
     setIsModalOpen(true);
   };
 
-  const handleChange = (val) => {
-    console.log("Val", val);
+  const handleChange = (value) => {
+    console.log("Value", value);
   };
+
+  const permissionOptions = permissions?.permissions?.map((p) => ({
+    label: p.name,
+    value: p.id,
+  }));
 
   const columns = [
     {
@@ -166,63 +134,35 @@ const useUsersData = () => {
     },
     {
       title: "Անուն",
-      dataIndex: "firstName",
+      dataIndex: "name",
       editable: true,
       required: true,
     },
     {
-      title: "Ազգանուն",
-      dataIndex: "lastName",
+      title: "Թույլտվություններ",
+      dataIndex: "permissions",
       editable: true,
       required: true,
-    },
-    {
-      title: "Էլ. փոստ",
-      dataIndex: "email",
-      editable: true,
-      required: true,
-    },
-    {
-      title: "Հեռ.",
-      dataIndex: "phoneNumber",
-      editable: true,
-      regex: /^0\d{8}$/,
-      placeholder: "0xxaabbcc",
-    },
-    {
-      title: "Գաղտնաբառ",
-      dataIndex: "password",
-      editable: true,
-    },
-    {
-      title: "Դեր",
-      dataIndex: "RoleId",
-      editable: true,
-      required: true,
-      options: { rolesOptions },
+      options: { permissionOptions },
       render: (_, rec) => {
+        const selectedOptions = rec.Permissions?.map((per) => ({
+          label: per.name,
+          value: per.id,
+        }));
+
         return (
           <Select
+            mode="multiple"
             allowClear
-            placeholder="Դեր"
+            style={{
+              width: "600px",
+            }}
+            placeholder="Թույլտվություն"
             onChange={handleChange}
-            options={rolesOptions}
-            defaultValue={[rec.RoleId]}
-            style={{ width: "150px" }}
+            options={permissionOptions}
+            value={selectedOptions}
             disabled={true}
-          />
-        );
-      },
-    },
-    {
-      title: "Կարգավիճակ",
-      dataIndex: "isActivated",
-      editable: false,
-      render: (_, record) => {
-        return (
-          <IosSwitch
-            defaultChecked={record.isActivated}
-            onChange={() => onToggle({ id: record.id, data: record })}
+            // getPopupContainer={(trigger) => trigger.parentNode}
           />
         );
       },
@@ -274,33 +214,35 @@ const useUsersData = () => {
         editing: isEditing(record),
         ...(col.regex && { regex: col.regex }),
         ...(col.placeholder && { placeholder: col.placeholder }),
-        ...(col.options && { options: col.options.rolesOptions }),
+        ...(col.options && { options: col.options.permissionOptions }),
         ...(col.options && {
-          defaultValue: [record.RoleId],
+          defaultValue: record.Permissions?.map((per) => ({
+            label: per.name,
+            value: per.id,
+          })),
         }),
       }),
     };
   });
 
   return {
-    data: modifiedUsersData,
+    data: modifiedRolesData,
     error,
     isError,
     isLoading,
-    editUserMutation,
-    createUserMutation,
+    editRoleMutation,
+    createRoleMutation,
     mergedColumns,
     onModalClose,
     onModalOpen,
     cancel,
     onFinish,
-    checkEmailInBackend,
     isModalOpen,
-    newUserForm,
+    newRoleForm,
     form,
-    isRolesLoading,
-    rolesOptions,
+    isLoadingPermissions,
+    permissions: permissionOptions,
   };
 };
 
-export default useUsersData;
+export default useRolesData;

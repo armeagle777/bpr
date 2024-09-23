@@ -1,33 +1,31 @@
-import useUsersData from "../../hooks/useUsersData";
 import { Alert, Box, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 import EditableCell from "./EditableCell/EditableCell";
 
 import { Form, Table } from "antd";
 import Modal from "../../components/Modal/Modal";
-import NewUserForm from "./NewUserForm/NewUserForm";
+import NewRoleForm from "./NewRoleForm/NewRoleForm";
 import ModalHeader from "./ModalHeader/ModalHeader";
+import useRolesData from "../../hooks/useRolesData";
 
-const Users = () => {
+const Roles = () => {
   const {
-    data: usersData,
+    data: rolesData,
     error,
-    form,
-    rolesOptions,
-    cancel,
     isError,
-    onFinish,
     isLoading,
-    isModalOpen,
-    onModalOpen,
-    newUserForm,
-    onModalClose,
+    createRoleMutation,
     mergedColumns,
-    isRolesLoading,
-    editUserMutation,
-    createUserMutation,
-    checkEmailInBackend,
-  } = useUsersData();
+    onModalClose,
+    onModalOpen,
+    cancel,
+    onFinish,
+    isModalOpen,
+    newRoleForm,
+    form,
+    isLoadingPermissions,
+    permissions,
+  } = useRolesData();
 
   if (isError) return <Alert severity="error">{error}</Alert>;
 
@@ -53,7 +51,7 @@ const Users = () => {
             },
           }}
           bordered
-          dataSource={usersData}
+          dataSource={rolesData}
           columns={mergedColumns}
           rowClassName="editable-row"
           pagination={{
@@ -64,17 +62,16 @@ const Users = () => {
 
       <Modal isOpen={isModalOpen} onClose={onModalClose}>
         <ModalHeader />
-        <NewUserForm
-          form={newUserForm}
+        <NewRoleForm
+          form={newRoleForm}
           onFinish={onFinish}
-          checkEmailInBackend={checkEmailInBackend}
           onCancel={onModalClose}
-          rolesOptions={rolesOptions}
-          isLoading={createUserMutation.isLoading}
+          isLoading={createRoleMutation.isLoading}
+          permissions={permissions}
         />
       </Modal>
     </Box>
   );
 };
 
-export default Users;
+export default Roles;

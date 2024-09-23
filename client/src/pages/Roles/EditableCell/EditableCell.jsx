@@ -11,8 +11,8 @@ const EditableCell = ({
   inputType,
   dataIndex,
   placeholder,
-  defaultValue,
   options,
+  defaultValue,
   ...restProps
 }) => {
   const inputNode =
@@ -23,11 +23,13 @@ const EditableCell = ({
         disabled={false}
         defaultValue={defaultValue}
         options={options}
+        mode="multiple"
         allowClear
       />
     ) : (
       <Input placeholder={placeholder || ""} />
     );
+
   return (
     <td {...restProps}>
       {editing ? (

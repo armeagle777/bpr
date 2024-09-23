@@ -96,7 +96,7 @@ const useShareData = () => {
         return (
           <Popconfirm
             title="Հեռացնել տվյալ տողը"
-            description="Համոզվածե՞ք"
+            description="Համոզվա՞ծ եք"
             onConfirm={() => onLikeToggle({ uid: record.uid })}
             onCancel={onCancel}
             okText="Հեռացնել"

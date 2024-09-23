@@ -26,11 +26,13 @@ export const PersonsProvider = ({ children }) => {
   const filteredPersons =
     persons?.length <= countForFilter
       ? persons
-      : persons?.filter(
+      : Array.isArray(persons)
+      ? persons?.filter(
           (pers, index) =>
             index >= (currentPage - 1) * perPageCount &&
             index <= currentPage * perPageCount - 1
-        );
+        )
+      : persons;
 
   return (
     <PersonsContext.Provider

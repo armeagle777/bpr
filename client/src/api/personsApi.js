@@ -55,6 +55,16 @@ export const getUsers = async () => {
   return response.data;
 };
 
+export const getRoles = async () => {
+  const response = await personsApi.get("/roles");
+  return response.data;
+};
+
+export const getPermissions = async () => {
+  const response = await personsApi.get("/permissions");
+  return response.data;
+};
+
 export const getLightUsers = async () => {
   const response = await personsApi.get("/users/light");
   return response.data;
@@ -65,8 +75,18 @@ export const createUser = async (data) => {
   return response.data;
 };
 
+export const createRole = async (data) => {
+  const response = await personsApi.post(`/roles`, data);
+  return response.data;
+};
+
 export const updateUser = async ({ id, data }) => {
   const response = await personsApi.put(`/users/${id}`, data);
+  return response.data;
+};
+
+export const updateRole = async ({ id, data }) => {
+  const response = await personsApi.put(`/roles/${id}`, data);
   return response.data;
 };
 

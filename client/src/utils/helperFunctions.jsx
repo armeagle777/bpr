@@ -283,3 +283,11 @@ export const addTotals = (arr) => {
 
   return [totals, ...arr];
 };
+
+export const userHasPermission = (allowedPermissions, userPermissions) => {
+  const hasPermission = allowedPermissions.some((perm) =>
+    userPermissions.includes(perm)
+  );
+
+  return hasPermission;
+};

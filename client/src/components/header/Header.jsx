@@ -16,6 +16,8 @@ import { PersonAdd, Save, Logout, Share, Group } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthData from "../../hooks/useAuthData";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { userHasPermission } from "../../utils/helperFunctions";
+import { permissionsMap } from "../../utils/constants";
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -78,15 +80,22 @@ const Header = () => {
               paddingLeft: 20,
             }}
           >
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              <Link to="/">Անձի Որոնում</Link>
-            </Button>
-            {/* <Button sx={{ my: 2, color: "white", display: "block" }}>
-              <Link to="workpermit">Աշխ․ Թույլտվություն</Link>
-            </Button> */}
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              <Link to="register">ԻԱՊՌ</Link>
-            </Button>
+            {userHasPermission(
+              [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="/">Անձի Որոնում</Link>
+              </Button>
+            )}
+            {userHasPermission(
+              [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="register">ԻԱՊՌ</Link>
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -149,12 +158,26 @@ const Header = () => {
                 Օգտահաշիվ
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => onUserMenuClick("/users")}>
-                <ListItemIcon>
-                  <Group fontSize="small" />
-                </ListItemIcon>
-                Օգտատերեր
-              </MenuItem>
+              {userHasPermission(
+                [permissionsMap.ADMIN.uid],
+                user.permissions
+              ) && (
+                <>
+                  <MenuItem onClick={() => onUserMenuClick("/users")}>
+                    <ListItemIcon>
+                      <Group fontSize="small" />
+                    </ListItemIcon>
+                    Օգտատերեր
+                  </MenuItem>
+                  <MenuItem onClick={() => onUserMenuClick("/roles")}>
+                    <ListItemIcon>
+                      <PersonAdd fontSize="small" />
+                    </ListItemIcon>
+                    Կարգավորումներ
+                  </MenuItem>
+                </>
+              )}
+
               <MenuItem onClick={() => onUserMenuClick("/shares")}>
                 <ListItemIcon>
                   <Share fontSize="small" />
@@ -167,7 +190,6 @@ const Header = () => {
                 </ListItemIcon>
                 Պահպանված որոնումներ
               </MenuItem>
-
               <MenuItem onClick={logOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />

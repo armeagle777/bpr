@@ -14,6 +14,9 @@ import Profile from "./pages/Profile/Profile";
 import Users from "./pages/Users/Users";
 import Likes from "./pages/Likes/Likes";
 import Shares from "./pages/Shares/Shares";
+import Roles from "./pages/Roles/Roles";
+import RequirePermission from "./components/requirePermission/RequirePermission";
+import { permissionsMap } from "./utils/constants";
 
 function App() {
   return (
@@ -29,17 +32,74 @@ function App() {
       >
         {/* <Route path="pdf" element={<Pdf />} /> */}
         {/* <Route index element={<Home />} /> */}
-        <Route index element={<Search />} />
-        <Route path="bpr/:ssn" element={<PersonPage />} />
+        <Route
+          index
+          element={
+            <RequirePermission
+              permissions={[permissionsMap.BPR.uid, permissionsMap.ADMIN.uid]}
+            >
+              <Search />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="bpr/:ssn"
+          element={
+            <RequirePermission
+              permissions={[permissionsMap.BPR.uid, permissionsMap.ADMIN.uid]}
+            >
+              <PersonPage />
+            </RequirePermission>
+          }
+        />
         {/* <Route path="workpermit" element={<WorkPermit />}>
           <Route path="ssns-fromfile" element={<FileUpload />} />
         </Route> */}
-        <Route path="register" element={<Register />} />
-        <Route path="register/:taxId" element={<Register />} />
+        <Route
+          path="register"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.PETREGISTER.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <Register />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="register/:taxId"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.PETREGISTER.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <Register />
+            </RequirePermission>
+          }
+        />
         <Route path="profile" element={<Profile />} />
         <Route path="likes" element={<Likes />} />
         <Route path="shares" element={<Shares />} />
-        <Route path="users" element={<Users />} />
+        <Route
+          path="users"
+          element={
+            <RequirePermission permissions={[permissionsMap.ADMIN.uid]}>
+              <Users />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="roles"
+          element={
+            <RequirePermission permissions={[permissionsMap.ADMIN.uid]}>
+              <Roles />
+            </RequirePermission>
+          }
+        />
         <Route path="/*" element={<NotFound />} />
       </Route>
     </Routes>
