@@ -62,6 +62,6 @@ router.put(
   toggleUserActive
 );
 
-router.post("/logout", authMiddleware, logout);
+router.post("/logout", logout);
 
 module.exports = router;

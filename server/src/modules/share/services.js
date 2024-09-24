@@ -8,7 +8,7 @@ const getSharesDB = async (req) => {
   const { id: userId } = user;
   const shares = await Share.findAll({
     where: { toUserId: userId, isRead: false },
-    attributes: { exclude: ["toUserId", "fromUserId"] },
+    attributes: { exclude: ["toUserId", "fromUserId", "isDeleted"] },
     include: [
       {
         model: User,
@@ -46,9 +46,8 @@ const shareInfoDb = async (req) => {
 };
 
 const removeShareDB = async (req) => {
-  const { params, body } = req;
+  const { params, body, user } = req;
   const { id } = params;
-
   if (id != body.id) {
     throw ApiError.BadRequest("Incorrect data");
   }
@@ -59,7 +58,11 @@ const removeShareDB = async (req) => {
     throw ApiError.BadRequest("Share doesn't exists");
   }
 
-  const updatedShare = await share.update({ isRead: false });
+  if (share.toUserId !== user.id) {
+    throw ApiError.BadRequest("You are not allowed to delete");
+  }
+
+  const updatedShare = await share.update({ isRead: true });
 
   return updatedShare;
 };
