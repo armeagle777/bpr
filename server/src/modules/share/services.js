@@ -7,7 +7,7 @@ const getSharesDB = async (req) => {
   const { user } = req;
   const { id: userId } = user;
   const shares = await Share.findAll({
-    where: { toUserId: userId },
+    where: { toUserId: userId, isRead: false },
     attributes: { exclude: ["toUserId", "fromUserId"] },
     include: [
       {
@@ -45,7 +45,27 @@ const shareInfoDb = async (req) => {
   };
 };
 
+const removeShareDB = async (req) => {
+  const { params, body } = req;
+  const { id } = params;
+
+  if (id != body.id) {
+    throw ApiError.BadRequest("Incorrect data");
+  }
+
+  const share = await Share.findByPk(+id);
+
+  if (!share) {
+    throw ApiError.BadRequest("Share doesn't exists");
+  }
+
+  const updatedShare = await share.update({ isRead: false });
+
+  return updatedShare;
+};
+
 module.exports = {
   shareInfoDb,
   getSharesDB,
+  removeShareDB,
 };

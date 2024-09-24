@@ -1,4 +1,4 @@
-const { shareInfoDb, getSharesDB } = require("./services");
+const { shareInfoDb, getSharesDB, removeShareDB } = require("./services");
 
 const shareInfo = async (req, res, next) => {
   try {
@@ -20,7 +20,18 @@ const getShares = async (req, res, next) => {
   }
 };
 
+const removeShare = async (req, res, next) => {
+  try {
+    const share = await removeShareDB(req);
+    res.status(200).json(share);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
 module.exports = {
   shareInfo,
   getShares,
+  removeShare,
 };
