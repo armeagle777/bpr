@@ -88,7 +88,13 @@ const PersonInfoPage = ({ personInfo }) => {
   } = formatPersonData(personInfo);
 
   const user = useAuthUser();
-
+  console.log(user.permissions);
+  console.log(
+    userHasPermission(
+      [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
+      user.permissions
+    )
+  );
   const images = filterImageSrcs(documents, gender, birthDate);
 
   const navigate = useNavigate();
@@ -118,7 +124,7 @@ const PersonInfoPage = ({ personInfo }) => {
   const handleReceiverChange = (value) => {
     console.log(`selected ${value}`);
   };
-
+  let index = 0;
   return (
     <Container>
       <Stack direction="row" sx={{ pt: 4, justifyContent: "space-between" }}>
@@ -135,7 +141,10 @@ const PersonInfoPage = ({ personInfo }) => {
             onChange={handleChange}
             aria-label="personal-info-tabs"
           >
-            <Tab icon={<CoPresentIcon />} aria-label="documents" />
+            {userHasPermission(
+              [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && <Tab icon={<CoPresentIcon />} aria-label="documents" />}
             {userHasPermission(
               [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
               user.permissions
@@ -264,14 +273,19 @@ const PersonInfoPage = ({ personInfo }) => {
         </Stack>
       </Stack>
       <Box sx={{ pb: 3 }}>
-        <TabPanel value={value} index={0}>
-          <Documents documents={documents} addresses={addresses} />
-        </TabPanel>
+        {userHasPermission(
+          [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={index++}>
+            <Documents documents={documents} addresses={addresses} />
+          </TabPanel>
+        )}
         {userHasPermission(
           [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
           user.permissions
         ) && (
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={index++}>
             <Finances ssn={PNum || Certificate_Number} />
           </TabPanel>
         )}
@@ -279,7 +293,7 @@ const PersonInfoPage = ({ personInfo }) => {
           [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
           user.permissions
         ) && (
-          <TabPanel value={value} index={2}>
+          <TabPanel value={value} index={index++}>
             <Family
               ssn={PNum || Certificate_Number}
               firstName={firstName}
@@ -291,7 +305,7 @@ const PersonInfoPage = ({ personInfo }) => {
           [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
           user.permissions
         ) && (
-          <TabPanel value={value} index={3}>
+          <TabPanel value={value} index={index++}>
             <BusinessTab ssn={PNum || Certificate_Number} />
           </TabPanel>
         )}
@@ -299,7 +313,7 @@ const PersonInfoPage = ({ personInfo }) => {
           [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
           user.permissions
         ) && (
-          <TabPanel value={value} index={4}>
+          <TabPanel value={value} index={index++}>
             <PoliceTab pnum={PNum} />
           </TabPanel>
         )}
