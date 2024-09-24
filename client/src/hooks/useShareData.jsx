@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DeleteOutlined } from "@ant-design/icons";
-import { getLightUsers, getShares, shareInfo } from "../api/personsApi";
+import {
+  getLightUsers,
+  getShares,
+  removeShare,
+  shareInfo,
+} from "../api/personsApi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button, Form, Popconfirm, Typography, message } from "antd";
@@ -39,6 +44,23 @@ const useShareData = () => {
       message.error("Ինչ-որ բան այնպես չէ");
     },
   });
+
+  const removeShareMutation = useMutation(
+    ({ id, data }) => removeShare({ id, data }),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("shares");
+        message.success("Հաջողությամբ կատարվել է");
+      },
+      onError: (error, variables, context, mutation) => {
+        message.error("Ինչ-որ բան այնպես չէ");
+      },
+    }
+  );
+
+  const onRemoveShare = ({ id, data }) => {
+    removeShareMutation.mutate({ id, data });
+  };
 
   const modifiedSharesData = data?.shares?.map((shareRow) => ({
     ...shareRow,
@@ -81,10 +103,6 @@ const useShareData = () => {
       },
     },
     {
-      title: "Մեկնաբանություն",
-      dataIndex: "comment",
-    },
-    {
       title: "Ստեղծման ա/թ",
       dataIndex: "createdAt",
       render: (_, record) => formatDate(new Date(record.createdAt)),
@@ -97,7 +115,7 @@ const useShareData = () => {
           <Popconfirm
             title="Հեռացնել տվյալ տողը"
             description="Համոզվա՞ծ եք"
-            onConfirm={() => onLikeToggle({ uid: record.uid })}
+            onConfirm={() => onRemoveShare({ id: record.id, data: record })}
             onCancel={onCancel}
             okText="Հեռացնել"
             cancelText="Չեղարկել"

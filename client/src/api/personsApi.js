@@ -115,6 +115,11 @@ export const shareInfo = async (data) => {
   return response.data;
 };
 
+export const removeShare = async ({ id, data }) => {
+  const response = await personsApi.put(`/shares/remove/${id}`, data);
+  return response.data;
+};
+
 export const toggleLike = async ({ uid, text }) => {
   const response = await personsApi.post(`/likes/like/${uid}`, { text });
   return response.data;
