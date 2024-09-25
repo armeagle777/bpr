@@ -15,6 +15,25 @@ personsApi.interceptors.request.use((config) => {
   return config;
 });
 
+personsApi.interceptors.response.use(
+  (response) => {
+    // Return the response if everything is OK
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // If the server responds with 401 (Unauthorized), clear the token
+      localStorage.removeItem("_auth"); // Clear the token from localStorage
+
+      // Optionally clear any refresh token or cookies as well if stored
+
+      // Redirect the user to the login page
+      window.location.href = "/login";
+    }
+    return Promise.reject(error); // Reject other errors
+  }
+);
+
 // personsApi.interceptors.response.use(
 //   (config) => config,
 //   async (error) => {
