@@ -18,32 +18,38 @@ const personsRoute = express.Router();
 
 personsRoute.get(
   "/:ssn/bpr",
+  authMiddleware,
   rolesMiddleware([BPR.uid, ADMIN.uid]),
   getPersonBySsn
 );
 personsRoute.post("/download", authMiddleware, downloadBprInfo);
 personsRoute.post(
   "/bpr",
+  authMiddleware,
   rolesMiddleware([BPR.uid, ADMIN.uid]),
   getSearchedPersons
 );
 personsRoute.get(
   "/:ssn/tax",
+  authMiddleware,
   rolesMiddleware([TAX.uid, ADMIN.uid]),
   getTaxBySsn
 );
 personsRoute.get(
   "/:pnum/police",
+  authMiddleware,
   rolesMiddleware([POLICE.uid, ADMIN.uid]),
   getPoliceByPnum
 );
 personsRoute.post(
   "/:ssn/qkag",
+  authMiddleware,
   rolesMiddleware([ZAQS.uid, ADMIN.uid]),
   getQkagInfoBySsn
 );
 personsRoute.get(
   "/:hvhh/petregistr",
+  authMiddleware,
   rolesMiddleware([PETREGISTER.uid, ADMIN.uid]),
   getCompanyByHvhh
 );
