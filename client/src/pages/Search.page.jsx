@@ -17,6 +17,9 @@ const Search = () => {
     totalCount,
     isError,
     error,
+    filters,
+    setFilters,
+    filterCounts,
   } = usePersons();
 
   if (isInitialLoading) {
@@ -53,6 +56,9 @@ const Search = () => {
           currentPage={currentPage}
           changePage={changePage}
           totalCount={totalCount}
+          filters={filters}
+          setFilters={setFilters}
+          filterCounts={filterCounts}
         />
       )}
     </>

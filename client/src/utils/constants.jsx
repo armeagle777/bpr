@@ -337,6 +337,11 @@ export const permissionsMap = {
     name: "Վիճակագրություն",
     description: "Վիճակագրական տվյալներ",
   },
+  KADASTR: {
+    uid: "7000",
+    name: "Կադաստր",
+    description: "Կադաստրի պետական կոմիտե",
+  },
   ADMIN: {
     uid: "9999",
     name: "Ադմինիստրատոր",

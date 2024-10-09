@@ -5,7 +5,8 @@ import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
-import { Box, Button, Container, Stack } from "@mui/material";
+import CastleIcon from "@mui/icons-material/Castle";
+import { Box, Button, Container, Stack, Tooltip } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useState } from "react";
@@ -15,6 +16,7 @@ import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import BPR from "../pdf-templates/BPR";
 import Documents from "../documents/Documents";
 import Family from "../family/Family";
+import Kadastr from "../Kadastr/Kadastr";
 import BusinessTab from "../businessTab/BusinessTab";
 import Finances from "../finances/Finances";
 import PhotoSlider from "../photoSlider/PhotoSlider";
@@ -88,13 +90,7 @@ const PersonInfoPage = ({ personInfo }) => {
   } = formatPersonData(personInfo);
 
   const user = useAuthUser();
-  console.log(user.permissions);
-  console.log(
-    userHasPermission(
-      [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
-      user.permissions
-    )
-  );
+
   const images = filterImageSrcs(documents, gender, birthDate);
 
   const navigate = useNavigate();
@@ -144,23 +140,51 @@ const PersonInfoPage = ({ personInfo }) => {
             {userHasPermission(
               [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
               user.permissions
-            ) && <Tab icon={<CoPresentIcon />} aria-label="documents" />}
+            ) && (
+              <Tooltip title="ԲՊՌ տվյալներ">
+                <Tab icon={<CoPresentIcon />} aria-label="documents" />
+              </Tooltip>
+            )}
             {userHasPermission(
               [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
               user.permissions
-            ) && <Tab icon={<AttachMoneyIcon />} aria-label="finances" />}
+            ) && (
+              <Tooltip title="ՊԵԿ տվյալներ">
+                <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
+              </Tooltip>
+            )}
             {userHasPermission(
               [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
               user.permissions
-            ) && <Tab icon={<FamilyRestroomIcon />} aria-label="family" />}
+            ) && (
+              <Tooltip title="ՔԿԱԳ տվյալներ">
+                <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
+              </Tooltip>
+            )}
             {userHasPermission(
               [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
               user.permissions
-            ) && <Tab icon={<BusinessIcon />} aria-label="business" />}
+            ) && (
+              <Tooltip title="ԻԱՊՌ տվյալներ">
+                <Tab icon={<BusinessIcon />} aria-label="business" />
+              </Tooltip>
+            )}
+            {userHasPermission(
+              [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Tooltip title="Կադաստրի տվյալներ">
+                <Tab icon={<CastleIcon />} aria-label="kadastr" />
+              </Tooltip>
+            )}
             {userHasPermission(
               [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
               user.permissions
-            ) && <Tab icon={<LocalPoliceIcon />} aria-label="police" />}
+            ) && (
+              <Tooltip title="ԻՑ տվյալներ">
+                <Tab icon={<LocalPoliceIcon />} aria-label="police" />
+              </Tooltip>
+            )}
           </Tabs>
         </Box>
         <PDFGenerator
@@ -307,6 +331,14 @@ const PersonInfoPage = ({ personInfo }) => {
         ) && (
           <TabPanel value={value} index={index++}>
             <BusinessTab ssn={PNum || Certificate_Number} />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={index++}>
+            <Kadastr ssn={PNum || Certificate_Number} />
           </TabPanel>
         )}
         {userHasPermission(

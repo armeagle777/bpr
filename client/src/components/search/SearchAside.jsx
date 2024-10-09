@@ -4,40 +4,19 @@ import Box from "@mui/material/Box";
 import FormGroup from "@mui/material/FormGroup";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
-import { parse, differenceInYears } from "date-fns";
 
 import Checkbox from "../checkbox/Checkbox";
-import { filterDefaultObj } from "../../utils/constants";
 
 const minDistance = 10;
 
-const SearchAside = ({ showExtended, persons }) => {
+const SearchAside = ({
+  showExtended,
+  persons,
+  setFilters,
+  filters,
+  filterCounts,
+}) => {
   const [value, setValue] = useState([20, 37]);
-
-  const filterCounts = persons.reduce((acc, el) => {
-    //Gender
-    if (el.documents.find((doc) => doc.Person?.Genus === "M")) {
-      acc.gender.maleCount++;
-    } else if (el.documents.find((doc) => doc.Person?.Genus === "F")) {
-      acc.gender.femaleCount++;
-    }
-
-    //Age
-    const birthDate = el.documents.find((doc) => doc.Person.Birth_Date)?.Person
-      .Birth_Date;
-    const date = parse(birthDate, "dd/MM/yyyy", new Date());
-    const age = differenceInYears(new Date(), date);
-
-    if (acc.age[age] === undefined) {
-      acc.age[age] = 1;
-    } else {
-      acc.age[age]++;
-    }
-
-    //Region
-
-    return acc;
-  }, JSON.parse(JSON.stringify(filterDefaultObj)));
 
   const {
     gender: { maleCount, femaleCount },
@@ -50,9 +29,23 @@ const SearchAside = ({ showExtended, persons }) => {
     }
 
     if (activeThumb === 0) {
-      setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+      setFilters((prev) => ({
+        ...prev,
+        age: {
+          min: Math.min(newValue[0], prev.age.max - minDistance),
+          max: prev.age.max,
+        },
+      }));
+      // setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
     } else {
-      setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+      setFilters((prev) => ({
+        ...prev,
+        age: {
+          min: prev.age.min,
+          max: Math.max(newValue[1], prev.age.min + minDistance),
+        },
+      }));
+      // setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
     }
   };
 
@@ -68,7 +61,7 @@ const SearchAside = ({ showExtended, persons }) => {
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Տարիքը</Typography>
             <Slider
               getAriaLabel={() => "Age range"}
-              value={value}
+              value={[filters.age.min, filters.age.max]}
               onChange={handleChange}
               valueLabelDisplay="auto"
               getAriaValueText={valuetext}
@@ -77,8 +70,29 @@ const SearchAside = ({ showExtended, persons }) => {
           <Box sx={{ width: "100%", mb: 2 }}>
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Սեռը</Typography>
             <FormGroup>
-              <Checkbox label={`Արական (${maleCount})`} />
-              <Checkbox label={`Իգական (${femaleCount})`} />
+              <Checkbox
+                checked={!!filters.gender.male}
+                label={`Արական (${maleCount})`}
+                onChange={() =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    gender: { ...prev.gender, male: Number(!prev.gender.male) },
+                  }))
+                }
+              />
+              <Checkbox
+                checked={!!filters.gender.female}
+                label={`Իգական (${femaleCount})`}
+                onChange={() => {
+                  setFilters((prev) => ({
+                    ...prev,
+                    gender: {
+                      ...prev.gender,
+                      female: Number(!prev.gender.female),
+                    },
+                  }));
+                }}
+              />
             </FormGroup>
           </Box>
           <Box sx={{ width: "100%" }}>

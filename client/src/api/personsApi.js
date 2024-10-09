@@ -10,6 +10,15 @@ const personsApi = axios.create({
   withCredentials: true,
 });
 
+const getCoordsWithAddress = async (address) => {
+  const response = await axios.get(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      address
+    )}&key=${import.meta.env.VITE_GOOGLE_MAP_KEY}`
+  );
+  return response.data;
+};
+
 personsApi.interceptors.request.use((config) => {
   config.headers.authorization = `Bearer ${localStorage.getItem("_auth")}`;
   return config;
@@ -161,6 +170,11 @@ export const getQkagDocsBySsn = async (ssn, firstName, lastName) => {
     firstName,
     lastName,
   });
+  return response.data;
+};
+
+export const getPropertiesBySsn = async (ssn) => {
+  const response = await personsApi.get(`/kadastr/${ssn}/person`);
   return response.data;
 };
 
