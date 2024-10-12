@@ -291,3 +291,15 @@ export const userHasPermission = (allowedPermissions, userPermissions) => {
 
   return hasPermission;
 };
+
+export const isPersonJpk = (documents) => {
+  if (!documents || documents.length === 0) return false;
+  return (
+    documents.findIndex(
+      (doc) =>
+        doc.Document_Status === "PRIMARY_VALID" &&
+        doc.Document_Type === "NON_BIOMETRIC_PASSPORT" &&
+        doc.PassportData?.Passport_Type === "N"
+    ) >= 0
+  );
+};

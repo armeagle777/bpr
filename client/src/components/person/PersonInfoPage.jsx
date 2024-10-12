@@ -6,7 +6,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import CastleIcon from "@mui/icons-material/Castle";
-import { Box, Button, Container, Stack, Tooltip } from "@mui/material";
+import { Box, Button, Chip, Container, Stack, Tooltip } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useState } from "react";
@@ -28,6 +28,7 @@ import {
   filterImageSrcs,
   formatCountryName,
   formatPersonData,
+  isPersonJpk,
   userHasPermission,
 } from "../../utils/helperFunctions";
 import PoliceTab from "../policeTab/PoliceTab";
@@ -121,6 +122,7 @@ const PersonInfoPage = ({ personInfo }) => {
     console.log(`selected ${value}`);
   };
   let index = 0;
+  const isJpk = isPersonJpk(documents);
   return (
     <Container>
       <Stack direction="row" sx={{ pt: 4, justifyContent: "space-between" }}>
@@ -295,6 +297,15 @@ const PersonInfoPage = ({ personInfo }) => {
             )}
           </Stack>
         </Stack>
+        {isJpk && (
+          <Box
+            sx={{
+              width: "5%",
+            }}
+          >
+            <Chip size="medium" color="warning" label="ԺՊԿ" />
+          </Box>
+        )}
       </Stack>
       <Box sx={{ pb: 3 }}>
         {userHasPermission(

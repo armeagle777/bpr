@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
-import { formatAddressString } from "../../utils/helperFunctions";
+import { formatAddressString, isPersonJpk } from "../../utils/helperFunctions";
 import { searchRowPersonData } from "../../utils/helperFunctions";
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import BPR from "../pdf-templates/BPR";
@@ -45,6 +45,8 @@ const SearchRow = ({ personInfo }) => {
     navigate(`/bpr/${PNum}`);
   };
 
+  const isJpk = isPersonJpk(documents);
+
   return (
     <Stack
       direction="row"
@@ -63,6 +65,11 @@ const SearchRow = ({ personInfo }) => {
             <Typography gutterBottom variant="h6" component="span">
               {`${firstName} ${lastName} ${middleName}`}
             </Typography>
+            {isJpk && (
+              <Tooltip title="ԺՊԿ" placement="top">
+                <Chip size="small" color="warning" label="ԺՊԿ" />
+              </Tooltip>
+            )}
             <Tooltip title="Ծննդ․ ամսաթիվ" placement="top">
               <Typography component="span">{birthDate}</Typography>
             </Tooltip>
