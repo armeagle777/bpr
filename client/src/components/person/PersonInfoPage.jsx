@@ -187,6 +187,14 @@ const PersonInfoPage = ({ personInfo }) => {
                 <Tab icon={<LocalPoliceIcon />} aria-label="police" />
               </Tooltip>
             )}
+            {userHasPermission(
+              [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Tooltip title="Տեղահանումների տվյալներ">
+                <Tab icon={<LocalPoliceIcon />} aria-label="artsakh" />
+              </Tooltip>
+            )}
           </Tabs>
         </Box>
         <PDFGenerator
@@ -354,6 +362,14 @@ const PersonInfoPage = ({ personInfo }) => {
         )}
         {userHasPermission(
           [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={index++}>
+            <PoliceTab pnum={PNum} />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
           user.permissions
         ) && (
           <TabPanel value={value} index={index++}>

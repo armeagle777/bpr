@@ -197,6 +197,11 @@ export const getPropertiesBySsn = async (ssn) => {
   return response.data;
 };
 
+export const getDisplacementsBySsn = async (ssn) => {
+  const response = await personsApi.get(`/artsakh/displacements/${ssn}`);
+  return response.data;
+};
+
 export const getTaxBySsn = async (ssn) => {
   const response = await personsApi.get(`/persons/${ssn}/tax`);
   return response.data;
