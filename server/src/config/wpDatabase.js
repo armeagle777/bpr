@@ -11,6 +11,6 @@ const wpSequelize = new Sequelize(DB, username, password, {
   // logging: (...msg) => console.log(msg),
 });
 
-// wpSequelize.authenticate();
+wpSequelize.authenticate();
 
 module.exports = { wpSequelize };

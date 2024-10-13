@@ -140,6 +140,11 @@ const permissionsMap = {
     name: "Կադաստր",
     description: "Կադաստրի պետական կոմիտե",
   },
+  ARTSAKH: {
+    uid: "8000",
+    name: "Տեղահանություն",
+    description: "Արցախի տեղահանության տեղեկատվություն",
+  },
   ADMIN: {
     uid: "9999",
     name: "Ադմինիստրատոր",

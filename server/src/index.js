@@ -10,6 +10,7 @@ dotenv.config();
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const personsRoute = require("./modules/persons/routes");
 const kadastrRoutes = require("./modules/kadastr/routes");
+const artsakhRoutes = require("./modules/artsakh/routes");
 const companiesRoute = require("./modules/companies/routes");
 const sphereRoute = require("./modules/sphere/routes");
 const statisticsRoute = require("./modules/statistics/routes");
@@ -24,7 +25,7 @@ const { sphereSequelize } = require("./config/sphereDatabase");
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
 const { sphereCronConfig } = require("./utils/constants");
 const { sahmanahatumSequelize } = require("./config/sahmanahatumDb");
-// const { wpSequelize } = require("./config/wpDatabase");
+const { wpSequelize } = require("./config/wpDatabase");
 
 var job = new CronJob(
   sphereCronConfig,
@@ -76,6 +77,7 @@ app.use("/api/permissions", permissionsRouter);
 app.use("/api/persons", personsRoute);
 app.use("/api/petregistr", companiesRoute);
 app.use("/api/kadastr", kadastrRoutes);
+app.use("/api/artsakh", artsakhRoutes);
 app.use("/api/sphere", sphereRoute);
 
 //Statistics Endpoints
@@ -88,7 +90,7 @@ app.listen(PORT, async () => {
   try {
     await sphereSequelize.sync({ alter: true });
     await sahmanahatumSequelize.sync({ alter: true });
-    // await wpSequelize.sync({ alter: true });
+    await wpSequelize.sync({ alter: true });
     console.log("Connections connected and synced successfully.");
     console.log("App is running on port ", PORT);
   } catch (err) {
