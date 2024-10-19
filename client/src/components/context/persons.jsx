@@ -27,7 +27,7 @@ export const PersonsProvider = ({ children }) => {
   const changePage = (pg) => {
     setCurrentPage(pg);
   };
-  console.log("filters", filters);
+
   const filterPersons = (data, filters) => {
     return data.filter((item) => {
       //Age

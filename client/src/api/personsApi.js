@@ -202,6 +202,11 @@ export const getDisplacementsBySsn = async (ssn) => {
   return response.data;
 };
 
+export const getWpDataBySsn = async (ssn) => {
+  const response = await personsApi.get(`/wp/${ssn}`);
+  return response.data;
+};
+
 export const getTaxBySsn = async (ssn) => {
   const response = await personsApi.get(`/persons/${ssn}/tax`);
   return response.data;

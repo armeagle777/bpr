@@ -1,10 +1,12 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import CastleIcon from "@mui/icons-material/Castle";
 import { Box, Button, Chip, Container, Stack, Tooltip } from "@mui/material";
 import Tab from "@mui/material/Tab";
@@ -38,6 +40,8 @@ import Drawer from "../Drawer/Drawer";
 import { Form, Input, Select, Button as AntButton } from "antd";
 import useShareData from "../../hooks/useShareData";
 import { permissionsMap } from "../../utils/constants";
+import DisplacementsTab from "../DisplacementsTab/DisplacementsTab";
+import WpTab from "../WpTab/WpTab";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
@@ -192,7 +196,15 @@ const PersonInfoPage = ({ personInfo }) => {
               user.permissions
             ) && (
               <Tooltip title="Տեղահանումների տվյալներ">
-                <Tab icon={<LocalPoliceIcon />} aria-label="artsakh" />
+                <Tab icon={<LocalFireDepartmentIcon />} aria-label="artsakh" />
+              </Tooltip>
+            )}
+            {userHasPermission(
+              [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Tooltip title="Աշխատանքի թույլտվության տվյալներ">
+                <Tab icon={<PersonSearchIcon />} aria-label="artsakh" />
               </Tooltip>
             )}
           </Tabs>
@@ -373,7 +385,15 @@ const PersonInfoPage = ({ personInfo }) => {
           user.permissions
         ) && (
           <TabPanel value={value} index={index++}>
-            <PoliceTab pnum={PNum} />
+            <DisplacementsTab pnum={PNum} />
+          </TabPanel>
+        )}
+        {userHasPermission(
+          [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <TabPanel value={value} index={index++}>
+            <WpTab pnum={PNum} />
           </TabPanel>
         )}
       </Box>
