@@ -11,6 +11,6 @@ const artsakhSequelize = new Sequelize(DB, username, password, {
   // logging: (...msg) => console.log(msg),
 });
 
-wpSequelize.authenticate();
+artsakhSequelize.authenticate();
 
 module.exports = { artsakhSequelize };

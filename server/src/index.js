@@ -11,6 +11,7 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 const personsRoute = require("./modules/persons/routes");
 const kadastrRoutes = require("./modules/kadastr/routes");
 const artsakhRoutes = require("./modules/artsakh/routes");
+const wpRoutes = require("./modules/wp/routes");
 const companiesRoute = require("./modules/companies/routes");
 const sphereRoute = require("./modules/sphere/routes");
 const statisticsRoute = require("./modules/statistics/routes");
@@ -78,6 +79,7 @@ app.use("/api/persons", personsRoute);
 app.use("/api/petregistr", companiesRoute);
 app.use("/api/kadastr", kadastrRoutes);
 app.use("/api/artsakh", artsakhRoutes);
+app.use("/api/wp", wpRoutes);
 app.use("/api/sphere", sphereRoute);
 
 //Statistics Endpoints
