@@ -15,6 +15,7 @@ const SearchAside = ({
   setFilters,
   filters,
   filterCounts,
+  disabled,
 }) => {
   const [value, setValue] = useState([20, 37]);
 
@@ -60,6 +61,7 @@ const SearchAside = ({
           <Box sx={{ width: "100%", mb: 2 }}>
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Տարիքը</Typography>
             <Slider
+              disabled={disabled}
               getAriaLabel={() => "Age range"}
               value={[filters.age.min, filters.age.max]}
               onChange={handleChange}
@@ -71,6 +73,7 @@ const SearchAside = ({
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Սեռը</Typography>
             <FormGroup>
               <Checkbox
+                disabled={disabled}
                 checked={!!filters.gender.male}
                 label={`Արական (${maleCount})`}
                 onChange={() =>
@@ -81,6 +84,7 @@ const SearchAside = ({
                 }
               />
               <Checkbox
+                disabled={disabled}
                 checked={!!filters.gender.female}
                 label={`Իգական (${femaleCount})`}
                 onChange={() => {
@@ -98,18 +102,18 @@ const SearchAside = ({
           <Box sx={{ width: "100%" }}>
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Մարզ</Typography>
             <FormGroup>
-              <Checkbox label="Երևան" />
-              <Checkbox label="Արագածոտն" />
-              <Checkbox label="Արարատ" />
-              <Checkbox label="Արմավիր" />
-              <Checkbox label="Գեղարքունիք" />
-              <Checkbox label="Կոտայք" />
-              <Checkbox label="Լոռի" />
-              <Checkbox label="Շիրակ" />
-              <Checkbox label="Սյունիք" />
-              <Checkbox label="Տավուշ" />
-              <Checkbox label="Վայոց ձոր" />
-              <Checkbox label="Անհայտ" />
+              <Checkbox label="Երևան" disabled={disabled} />
+              <Checkbox label="Արագածոտն" disabled={disabled} />
+              <Checkbox label="Արարատ" disabled={disabled} />
+              <Checkbox label="Արմավիր" disabled={disabled} />
+              <Checkbox label="Գեղարքունիք" disabled={disabled} />
+              <Checkbox label="Կոտայք" disabled={disabled} />
+              <Checkbox label="Լոռի" disabled={disabled} />
+              <Checkbox label="Շիրակ" disabled={disabled} />
+              <Checkbox label="Սյունիք" disabled={disabled} />
+              <Checkbox label="Տավուշ" disabled={disabled} />
+              <Checkbox label="Վայոց ձոր" disabled={disabled} />
+              <Checkbox label="Անհայտ" disabled={disabled} />
             </FormGroup>
           </Box>
         </>

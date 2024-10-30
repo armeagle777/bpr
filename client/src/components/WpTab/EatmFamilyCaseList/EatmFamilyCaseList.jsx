@@ -1,12 +1,12 @@
 import { Stack } from "@mui/material";
-import EatmFamilyClaimCard from "./EatmFamilyClaimCard";
+
+import EatmFamilyCard from "./EatmFamilyCard";
 
 const EatmFamilyCaseList = ({ data }) => {
-  console.log("fam data", data);
   return (
     <Stack spacing={2} flexDirection="column" sx={{ py: 3, px: 1 }}>
       {data?.map((claim, index) => {
-        return <EatmFamilyClaimCard key={index} claim={claim} />;
+        return <EatmFamilyCard key={index} claim={claim} />;
       })}
     </Stack>
   );

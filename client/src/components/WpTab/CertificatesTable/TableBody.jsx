@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
+import { format } from "date-fns";
 
 const TableBody = ({ rows }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -37,7 +38,7 @@ const TableBody = ({ rows }) => {
           card_status,
           transferred_at,
         } = row;
-        console.log("card_status>>>>", card_status);
+
         return (
           <StyledTableRow key={serial_number}>
             <StyledTableCell align="right">
@@ -65,10 +66,10 @@ const TableBody = ({ rows }) => {
               {expire_date}
             </StyledTableCell>
             <StyledTableCell component="th" scope="row">
-              {printed_at}
+              {format(new Date(printed_at), "yyyy-MM-dd")}
             </StyledTableCell>
             <StyledTableCell component="th" scope="row">
-              {transferred_at}
+              {format(new Date(transferred_at), "yyyy-MM-dd")}
             </StyledTableCell>
           </StyledTableRow>
         );

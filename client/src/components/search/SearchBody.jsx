@@ -16,6 +16,7 @@ const SearchBody = ({
   setFilters,
   filterCounts,
 }) => {
+  const filtersDisabled = !persons || persons.length < 2;
   const showExtended = totalCount >= countForFilter;
   return (
     <Stack direction="row" spacing={1} sx={{ justifyContent: "center", pt: 2 }}>
@@ -25,6 +26,7 @@ const SearchBody = ({
         showExtended={showExtended}
         persons={persons}
         filterCounts={filterCounts}
+        disabled={filtersDisabled}
       />
       <Divider orientation="vertical" variant="middle" flexItem />
       <Stack
