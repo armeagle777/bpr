@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { formatDate } from "../pdf-templates/templates.helpers";
 
 const DisplacementDoc = ({ caseInfo, isLoading }) => {
   const navigate = useNavigate();
@@ -29,9 +30,14 @@ const DisplacementDoc = ({ caseInfo, isLoading }) => {
     a_address,
   } = caseInfo;
 
-  const armAddress =
-    marz + community + settlement + street + building + apartmant;
-  const artsakhAddress = a_province + a_community + a_address;
+  const armAddress = `${marz}  ${
+    community && community !== marz ? ` ,${community}` : ""
+  }  ${settlement ? ` ,${settlement}` : ""}  ${street ? ` ,${street}` : ""}  ${
+    building ?? ""
+  }  ${apartmant ?? ""}`;
+  const artsakhAddress = `${a_province || ""}  ${
+    a_community ? `, ${a_community}` : ""
+  }  ${a_address ? ` , ${a_address}` : ""}`;
   const user = useAuthUser();
 
   return (
@@ -47,7 +53,7 @@ const DisplacementDoc = ({ caseInfo, isLoading }) => {
         </Typography>
         {artsakhAddress && (
           <Typography variant="body2" color="text.secondary">
-            <small>Տեղահանման հասցե:</small> {artsakhAddress}
+            <small>Տեղահանման հասցե:</small> <strong>{artsakhAddress}</strong>
           </Typography>
         )}
         {armAddress && (
@@ -55,46 +61,17 @@ const DisplacementDoc = ({ caseInfo, isLoading }) => {
             <small>Բնակության հասցե:</small> <strong>{armAddress}</strong>
           </Typography>
         )}
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <Typography variant="body2" color="text.secondary">
           <small>Հասցեի տեսակը</small> : <strong>{address_type}</strong>
         </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <small>Նշանակություն</small> : <strong>{registartion_date}</strong>
+        <Typography variant="body2" color="text.secondary">
+          <small>Հաշվառման ա/թ</small> : <strong>{registartion_date}</strong>
         </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <small>Իրավունքների գրանցման ամսաթիվը </small> :{" "}
-          <strong>{db_input_date}</strong>
+        <Typography variant="body2" color="text.secondary">
+          <small>Մուտքագրման ա/թ </small> : <strong>{db_input_date}</strong>
         </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <small>Մակերեսը </small> :{"  "}
+        <Typography variant="body2" color="text.secondary">
+          <small>Մուտքագրող օպերատոր </small> :{"  "}
           <strong>{officer}</strong>
         </Typography>
         <Typography

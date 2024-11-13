@@ -17,6 +17,7 @@ import Shares from "./pages/Shares/Shares";
 import Roles from "./pages/Roles/Roles";
 import RequirePermission from "./components/requirePermission/RequirePermission";
 import { permissionsMap } from "./utils/constants";
+import KadastrCertificate from "./pages/KadastrCertificate/KadastrCertificate.page";
 
 function App() {
   return (
@@ -65,6 +66,19 @@ function App() {
               ]}
             >
               <Register />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="kadastr-certificates"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.KADASTR_CERTIFICATE.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <KadastrCertificate />
             </RequirePermission>
           }
         />

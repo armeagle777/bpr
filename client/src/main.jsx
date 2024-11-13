@@ -9,6 +9,7 @@ import createStore from "react-auth-kit/createStore";
 import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
 import { CompaniesProvider } from "./components/context/companies";
+import { KadastrCertsProvider } from "./components/context/kadastrCerts";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,9 +32,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <PersonsProvider>
         <CompaniesProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <KadastrCertsProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </KadastrCertsProvider>
         </CompaniesProvider>
       </PersonsProvider>
     </QueryClientProvider>

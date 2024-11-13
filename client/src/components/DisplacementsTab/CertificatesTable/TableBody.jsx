@@ -42,7 +42,7 @@ const TableBody = ({ rows }) => {
         } = row;
 
         return (
-          <StyledTableRow key={id}>
+          <StyledTableRow key={index}>
             <StyledTableCell align="right">
               <Tooltip
                 title={actual === 1 ? "Վավեր" : "Անվավեր"}

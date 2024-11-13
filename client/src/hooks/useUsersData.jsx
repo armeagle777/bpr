@@ -7,6 +7,7 @@ import {
   getUsers,
   toggleUserActive,
   updateUser,
+  changePassword,
 } from "../api/personsApi";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -44,6 +45,23 @@ const useUsersData = () => {
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries("users");
+        toast.success("Հաջողությամբ խմբագրվել է", {
+          progress: undefined,
+        });
+      },
+      onError: (error, variables, context, mutation) => {
+        toast.error(error.response?.data?.message || error.message, {
+          progress: undefined,
+        });
+      },
+    }
+  );
+
+  const changePwdMutation = useMutation(
+    ({ id, data }) => changePassword({ id, data }),
+    {
+      onSuccess: (data) => {
+        // queryClient.invalidateQueries("users");
         toast.success("Հաջողությամբ խմբագրվել է", {
           progress: undefined,
         });
@@ -300,6 +318,7 @@ const useUsersData = () => {
     form,
     isRolesLoading,
     rolesOptions,
+    changePwdMutation,
   };
 };
 

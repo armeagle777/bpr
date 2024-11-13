@@ -113,6 +113,11 @@ export const updateUser = async ({ id, data }) => {
   return response.data;
 };
 
+export const changePassword = async ({ id, data }) => {
+  const response = await personsApi.put(`/users/password/${id}`, data);
+  return response.data;
+};
+
 export const updateRole = async ({ id, data }) => {
   const response = await personsApi.put(`/roles/${id}`, data);
   return response.data;
@@ -152,14 +157,6 @@ export const toggleLike = async ({ uid, text }) => {
   const response = await personsApi.post(`/likes/like/${uid}`, { text });
   return response.data;
 };
-
-// export const getAdvertisements = async (pageNumber) => {
-//     const response = await personsApi.get(
-//         `/advertisements?_limit=10&_page=${pageNumber}`
-//     );
-//     const totalCount = response.headers['x-total-count'];
-//     return { data: response.data, totalCount };
-// };
 
 export const getSpheres = async (url) => {
   const response = await personsApi.get("/sphere");
@@ -222,6 +219,13 @@ export const getCompanyForPersonByHvhh = async (tax_id) => {
   return response.data;
 };
 
+export const getKadastrCertByNumber = async (q, searchBase) => {
+  const response = await personsApi.get(
+    `/kadastr/${q}/document?searchBase=${searchBase}`
+  );
+  return response.data;
+};
+
 export const getCompaniesBySsn = async (ssn) => {
   const response = await personsApi.get(`/petregistr/${ssn}/person`);
   return response.data;
@@ -248,20 +252,5 @@ export const getFile = async ({ filterData }) => {
   });
   return blob;
 };
-
-// export const addAdvertisement = async (advertisement) => {
-//     return await personsApi.post('/advertisements', advertisement);
-// };
-
-// export const updateAdvertisement = async (advertisement) => {
-//     return await personsApi.patch(
-//         `/advertisements/${advertisement.id}`,
-//         advertisement
-//     );
-// };
-
-// export const deleteAdvertisement = async ({ id }) => {
-//     return await personsApi.delete(`/advertisements/${id}`, id);
-// };
 
 export default personsApi;

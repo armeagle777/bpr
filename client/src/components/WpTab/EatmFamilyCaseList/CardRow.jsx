@@ -11,14 +11,7 @@ const CardRow = ({ label, text, link }) => {
       <strong>{text}</strong>
     );
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Typography variant="body2" color="text.secondary">
       <small>{label}</small> : <InfoCell />
     </Typography>
   );

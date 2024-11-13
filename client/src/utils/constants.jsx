@@ -342,6 +342,11 @@ export const permissionsMap = {
     name: "Կադաստր",
     description: "Կադաստրի պետական կոմիտե",
   },
+  KADASTR_CERTIFICATE: {
+    uid: "7001",
+    name: "Սեփականության վկայական",
+    description: "Կադաստր ըստ սեփ. վկայականի",
+  },
   ARTSAKH: {
     uid: "8000",
     name: "Տեղահանություն",
