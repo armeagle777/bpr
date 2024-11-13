@@ -8,6 +8,7 @@ const {
   activationUserDB,
   toggleUserActiveDB,
   getAllUsersLightDB,
+  changePwdDB,
 } = require("./services");
 
 const registration = async (req, res, next) => {
@@ -29,6 +30,16 @@ const registration = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const user = await updateUserDB(req);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
+const changePassword = async (req, res, next) => {
+  try {
+    const user = await changePwdDB(req);
     res.status(200).json(user);
   } catch (err) {
     console.log("Error crating User:", err);
@@ -119,6 +130,7 @@ module.exports = {
   updateUser,
   registration,
   getUsersLight,
+  changePassword,
   toggleUserActive,
 };
 

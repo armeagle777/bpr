@@ -32,13 +32,14 @@ const getDisplacementCasesQuery = (pnum) => `SELECT
 const getDisplacementCertsQuery = (pnum) => `SELECT C.serial_number,
                                         C.id,
                                         C.document_number,
-                                        C.issue_by_office,
+                                        O.code AS issue_by_office,
                                         C.issue_date,
                                         C.expire_date,
                                         C.actual,
                                         C.printed_at,
                                         C.handed_at
                                         FROM jkk_certificates C
+                                        LEFT JOIN local_offices O ON O.id = C.issue_by_office
                                         WHERE C.pnum = ${pnum}`;
 
 module.exports = { getDisplacementCertsQuery, getDisplacementCasesQuery };

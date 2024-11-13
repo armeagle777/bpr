@@ -135,6 +135,33 @@ const updateUserDB = async (req) => {
   return updatedCandidate;
 };
 
+const changePwdDB = async (req) => {
+  const { params, body, user: logedInUser } = req;
+  const { id } = params;
+  const { password, newPassword } = body;
+
+  if (id != logedInUser.id || !password || !newPassword) {
+    throw ApiError.BadRequest("Incorrect data");
+  }
+
+  const user = await User.findByPk(+id);
+
+  if (!user) {
+    throw ApiError.BadRequest("User doesn't exists");
+  }
+
+  const isPassEqual = await bcrypt.compare(password, user.password);
+  if (!isPassEqual) {
+    throw ApiError.BadRequest("Գաղտնաբառը սխալ է");
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 7);
+
+  const updatedCandidate = await user.update({ password: hashedPassword });
+
+  return updatedCandidate;
+};
+
 const loginDB = async (email, password) => {
   const candidate = await User.findOne({
     where: {
@@ -263,6 +290,7 @@ const activationUserDB = async (link) => {
 module.exports = {
   loginDB,
   logoutDB,
+  changePwdDB,
   updateUserDB,
   checkEmailDB,
   getAllUsersDB,

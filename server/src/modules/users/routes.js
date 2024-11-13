@@ -12,6 +12,7 @@ const {
   registration,
   getUsersLight,
   toggleUserActive,
+  changePassword,
 } = require("./controller");
 const { BPR, ADMIN, TAX, ZAQS, POLICE, PETREGISTER } = permissionsMap;
 
@@ -52,7 +53,15 @@ router.post(
 router.put(
   "/:id",
   // validateSchema(loginUserSchema),
+  rolesMiddleware([ADMIN.uid]),
   updateUser
+);
+
+router.put(
+  "/password/:id",
+  // validateSchema(loginUserSchema),
+  authMiddleware,
+  changePassword
 );
 
 router.put(

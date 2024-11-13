@@ -8,7 +8,7 @@ const rolesMiddleware = (allowedRolesArray) => {
       next();
     }
     try {
-      const token = req.headers.authorization.split(" ")[1];
+      const token = req.headers?.authorization?.split(" ")[1];
       if (!token) {
         throw ApiError.BadRequest(
           ERROR_MESSAGES.MIDDLEWARE_MESSAGES.NOT_AUTHORIZED
