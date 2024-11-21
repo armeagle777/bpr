@@ -4,6 +4,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 const { getCurrentDate } = require("../../utils/common");
 const { SEARCH_BASES } = require("./constants");
+const { createLog } = require("../log/services");
 
 const getPropertiesBySsnDb = async (ssn) => {
   const kadastrUrl = process.env.KADASTR_URL;
@@ -48,7 +49,10 @@ const getPropertiesBySsnDb = async (ssn) => {
   return data.cad_get_realty_owned_response.owned_realties;
 };
 
-const getPropertyByCertificateDb = async (certificateNumber, searchBase) => {
+const getPropertyByCertificateDb = async (req) => {
+  const { certificateNumber } = req.params;
+  const { searchBase } = req.query;
+
   const kadastrUrl = process.env.KADASTR_CERTIFICATE_URL;
   const privateKey = fs.readFileSync("./src/migration_am.key", "utf8");
   const certificate = fs.readFileSync(
@@ -56,6 +60,7 @@ const getPropertyByCertificateDb = async (certificateNumber, searchBase) => {
     "utf8"
   );
 
+  await createLog({ req, logText: certificateNumber });
   const searchProp = SEARCH_BASES[searchBase] || "cert_number";
   const postData = JSON.stringify({
     [searchProp]: certificateNumber,

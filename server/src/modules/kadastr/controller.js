@@ -17,13 +17,7 @@ const getPropertiesBySsn = async (req, res, next) => {
 
 const getPropertyByCertificate = async (req, res, next) => {
   try {
-    const { certificateNumber } = req.params;
-    const { searchBase } = req.query;
-
-    const property = await getPropertyByCertificateDb(
-      certificateNumber,
-      searchBase
-    );
+    const property = await getPropertyByCertificateDb(req);
 
     res.status(200).json(property);
   } catch (err) {

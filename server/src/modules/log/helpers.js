@@ -8,6 +8,8 @@ const getLogType = (path) => {
     case "bpr":
     case "petregistr":
       return "Որոնում";
+    case "document":
+      return "Կադաստրի որոնում";
     default:
       return "Այցելություն էջ";
   }
