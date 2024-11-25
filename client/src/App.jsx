@@ -31,7 +31,7 @@ function App() {
           </RequireAuth>
         }
       >
-        {/* <Route path="pdf" element={<Pdf />} /> */}
+        <Route path="pdf" element={<Pdf />} />
         {/* <Route index element={<Home />} /> */}
         <Route
           index

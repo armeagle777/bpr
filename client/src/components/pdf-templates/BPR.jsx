@@ -1,6 +1,6 @@
 import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import { BPR_FAKE_DATA, styles } from "./templates.constants";
+import { styles } from "./templates.constants";
 import BprAddressRow from "./components/BprAddressRow";
 import BprDocumentRow from "./components/BprDocumentRow";
 

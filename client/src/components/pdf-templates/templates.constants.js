@@ -979,3 +979,7 @@ export const BPR_FAKE_DATA = {
   DeathDate: null,
   Citizenship_StoppedDate: null,
 };
+
+export const TEMP_3_STYLES = {};
+
+export const TEMP_3_FAKE_DATA = {};

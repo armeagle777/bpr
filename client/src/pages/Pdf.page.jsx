@@ -4,6 +4,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import BPR from "../components/pdf-templates/BPR";
 import Qkag from "../components/pdf-templates/Qkag";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import CitizenshipTemplate from "../components/pdf-templates/CitizenshipTemplate";
 
 const styles = StyleSheet.create({
   pdfContainer: {
@@ -18,7 +19,7 @@ const Pdf = () => {
 
   return (
     <PDFViewer style={styles.pdfContainer}>
-      {/* <BPR /> */}
+      <CitizenshipTemplate />
       {/* <Qkag /> */}
     </PDFViewer>
   );
