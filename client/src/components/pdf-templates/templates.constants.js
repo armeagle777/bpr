@@ -980,6 +980,111 @@ export const BPR_FAKE_DATA = {
   Citizenship_StoppedDate: null,
 };
 
-export const TEMP_3_STYLES = {};
-
-export const TEMP_3_FAKE_DATA = {};
+export const TEMP_3_STYLES = {
+  page: {
+    backgroundColor: "#fff",
+    fontFamily: "Arial",
+    fontSize: 12,
+    color: "#000",
+  },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    gap: "10px",
+    padding: "20px",
+  },
+  title: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
+  titleText: {
+    textDecoration: "underline",
+  },
+  header: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    alignItems: "center",
+  },
+  headerText: {
+    fontWeight: "bold",
+  },
+  table: {
+    display: "table",
+    width: "auto",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#000",
+    // margin: 10,
+  },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableCol: {
+    width: "35%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#000",
+  },
+  threeCols: { width: "80%" },
+  fourCols: { width: "100%" },
+  smallCol: { width: "20%" },
+  miniCol: { width: "10%" },
+  rowspan: {
+    height: 50,
+    padding: 0,
+    display: "flex",
+    flexDirection: "column",
+  },
+  tableCell: {
+    margin: 5,
+    fontSize: 10,
+    textAlign: "center",
+  },
+  topCell: {
+    width: "100%",
+    height: 25,
+    margin: 0,
+    borderBottomWidth: 2,
+    borderBottomColor: "#000",
+    borderBottomStyle: "solid",
+  },
+  alignLeft: {
+    textAlign: "left",
+  },
+  textCenter: {
+    width: "100%",
+    textAlign: "center",
+  },
+  boldText: {
+    fontWeight: "bold",
+  },
+  footer: {},
+  userCredentials: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: "0 40px",
+  },
+  personalInfoRowContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  personalInfo: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    minWidth: "200px",
+    paddingTop: 20,
+  },
+  signature: {
+    minWidth: "200px",
+    paddingTop: 50,
+  },
+  hr: {
+    width: "100%",
+    borderBottom: "1px solid #000",
+  },
+  signatureInfoRow: { display: "flex", alignItems: "center" },
+};

@@ -1,13 +1,10 @@
 import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import {
-  TEMP_3_FAKE_DATA,
-  // TEMP_3_STYLES
-} from "./templates.constants";
+import { BPR_FAKE_DATA, TEMP_3_STYLES } from "./templates.constants";
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import { formatBprData, formatDate } from "./templates.helpers";
+import { formatBprData, formatDate, formatIsoDate } from "./templates.helpers";
 
 Font.register({
   family: "Arial",
@@ -24,60 +21,210 @@ Font.register({
   ],
 });
 
-const TEMP_3_STYLES = {
-  page: {
-    backgroundColor: "#fff",
-    fontFamily: "Arial",
-    fontSize: 12,
-    color: "#000",
-  },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    gap: "10px",
-    padding: "20px 10px",
-  },
-  title: {
-    border: "1px solid red",
-  },
-};
-
 const CitizenshipTemplate = ({ data, userFullName }) => {
-  const {
-    IsDead,
-    DeathDate,
-    PNum = "",
-    documents,
-    addresses = [],
-    Citizenship_StoppedDate,
-  } = { ...data };
+  const { PNum = "", documents, addresses = [] } = { ...data };
 
-  const {
-    ctzText,
-    imageSrc,
-    personInfo,
-    fullAddress,
-    birthRegion,
-    currentAddress,
-    validDocuments,
-    invalidDocuments,
-  } = formatBprData({ addresses, documents });
-  const currentDate = formatDate(new Date());
+  const { personInfo, validDocuments } = formatBprData({
+    addresses,
+    documents,
+  });
+  const currentDate = formatIsoDate(new Date());
 
   return (
     <Document>
       <Page size="A4" style={TEMP_3_STYLES.page} orientation="landscape">
-        <View style={TEMP_3_STYLES.title}>
-          <Text>Ձև N3</Text>
-        </View>
         <View style={TEMP_3_STYLES.container}>
-          <View style={TEMP_3_STYLES.main}></View>
-        </View>
-        <View style={TEMP_3_STYLES.footer}>
-          <Text>
-            Տեղեկանքը գեներացվել է ՄՔԾ ներքին որոնման համակարգում օգտատիրոջ
-            կողմից {currentDate}
-          </Text>
+          <View style={TEMP_3_STYLES.title}>
+            <Text style={TEMP_3_STYLES.titleText}>Ձև N3</Text>
+          </View>
+          <View style={TEMP_3_STYLES.header}>
+            <Text style={TEMP_3_STYLES.headerText}>ՏԵՂԵԿԱՆՔ</Text>
+            <Text style={TEMP_3_STYLES.headerText}>
+              ԱՆՁԻ ՔԱՂԱՔԱՑԻՈՒԹՅԱՆ ՄԱՍԻՆ
+            </Text>
+          </View>
+          <View style={TEMP_3_STYLES.main}>
+            <View style={TEMP_3_STYLES.table}>
+              {/* Table Header */}
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.smallCol]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    Տրամադրող մարմնի անվանումը
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.threeCols]}>
+                  <Text style={TEMP_3_STYLES.tableCell}>asd</Text>
+                </View>
+              </View>
+              {/* Table Body */}
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.smallCol]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    Տրման ամսաթիվը
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.rowspan]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.topCell]}
+                  >
+                    {currentDate}
+                  </Text>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    (օրը, ամիսը, տարեթիվը)
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.rowspan]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    Տեղեկանքի համարը N
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.miniCol]}>
+                  <Text style={TEMP_3_STYLES.tableCell}>asd</Text>
+                </View>
+              </View>
+
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text
+                    style={[
+                      TEMP_3_STYLES.tableCell,
+                      TEMP_3_STYLES.alignLeft,
+                      TEMP_3_STYLES.boldText,
+                    ]}
+                  >
+                    Տրվում է այն մասին, որ
+                  </Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text style={TEMP_3_STYLES.tableCell}>
+                    {personInfo.First_Name} {personInfo.Last_Name}{" "}
+                    {personInfo.Patronymic_Name || ""}
+                  </Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    (անունը, ազգանունը և հայրանունը, եթե առկա է)
+                  </Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.smallCol]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    Ծննդյան ամսաթիվը
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.rowspan]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.topCell]}
+                  >
+                    {personInfo.Birth_Date || ""}
+                  </Text>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    (օրը, ամիսը, տարեթիվը)
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.rowspan]}>
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
+                  >
+                    Ծննդյան վայրը
+                  </Text>
+                </View>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.miniCol]}>
+                  <Text style={TEMP_3_STYLES.tableCell}>
+                    {personInfo.Birth_Region ||
+                      personInfo.Birth_Country?.CountryName ||
+                      ""}
+                  </Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text style={TEMP_3_STYLES.tableCell}>---</Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text
+                    style={[
+                      TEMP_3_STYLES.tableCell,
+                      TEMP_3_STYLES.alignLeft,
+                      TEMP_3_STYLES.boldText,
+                    ]}
+                  >
+                    Տեղեկանքն ուժի մեջ է տրման օրվանից վեց ամիս:
+                  </Text>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.tableRow}>
+                <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
+                  <Text
+                    style={[
+                      TEMP_3_STYLES.tableCell,
+                      TEMP_3_STYLES.alignLeft,
+                      TEMP_3_STYLES.boldText,
+                    ]}
+                  >
+                    Տրվում է ներկայացնելու ըստ պահանջի:
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          <View style={TEMP_3_STYLES.footer}>
+            <View style={TEMP_3_STYLES.userCredentials}>
+              <View style={TEMP_3_STYLES.personalInfo}>
+                <View style={TEMP_3_STYLES.personalInfoRowContainer}>
+                  <Text>{userFullName}</Text>
+                  <View style={TEMP_3_STYLES.hr} />
+                  <View style={TEMP_3_STYLES.signatureInfoRow}>
+                    <Text style={[TEMP_3_STYLES.boldText]}>
+                      (անունը, ազգանունը)
+                    </Text>
+                  </View>
+                </View>
+                <View style={TEMP_3_STYLES.personalInfoRowContainer}>
+                  <Text>asd</Text>
+                  <View style={TEMP_3_STYLES.hr} />
+                  <View style={TEMP_3_STYLES.signatureInfoRow}>
+                    <Text style={[TEMP_3_STYLES.boldText]}>(պաշտոնը)</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={TEMP_3_STYLES.signature}>
+                <View style={TEMP_3_STYLES.personalInfoRowContainer}>
+                  <View style={TEMP_3_STYLES.hr} />
+                  <View style={TEMP_3_STYLES.signatureInfoRow}>
+                    <Text style={[TEMP_3_STYLES.boldText]}>
+                      (ստորագրությունը)
+                    </Text>
+                  </View>
+                  <Text style={[{ marginTop: 20 }, TEMP_3_STYLES.boldText]}>
+                    Կ.Տ.
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
       </Page>
     </Document>

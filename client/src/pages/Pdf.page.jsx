@@ -15,11 +15,12 @@ const styles = StyleSheet.create({
 
 const Pdf = () => {
   const auth = useAuthUser();
-  console.log("{auth.user}:::::: ", auth);
 
   return (
     <PDFViewer style={styles.pdfContainer}>
-      <CitizenshipTemplate />
+      <CitizenshipTemplate
+        userFullName={`${auth.firstName} ${auth.lastName}`}
+      />
       {/* <Qkag /> */}
     </PDFViewer>
   );
