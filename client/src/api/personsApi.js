@@ -103,6 +103,11 @@ export const createUser = async (data) => {
   return response.data;
 };
 
+export const createTexekanq = async (data) => {
+  const response = await personsApi.post(`/texekanq`, data);
+  return response.data;
+};
+
 export const createRole = async (data) => {
   const response = await personsApi.post(`/roles`, data);
   return response.data;

@@ -8,10 +8,26 @@ import BusinessIcon from "@mui/icons-material/Business";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import CastleIcon from "@mui/icons-material/Castle";
-import { Box, Button, Chip, Container, Stack, Tooltip } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Chip,
+  Container,
+  Grid,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
@@ -42,10 +58,14 @@ import useShareData from "../../hooks/useShareData";
 import { permissionsMap } from "../../utils/constants";
 import DisplacementsTab from "../DisplacementsTab/DisplacementsTab";
 import WpTab from "../WpTab/WpTab";
+import DropdownWithCheckboxes from "../DropdownCheckbox/DropdownCheckbox";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
   const { onLikeToggle } = useLikesData();
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const {
     onShareSubmit,
@@ -127,6 +147,7 @@ const PersonInfoPage = ({ personInfo }) => {
   };
   let index = 0;
   const isJpk = isPersonJpk(documents);
+
   return (
     <Container>
       <Box>
@@ -219,15 +240,26 @@ const PersonInfoPage = ({ personInfo }) => {
               )}
             </Tabs>
           </Box>
-          <PDFGenerator
-            PDFTemplate={BPR}
-            fileName={`bpr_${firstName}_${lastName}.pdf`}
-            buttonText="Արտահանել"
-            variant="contained"
-            Icon={PictureAsPdfIcon}
-            data={personInfo}
-            userFullName={`${user.firstName} ${user.lastName}`}
-          />
+          <Grid container direction="row" spacing={1}>
+            <Grid item>
+              <PDFGenerator
+                PDFTemplate={BPR}
+                fileName={`bpr_${firstName}_${lastName}.pdf`}
+                buttonText="Արտ"
+                variant="contained"
+                Icon={PictureAsPdfIcon}
+                data={personInfo}
+                userFullName={`${user.firstName} ${user.lastName}`}
+              />
+            </Grid>
+            <Grid item>
+              <DropdownWithCheckboxes
+                firstName={firstName}
+                lastName={lastName}
+                personInfo={personInfo}
+              />
+            </Grid>
+          </Grid>
         </Stack>
         <Stack direction="row" sx={{ mt: 2 }}>
           <Box
