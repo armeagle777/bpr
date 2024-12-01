@@ -97,6 +97,14 @@ export const formatDate = (date) => {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
+export const formatIsoDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${day}/${month}/${year}`;
+};
+
 export const checkSamePerson = ({ presenter, person, person2 }) => {
   return (
     (presenter?.base_info?.name === person?.base_info?.name &&
