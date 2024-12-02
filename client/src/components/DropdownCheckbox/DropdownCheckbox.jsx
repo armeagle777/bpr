@@ -39,7 +39,7 @@ const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
             variant="contained"
             Icon={PictureAsPdfIcon}
             data={personInfo}
-            userFullName={`${user.firstName} ${user.lastName}`}
+            user={user}
           />
         </MenuItem>
       </Menu>

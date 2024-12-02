@@ -10,6 +10,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { message } from "antd";
 
 const TexekanqGenerator = ({
   Icon,
@@ -19,12 +20,19 @@ const TexekanqGenerator = ({
   buttonText,
   iconButton,
   PDFTemplate,
-  userFullName,
+  user,
 }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
   const [mulNumber, setMulNumber] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { firstName, lastName, pashton } = user;
+  const userFullName = `${firstName} ${lastName}`;
+
+  if (!pashton) {
+    return message.error("Օգտատիրոջ պաշտոնը բացակայում է");
+  }
 
   const handleCreateTexekanq = () => {
     onCreateTexekanq({
@@ -57,7 +65,6 @@ const TexekanqGenerator = ({
     Last_Name,
     Patronymic_Name,
   } = Person;
-  console.log("data", data);
 
   return (
     <>

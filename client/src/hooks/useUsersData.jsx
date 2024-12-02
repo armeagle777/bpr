@@ -147,7 +147,7 @@ const useUsersData = () => {
   const save = async (key) => {
     try {
       const row = await form.validateFields();
-      const index = modifiedUsersData.findIndex((item) => key === item.key);
+      const index = modifiedUsersData.findIndex((item) => key == item.key);
 
       if (index > -1) {
         const item = modifiedUsersData[index];
