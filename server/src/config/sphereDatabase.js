@@ -66,7 +66,7 @@ const User = sphereSequelize.define(
   "User",
   {
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
       validate: {
@@ -84,12 +84,16 @@ const User = sphereSequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    pashton: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     isActivated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     activationLink: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(100),
       unique: true,
     },
     phoneNumber: {
@@ -99,6 +103,7 @@ const User = sphereSequelize.define(
   },
   {
     timestamps: true,
+    indexes: [{ unique: true, fields: ["email"] }],
   }
 );
 
@@ -223,6 +228,53 @@ Like.belongsTo(User, {
   foreignKey: "userId",
 });
 
+const Texekanq = sphereSequelize.define(
+  "Texekanq",
+  {
+    uid: { type: DataTypes.STRING, allowNull: false },
+    title: { type: DataTypes.STRING, allowNull: false },
+    mul_number: { type: DataTypes.STRING, allowNull: false },
+    person_birth: { type: DataTypes.STRING, allowNull: false },
+    person_birth_place: { type: DataTypes.STRING, allowNull: true },
+    person_fname: { type: DataTypes.STRING, allowNull: false },
+    person_lname: { type: DataTypes.STRING, allowNull: false },
+    person_mname: { type: DataTypes.STRING, allowNull: true },
+    pnum: { type: DataTypes.STRING, allowNull: true },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+User.hasMany(Texekanq, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Texekanq.belongsTo(User, {
+  foreignKey: "userId",
+});
+
+const Texekanqtype = sphereSequelize.define(
+  "Texekanqtype",
+  {
+    name: { type: DataTypes.STRING, allowNull: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+Texekanqtype.hasMany(Texekanq);
+Texekanq.belongsTo(Texekanqtype);
+
 const Share = sphereSequelize.define(
   "Share",
   {
@@ -299,4 +351,6 @@ module.exports = {
   Like,
   Share,
   Permission,
+  Texekanq,
+  Texekanqtype,
 };

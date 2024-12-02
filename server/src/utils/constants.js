@@ -161,6 +161,9 @@ const permissionsMap = {
     description: "Ադմինիստրատոր",
   },
 };
+const texekanqTypes = {
+  CITIZEN: "Քաղաքացիության մասին տեղեկանք",
+};
 
 module.exports = {
   defaultDocument,
@@ -168,4 +171,5 @@ module.exports = {
   sphereCronConfig,
   ERROR_MESSAGES,
   permissionsMap,
+  texekanqTypes,
 };

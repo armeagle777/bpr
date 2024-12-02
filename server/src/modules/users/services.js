@@ -13,7 +13,8 @@ const {
 const { User, Role, Permission } = require("../../config/sphereDatabase");
 
 const registrationDB = async (body) => {
-  const { firstName, lastName, email, password, role, phoneNumber } = body;
+  const { firstName, lastName, email, pashton, password, role, phoneNumber } =
+    body;
 
   const candidate = await User.findOne({
     where: {
@@ -35,6 +36,7 @@ const registrationDB = async (body) => {
     firstName,
     lastName,
     email,
+    pashton,
     phoneNumber,
     RoleId: foundRole.id,
     password: hashedPassword,
@@ -45,7 +47,7 @@ const registrationDB = async (body) => {
     include: [
       {
         model: Role,
-        attributes: ["id", "name"],
+        attributes: ["id", "name", "pashton"],
         include: [
           {
             model: Permission,
