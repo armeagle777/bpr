@@ -1059,6 +1059,7 @@ export const TEMP_3_STYLES = {
   boldText: {
     fontWeight: "bold",
   },
+  textWrap: { textWrap: "wrap" },
   footer: {},
   userCredentials: {
     display: "flex",

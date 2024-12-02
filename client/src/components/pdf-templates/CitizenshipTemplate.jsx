@@ -1,10 +1,10 @@
 import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
 
-import { BPR_FAKE_DATA, TEMP_3_STYLES } from "./templates.constants";
+import { TEMP_3_STYLES } from "./templates.constants";
 
 import Arial from "../../assets/Fonts/GHEAGrpalatReg.otf";
 import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
-import { formatBprData, formatDate, formatIsoDate } from "./templates.helpers";
+import { formatDate, formatIsoDate } from "./templates.helpers";
 
 Font.register({
   family: "Arial",
@@ -22,13 +22,20 @@ Font.register({
 });
 
 const CitizenshipTemplate = ({ data, userFullName }) => {
-  const { PNum = "", documents, addresses = [] } = { ...data };
+  const {
+    uid,
+    title,
+    pnum,
+    person_birth,
+    person_birth_place,
+    person_fname,
+    person_lname,
+    person_mname,
+    mul_number,
+    createdAt,
+  } = { ...data };
 
-  const { personInfo, validDocuments } = formatBprData({
-    addresses,
-    documents,
-  });
-  const currentDate = formatIsoDate(new Date());
+  const currentDate = formatIsoDate(new Date(createdAt));
 
   return (
     <Document>
@@ -87,7 +94,7 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   </Text>
                 </View>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.miniCol]}>
-                  <Text style={TEMP_3_STYLES.tableCell}>asd</Text>
+                  <Text style={TEMP_3_STYLES.tableCell}>{title}</Text>
                 </View>
               </View>
 
@@ -107,8 +114,7 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
               <View style={TEMP_3_STYLES.tableRow}>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
                   <Text style={TEMP_3_STYLES.tableCell}>
-                    {personInfo.First_Name} {personInfo.Last_Name}{" "}
-                    {personInfo.Patronymic_Name || ""}
+                    {person_fname} {person_lname} {person_mname || ""}
                   </Text>
                 </View>
               </View>
@@ -133,7 +139,7 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   <Text
                     style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.topCell]}
                   >
-                    {personInfo.Birth_Date || ""}
+                    {person_birth || ""}
                   </Text>
                   <Text
                     style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.boldText]}
@@ -149,10 +155,10 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   </Text>
                 </View>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.miniCol]}>
-                  <Text style={TEMP_3_STYLES.tableCell}>
-                    {personInfo.Birth_Region ||
-                      personInfo.Birth_Country?.CountryName ||
-                      ""}
+                  <Text
+                    style={[TEMP_3_STYLES.tableCell, TEMP_3_STYLES.textWrap]}
+                  >
+                    {person_birth_place || ""}
                   </Text>
                 </View>
               </View>

@@ -44,7 +44,6 @@ const Users = () => {
     ...user,
     key: user.id,
   }));
-  console.log("usersWithKey:::::: ", usersWithKey);
 
   const filteredUsers = usersWithKey?.filter((user) => {
     const searchMatch = filters.search

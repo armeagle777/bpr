@@ -201,6 +201,12 @@ const useUsersData = () => {
       required: true,
     },
     {
+      title: "Պաշտոն",
+      dataIndex: "pashton",
+      editable: true,
+      required: true,
+    },
+    {
       title: "Հեռ.",
       dataIndex: "phoneNumber",
       editable: true,

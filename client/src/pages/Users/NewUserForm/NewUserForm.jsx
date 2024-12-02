@@ -45,6 +45,13 @@ const NewUserForm = ({
         <Input prefix={<UserOutlined />} placeholder="Ազգանուն" />
       </Form.Item>
       <Form.Item
+        name="pashton"
+        label="Պաշտոն"
+        rules={[{ required: true, message: "Պաշտոն դաշտը պարտադիր է" }]}
+      >
+        <Input prefix={<UserOutlined />} placeholder="Պաշտոն" />
+      </Form.Item>
+      <Form.Item
         name="phoneNumber"
         label="Հեռ."
         validateTrigger="onBlur"
