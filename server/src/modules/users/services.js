@@ -47,7 +47,7 @@ const registrationDB = async (body) => {
     include: [
       {
         model: Role,
-        attributes: ["id", "name", "pashton"],
+        attributes: ["id", "name"],
         include: [
           {
             model: Permission,

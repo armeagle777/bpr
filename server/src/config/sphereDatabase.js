@@ -62,6 +62,17 @@ const Sphere = sphereSequelize.define(
   }
 );
 
+const Office = sphereSequelize.define(
+  "Office",
+  {
+    name: { type: DataTypes.STRING, allowNull: false },
+    code: { type: DataTypes.STRING, allowNull: false },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const User = sphereSequelize.define(
   "User",
   {
@@ -99,6 +110,14 @@ const User = sphereSequelize.define(
     phoneNumber: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    officeId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Office,
+        key: "id",
+      },
+      allowNull: false,
     },
   },
   {
@@ -232,7 +251,7 @@ const Texekanq = sphereSequelize.define(
   "Texekanq",
   {
     uid: { type: DataTypes.STRING, allowNull: false },
-    title: { type: DataTypes.STRING, allowNull: false },
+    document_number: { type: DataTypes.STRING, allowNull: false },
     mul_number: { type: DataTypes.STRING, allowNull: false },
     person_birth: { type: DataTypes.STRING, allowNull: false },
     person_birth_place: { type: DataTypes.STRING, allowNull: true },
@@ -240,6 +259,7 @@ const Texekanq = sphereSequelize.define(
     person_lname: { type: DataTypes.STRING, allowNull: false },
     person_mname: { type: DataTypes.STRING, allowNull: true },
     pnum: { type: DataTypes.STRING, allowNull: true },
+    file_name: { type: DataTypes.STRING, allowNull: true },
     userId: {
       type: DataTypes.INTEGER,
       references: {
@@ -261,6 +281,15 @@ User.hasMany(Texekanq, {
 
 Texekanq.belongsTo(User, {
   foreignKey: "userId",
+});
+
+Office.hasMany(User, {
+  foreignKey: "officeId",
+  onDelete: "CASCADE",
+});
+
+User.belongsTo(Office, {
+  foreignKey: "officeId",
 });
 
 const Texekanqtype = sphereSequelize.define(

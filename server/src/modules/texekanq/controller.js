@@ -1,4 +1,8 @@
-const { createTexekanqDb } = require("./services");
+const {
+  createTexekanqDb,
+  getTexekanqsDB,
+  getFileBase64DB,
+} = require("./services");
 
 const createTexekanq = async (req, res, next) => {
   try {
@@ -10,16 +14,29 @@ const createTexekanq = async (req, res, next) => {
   }
 };
 
-// const getLikes = async (req, res, next) => {
-//   try {
-//     const likes = await getLikesDB(req);
-//     res.status(200).json(likes);
-//   } catch (err) {
-//     console.log("Error crating User:", err);
-//     next(err);
-//   }
-// };
+const getTexekanqs = async (req, res, next) => {
+  try {
+    const texekanqs = await getTexekanqsDB(req);
+    res.status(200).json(texekanqs);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
+
+const getFileBase64 = async (req, res, next) => {
+  try {
+    const { fileName } = req.params;
+    const response = await getFileBase64DB(fileName);
+    res.status(200).json(response);
+  } catch (err) {
+    console.log("Error crating User:", err);
+    next(err);
+  }
+};
 
 module.exports = {
   createTexekanq,
+  getTexekanqs,
+  getFileBase64,
 };

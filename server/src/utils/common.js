@@ -60,6 +60,7 @@ const createUserData = (userObject) => {
   return {
     id: userObject.id,
     email: userObject.email,
+    pashton: userObject.pashton,
     firstName: userObject.firstName,
     lastName: userObject.lastName,
     isActivated: userObject.isActivated,
