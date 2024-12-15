@@ -4,8 +4,19 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
 import ShareIcon from "@mui/icons-material/Share";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
-const SpeedDialButton = ({ onLikeToggle, uid, text, onShareClick }) => {
+const SpeedDialButton = ({
+  onLikeToggle,
+  uid,
+  text,
+  onShareClick,
+  fileName,
+  PDFTemplate,
+  data,
+  userFullName,
+}) => {
   const actions = [
     {
       icon: <SaveIcon />,
@@ -13,6 +24,18 @@ const SpeedDialButton = ({ onLikeToggle, uid, text, onShareClick }) => {
       onClick: () => onLikeToggle({ uid, text }),
     },
     { icon: <ShareIcon />, name: "Կիսվել", onClick: onShareClick },
+    {
+      name: "Արտահանել",
+      icon: (
+        <PDFDownloadLink
+          document={<PDFTemplate data={data} userFullName={userFullName} />}
+          fileName={fileName}
+        >
+          {({ loading }) => (loading ? "Loading..." : <PictureAsPdfIcon />)}
+        </PDFDownloadLink>
+      ),
+      onClick: () => {},
+    },
   ];
   return (
     <SpeedDial

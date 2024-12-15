@@ -149,309 +149,329 @@ const PersonInfoPage = ({ personInfo }) => {
   const isJpk = isPersonJpk(documents);
 
   return (
-    <Container>
-      <Box>
-        <Stack
-          direction="row"
-          sx={{
-            pt: 4,
-            justifyContent: "space-between",
-          }}
-        >
-          <Button
-            onClick={() => navigate(-1)}
-            variant="contained"
-            startIcon={<ArrowBackIosIcon />}
+    <>
+      <Container>
+        <Box>
+          <Stack
+            direction="row"
+            sx={{
+              pt: 4,
+            }}
+            justifyContent="space-between"
+            alignItems="center"
           >
-            Վերադառնալ
-          </Button>
-          <Box>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="personal-info-tabs"
+            <Button
+              onClick={() => navigate(-1)}
+              variant="contained"
+              startIcon={<ArrowBackIosIcon />}
             >
-              {userHasPermission(
-                [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="ԲՊՌ տվյալներ">
-                  <Tab icon={<CoPresentIcon />} aria-label="documents" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="ՊԵԿ տվյալներ">
-                  <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="ՔԿԱԳ տվյալներ">
-                  <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="ԻԱՊՌ տվյալներ">
-                  <Tab icon={<BusinessIcon />} aria-label="business" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="Կադաստրի տվյալներ">
-                  <Tab icon={<CastleIcon />} aria-label="kadastr" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="ԻՑ տվյալներ">
-                  <Tab icon={<LocalPoliceIcon />} aria-label="police" />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="Տեղահանումների տվյալներ">
-                  <Tab
-                    icon={<LocalFireDepartmentIcon />}
-                    aria-label="artsakh"
-                  />
-                </Tooltip>
-              )}
-              {userHasPermission(
-                [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
-                user.permissions
-              ) && (
-                <Tooltip title="Աշխատանքի թույլտվության տվյալներ">
-                  <Tab icon={<PersonSearchIcon />} aria-label="artsakh" />
-                </Tooltip>
-              )}
-            </Tabs>
-          </Box>
-          <Grid container direction="row" spacing={1}>
-            <Grid item>
-              <PDFGenerator
-                PDFTemplate={BPR}
-                fileName={`bpr_${firstName}_${lastName}.pdf`}
-                buttonText="Արտ"
-                variant="contained"
-                Icon={PictureAsPdfIcon}
-                data={personInfo}
-                userFullName={`${user.firstName} ${user.lastName}`}
-              />
-            </Grid>
-            <Grid item>
+              Վերադառնալ
+            </Button>
+            <Box>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="personal-info-tabs"
+              >
+                {userHasPermission(
+                  [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ԲՊՌ տվյալներ">
+                    <Tab icon={<CoPresentIcon />} aria-label="documents" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ՊԵԿ տվյալներ">
+                    <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ՔԿԱԳ տվյալներ">
+                    <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ԻԱՊՌ տվյալներ">
+                    <Tab icon={<BusinessIcon />} aria-label="business" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="Կադաստրի տվյալներ">
+                    <Tab icon={<CastleIcon />} aria-label="kadastr" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ԻՑ տվյալներ">
+                    <Tab icon={<LocalPoliceIcon />} aria-label="police" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="Տեղահանումների տվյալներ">
+                    <Tab
+                      icon={<LocalFireDepartmentIcon />}
+                      aria-label="artsakh"
+                    />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="Աշխատանքի թույլտվության տվյալներ">
+                    <Tab icon={<PersonSearchIcon />} aria-label="artsakh" />
+                  </Tooltip>
+                )}
+              </Tabs>
+            </Box>
+            {userHasPermission(
+              [permissionsMap.CITIZENSHIP_REPORT.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
               <DropdownWithCheckboxes
                 firstName={firstName}
                 lastName={lastName}
                 personInfo={personInfo}
               />
-            </Grid>
-          </Grid>
-        </Stack>
-        <Stack direction="row" sx={{ mt: 2 }}>
-          <Box
-            sx={{
-              width: "20%",
-              minWidth: 200,
-              maxWidth: 300,
-              padding: 2,
-            }}
-          >
-            <PhotoSlider images={images} />
-          </Box>
-          <Stack direction="row" sx={{ width: "70%", padding: 2 }}>
-            <Stack spacing={2} justifyContent="left" sx={{ width: "50%" }}>
-              <PersonalInfoRow
-                width={35}
-                label="ԱՆՈՒՆ"
-                text={`${firstName} | ${firstNameEng ? firstNameEng : ""}`}
-              />
-              <PersonalInfoRow
-                width={35}
-                label="ԱԶԳԱՆՈՒՆ"
-                text={`${lastName} | ${lastNameEng ? lastNameEng : ""}`}
-              />
-              <PersonalInfoRow
-                width={35}
-                label="ՀԱՅՐԱՆՈՒՆ"
-                text={`${middleName ? middleName : ""} | ${
-                  middleNameEng ? middleNameEng : ""
-                }`}
-              />
-              <PersonalInfoRow
-                width={35}
-                label="ԾՆՆԴՅԱՆ ա/թ"
-                text={birthDate}
-              />
-              <PersonalInfoRow
-                width={35}
-                label="ՀԾՀ"
-                text={PNum || Certificate_Number || ""}
-              />
-              <PersonalInfoRow
-                width={35}
-                label="ԱԶԳՈՒԹՅՈՒՆ"
-                text={NationalityName}
-              />
-              <PersonalInfoRow width={35} label="ՍԵՌԸ" text={gender} />
-              {IsDead && (
-                <PersonalInfoRow
-                  width={40}
-                  label="Մահացել է"
-                  text={DeathDate}
-                />
-              )}
-            </Stack>
-            <Stack spacing={2} justifyContent="left" sx={{ width: "50%" }}>
-              <PersonalInfoRow
-                width={40}
-                label="ԵՐԿԻՐ"
-                text={
-                  Foreign_Country
-                    ? formatCountryName(Foreign_Country.CountryName)
-                    : "ՀԱՅԱՍՏԱՆ"
-                }
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ՄԱՐԶ"
-                text={Region || Foreign_Region}
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ՀԱՄԱՅՆՔ"
-                text={
-                  Community ? `${Community}/${Residence}` : Foreign_Community
-                }
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ՓՈՂՈՑ"
-                text={Street || Foreign_Address}
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ՏՈՒՆ"
-                text={
-                  Building &&
-                  `${Building_Type} ${Building}, ${Apartment ? Apartment : ""}`
-                }
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ԾՆՆԴԱՎԱՅՐ"
-                text={`${birthCountry}/${
-                  birthRegion ? ` \ ${birthRegion}` : ""
-                }`}
-              />
-              <PersonalInfoRow
-                width={40}
-                label="ՔԱՂԱՔԱՑԻՈՒԹՅՈՒՆ"
-                text={allCitizenships}
-              />
-              {Citizenship_StoppedDate && (
-                <PersonalInfoRow
-                  width={40}
-                  label="Քաղ․ հրաժարվելու ա/թ"
-                  text={Citizenship_StoppedDate}
-                />
-              )}
-            </Stack>
+            )}
           </Stack>
-          {isJpk && (
+          <Stack direction="row" sx={{ mt: 2 }}>
             <Box
               sx={{
-                width: "5%",
+                width: "20%",
+                minWidth: 200,
+                maxWidth: 300,
+                padding: 2,
               }}
             >
-              <Chip size="medium" color="warning" label="ԺՊԿ" />
+              <PhotoSlider images={images} />
             </Box>
+            <Stack direction="row" sx={{ width: "70%", padding: 2 }}>
+              <Stack spacing={2} justifyContent="left" sx={{ width: "50%" }}>
+                <PersonalInfoRow
+                  width={35}
+                  label="ԱՆՈՒՆ"
+                  text={`${firstName} | ${firstNameEng ? firstNameEng : ""}`}
+                />
+                <PersonalInfoRow
+                  width={35}
+                  label="ԱԶԳԱՆՈՒՆ"
+                  text={`${lastName} | ${lastNameEng ? lastNameEng : ""}`}
+                />
+                <PersonalInfoRow
+                  width={35}
+                  label="ՀԱՅՐԱՆՈՒՆ"
+                  text={`${middleName ? middleName : ""} | ${
+                    middleNameEng ? middleNameEng : ""
+                  }`}
+                />
+                <PersonalInfoRow
+                  width={35}
+                  label="ԾՆՆԴՅԱՆ ա/թ"
+                  text={birthDate}
+                />
+                <PersonalInfoRow
+                  width={35}
+                  label="ՀԾՀ"
+                  text={PNum || Certificate_Number || ""}
+                />
+                <PersonalInfoRow
+                  width={35}
+                  label="ԱԶԳՈՒԹՅՈՒՆ"
+                  text={NationalityName}
+                />
+                <PersonalInfoRow width={35} label="ՍԵՌԸ" text={gender} />
+                {IsDead && (
+                  <PersonalInfoRow
+                    width={40}
+                    label="Մահացել է"
+                    text={DeathDate}
+                  />
+                )}
+              </Stack>
+              <Stack spacing={2} justifyContent="left" sx={{ width: "50%" }}>
+                <PersonalInfoRow
+                  width={40}
+                  label="ԵՐԿԻՐ"
+                  text={
+                    Foreign_Country
+                      ? formatCountryName(Foreign_Country.CountryName)
+                      : "ՀԱՅԱՍՏԱՆ"
+                  }
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ՄԱՐԶ"
+                  text={Region || Foreign_Region}
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ՀԱՄԱՅՆՔ"
+                  text={
+                    Community ? `${Community}/${Residence}` : Foreign_Community
+                  }
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ՓՈՂՈՑ"
+                  text={Street || Foreign_Address}
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ՏՈՒՆ"
+                  text={
+                    Building &&
+                    `${Building_Type} ${Building}, ${
+                      Apartment ? Apartment : ""
+                    }`
+                  }
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ԾՆՆԴԱՎԱՅՐ"
+                  text={`${birthCountry}/${
+                    birthRegion ? ` \ ${birthRegion}` : ""
+                  }`}
+                />
+                <PersonalInfoRow
+                  width={40}
+                  label="ՔԱՂԱՔԱՑԻՈՒԹՅՈՒՆ"
+                  text={allCitizenships}
+                />
+                {Citizenship_StoppedDate && (
+                  <PersonalInfoRow
+                    width={40}
+                    label="Քաղ․ հրաժարվելու ա/թ"
+                    text={Citizenship_StoppedDate}
+                  />
+                )}
+                {/* <Grid item>
+                  <PDFGenerator
+                    fileName={`bpr_${firstName}_${lastName}.pdf`}
+                    buttonText="Արտահանել"
+                    variant="contained"
+                    Icon={PictureAsPdfIcon}
+                    PDFTemplate={BPR}
+                    data={personInfo}
+                    userFullName={`${user.firstName} ${user.lastName}`}
+                  />
+                </Grid> */}
+              </Stack>
+            </Stack>
+            {isJpk && (
+              <Box
+                sx={{
+                  width: "5%",
+                }}
+              >
+                <Chip size="medium" color="warning" label="ԺՊԿ" />
+              </Box>
+            )}
+          </Stack>
+        </Box>
+        <Box sx={{ pb: 3 }}>
+          {userHasPermission(
+            [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <Documents documents={documents} addresses={addresses} />
+            </TabPanel>
           )}
-        </Stack>
-      </Box>
-      <Box sx={{ pb: 3 }}>
-        {userHasPermission(
-          [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <Documents documents={documents} addresses={addresses} />
-          </TabPanel>
+          {userHasPermission(
+            [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <Finances ssn={PNum || Certificate_Number} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <Family
+                ssn={PNum || Certificate_Number}
+                firstName={firstName}
+                lastName={lastName}
+              />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <BusinessTab ssn={PNum || Certificate_Number} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <Kadastr ssn={PNum || Certificate_Number} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <PoliceTab pnum={PNum} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <DisplacementsTab pnum={PNum} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <WpTab pnum={PNum} />
+            </TabPanel>
+          )}
+        </Box>
+
+        {!drawerOpen && (
+          <SpeedDialButton
+            onLikeToggle={onLikeToggle}
+            onShareClick={onDrawerOpen}
+            uid={PNum}
+            text={likeToggleText}
+            fileName={`bpr_${firstName}_${lastName}.pdf`}
+            PDFTemplate={BPR}
+            data={personInfo}
+            userFullName={`${user.firstName} ${user.lastName}`}
+          />
         )}
-        {userHasPermission(
-          [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <Finances ssn={PNum || Certificate_Number} />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <Family
-              ssn={PNum || Certificate_Number}
-              firstName={firstName}
-              lastName={lastName}
-            />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <BusinessTab ssn={PNum || Certificate_Number} />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <Kadastr ssn={PNum || Certificate_Number} />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <PoliceTab pnum={PNum} />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <DisplacementsTab pnum={PNum} />
-          </TabPanel>
-        )}
-        {userHasPermission(
-          [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
-          user.permissions
-        ) && (
-          <TabPanel value={value} index={index++}>
-            <WpTab pnum={PNum} />
-          </TabPanel>
-        )}
-      </Box>
+      </Container>
+
       <Drawer
         open={drawerOpen}
         title={<p>Կիսվել այլոց հետ</p>}
@@ -525,16 +545,7 @@ const PersonInfoPage = ({ personInfo }) => {
           </Form.Item>
         </Form>
       </Drawer>
-
-      {!drawerOpen && (
-        <SpeedDialButton
-          onLikeToggle={onLikeToggle}
-          onShareClick={onDrawerOpen}
-          uid={PNum}
-          text={likeToggleText}
-        />
-      )}
-    </Container>
+    </>
   );
 };
 

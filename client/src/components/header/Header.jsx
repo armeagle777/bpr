@@ -107,6 +107,14 @@ const Header = () => {
                 <Link to="kadastr-certificates">Կադաստր</Link>
               </Button>
             )}
+            {userHasPermission(
+              [permissionsMap.CITIZENSHIP_REPORT.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="reports">Տեղեկանքներ</Link>
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

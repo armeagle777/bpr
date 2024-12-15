@@ -11,6 +11,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import CitizenshipTemplate from "../pdf-templates/CitizenshipTemplate";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import TexekanqGenerator from "../TexekanqGenerator/TexekanqGenerator";
+import { message } from "antd";
 
 const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,6 +19,9 @@ const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
   const open = Boolean(anchorEl);
   const user = useAuthUser();
   const handleClick = (event) => {
+    if (!user.pashton) {
+      return message.error("Օգտատիրոջ պաշտոնը բացակայում է");
+    }
     setAnchorEl(event.currentTarget);
   };
 

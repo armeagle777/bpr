@@ -24,6 +24,7 @@ const TexekanqGenerator = ({
 }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
+
   const [mulNumber, setMulNumber] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -31,7 +32,7 @@ const TexekanqGenerator = ({
   const userFullName = `${firstName} ${lastName}`;
 
   if (!pashton) {
-    return message.error("Օգտատիրոջ պաշտոնը բացակայում է");
+    return null;
   }
 
   const handleCreateTexekanq = () => {
@@ -45,7 +46,7 @@ const TexekanqGenerator = ({
       TexekanqtypeId: 1,
       mul_number: mulNumber,
     });
-    setDialogOpen(false); // Close dialog after submission
+    setDialogOpen(false);
   };
 
   const { PNum, documents } = data;
@@ -65,7 +66,6 @@ const TexekanqGenerator = ({
     Last_Name,
     Patronymic_Name,
   } = Person;
-
   return (
     <>
       {!texekanqData && (
@@ -93,14 +93,14 @@ const TexekanqGenerator = ({
             </DialogContent>
             <DialogActions>
               <Button onClick={() => setDialogOpen(false)} color="secondary">
-                Cancel
+                Չեղարկել
               </Button>
               <Button
                 onClick={handleCreateTexekanq}
                 color="primary"
                 disabled={!mulNumber}
               >
-                Submit
+                Հաստատել
               </Button>
             </DialogActions>
           </Dialog>
@@ -108,25 +108,52 @@ const TexekanqGenerator = ({
       )}
 
       {texekanqData && (
-        <PDFDownloadLink
-          document={
-            <PDFTemplate data={texekanqData} userFullName={userFullName} />
-          }
-          fileName={fileName}
-        >
-          {({ blob, url, loading, error }) => {
-            return (
-              <LoadingButton
-                color="error"
-                loading={loading}
-                variant={variant}
-                endIcon={<Icon />}
-              >
-                Պահպանել
-              </LoadingButton>
-            );
+        // <PDFDownloadLink
+        //   document={
+        //     <PDFTemplate
+        //       data={texekanqData}
+        //       userFullName={userFullName}
+        //       pashton={pashton}
+        //     />
+        //   }
+        //   fileName={fileName}
+        // >
+        //   {({ blob, url, loading, error }) => {
+        //     return (
+        // <LoadingButton
+        //   color="error"
+        //   loading={loading}
+        //   variant={variant}
+        //   endIcon={<Icon />}
+        // >
+        //   Պահպանել
+        // </LoadingButton>
+        //     );
+        //   }}
+        // </PDFDownloadLink>
+        <a
+          href={`data:application/pdf;base64,${texekanqData}`}
+          download={fileName}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px", // For spacing between text and icon
+            padding: "6px 16px", // Matches MUI button padding
+            borderRadius: "4px", // Matches MUI's default button radius
+            backgroundColor: "#d32f2f", // MUI error color
+            color: "white",
+            textDecoration: "none",
+            fontSize: "0.875rem", // MUI button font size
+            fontWeight: 500,
+            lineHeight: 1.75,
+            transition: "background-color 0.3s, color 0.3s",
+            cursor: "pointer",
+            border: "none",
           }}
-        </PDFDownloadLink>
+        >
+          Ներբեռնել
+        </a>
       )}
     </>
   );

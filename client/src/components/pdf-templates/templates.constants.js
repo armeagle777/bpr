@@ -991,7 +991,7 @@ export const TEMP_3_STYLES = {
     flex: 1,
     flexDirection: "column",
     gap: "10px",
-    padding: "20px",
+    padding: "0 20px",
   },
   title: {
     display: "flex",
@@ -1021,7 +1021,7 @@ export const TEMP_3_STYLES = {
     flexDirection: "row",
   },
   tableCol: {
-    width: "35%",
+    width: "30%",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "#000",
@@ -1029,7 +1029,7 @@ export const TEMP_3_STYLES = {
   threeCols: { width: "80%" },
   fourCols: { width: "100%" },
   smallCol: { width: "20%" },
-  miniCol: { width: "10%" },
+  miniCol: { width: "20%" },
   rowspan: {
     height: 50,
     padding: 0,
@@ -1077,15 +1077,33 @@ export const TEMP_3_STYLES = {
     flexDirection: "column",
     gap: 20,
     minWidth: "200px",
-    paddingTop: 20,
   },
   signature: {
     minWidth: "200px",
-    paddingTop: 50,
+    paddingTop: 30,
   },
   hr: {
     width: "100%",
     borderBottom: "1px solid #000",
   },
   signatureInfoRow: { display: "flex", alignItems: "center" },
+  qrRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  qrContainer: {
+    width: "20%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  qrImage: { width: "3cm", height: "3cm" },
+  qrUid: {},
+  qrInfo: {
+    textWrap: "wrap",
+    width: "80%",
+    textAlign: "justify",
+  },
 };

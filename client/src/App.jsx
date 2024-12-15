@@ -13,6 +13,7 @@ import RequireAuth from "@auth-kit/react-router/RequireAuth";
 import Profile from "./pages/Profile/Profile";
 import Users from "./pages/Users/Users";
 import Likes from "./pages/Likes/Likes";
+import Reports from "./pages/Reports/Reports";
 import Shares from "./pages/Shares/Shares";
 import Roles from "./pages/Roles/Roles";
 import RequirePermission from "./components/requirePermission/RequirePermission";
@@ -97,6 +98,7 @@ function App() {
         />
         <Route path="profile" element={<Profile />} />
         <Route path="likes" element={<Likes />} />
+        <Route path="reports" element={<Reports />} />
         <Route path="shares" element={<Shares />} />
         <Route
           path="users"

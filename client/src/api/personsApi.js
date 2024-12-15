@@ -108,6 +108,16 @@ export const createTexekanq = async (data) => {
   return response.data;
 };
 
+export const getTexekanqs = async () => {
+  const response = await personsApi.get(`/texekanq`);
+  return response.data;
+};
+
+export const getTexekanqBase64 = async (fileName) => {
+  const response = await personsApi.get(`/texekanq/pdf/${fileName}`);
+  return response.data;
+};
+
 export const createRole = async (data) => {
   const response = await personsApi.post(`/roles`, data);
   return response.data;

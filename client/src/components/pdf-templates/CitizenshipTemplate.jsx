@@ -1,4 +1,4 @@
-import { Page, Text, View, Font, Document } from "@react-pdf/renderer";
+import { Page, Text, View, Font, Document, Image } from "@react-pdf/renderer";
 
 import { TEMP_3_STYLES } from "./templates.constants";
 
@@ -21,10 +21,10 @@ Font.register({
   ],
 });
 
-const CitizenshipTemplate = ({ data, userFullName }) => {
+const CitizenshipTemplate = ({ data, userFullName, pashton }) => {
   const {
     uid,
-    title,
+    document_number,
     pnum,
     person_birth,
     person_birth_place,
@@ -33,6 +33,7 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
     person_mname,
     mul_number,
     createdAt,
+    qrUrl,
   } = { ...data };
 
   const currentDate = formatIsoDate(new Date(createdAt));
@@ -62,7 +63,10 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   </Text>
                 </View>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.threeCols]}>
-                  <Text style={TEMP_3_STYLES.tableCell}>asd</Text>
+                  <Text style={TEMP_3_STYLES.tableCell}>
+                    ՀԱՅԱՍՏԱՆԻ ՀԱՆՐԱՊԵՏՈՒԹՅԱՆ ՆԵՐՔԻՆ ԳՈՐԾԵՐԻ ՆԱԽԱՐԱՐՈՒԹՅԱՆ
+                    ՄԻԳՐԱՑԻԱՅԻ ԵՎ ՔԱՂԱՔԱՑԻՈՒԹՅԱՆ ԾԱՌԱՅՈՒԹՅՈՒՆ
+                  </Text>
                 </View>
               </View>
               {/* Table Body */}
@@ -94,10 +98,9 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   </Text>
                 </View>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.miniCol]}>
-                  <Text style={TEMP_3_STYLES.tableCell}>{title}</Text>
+                  <Text style={TEMP_3_STYLES.tableCell}>{document_number}</Text>
                 </View>
               </View>
-
               <View style={TEMP_3_STYLES.tableRow}>
                 <View style={[TEMP_3_STYLES.tableCol, TEMP_3_STYLES.fourCols]}>
                   <Text
@@ -195,7 +198,6 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
               </View>
             </View>
           </View>
-
           <View style={TEMP_3_STYLES.footer}>
             <View style={TEMP_3_STYLES.userCredentials}>
               <View style={TEMP_3_STYLES.personalInfo}>
@@ -209,7 +211,7 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                   </View>
                 </View>
                 <View style={TEMP_3_STYLES.personalInfoRowContainer}>
-                  <Text>asd</Text>
+                  <Text>{pashton || ""}</Text>
                   <View style={TEMP_3_STYLES.hr} />
                   <View style={TEMP_3_STYLES.signatureInfoRow}>
                     <Text style={[TEMP_3_STYLES.boldText]}>(պաշտոնը)</Text>
@@ -228,6 +230,21 @@ const CitizenshipTemplate = ({ data, userFullName }) => {
                     Կ.Տ.
                   </Text>
                 </View>
+              </View>
+            </View>
+            <View style={TEMP_3_STYLES.qrRow}>
+              <View style={TEMP_3_STYLES.qrContainer}>
+                <Image style={TEMP_3_STYLES.qrImage} src={qrUrl} />
+                <Text style={TEMP_3_STYLES.qrUid}>{uid}</Text>
+              </View>
+              <View style={TEMP_3_STYLES.qrInfo}>
+                <Text>
+                  Սույն տեղեկանքը տրվել է էլեկտրոնային եղանակով Հայաստանի
+                  Հանրապետության ներքին գործերի նախարարության Միգրացիայի եւ
+                  քաղաքացիության ծառայության կողմից: Սույն տեղեկանքի իսկությունը
+                  հնարավոր է ստուգել այցելելով www.verify.e-gov.am կայք եւ
+                  մուտքագրելով հսկիչ համարը կամ սքանավորելով QR կոդը:
+                </Text>
               </View>
             </View>
           </View>
