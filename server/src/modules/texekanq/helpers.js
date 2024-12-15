@@ -4,7 +4,7 @@ const qr = require("qrcode");
 const path = require("path");
 const { templatesMap } = require("./constants");
 const ejs = require("ejs");
-const pdf = require("html-pdf");
+const puppeteer = require("puppeteer");
 
 const getTexekanqUid = (prefix) => {
   function randomHexSegment() {
@@ -54,8 +54,7 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
     `src/pdf-templates/${templateName}.ejs`
   );
 
-  var milis = new Date();
-  milis = milis.getTime();
+  var milis = new Date().getTime();
   const fileName = `${data.pnum}_${templateName}_${milis}.pdf`;
 
   const responseFilePath = path.join("src", "pdf", "reports", `${fileName}`);
@@ -68,23 +67,29 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
   // Render the EJS template to HTML with dynamic data
   const htmlContent = await ejs.renderFile(templatePath, data);
 
-  // PDF options
-  const options = {
-    format: "A4",
-    orientation: "landscape",
-    border: "0mm",
-  };
+  // Launch Puppeteer
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // Set the HTML content
+  await page.setContent(htmlContent, { waitUntil: "domcontentloaded" });
 
   // Generate the PDF
-  const pdfBuffer = await new Promise((resolve, reject) => {
-    pdf.create(htmlContent, options).toBuffer((err, buffer) => {
-      if (err) return reject(err);
-      resolve(buffer);
-    });
+  const pdfBuffer = await page.pdf({
+    format: "A4", // Set paper format
+    landscape: true, // Orientation
+    printBackground: true, // Include background graphics
+    margin: {
+      top: "0mm",
+      bottom: "0mm",
+      left: "0mm",
+      right: "0mm",
+    },
   });
 
   // Save buffer to file
   fs.writeFileSync(responseFilePath, pdfBuffer);
+  await browser.close();
 
   return fileName;
 };
