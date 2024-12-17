@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Menu,
-  MenuItem,
-  Checkbox,
-  FormControlLabel,
-  Box,
-} from "@mui/material";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import CitizenshipTemplate from "../pdf-templates/CitizenshipTemplate";
+import { Button, Menu, MenuItem } from "@mui/material";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import TexekanqGenerator from "../TexekanqGenerator/TexekanqGenerator";
+import CityzenshipTexekanqGenerator from "../TexekanqGenerator/CityzenshipTexekanqGenerator";
 import { message } from "antd";
+import { userHasPermission } from "../../utils/helperFunctions";
+import { permissionsMap } from "../../utils/constants";
+import PassportsTexekanqGenerator from "../TexekanqGenerator/PassportsTexekanqGenerator";
+import PnumTexekanqGenerator from "../TexekanqGenerator/PnumTexekanqGenerator";
 
 const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -35,17 +30,42 @@ const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
         Ստանալ տեղեկանք
       </Button>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem disableRipple>
-          <TexekanqGenerator
-            PDFTemplate={CitizenshipTemplate}
-            fileName={`bpr_${firstName}_${lastName}.pdf`}
-            buttonText="Արտ"
-            variant="contained"
-            Icon={PictureAsPdfIcon}
-            data={personInfo}
-            user={user}
-          />
-        </MenuItem>
+        {userHasPermission(
+          [permissionsMap.CITIZENSHIP_REPORT.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <MenuItem disableRipple>
+            <CityzenshipTexekanqGenerator
+              fileName={`bpr_${firstName}_${lastName}.pdf`}
+              data={personInfo}
+              user={user}
+            />
+          </MenuItem>
+        )}
+        {userHasPermission(
+          [permissionsMap.PASSPORTS_REPORT.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <MenuItem disableRipple>
+            <PassportsTexekanqGenerator
+              fileName={`bpr_${firstName}_${lastName}.pdf`}
+              data={personInfo}
+              user={user}
+            />
+          </MenuItem>
+        )}
+        {userHasPermission(
+          [permissionsMap.PNUM_REPORT.uid, permissionsMap.ADMIN.uid],
+          user.permissions
+        ) && (
+          <MenuItem disableRipple>
+            <PnumTexekanqGenerator
+              fileName={`bpr_${firstName}_${lastName}.pdf`}
+              data={personInfo}
+              user={user}
+            />
+          </MenuItem>
+        )}
       </Menu>
     </div>
   );

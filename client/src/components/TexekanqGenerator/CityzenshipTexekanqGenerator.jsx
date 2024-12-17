@@ -1,4 +1,3 @@
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useTexekanqData } from "../../hooks/useTexekanqData";
 import { useState } from "react";
@@ -10,18 +9,8 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { message } from "antd";
 
-const TexekanqGenerator = ({
-  Icon,
-  data,
-  variant,
-  fileName,
-  buttonText,
-  iconButton,
-  PDFTemplate,
-  user,
-}) => {
+const CityzenshipTexekanqGenerator = ({ data, fileName, user }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
 
@@ -55,7 +44,7 @@ const TexekanqGenerator = ({
   );
 
   const invalidDocument = documents.find(
-    (doc) => doc.Document_Status !== "PRIMARY_VALID"
+    (doc) => doc.Document_Status === "INVALID"
   );
   const Person = validDocument?.Person || invalidDocument?.Person;
   const {
@@ -71,6 +60,7 @@ const TexekanqGenerator = ({
       {!texekanqData && (
         <>
           <LoadingButton
+            fullWidth
             color="primary"
             loading={texekanqIsLoading}
             variant="outlined"
@@ -108,29 +98,6 @@ const TexekanqGenerator = ({
       )}
 
       {texekanqData && (
-        // <PDFDownloadLink
-        //   document={
-        //     <PDFTemplate
-        //       data={texekanqData}
-        //       userFullName={userFullName}
-        //       pashton={pashton}
-        //     />
-        //   }
-        //   fileName={fileName}
-        // >
-        //   {({ blob, url, loading, error }) => {
-        //     return (
-        // <LoadingButton
-        //   color="error"
-        //   loading={loading}
-        //   variant={variant}
-        //   endIcon={<Icon />}
-        // >
-        //   Պահպանել
-        // </LoadingButton>
-        //     );
-        //   }}
-        // </PDFDownloadLink>
         <a
           href={`data:application/pdf;base64,${texekanqData}`}
           download={fileName}
@@ -150,13 +117,14 @@ const TexekanqGenerator = ({
             transition: "background-color 0.3s, color 0.3s",
             cursor: "pointer",
             border: "none",
+            width: "100%",
           }}
         >
-          Ներբեռնել
+          Ներբեռնել քաղաքացիության տեղեկանքը
         </a>
       )}
     </>
   );
 };
 
-export default TexekanqGenerator;
+export default CityzenshipTexekanqGenerator;

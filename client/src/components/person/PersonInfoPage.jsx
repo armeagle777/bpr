@@ -124,11 +124,6 @@ const PersonInfoPage = ({ personInfo }) => {
     setValue(newValue);
   };
 
-  // const handleExport = async (personObj) => {
-  //     const url = `/persons/download`;
-  //     const fileName = `bpr_${firstName}_${lastName}.pdf`;
-  //     await downloadPdf(url, fileName, personInfo);
-  // };
   const likeToggleText = middleName
     ? `${firstName} ${lastName} ${middleName}`
     : `${firstName} ${lastName}`;
@@ -243,7 +238,12 @@ const PersonInfoPage = ({ personInfo }) => {
               </Tabs>
             </Box>
             {userHasPermission(
-              [permissionsMap.CITIZENSHIP_REPORT.uid, permissionsMap.ADMIN.uid],
+              [
+                permissionsMap.CITIZENSHIP_REPORT.uid,
+                permissionsMap.PASSPORTS_REPORT.uid,
+                permissionsMap.PNUM_REPORT.uid,
+                permissionsMap.ADMIN.uid,
+              ],
               user.permissions
             ) && (
               <DropdownWithCheckboxes

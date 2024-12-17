@@ -362,6 +362,16 @@ export const permissionsMap = {
     name: "Քաղաքացիության տեղեկանք",
     description: "Տեղեկանք անձի քաղաքացիության վերաբերյալ(Ձև 3)",
   },
+  PASSPORTS_REPORT: {
+    uid: "10002",
+    name: "Անձնագրերի տեղեկանք",
+    description: "Տեղեկանք անձի անձնագրերի վերաբերյալ",
+  },
+  PNUM_REPORT: {
+    uid: "10003",
+    name: "ՀԾՀ տեղեկանք",
+    description: "Տեղեկանք անձի ՀԾՀ վերաբերյալ",
+  },
   ADMIN: {
     uid: "9999",
     name: "Ադմինիստրատոր",
