@@ -252,7 +252,7 @@ const Texekanq = sphereSequelize.define(
   {
     uid: { type: DataTypes.STRING, allowNull: false },
     document_number: { type: DataTypes.STRING, allowNull: false },
-    mul_number: { type: DataTypes.STRING, allowNull: false },
+    mul_number: { type: DataTypes.STRING, allowNull: true },
     person_birth: { type: DataTypes.STRING, allowNull: false },
     person_birth_place: { type: DataTypes.STRING, allowNull: true },
     person_fname: { type: DataTypes.STRING, allowNull: false },

@@ -61,7 +61,7 @@ const getTexekanqsDB = async (req) => {
 };
 
 const createTexekanqDb = async (req) => {
-  const { user, params, body } = req;
+  const { user, body } = req;
   const { id: userId, pashton, firstName, lastName } = user;
   const {
     pnum,
@@ -70,19 +70,27 @@ const createTexekanqDb = async (req) => {
     person_fname,
     person_lname,
     person_mname,
+    person_fname_en,
+    person_lname_en,
+    document,
     TexekanqtypeId,
     mul_number,
+    validDocuments,
+    invalidDocuments,
   } = body;
 
-  const texekanqRow = await Texekanq.findOne({
-    where: { mul_number, userId },
-  });
+  if (TexekanqtypeId === 1) {
+    const texekanqRow = await Texekanq.findOne({
+      where: { mul_number, userId },
+    });
 
-  if (texekanqRow) {
-    throw ApiError.BadRequest(
-      "Տվյալ մալբերի համարով տեղեկանք արդեն գրանցված է"
-    );
+    if (texekanqRow) {
+      throw ApiError.BadRequest(
+        "Տվյալ մալբերի համարով տեղեկանք արդեն գրանցված է"
+      );
+    }
   }
+
   const uid = getTexekanqUid(texekanqUidPrefix);
   const currentYear = new Date().getFullYear();
 
@@ -122,18 +130,25 @@ const createTexekanqDb = async (req) => {
     );
     const qrData = encodeUrl(newTexekanq.dataValues.uid);
     const qrUrl = await generateQRCode(qrData);
-    newTexekanq.dataValues.qrUrl = qrUrl;
-    newTexekanq.dataValues.position = pashton;
-    newTexekanq.dataValues.full_name = firstName + " " + lastName;
-    newTexekanq.dataValues.createdAt = formatDate(
-      newTexekanq.dataValues.createdAt
-    );
-    newTexekanq.dataValues.person_full_name = person_mname
+
+    const person_full_name = person_mname
       ? person_fname + " " + person_lname + " " + person_mname
       : person_fname + " " + person_lname;
 
     const fileName = await createPDF({
-      data: newTexekanq.dataValues,
+      data: {
+        ...newTexekanq.dataValues,
+        qrUrl,
+        person_full_name,
+        position: pashton,
+        full_name: firstName + " " + lastName,
+        person_fname_en,
+        person_lname_en,
+        document,
+        validDocuments,
+        invalidDocuments,
+        createdAt: formatDate(newTexekanq.dataValues.createdAt),
+      },
       TexekanqtypeId,
     });
 

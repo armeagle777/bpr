@@ -10,12 +10,18 @@ const { createTexekanq, getTexekanqs, getFileBase64 } = require("./controller");
 //   registerUserSchema,
 // } = require("./validations");
 // const { validateSchema } = require("../../helpers/common");
-const { ADMIN, CITIZENSHIP_REPORT } = permissionsMap;
+const { ADMIN, CITIZENSHIP_REPORT, PASSPORTS_REPORT, PNUM_REPORT } =
+  permissionsMap;
 
 router.post(
   "/",
   authMiddleware,
-  rolesMiddleware([ADMIN.uid, CITIZENSHIP_REPORT.uid]),
+  rolesMiddleware([
+    ADMIN.uid,
+    CITIZENSHIP_REPORT.uid,
+    PASSPORTS_REPORT.uid,
+    PNUM_REPORT.uid,
+  ]),
   // validateSchema(registerUserSchema),
   createTexekanq
 );

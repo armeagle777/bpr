@@ -64,6 +64,24 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
     fs.mkdirSync(directoryPath, { recursive: true });
   }
 
+  if (TexekanqtypeId === 1) {
+    const imagePath = path.join(__dirname, "../../public", "asd.jpg");
+    const imageBase64 = fs.readFileSync(imagePath).toString("base64");
+    const imageMimeType = "image/jpeg";
+    data.signBase64 = `data:${imageMimeType};base64,${imageBase64}`;
+  }
+
+  if (TexekanqtypeId === 2 || TexekanqtypeId === 3) {
+    const imagePath = path.join(
+      __dirname,
+      "../../public",
+      "Coat_of_arms_of_Armenia.png"
+    );
+    const imageBase64 = fs.readFileSync(imagePath).toString("base64");
+    const imageMimeType = "image/png";
+    data.logoBase64 = `data:${imageMimeType};base64,${imageBase64}`;
+  }
+
   // Render the EJS template to HTML with dynamic data
   const htmlContent = await ejs.renderFile(templatePath, data);
 
@@ -77,8 +95,8 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
   // Generate the PDF
   const pdfBuffer = await page.pdf({
     format: "A4", // Set paper format
-    landscape: true, // Orientation
-    printBackground: true, // Include background graphics
+    landscape: TexekanqtypeId === 1 ? true : false,
+    printBackground: true,
     margin: {
       top: "0mm",
       bottom: "0mm",
