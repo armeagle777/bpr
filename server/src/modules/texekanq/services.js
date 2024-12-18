@@ -109,7 +109,11 @@ const createTexekanqDb = async (req) => {
     });
 
     // Calculate the new document number
-    const document_number = getTexekanqTitle({ lastTexekanq, currentYear });
+    const document_number = getTexekanqTitle({
+      lastTexekanq,
+      currentYear,
+      TexekanqtypeId,
+    });
     // Create the new texekanq
 
     const newTexekanq = await Texekanq.create(

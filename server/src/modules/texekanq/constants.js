@@ -6,4 +6,11 @@ const templatesMap = {
   3: "passports_report",
 };
 
-module.exports = { texekanqUidPrefix, templatesMap };
+const reportTitleLetterMap = {
+  1: "Ք",
+  2: "ՀԾՀ",
+  3: "Անձ",
+  4: "Հաշ",
+};
+
+module.exports = { texekanqUidPrefix, templatesMap, reportTitleLetterMap };

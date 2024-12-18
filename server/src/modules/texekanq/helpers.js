@@ -2,7 +2,7 @@ const v4 = require("uuid").v4;
 const fs = require("fs");
 const qr = require("qrcode");
 const path = require("path");
-const { templatesMap } = require("./constants");
+const { templatesMap, reportTitleLetterMap } = require("./constants");
 const ejs = require("ejs");
 const puppeteer = require("puppeteer");
 
@@ -29,12 +29,12 @@ const getTexekanqUid = (prefix) => {
   return uid;
 };
 
-const getTexekanqTitle = ({ lastTexekanq, currentYear }) => {
+const getTexekanqTitle = ({ lastTexekanq, currentYear, TexekanqtypeId }) => {
   const prevDocNum = lastTexekanq?.dataValues?.document_number;
   const texekanqCorNumber = !prevDocNum
     ? 1
     : Number(prevDocNum.split("/")[1].split("-")[1]) + 1;
-  return `Ք/${currentYear}-${texekanqCorNumber}`;
+  return `${reportTitleLetterMap[TexekanqtypeId]}/${currentYear}-${texekanqCorNumber}`;
 };
 
 const encodeUrl = (uid) => {
