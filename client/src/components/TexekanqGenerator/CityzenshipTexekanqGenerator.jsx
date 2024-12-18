@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const CityzenshipTexekanqGenerator = ({ data, fileName, user }) => {
+const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
 
@@ -64,6 +64,7 @@ const CityzenshipTexekanqGenerator = ({ data, fileName, user }) => {
             color="primary"
             loading={texekanqIsLoading}
             variant="outlined"
+            disabled={disabled}
             onClick={() => setDialogOpen(true)}
           >
             Քաղաքացիության տեղեկանք

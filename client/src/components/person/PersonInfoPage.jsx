@@ -142,6 +142,7 @@ const PersonInfoPage = ({ personInfo }) => {
   };
   let index = 0;
   const isJpk = isPersonJpk(documents);
+  const isPersonNotCitizen = !!Citizenship_StoppedDate;
 
   return (
     <>
@@ -250,6 +251,7 @@ const PersonInfoPage = ({ personInfo }) => {
                 firstName={firstName}
                 lastName={lastName}
                 personInfo={personInfo}
+                reportNotAllowed={isJpk || isPersonNotCitizen}
               />
             )}
           </Stack>

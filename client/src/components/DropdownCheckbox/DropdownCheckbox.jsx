@@ -8,7 +8,12 @@ import { permissionsMap } from "../../utils/constants";
 import PassportsTexekanqGenerator from "../TexekanqGenerator/PassportsTexekanqGenerator";
 import PnumTexekanqGenerator from "../TexekanqGenerator/PnumTexekanqGenerator";
 
-const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
+const DropdownWithCheckboxes = ({
+  reportNotAllowed,
+  personInfo,
+  firstName,
+  lastName,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -23,7 +28,6 @@ const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <div>
       <Button variant="contained" onClick={handleClick}>
@@ -39,6 +43,7 @@ const DropdownWithCheckboxes = ({ personInfo, firstName, lastName }) => {
               fileName={`bpr_${firstName}_${lastName}.pdf`}
               data={personInfo}
               user={user}
+              disabled={reportNotAllowed}
             />
           </MenuItem>
         )}
