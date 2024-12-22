@@ -88,6 +88,11 @@ export const getRoles = async () => {
   return response.data;
 };
 
+export const getReportTypes = async () => {
+  const response = await personsApi.get("/texekanq/types");
+  return response.data;
+};
+
 export const getPermissions = async () => {
   const response = await personsApi.get("/permissions");
   return response.data;

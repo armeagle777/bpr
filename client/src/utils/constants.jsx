@@ -99,7 +99,7 @@ export const maritalStatusesMap = {
 };
 
 export const bprDocumentTypes = {
-  ID_CARD: "ID քարտ",
+  ID_CARD: "Նույնականացման քարտ",
   NON_BIOMETRIC_PASSPORT: "ՀՀ անձնագիր",
   BIOMETRIC_PASSPORT: "Կենսաչափ․ անձնագիր",
   BIRTH_CERTIFICATE: "Ծննդյան․ վկ․",

@@ -1,7 +1,7 @@
 import { Checkbox, Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const CheckboxButton = ({ text, onRoleFilter, checked }) => {
+const CheckboxButton = ({ text, onRoleFilter, checked, value }) => {
   const textsArray = text.split(" ");
   return (
     <div style={{ width: "100%", overflow: "hidden" }}>
@@ -14,7 +14,7 @@ const CheckboxButton = ({ text, onRoleFilter, checked }) => {
       <Button
         fullWidth
         variant="text"
-        onClick={() => onRoleFilter(text)}
+        onClick={() => onRoleFilter(value || text)}
         sx={{
           display: "flex",
           boxSizing: "border-box",
@@ -41,7 +41,7 @@ const CheckboxButton = ({ text, onRoleFilter, checked }) => {
             }}
             onClick={(e) => {
               e.stopPropagation();
-              onRoleFilter(text);
+              onRoleFilter(value || text);
             }}
           >
             <CloseIcon fontSize="inherit" />

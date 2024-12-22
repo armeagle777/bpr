@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createTexekanq,
+  getReportTypes,
   getTexekanqBase64,
   getTexekanqs,
 } from "../api/personsApi";
@@ -64,6 +65,14 @@ export const useTexekanqData = () => {
     setAnchorEl(null);
     setShowDialog(true);
   };
+  const {
+    isLoading: isTypesLoading,
+    isError: isTypesError,
+    error: typesError,
+    data: types,
+  } = useQuery(["report-types"], () => getReportTypes(), {
+    keepPreviousData: true,
+  });
 
   const columns = [
     {
@@ -151,6 +160,10 @@ export const useTexekanqData = () => {
   return {
     data: texekanqsWithKeys,
     error,
+    isTypesLoading,
+    isTypesError,
+    typesError,
+    types,
     columns,
     isError,
     isLoading,

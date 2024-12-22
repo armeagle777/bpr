@@ -142,8 +142,16 @@ const PersonInfoPage = ({ personInfo }) => {
   };
   let index = 0;
   const isJpk = isPersonJpk(documents);
-  const isPersonNotCitizen = !!Citizenship_StoppedDate;
 
+  const isPersonCityzen = ({ documents, Citizenship_StoppedDate }) => {
+    const hasArmenianCitizenship = documents.some((doc) =>
+      doc.Person?.Citizenship?.Citizenship?.some(
+        (country) => country.CountryCode === "051"
+      )
+    );
+
+    return !!hasArmenianCitizenship && !Citizenship_StoppedDate;
+  };
   return (
     <>
       <Container>
@@ -251,7 +259,7 @@ const PersonInfoPage = ({ personInfo }) => {
                 firstName={firstName}
                 lastName={lastName}
                 personInfo={personInfo}
-                reportNotAllowed={isJpk || isPersonNotCitizen}
+                reportNotAllowed={isJpk || !isPersonCityzen}
               />
             )}
           </Stack>

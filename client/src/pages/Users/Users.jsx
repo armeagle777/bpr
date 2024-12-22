@@ -115,7 +115,6 @@ const Users = () => {
           </Grid>
         </Box>
       </Grid>
-
       <Grid item xs={10}>
         <Box
           sx={{
