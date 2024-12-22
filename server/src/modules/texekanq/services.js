@@ -39,6 +39,14 @@ const getFileBase64DB = async (fileName) => {
   };
 };
 
+const getTexekanqTypesDB = async (req) => {
+  const types = await Texekanqtype.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+
+  return types;
+};
+
 const getTexekanqsDB = async (req) => {
   const texekanqs = await Texekanq.findAll({
     attributes: { exclude: ["userId", "TexekanqtypeId"] },
@@ -49,7 +57,7 @@ const getTexekanqsDB = async (req) => {
       },
       {
         model: Texekanqtype,
-        attributes: ["name"],
+        attributes: ["name", "id"],
       },
     ],
     order: [["id", "DESC"]],
@@ -179,4 +187,5 @@ module.exports = {
   createTexekanqDb,
   getTexekanqsDB,
   getFileBase64DB,
+  getTexekanqTypesDB,
 };

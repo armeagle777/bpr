@@ -2,7 +2,12 @@ const router = require("express").Router();
 const { authMiddleware } = require("../../middlewares/authMiddleware");
 const { rolesMiddleware } = require("../../middlewares/rolesMiddleware");
 const { permissionsMap } = require("../../utils/constants");
-const { createTexekanq, getTexekanqs, getFileBase64 } = require("./controller");
+const {
+  createTexekanq,
+  getTexekanqs,
+  getFileBase64,
+  getTexekanqTypes,
+} = require("./controller");
 
 // const {
 //   loginUserSchema,
@@ -32,6 +37,14 @@ router.get(
   rolesMiddleware([ADMIN.uid, CITIZENSHIP_REPORT.uid]),
   // validateSchema(registerUserSchema),
   getTexekanqs
+);
+
+router.get(
+  "/types",
+  authMiddleware,
+  rolesMiddleware([ADMIN.uid, CITIZENSHIP_REPORT.uid]),
+  // validateSchema(registerUserSchema),
+  getTexekanqTypes
 );
 
 router.get(
