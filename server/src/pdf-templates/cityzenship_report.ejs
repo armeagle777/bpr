@@ -132,14 +132,18 @@
           font-size: 16px;
         }
         .signature-table{
-          width: 80%;
+          width: 90%;
           margin: 20px auto;
           border-collapse: separate; /* Required for border-spacing to work */
+          /* border-spacing: 155px 0; */
           border-spacing: 105px 0;
 
         }
         .signature-table td{
           text-align: center;
+        }
+        .align-right{
+          text-align: right !important;
         }
         .signature-table .border{
           border-top: 1px solid #000;
@@ -243,7 +247,7 @@
               <td class="large-text">
                 Սարգիս Հակոբյան
               </td>
-              <td>
+              <td >
                 <img src="<%= signBase64 %>" alt="" style="width: 100px;height: 40px;" />
             </td>
             </tr>
@@ -278,7 +282,7 @@
                   <img src="<%= qrUrl %>" alt="" />
                 </td>
                 <td rowspan="2" class="qr-info">
-                  Սույն տեղեկանքը տրվել է էլեկտրոնային եղանակով Հայաստանի Հանրապետության ներքին գործերի նախարարության Միգրացիայի եւ քաղաքացիության ծառայության կողմից: Սույն տեղեկանքի իսկությունը հնարավոր է ստուգել այցելելով www.verify.e-gov.am կայք եւ մուտքագրելով հսկիչ համարը կամ սքանավորելով QR կոդը:
+                  Սույն տեղեկանքը տրվել է էլեկտրոնային եղանակով Հայաստանի Հանրապետության ներքին գործերի նախարարության Միգրացիայի եւ քաղաքացիության ծառայության կողմից:
                 </td>
               </tr>
               <tr>
@@ -288,7 +292,6 @@
               </tr>
             </tbody>
           </table>
-
         </div>
     </div>
 </body>
