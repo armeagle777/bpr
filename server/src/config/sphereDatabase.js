@@ -117,7 +117,7 @@ const User = sphereSequelize.define(
         model: Office,
         key: "id",
       },
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
