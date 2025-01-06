@@ -19,6 +19,23 @@ import Roles from "./pages/Roles/Roles";
 import RequirePermission from "./components/requirePermission/RequirePermission";
 import { permissionsMap } from "./utils/constants";
 import KadastrCertificate from "./pages/KadastrCertificate/KadastrCertificate.page";
+import { Statistics } from "./pages/Statistics";
+import {
+  ApastanApplications,
+  ApastanDecisions,
+  ApastanTotal,
+  ApastanYears,
+  AsylumReports,
+  Deals,
+  StatisticsCitizenship,
+  StatisticsCountryBordercross,
+  StatisticsPeriodBordercross,
+  StatisticsProfile,
+  StatisticsTotalBordercross,
+  WorkPermitStats,
+  WpOfficial,
+  WpReports,
+} from "./pages/Statistics/pages";
 
 function App() {
   return (
@@ -54,6 +71,46 @@ function App() {
             </RequirePermission>
           }
         />
+        <Route
+          path="statistics"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.STATISTICS.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <Statistics />
+            </RequirePermission>
+          }
+        >
+          <Route path="work-permit" element={<WorkPermitStats />} />
+          <Route path="deals" element={<Deals />} />
+          <Route path="upload" element={<StatisticsProfile />} />
+          <Route
+            path="country-bordercross"
+            element={<StatisticsCountryBordercross />}
+          />
+          <Route
+            path="total-bordercross"
+            element={<StatisticsTotalBordercross />}
+          />
+          <Route
+            path="period-bordercross"
+            element={<StatisticsPeriodBordercross />}
+          />
+          <Route path="citizenship" element={<StatisticsCitizenship />} />
+          <Route path="wp-reports" element={<WpReports />} />
+          <Route path="asylum-reports" element={<AsylumReports />} />
+          <Route path="apastan-total" element={<ApastanTotal />} />
+          <Route
+            path="apastan-applications"
+            element={<ApastanApplications />}
+          />
+          <Route path="apastan-decisions" element={<ApastanDecisions />} />
+          <Route path="apastan-years" element={<ApastanYears />} />
+          <Route path="work-permit-official" element={<WpOfficial />} />
+        </Route>
         {/* <Route path="workpermit" element={<WorkPermit />}>
           <Route path="ssns-fromfile" element={<FileUpload />} />
         </Route> */}

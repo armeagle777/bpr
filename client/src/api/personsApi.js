@@ -1,4 +1,5 @@
 import axios from "axios";
+import { DOWNLOAD_FILE_TYPES, FILE_MIME_TYPES } from "../utils/constants";
 
 const baseUrl =
   localStorage.getItem("serverSwitch") === "true"
@@ -66,6 +67,39 @@ personsApi.interceptors.response.use(
 //     throw error;
 //   }
 // );
+
+export const getStatisticsData = async (filterObj, url) => {
+  const response = await personsApi.post(`/statistics${url}`, filterObj);
+  return response.data;
+};
+
+export const getStatisticsFile = async (filters, fileType) => {
+  const mimeType =
+    fileType === DOWNLOAD_FILE_TYPES.PDF
+      ? FILE_MIME_TYPES.PDF
+      : FILE_MIME_TYPES.EXCEL;
+
+  const fileUrl = `/statistics/export/${fileType}`;
+
+  const config = {
+    responseType: "blob",
+  };
+
+  const { data } = await personsApi.post(fileUrl, { filters }, config);
+
+  const blob = new Blob([data], {
+    type: mimeType,
+  });
+
+  return blob;
+};
+
+export const getStatisticsPeriodsData = async (statisticsType) => {
+  const response = await personsApi.get(
+    `/statistics/periods/${statisticsType}`
+  );
+  return response.data;
+};
 
 // Auth endpoints
 export const login = async (credentials) => {
