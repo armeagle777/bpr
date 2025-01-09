@@ -194,7 +194,7 @@ const Header = () => {
                 [permissionsMap.ADMIN.uid],
                 user.permissions
               ) && (
-                <>
+                <div>
                   <MenuItem onClick={() => onUserMenuClick("/users")}>
                     <ListItemIcon>
                       <Group fontSize="small" />
@@ -215,7 +215,7 @@ const Header = () => {
                     </ListItemIcon>
                     Կարգավորումներ
                   </MenuItem>
-                </>
+                </div>
               )}
 
               <MenuItem onClick={() => onUserMenuClick("/shares")}>

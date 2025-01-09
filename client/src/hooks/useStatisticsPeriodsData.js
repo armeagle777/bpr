@@ -9,7 +9,6 @@ const useStatisticsPeriodsData = ({ statisticsType }) => {
     BORDERCROSS: "sahmanahatum",
     WP: "wp",
   };
-  console.log("????", statisticsEndpoints[statisticsType]);
   const {
     data = [],
     isLoading,

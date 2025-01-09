@@ -31,6 +31,7 @@ const WorkPermitStats = () => {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_TOTAL,
   };
+
   const { PAGE_TITLES } = translations;
   const initialTab = WP_TYPE_MAPS.VOLUNTEER;
 
@@ -54,7 +55,11 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <EATMPersons data={dataWithTotals} isLoading={isFetching} />
+          <EATMPersons
+            filters={filters}
+            data={dataWithTotals}
+            isLoading={isFetching}
+          />
         </DealsContainer>
       ),
     },
@@ -70,7 +75,11 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <EATMFams data={dataWithTotals} isLoading={isFetching} />
+          <EATMFams
+            filters={filters}
+            data={dataWithTotals}
+            isLoading={isFetching}
+          />
         </DealsContainer>
       ),
     },
@@ -86,7 +95,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <JKK data={dataWithTotals} isLoading={isFetching} />
+          <JKK filters={filters} data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },
@@ -102,7 +111,11 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <Volunteer data={dataWithTotals} isLoading={isFetching} />
+          <Volunteer
+            filters={filters}
+            data={dataWithTotals}
+            isLoading={isFetching}
+          />
         </DealsContainer>
       ),
     },

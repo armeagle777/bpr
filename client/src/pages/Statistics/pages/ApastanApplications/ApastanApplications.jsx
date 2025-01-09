@@ -42,6 +42,7 @@ const ApastanApplications = () => {
     ...filters,
     statisticsType: STATISTICS_TYPE_MAPS.ASYLUM_APPLICATIONS,
   };
+
   const dataWithTotals = addTotals(data);
   return (
     <Flex vertical>
