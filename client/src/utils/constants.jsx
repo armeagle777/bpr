@@ -293,7 +293,7 @@ export const STATISTICS_TYPE_MAPS = {
   ASYLUM_APPLICATIONS: "asylumApplications",
   ASYLUM_DECISIONS: "asylumDecisions",
   ASYLUM_YEARS: "asylumYears",
-  WP_SIMPLE: "asylumYears",
+  WP_SIMPLE: "wpSimple",
 };
 
 export const DOWNLOAD_FILE_TYPES = {
