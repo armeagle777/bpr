@@ -90,6 +90,7 @@ const STATISTICS_TYPE_MAPS = {
   ASYLUM_APPLICATIONS: "asylumApplications",
   ASYLUM_DECISIONS: "asylumDecisions",
   ASYLUM_YEARS: "asylumYears",
+  WP_SIMPLE: "wpSimple",
 };
 
 const getCurrentDate = () => {

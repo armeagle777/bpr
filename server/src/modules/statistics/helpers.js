@@ -111,6 +111,21 @@ const formatExcelMetaData = (statisticsType) => {
       "Մերժվել է",
       "Դադարեցվել է",
     ],
+    [STATISTICS_TYPE_MAPS.WP_SIMPLE]: [
+      "Քաղաքացիություն",
+      "0-34 տարեկան",
+      "",
+      "",
+      "35-64 տարեկան",
+      "",
+      "",
+      "65-ից ավել",
+      "",
+      "",
+      "ԸՆԴԱՄԵՆԸ",
+      "",
+      "",
+    ],
   };
   const subHeaderRows = {
     [STATISTICS_TYPE_MAPS.B_CROSS_TOTAL]: [
@@ -202,6 +217,21 @@ const formatExcelMetaData = (statisticsType) => {
       "Ընդ․",
     ],
     [STATISTICS_TYPE_MAPS.ASYLUM_YEARS]: null,
+    [STATISTICS_TYPE_MAPS.WP_SIMPLE]: [
+      "",
+      "Ի",
+      "Ա",
+      "Ընդ․",
+      "Ի",
+      "Ա",
+      "Ընդ․",
+      "Ի",
+      "Ա",
+      "Ընդ․",
+      "Ի",
+      "Ա",
+      "Ընդ․",
+    ],
   };
   const mergeCellRanges = {
     [STATISTICS_TYPE_MAPS.B_CROSS_TOTAL]: ["B1:D1", "E1:G1", "H1:J1", "A1:A2"],
@@ -235,6 +265,14 @@ const formatExcelMetaData = (statisticsType) => {
       "A1:A2",
     ],
     [STATISTICS_TYPE_MAPS.ASYLUM_YEARS]: null,
+    [STATISTICS_TYPE_MAPS.WP_SIMPLE]: [
+      "B1:D1",
+      "E1:G1",
+      "H1:J1",
+      "K1:M1",
+      "N1:P1",
+      "A1:A2",
+    ],
   };
 
   return {
@@ -604,25 +642,24 @@ const formatEaeuEmployeeQuery = ({
     ? ` AND month(${period_in_where_condition}) = '${month}'`
     : "";
 
-  return `SELECT 
-  stat_data.name_en, 
+  return `SELECT  
   stat_data.name_am, 
-  stat_data.name_ru, 
-  count(stat_data.id) as grand_total,
-  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
-  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
   count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
   count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
   
-  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(stat_data.id) as grand_total
 
   from
   (
@@ -681,24 +718,24 @@ const formatEaeuEmployeeFamQuery = ({
     : "";
 
   return `SELECT 
-  stat_data.name_en, 
   stat_data.name_am, 
-  stat_data.name_ru, 
-  count(stat_data.id) as grand_total,
-  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
-  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
   count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
   count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
   
-  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(stat_data.id) as grand_total
+  
   from
   (
   SELECT a.id,
@@ -757,10 +794,7 @@ const formatWpQuery = ({
     ? ` AND month(${period_in_where_condition}) = '${month}'`
     : "";
 
-  return `SELECT stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
-  count(stat_data.id) as grand_total,
-  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
-  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  return `SELECT  stat_data.name_am, 
   
   count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
@@ -772,7 +806,12 @@ const formatWpQuery = ({
   
   count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65,
+
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(stat_data.id) as grand_total
+
   from
   (
   SELECT a.id, a.created_at as claim_date, a.type as claim_type, b.citizenship_id, c.gender_id, d.name_am, d.name_en, d.name_ru, b.birthday_year, year(a.created_at) - b.birthday_year as age, g.action, g.log_date 
@@ -805,22 +844,24 @@ const formatVolunteerQuery = ({
     ? ` AND month(stat_data.claim_date) < ${month}`
     : "";
 
-  return `select stat_data.name_en, stat_data.name_am, stat_data.name_ru, 
-  count(stat_data.id) as grand_total,
-  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
-  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  return `SELECT stat_data.name_am, 
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
   count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
   count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
   
-  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65,
   count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
-  count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
+  
+  count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
+  count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
+  count(stat_data.id) as grand_total
+
   from
   (
   SELECT a.id, 
