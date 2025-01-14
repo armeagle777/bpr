@@ -34,7 +34,12 @@ router.post(
 router.get(
   "/",
   authMiddleware,
-  rolesMiddleware([ADMIN.uid, CITIZENSHIP_REPORT.uid]),
+  rolesMiddleware([
+    ADMIN.uid,
+    CITIZENSHIP_REPORT.uid,
+    PASSPORTS_REPORT.uid,
+    PNUM_REPORT.uid,
+  ]),
   // validateSchema(registerUserSchema),
   getTexekanqs
 );

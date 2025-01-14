@@ -18,7 +18,8 @@ const {
   createPDF,
   formatDate,
 } = require("./helpers");
-const { texekanqUidPrefix } = require("./constants");
+const { texekanqUidPrefix, permissionTexekanqMap } = require("./constants");
+const { permissionsMap } = require("../../utils/constants");
 
 const getFileBase64DB = async (fileName) => {
   const texekanq = await Texekanq.findOne({
@@ -48,6 +49,23 @@ const getTexekanqTypesDB = async (req) => {
 };
 
 const getTexekanqsDB = async (req) => {
+  const user = req.user;
+  let whereCondition = {};
+  if (user.Role !== "Admin") {
+    const userReportPermissions = [
+      permissionsMap.CITIZENSHIP_REPORT.uid,
+      permissionsMap.PASSPORTS_REPORT.uid,
+      permissionsMap.PNUM_REPORT.uid,
+    ].filter((permission) => user.permissions.includes(permission));
+    const texekanqTypeIds = userReportPermissions?.map(
+      (permissionId) => permissionTexekanqMap[permissionId]
+    );
+
+    whereCondition = {
+      TexekanqtypeId: texekanqTypeIds,
+    };
+  }
+
   const texekanqs = await Texekanq.findAll({
     attributes: { exclude: ["userId", "TexekanqtypeId"] },
     include: [
@@ -60,6 +78,7 @@ const getTexekanqsDB = async (req) => {
         attributes: ["name", "id"],
       },
     ],
+    where: whereCondition,
     order: [["id", "DESC"]],
   });
 
