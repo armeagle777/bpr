@@ -33,7 +33,7 @@ const PLACEHOLDERS = {
   CERT_NUMBER: "Վկայական",
   SSN: "ՀԾՀ",
   TAX_NUMBER: "ՀՎՀՀ",
-  UNIT_ID: "էլ։ համար",
+  UNIT_ID: "էլ. համար",
   BLD_CODE: "Շենքի ծածկագիր",
   PARCEL_CODE: "Հողի ծածկագիր",
 };

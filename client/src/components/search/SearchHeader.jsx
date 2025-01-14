@@ -168,6 +168,7 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
           value={filterProps.ssn}
           onChange={onInputChange}
           disabled={ssnDisabled}
+          inputProps={{ minLength: 10, maxLength: 10 }}
         />
         <Button
           size="large"

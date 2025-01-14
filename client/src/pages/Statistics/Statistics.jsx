@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import * as React from "react";
 import PropTypes from "prop-types";
@@ -27,6 +27,7 @@ const drawerWidth = 240;
 
 const Statistics = () => {
   const [openIndex, setOpenIndex] = React.useState(null);
+  const { pathname } = useLocation();
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -97,35 +98,48 @@ const Statistics = () => {
 
   const drawer = (
     <List>
-      {menuItems.map((item, index) => (
-        <React.Fragment key={item.text}>
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => handleToggle(index)}
-              component={item.link ? Link : undefined}
-              to={item.link ?? undefined}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-              {item.children.length > 0 &&
-                (openIndex === index ? <ExpandLess /> : <ExpandMore />)}
-            </ListItemButton>
-          </ListItem>
-          {item.children.length > 0 && (
-            <Collapse in={openIndex === index} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {item.children.map((child, childIndex) => (
-                  <ListItem key={childIndex} disablePadding sx={{ pl: 4 }}>
-                    <ListItemButton component={Link} to={child.link}>
-                      <ListItemText primary={child.text} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
-          )}
-        </React.Fragment>
-      ))}
+      {menuItems.map((item, index) => {
+        const isActive =
+          pathname === item.link ||
+          item.children.some((child) => pathname === child.link);
+        return (
+          <React.Fragment key={item.text}>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => handleToggle(index)}
+                component={item.link ? Link : undefined}
+                to={item.link ?? undefined}
+                selected={isActive}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+                {item.children.length > 0 &&
+                  (openIndex === index ? <ExpandLess /> : <ExpandMore />)}
+              </ListItemButton>
+            </ListItem>
+            {item.children.length > 0 && (
+              <Collapse in={openIndex === index} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.children.map((child, childIndex) => {
+                    const isChildActive = pathname === child.link;
+                    return (
+                      <ListItem key={childIndex} disablePadding sx={{ pl: 4 }}>
+                        <ListItemButton
+                          component={Link}
+                          to={child.link}
+                          selected={isChildActive}
+                        >
+                          <ListItemText primary={child.text} />
+                        </ListItemButton>
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </Collapse>
+            )}
+          </React.Fragment>
+        );
+      })}
     </List>
   );
   return (
