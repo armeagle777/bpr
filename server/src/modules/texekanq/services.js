@@ -104,6 +104,9 @@ const createTexekanqDb = async (req) => {
     mul_number,
     validDocuments,
     invalidDocuments,
+    passport_number,
+    passport_series,
+    passport_issue_date,
   } = body;
 
   if (TexekanqtypeId === 1) {
@@ -163,9 +166,33 @@ const createTexekanqDb = async (req) => {
     const qrUrl = await generateQRCode(qrData);
 
     const person_full_name = person_mname
-      ? person_fname + " " + person_lname + " " + person_mname
-      : person_fname + " " + person_lname;
-
+      ? (
+          person_fname +
+          " " +
+          person_mname +
+          " " +
+          person_lname +
+          "ը"
+        ).toUpperCase()
+      : (person_fname + " " + person_lname + "ը").toUpperCase();
+    function getShortName(fname, lname, mname) {
+      return `${fname.charAt(0)}.${
+        mname ? mname.charAt(0) + "." : ""
+      }${lname}ը`?.toUpperCase();
+    }
+    const documentText =
+      passport_number && passport_series && passport_issue_date
+        ? ` ${passport_issue_date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը:`
+        : undefined;
+    const person_short_name = getShortName(
+      person_fname,
+      person_lname,
+      person_mname
+    );
+    const fromatBirthDate = (date) => {
+      const [year, month, day] = date.split("-");
+      return `${day}/${month}/${year}`;
+    };
     const fileName = await createPDF({
       data: {
         ...newTexekanq.dataValues,
@@ -175,9 +202,12 @@ const createTexekanqDb = async (req) => {
         full_name: firstName + " " + lastName,
         person_fname_en,
         person_lname_en,
+        person_birth: fromatBirthDate(newTexekanq.dataValues.person_birth),
         document,
         validDocuments,
         invalidDocuments,
+        documentText,
+        person_short_name,
         createdAt: formatDate(newTexekanq.dataValues.createdAt),
       },
       TexekanqtypeId,

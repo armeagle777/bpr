@@ -55,7 +55,9 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
   );
 
   var milis = new Date().getTime();
-  const fileName = `${data.pnum}_${templateName}_${milis}.pdf`;
+  const fileName = `${
+    data.pnum ? data.pnum + "_" : ""
+  }${templateName}_${milis}.pdf`;
 
   const responseFilePath = path.join("src", "pdf", "reports", `${fileName}`);
 
@@ -95,7 +97,7 @@ const createPDF = async ({ data, TexekanqtypeId }) => {
   // Generate the PDF
   const pdfBuffer = await page.pdf({
     format: "A4", // Set paper format
-    landscape: TexekanqtypeId === 1 ? true : false,
+    landscape: false,
     printBackground: true,
     margin: {
       top: "0mm",
