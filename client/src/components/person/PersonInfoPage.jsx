@@ -143,7 +143,7 @@ const PersonInfoPage = ({ personInfo }) => {
   let index = 0;
   const isJpk = isPersonJpk(documents);
 
-  const isPersonCityzen = ({ documents, Citizenship_StoppedDate }) => {
+  const checkIsCitizen = ({ documents, Citizenship_StoppedDate }) => {
     const hasArmenianCitizenship = documents.some((doc) =>
       doc.Person?.Citizenship?.Citizenship?.some(
         (country) => country.CountryCode === "051"
@@ -152,6 +152,11 @@ const PersonInfoPage = ({ personInfo }) => {
 
     return !!hasArmenianCitizenship && !Citizenship_StoppedDate;
   };
+  const isPersonCityzen = checkIsCitizen({
+    documents,
+    Citizenship_StoppedDate,
+  });
+
   return (
     <>
       <Container>

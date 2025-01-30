@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { parse, differenceInYears } from "date-fns";
 import useFetchPersons from "../../hooks/useFetchPersons";
 
 import { filterDefaultObj, perPageCount } from "../../utils/constants";
 import { countForFilter } from "../../utils/configs";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const PersonsContext = createContext(null);
 

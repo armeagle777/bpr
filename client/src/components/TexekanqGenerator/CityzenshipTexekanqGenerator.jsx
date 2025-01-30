@@ -24,6 +24,31 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
     return null;
   }
 
+  const { PNum, documents } = data;
+  const validDocument = documents.find(
+    (doc) => doc.Document_Status === "PRIMARY_VALID"
+  );
+
+  const priorityOrder = [
+    {
+      Document_Status: "PRIMARY_VALID",
+      Document_Type: "NON_BIOMETRIC_PASSPORT",
+    },
+    { Document_Status: "PRIMARY_VALID", Document_Type: "ID_CARD" },
+    { Document_Status: "INVALID", Document_Type: "NON_BIOMETRIC_PASSPORT" },
+    { Document_Status: "INVALID", Document_Type: "ID_CARD" },
+  ];
+
+  const texekanqPassport = priorityOrder
+    .map((priority) =>
+      documents.find(
+        (doc) =>
+          doc.Document_Status === priority.Document_Status &&
+          doc.Document_Type === priority.Document_Type
+      )
+    )
+    .find((doc) => doc);
+
   const handleCreateTexekanq = () => {
     onCreateTexekanq({
       pnum: PNum,
@@ -34,14 +59,18 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
       person_mname: Patronymic_Name,
       TexekanqtypeId: 1,
       mul_number: mulNumber,
+      passport_issue_date: texekanqPassport.PassportData.Passport_Issuance_Date,
+      passport_series:
+        texekanqPassport.Document_Type === "ID_CARD"
+          ? undefined
+          : texekanqPassport.Document_Number?.slice(0, 2),
+      passport_number:
+        texekanqPassport.Document_Type === "ID_CARD"
+          ? texekanqPassport.Document_Number
+          : texekanqPassport.Document_Number?.slice(2),
     });
     setDialogOpen(false);
   };
-
-  const { PNum, documents } = data;
-  const validDocument = documents.find(
-    (doc) => doc.Document_Status === "PRIMARY_VALID"
-  );
 
   const invalidDocument = documents.find(
     (doc) => doc.Document_Status === "INVALID"

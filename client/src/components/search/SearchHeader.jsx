@@ -2,17 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { PersonSearch, RestartAlt } from "@mui/icons-material";
 import { Box, Button, Stack, TextField } from "@mui/material";
 
-const initialFilterProps = {
-  ssn: "",
-  firstName: "",
-  lastName: "",
-  birthDate: "",
-  patronomicName: "",
-  documentNumber: "",
-};
-
-const SearchHeader = ({ setSearchParams, changePage }) => {
-  const [filterProps, setFilterProps] = useState(initialFilterProps);
+const SearchHeader = ({
+  setSearchParams,
+  changePage,
+  filterProps,
+  setFilterProps,
+}) => {
   const [isNameRowOpen, setIsNameRowOpen] = useState(
     !!filterProps.firstName.length
   );
