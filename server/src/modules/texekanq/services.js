@@ -189,9 +189,9 @@ const createTexekanqDb = async (req) => {
       person_lname,
       person_mname
     );
-    const fromatBirthDate = (date) => {
+    const formatBirthDate = (date) => {
       const [year, month, day] = date.split("-");
-      return `${day}/${month}/${year}`;
+      return day && month ? `${day}/${month}/${year}` : date;
     };
     const fileName = await createPDF({
       data: {
@@ -202,7 +202,7 @@ const createTexekanqDb = async (req) => {
         full_name: firstName + " " + lastName,
         person_fname_en,
         person_lname_en,
-        person_birth: fromatBirthDate(newTexekanq.dataValues.person_birth),
+        person_birth: formatBirthDate(newTexekanq.dataValues.person_birth),
         document,
         validDocuments,
         invalidDocuments,
