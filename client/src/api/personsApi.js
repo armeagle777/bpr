@@ -258,6 +258,16 @@ export const getWpDataBySsn = async (ssn) => {
   return response.data;
 };
 
+export const getBordercrossDataBySsn = async (data) => {
+  const response = await personsApi.post(`/persons/bordercross`, data);
+  return response.data;
+};
+
+export const getRoadpoliceDataBySsn = async (ssn) => {
+  const response = await personsApi.get(`/persons/${ssn}/roadpolice`);
+  return response.data;
+};
+
 export const getTaxBySsn = async (ssn) => {
   const response = await personsApi.get(`/persons/${ssn}/tax`);
   return response.data;

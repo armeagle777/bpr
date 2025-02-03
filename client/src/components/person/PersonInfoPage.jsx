@@ -7,14 +7,10 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import CastleIcon from "@mui/icons-material/Castle";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+
 import {
   Box,
   Button,
@@ -58,6 +54,7 @@ import useShareData from "../../hooks/useShareData";
 import { permissionsMap } from "../../utils/constants";
 import DisplacementsTab from "../DisplacementsTab/DisplacementsTab";
 import WpTab from "../WpTab/WpTab";
+import { BordercrossTab, RoadPoliceTab } from "./tabs";
 import DropdownWithCheckboxes from "../DropdownCheckbox/DropdownCheckbox";
 
 const PersonInfoPage = ({ personInfo }) => {
@@ -246,7 +243,26 @@ const PersonInfoPage = ({ personInfo }) => {
                   user.permissions
                 ) && (
                   <Tooltip title="Աշխատանքի թույլտվության տվյալներ">
-                    <Tab icon={<PersonSearchIcon />} aria-label="artsakh" />
+                    <Tab icon={<PersonSearchIcon />} aria-label="wp" />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.BORDERCROSS.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="Սահմանահատումներ">
+                    <Tab
+                      icon={<AirplanemodeActiveIcon />}
+                      aria-label="bordercross"
+                    />
+                  </Tooltip>
+                )}
+                {userHasPermission(
+                  [permissionsMap.ROADPOLICE.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                ) && (
+                  <Tooltip title="ՃՈ տվյալներ">
+                    <Tab icon={<DirectionsCarIcon />} aria-label="roadpolice" />
                   </Tooltip>
                 )}
               </Tabs>
@@ -469,6 +485,22 @@ const PersonInfoPage = ({ personInfo }) => {
           ) && (
             <TabPanel value={value} index={index++}>
               <WpTab pnum={PNum} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.BORDERCROSS.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <BordercrossTab documents={documents} />
+            </TabPanel>
+          )}
+          {userHasPermission(
+            [permissionsMap.ROADPOLICE.uid, permissionsMap.ADMIN.uid],
+            user.permissions
+          ) && (
+            <TabPanel value={value} index={index++}>
+              <RoadPoliceTab pnum={PNum} />
             </TabPanel>
           )}
         </Box>
