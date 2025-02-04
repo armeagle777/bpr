@@ -222,6 +222,7 @@ const getBordercrossBySsnDb = async (passportNumber, citizenship) => {
     passportNumber,
     citizenship,
   });
+  console.log(">>>>>>>", bordercrossAxiosConfigs);
   const response = await axios.request(bordercrossAxiosConfigs);
   const xmlData = response.data;
   const parser = new xml2js.Parser({ explicitArray: false });

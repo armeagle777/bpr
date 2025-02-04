@@ -1,7 +1,7 @@
 const qs = require("qs");
 
 const getBordercrossAxiosConfigs = ({ passportNumber, citizenship }) => {
-  const axiosData = `<?xml version="1.0" encoding="UTF-8"?>\r\n <data>\r\n    <citizenship>${citizenship}</citizenship>\r\n    <passportNumber>${passportNumber}</passportNumber>`;
+  const axiosData = `<?xml version="1.0" encoding="UTF-8"?>\r\n <data>\r\n    <citizenship>${citizenship}</citizenship>\r\n    <passportNumber>${passportNumber}</passportNumber>\r\n </data>`;
   return {
     method: "post",
     maxBodyLength: Infinity,
