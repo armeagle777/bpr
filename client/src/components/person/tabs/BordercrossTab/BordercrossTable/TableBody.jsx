@@ -1,11 +1,8 @@
 import { styled } from "@mui/material/styles";
 import MuiTableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import { Box } from "@mui/material";
-import TableRow from "@mui/material/TableRow";
-import Tooltip from "@mui/material/Tooltip";
 
-import { bprDocumentTypes } from "../../utils/constants";
+import TableRow from "@mui/material/TableRow";
 
 const TableBody = ({ rows }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,21 +31,18 @@ const TableBody = ({ rows }) => {
         return (
           <StyledTableRow key={index}>
             <StyledTableCell component="th" scope="row">
-              {`${Last_Name} ${First_Name} ${Patronymic_Name}`}
+              {`${row.name} ${row.surname}}`}
             </StyledTableCell>
             <StyledTableCell align="center">
-              {bprDocumentTypes[Document_Type]}
+              {/* {bprDocumentTypes[Document_Type]} */}
+              passport
             </StyledTableCell>
-            <StyledTableCell align="center">{Document_Number}</StyledTableCell>
-            <StyledTableCell align="center">
-              {Passport_Issuance_Date}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {Document_Department}
-            </StyledTableCell>
-            <StyledTableCell align="right">
-              {Passport_Validity_Date}
-            </StyledTableCell>
+            <StyledTableCell align="center">{row.passport}</StyledTableCell>
+
+            <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
+            <StyledTableCell align="right">{row.datetime}</StyledTableCell>
+            <StyledTableCell align="right">{row.direction}</StyledTableCell>
+            <StyledTableCell align="right">{row.status}</StyledTableCell>
           </StyledTableRow>
         );
       })}
