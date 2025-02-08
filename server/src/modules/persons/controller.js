@@ -2,6 +2,7 @@ const {
   getPoliceByPnumDb,
   getBordercrossBySsnDb,
   getRoadpoliceBySsnDb,
+  searchVehiclesDb,
 } = require("./services");
 
 const {
@@ -59,6 +60,16 @@ const getRoadpoliceBySsn = async (req, res, next) => {
     const person = await getRoadpoliceBySsnDb(ssn);
 
     res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const searchVehicle = async (req, res, next) => {
+  try {
+    const vehicles = await searchVehiclesDb(req);
+
+    res.status(200).json(vehicles);
   } catch (err) {
     next(err);
   }
@@ -171,4 +182,5 @@ module.exports = {
   getPoliceByPnum,
   getBordercrossBySsn,
   getRoadpoliceBySsn,
+  searchVehicle,
 };

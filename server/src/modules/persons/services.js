@@ -11,6 +11,7 @@ const {
   getBordercrossAxiosConfigs,
   getLicensesAxiosConfigs,
   getVehiclesAxiosConfigs,
+  searchVehiclesAxiosConfigs,
 } = require("./helpers");
 
 const fakeData = {
@@ -217,6 +218,22 @@ const getRoadpoliceBySsnDb = async (psn) => {
   return { license, vehicles };
 };
 
+const searchVehiclesDb = async (req) => {
+  const { paramValue } = req.params;
+  const { searchBase } = req.query;
+
+  const vehiclesAxiosConfigs = searchVehiclesAxiosConfigs(
+    searchBase,
+    paramValue
+  );
+  const vehiclesResponse = await axios.request(vehiclesAxiosConfigs);
+  const vehicles = vehiclesResponse?.data?.result?.length
+    ? vehiclesResponse?.data?.result
+    : null;
+
+  return { vehicles };
+};
+
 const getBordercrossBySsnDb = async (passportNumber, citizenship) => {
   const bordercrossAxiosConfigs = getBordercrossAxiosConfigs({
     passportNumber,
@@ -300,4 +317,5 @@ module.exports = {
   getPoliceByPnumDb,
   getBordercrossBySsnDb,
   getRoadpoliceBySsnDb,
+  searchVehiclesDb,
 };

@@ -50,8 +50,28 @@ const getVehiclesAxiosConfigs = (psn) => {
   };
 };
 
+const searchVehiclesAxiosConfigs = (key, value) => {
+  const axiosBody = qs.stringify({
+    [key]: value,
+    // number: "37CJ131",
+    // vin: "YV1CT985681448638",
+    // cert_num: "YB813789",
+  });
+
+  return {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: `${process.env.ROADPOLICE_URL}/get_vehicle_info`,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    data: axiosBody,
+  };
+};
+
 module.exports = {
   getBordercrossAxiosConfigs,
   getLicensesAxiosConfigs,
   getVehiclesAxiosConfigs,
+  searchVehiclesAxiosConfigs,
 };
