@@ -1,4 +1,5 @@
 import { Alert as MuiAlert } from "@mui/material";
+import BordercrossTable from "./BordercrossTable/BordercrossTable";
 
 import useFetchBordercrossData from "../../../../hooks/useFetchBordercrossData";
 import ListScileton from "../../../../components/listSceleton/ListScileton";
@@ -15,7 +16,7 @@ const BordercrossTab = ({ documents }) => {
     citizenship:
       armPassport.Person?.Citizenship?.Citizenship[0]?.CountryShortName,
   });
-  console.log("data", data);
+  console.log("BordercrossTab data", data);
   if (isLoading) {
     return <ListScileton />;
   }
@@ -23,7 +24,8 @@ const BordercrossTab = ({ documents }) => {
   if (isError) {
     return <MuiAlert severity="error">{error.message}</MuiAlert>;
   }
-  return <div>BordercrossTab</div>;
+  const { crossingList } = data;
+  return <div>{crossingList && <BordercrossTable data={crossingList} />}</div>;
 };
 
 export default BordercrossTab;
