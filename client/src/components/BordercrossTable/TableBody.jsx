@@ -27,18 +27,13 @@ const TableBody = ({ rows }) => {
 
   return (
     <MuiTableBody>
-      {rows.map((row, index) => {
+      {rows?.map((row, index) => {
         return (
           <StyledTableRow key={index}>
             <StyledTableCell component="th" scope="row">
               {`${row.name} ${row.surname}}`}
             </StyledTableCell>
-            <StyledTableCell align="center">
-              {/* {bprDocumentTypes[Document_Type]} */}
-              passport
-            </StyledTableCell>
             <StyledTableCell align="center">{row.passport}</StyledTableCell>
-
             <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
             <StyledTableCell align="right">{row.datetime}</StyledTableCell>
             <StyledTableCell align="right">{row.direction}</StyledTableCell>

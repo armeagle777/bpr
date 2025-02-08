@@ -36,6 +36,7 @@ import {
   WpOfficial,
   WpReports,
 } from "./pages/Statistics/pages";
+import VehicleSearch from "./pages/VehicleSearch/VehicleSearch.page.jsx";
 
 function App() {
   return (
@@ -137,6 +138,19 @@ function App() {
               ]}
             >
               <KadastrCertificate />
+            </RequirePermission>
+          }
+        />
+          <Route
+          path="vehicle-search"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.ROADPOLICE.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <VehicleSearch />
             </RequirePermission>
           }
         />

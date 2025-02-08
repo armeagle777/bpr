@@ -54,7 +54,8 @@ import useShareData from "../../hooks/useShareData";
 import { permissionsMap } from "../../utils/constants";
 import DisplacementsTab from "../DisplacementsTab/DisplacementsTab";
 import WpTab from "../WpTab/WpTab";
-import { BordercrossTab, RoadPoliceTab } from "./tabs";
+import BordercrossTab from "../BordercrossTab/BordercrossTab";
+import RoadPoliceTab from "../RoadPoliceTab/RoadPoliceTab";
 import DropdownWithCheckboxes from "../DropdownCheckbox/DropdownCheckbox";
 
 const PersonInfoPage = ({ personInfo }) => {

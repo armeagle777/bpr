@@ -268,6 +268,13 @@ export const getRoadpoliceDataBySsn = async (ssn) => {
   return response.data;
 };
 
+export const getVehiclesByParams = async (q, searchBase) => {
+  const response = await personsApi.get(
+    `/persons/${q}/vehicle?searchBase=${searchBase}`
+  );
+  return response.data;
+};
+
 export const getTaxBySsn = async (ssn) => {
   const response = await personsApi.get(`/persons/${ssn}/tax`);
   return response.data;
