@@ -108,14 +108,19 @@ const Header = () => {
               </Button>
             )}
             {userHasPermission(
-              [
-                permissionsMap.ROADPOLICE.uid,
-                permissionsMap.ADMIN.uid,
-              ],
+              [permissionsMap.ROADPOLICE.uid, permissionsMap.ADMIN.uid],
               user.permissions
             ) && (
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 <Link to="vehicle-search">ՃՈ</Link>
+              </Button>
+            )}
+            {userHasPermission(
+              [permissionsMap.BORDERCROSS.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="bordercross">Սահմանահատում</Link>
               </Button>
             )}
             {userHasPermission(

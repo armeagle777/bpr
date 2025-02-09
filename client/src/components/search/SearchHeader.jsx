@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { PersonSearch, RestartAlt } from "@mui/icons-material";
 import { Box, Button, Stack, TextField } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const SearchHeader = ({
   setSearchParams,
@@ -133,7 +136,28 @@ const SearchHeader = ({
             onChange={onInputChange}
             value={filterProps.patronomicName}
           />
-          <TextField
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Ծննդ․ թիվ"
+              value={
+                filterProps.birthDate
+                  ? dayjs(filterProps.birthDate, "DD/MM/YYYY")
+                  : null
+              }
+              onChange={(newValue) => {
+                const formattedDate = newValue
+                  ? dayjs(newValue).format("DD/MM/YYYY")
+                  : "";
+                onInputChange({
+                  target: { name: "birthDate", value: formattedDate },
+                });
+              }}
+              format="DD/MM/YYYY"
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          {/* <TextField
+
             type="date"
             id="birthDate"
             name="birthDate"
@@ -143,7 +167,7 @@ const SearchHeader = ({
             }}
             onChange={onInputChange}
             value={filterProps.birthDate}
-          />
+          /> */}
         </Box>
 
         <TextField

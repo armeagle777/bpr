@@ -17,6 +17,9 @@ import { permissionsMap } from "../../utils/constants";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useTexekanqData } from "../../hooks/useTexekanqData";
 import { LoadingButton } from "@mui/lab";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const PersonNotFound = ({ filterProps }) => {
   const user = useAuthUser();
@@ -176,7 +179,7 @@ const PersonNotFound = ({ filterProps }) => {
               />
             </Grid>
             <Grid item xs={6}>
-              <TextField
+              {/* <TextField
                 required
                 type="date"
                 id="birthDate"
@@ -188,7 +191,27 @@ const PersonNotFound = ({ filterProps }) => {
                 onChange={inputChangeHandler}
                 value={texekanqFields.birthDate}
                 fullWidth
-              />
+              /> */}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Ծննդ․ թիվ"
+                  value={
+                    texekanqFields.birthDate
+                      ? dayjs(texekanqFields.birthDate, "DD/MM/YYYY")
+                      : null
+                  }
+                  onChange={(newValue) => {
+                    const formattedDate = newValue
+                      ? dayjs(newValue).format("DD/MM/YYYY")
+                      : "";
+                    inputChangeHandler({
+                      target: { name: "birthDate", value: formattedDate },
+                    });
+                  }}
+                  format="DD/MM/YYYY"
+                  renderInput={(params) => <TextField required {...params} />}
+                />
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
               <TextField
