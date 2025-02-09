@@ -13,6 +13,7 @@ const {
   getBordercrossBySsn,
   getRoadpoliceBySsn,
   searchVehicle,
+  searchBordercrossData,
 } = require("./controller");
 const { permissionsMap } = require("../../utils/constants");
 const { BPR, ADMIN, TAX, ZAQS, POLICE, PETREGISTER, BORDERCROSS, ROADPOLICE } =
@@ -59,6 +60,7 @@ personsRoute.post(
   rolesMiddleware([BORDERCROSS.uid, ADMIN.uid]),
   getBordercrossBySsn
 );
+
 personsRoute.get(
   "/:pnum/police",
   authMiddleware,

@@ -78,6 +78,7 @@ const searchVehicle = async (req, res, next) => {
 const getBordercrossBySsn = async (req, res, next) => {
   try {
     const { passportNumber, citizenship } = req.body;
+
     const person = await getBordercrossBySsnDb(passportNumber, citizenship);
 
     res.status(200).json(person);
