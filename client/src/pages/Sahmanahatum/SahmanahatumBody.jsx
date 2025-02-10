@@ -1,14 +1,17 @@
+import { Stack } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import BordercrossTable from "../../components/BordercrossTable/BordercrossTable";
 
 const SahmanahatumBody = ({ data }) => {
   if (!data) return null;
+  const { crossingList, residencePermitList } = data;
   return (
-    <div>
-      {/* {((Array.isArray(data) && !!data.length) || data) && (
-        <CompanyInfo company={data} />
-      )} */}
-      {JSON.stringify(data)}
-    </div>
+    <Stack direction="column" spacing={2}>
+      {!!crossingList?.length && (
+        <BordercrossTable title="Սահմանահատումներ" data={data.crossingList} />
+      )}
+      {JSON.stringify(residencePermitList)}
+    </Stack>
   );
 };
 

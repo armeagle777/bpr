@@ -7,7 +7,6 @@ import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
 const BordercrossTable = ({ title = "", data }) => {
-  console.log("data???", data);
   // const columns =
   //   Object.keys(data[0])?.map((key) => ({
   //     field: key,

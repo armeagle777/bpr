@@ -25,7 +25,7 @@ const BordercrossTab = ({ documents }) => {
   if (isError) {
     return <MuiAlert severity="error">{error.message}</MuiAlert>;
   }
-  const { crossingList } = data;
+  const { crossingList, residencePermitList } = data;
   return (
     <div>
       {crossingList && (

@@ -18,7 +18,7 @@ const Sahmanahatum = () => {
       enabled: !!searchParams,
     }
   );
-  console.log("Bordercross data", data);
+
   const isFormValid = !!passportInput && !!country;
 
   const handleCountriesChange = (event, value, details) => {
