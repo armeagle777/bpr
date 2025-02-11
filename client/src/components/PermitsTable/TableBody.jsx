@@ -31,12 +31,11 @@ const TableBody = ({ rows }) => {
         return (
           <StyledTableRow key={index}>
             <StyledTableCell component="th" scope="row">
-              {`${row.name} ${row.surname ? row.surname : ""}`}
+              {row.type}
             </StyledTableCell>
-            <StyledTableCell align="center">{row.passport}</StyledTableCell>
-            <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
-            <StyledTableCell align="right">{row.datetime}</StyledTableCell>
-            <StyledTableCell align="right">{row.direction}</StyledTableCell>
+            <StyledTableCell align="center">{row.cardNumber}</StyledTableCell>
+            <StyledTableCell align="right">{row.cardIssued}</StyledTableCell>
+            <StyledTableCell align="right">{row.cardValid}</StyledTableCell>
             <StyledTableCell align="right">{row.status}</StyledTableCell>
           </StyledTableRow>
         );

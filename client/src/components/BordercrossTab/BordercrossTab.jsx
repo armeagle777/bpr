@@ -3,6 +3,7 @@ import BordercrossTable from "../BordercrossTable/BordercrossTable";
 
 import useFetchBordercrossData from "../../hooks/useFetchBordercrossData";
 import ListScileton from "../listSceleton/ListScileton";
+import PermitsTable from "../PermitsTable/PermitsTable";
 
 const BordercrossTab = ({ documents }) => {
   const armPassport = documents.find(
@@ -30,6 +31,9 @@ const BordercrossTab = ({ documents }) => {
     <div>
       {crossingList && (
         <BordercrossTable data={crossingList} title="Սահմանահատումներ" />
+      )}
+      {residencePermitList && (
+        <PermitsTable data={residencePermitList} title="Կացության քարտեր" />
       )}
     </div>
   );

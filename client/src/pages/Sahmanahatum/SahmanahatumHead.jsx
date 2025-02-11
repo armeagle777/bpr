@@ -17,8 +17,6 @@ const SahmanahatumHead = ({
   onCountriesChange,
   searchBtnDisabled,
 }) => {
-  console.log("countries", countries[0]);
-
   return (
     <Stack
       spacing={2}
