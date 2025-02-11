@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import BordercrossTable from "../../components/BordercrossTable/BordercrossTable";
+import PermitsTable from "../../components/PermitsTable/PermitsTable";
 
 const SahmanahatumBody = ({ data }) => {
   if (!data) return null;
@@ -10,7 +11,9 @@ const SahmanahatumBody = ({ data }) => {
       {!!crossingList?.length && (
         <BordercrossTable title="Սահմանահատումներ" data={data.crossingList} />
       )}
-      {JSON.stringify(residencePermitList)}
+      {residencePermitList && (
+        <PermitsTable data={residencePermitList} title="Կացության քարտեր" />
+      )}
     </Stack>
   );
 };
