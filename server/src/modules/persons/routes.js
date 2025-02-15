@@ -16,8 +16,17 @@ const {
   searchBordercrossData,
 } = require("./controller");
 const { permissionsMap } = require("../../utils/constants");
-const { BPR, ADMIN, TAX, ZAQS, POLICE, PETREGISTER, BORDERCROSS, ROADPOLICE } =
-  permissionsMap;
+const {
+  BPR,
+  ADMIN,
+  TAX,
+  ZAQS,
+  POLICE,
+  PETREGISTER,
+  BORDERCROSS,
+  ROADPOLICE,
+  ROADPOLICE_FULL_SEARCH,
+} = permissionsMap;
 
 const personsRoute = express.Router();
 
@@ -50,7 +59,7 @@ personsRoute.get(
 personsRoute.get(
   "/:paramValue/vehicle",
   authMiddleware,
-  rolesMiddleware([ADMIN.uid, ROADPOLICE.uid]),
+  rolesMiddleware([ADMIN.uid, ROADPOLICE_FULL_SEARCH.uid]),
   searchVehicle
 );
 

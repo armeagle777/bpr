@@ -49,24 +49,100 @@ const getTexekanqTypesDB = async (req) => {
 };
 
 const getTexekanqsDB = async (req) => {
+  const { search, types, page = "1", pageSize = "10" } = req.query;
+
+  const currentPage = parseInt(page, 10);
+  const perPage = parseInt(pageSize, 10);
+  const offset = (currentPage - 1) * perPage;
+
   const user = req.user;
   let whereCondition = {};
+
+  if (search && search.trim() !== "") {
+    const trimmedSearch = search.trim();
+    const words = trimmedSearch.split(/\s+/);
+
+    // If exactly two words are provided, create specific conditions for first and last names
+    if (words.length === 2) {
+      const [word1, word2] = words;
+      const firstLastCondition = {
+        [Op.and]: [
+          { person_fname: { [Op.like]: `%${word1}%` } },
+          { person_lname: { [Op.like]: `%${word2}%` } },
+        ],
+      };
+      const lastFirstCondition = {
+        [Op.and]: [
+          { person_fname: { [Op.like]: `%${word2}%` } },
+          { person_lname: { [Op.like]: `%${word1}%` } },
+        ],
+      };
+
+      // You can still include other fields if needed (for example, document_number, mul_number, etc.)
+      whereCondition[Op.or] = [
+        { document_number: { [Op.like]: `%${trimmedSearch}%` } },
+        { mul_number: { [Op.like]: `%${trimmedSearch}%` } },
+        { person_mname: { [Op.like]: `%${trimmedSearch}%` } },
+        { pnum: { [Op.like]: `%${trimmedSearch}%` } },
+        firstLastCondition,
+        lastFirstCondition,
+      ];
+    } else {
+      // For any other case (one word or more than two words), search across all fields normally
+      const searchTerm = `%${trimmedSearch}%`;
+      whereCondition[Op.or] = [
+        { document_number: { [Op.like]: searchTerm } },
+        { mul_number: { [Op.like]: searchTerm } },
+        { person_fname: { [Op.like]: searchTerm } },
+        { person_lname: { [Op.like]: searchTerm } },
+        { person_mname: { [Op.like]: searchTerm } },
+        { pnum: { [Op.like]: searchTerm } },
+      ];
+    }
+  }
+
+  // if (types && types.trim() !== "") {
+  //   const typeIds = types.split(",").map((id) => parseInt(id, 10));
+  //   whereCondition.TexekanqtypeId = { [Op.in]: typeIds };
+  // }
+  if (types && types.trim() !== "") {
+    const typeIdsFromQuery = types.split(",").map((id) => parseInt(id, 10));
+    // If there is already a condition on TexekanqtypeId, we merge the conditions by taking the intersection.
+    if (whereCondition.TexekanqtypeId && whereCondition.TexekanqtypeId[Op.in]) {
+      const existingTypeIds = whereCondition.TexekanqtypeId[Op.in];
+      const intersection = existingTypeIds.filter((id) =>
+        typeIdsFromQuery.includes(id)
+      );
+      whereCondition.TexekanqtypeId = { [Op.in]: intersection };
+    } else {
+      whereCondition.TexekanqtypeId = { [Op.in]: typeIdsFromQuery };
+    }
+  }
+
   if (user.Role !== "Admin") {
     const userReportPermissions = [
       permissionsMap.CITIZENSHIP_REPORT.uid,
       permissionsMap.PASSPORTS_REPORT.uid,
       permissionsMap.PNUM_REPORT.uid,
     ].filter((permission) => user.permissions.includes(permission));
-    const texekanqTypeIds = userReportPermissions?.map(
+
+    const permittedTypeIds = userReportPermissions.map(
       (permissionId) => permissionTexekanqMap[permissionId]
     );
 
-    whereCondition = {
-      TexekanqtypeId: texekanqTypeIds,
-    };
+    // If there is already a TexekanqtypeId condition, intersect it with the permitted IDs.
+    if (whereCondition.TexekanqtypeId && whereCondition.TexekanqtypeId[Op.in]) {
+      const existingTypeIds = whereCondition.TexekanqtypeId[Op.in];
+      const intersection = existingTypeIds.filter((id) =>
+        permittedTypeIds.includes(id)
+      );
+      whereCondition.TexekanqtypeId = { [Op.in]: intersection };
+    } else {
+      whereCondition.TexekanqtypeId = { [Op.in]: permittedTypeIds };
+    }
   }
 
-  const texekanqs = await Texekanq.findAll({
+  const { count, rows } = await Texekanq.findAndCountAll({
     attributes: { exclude: ["userId", "TexekanqtypeId"] },
     include: [
       {
@@ -80,10 +156,18 @@ const getTexekanqsDB = async (req) => {
     ],
     where: whereCondition,
     order: [["id", "DESC"]],
+    offset,
+    limit: perPage,
   });
 
   return {
-    texekanqs,
+    texekanqs: rows,
+    pagination: {
+      total: count,
+      page: currentPage,
+      pageSize: perPage,
+      totalPages: Math.ceil(count / perPage),
+    },
   };
 };
 
