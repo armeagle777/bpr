@@ -108,7 +108,10 @@ const Header = () => {
               </Button>
             )}
             {userHasPermission(
-              [permissionsMap.ROADPOLICE.uid, permissionsMap.ADMIN.uid],
+              [
+                permissionsMap.ROADPOLICE_FULL_SEARCH.uid,
+                permissionsMap.ADMIN.uid,
+              ],
               user.permissions
             ) && (
               <Button sx={{ my: 2, color: "white", display: "block" }}>

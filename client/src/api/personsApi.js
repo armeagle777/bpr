@@ -147,8 +147,15 @@ export const createTexekanq = async (data) => {
   return response.data;
 };
 
-export const getTexekanqs = async () => {
-  const response = await personsApi.get(`/texekanq`);
+export const getTexekanqs = async ({ filters, pagination }) => {
+  const queryParams = new URLSearchParams({
+    search: filters.search,
+    types: filters.types.join(","),
+    page: pagination.page,
+    pageSize: pagination.pageSize,
+  }).toString();
+
+  const response = await personsApi.get(`/texekanq?${queryParams}`);
   return response.data;
 };
 

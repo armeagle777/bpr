@@ -147,7 +147,7 @@ function App() {
           element={
             <RequirePermission
               permissions={[
-                permissionsMap.ROADPOLICE.uid,
+                permissionsMap.ROADPOLICE_FULL_SEARCH.uid,
                 permissionsMap.ADMIN.uid,
               ]}
             >

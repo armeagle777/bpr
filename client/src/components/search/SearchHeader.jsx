@@ -10,6 +10,7 @@ const SearchHeader = ({
   changePage,
   filterProps,
   setFilterProps,
+  onClearButton,
 }) => {
   const [isNameRowOpen, setIsNameRowOpen] = useState(
     !!filterProps.firstName.length
@@ -67,12 +68,6 @@ const SearchHeader = ({
   const onInputChange = (event) => {
     const { name, value } = event.target;
     setFilterProps({ ...filterProps, [name]: value.trim().toUpperCase() });
-  };
-
-  const handleClearButton = () => {
-    setFilterProps(initialFilterProps);
-    setSearchParams({});
-    changePage(1);
   };
 
   const handleSubmit = (e) => {
@@ -206,7 +201,7 @@ const SearchHeader = ({
           title="Մաքրել"
           variant="contained"
           disabled={isResetBtnDisabled}
-          onClick={handleClearButton}
+          onClick={onClearButton}
         >
           <RestartAlt />
         </Button>

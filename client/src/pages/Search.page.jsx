@@ -53,6 +53,12 @@ const Search = () => {
     );
   }
 
+  const handleClearButton = () => {
+    setFilterProps(initialFilterProps);
+    setSearchParams({});
+    changePage(1);
+  };
+
   return (
     <>
       <Stack
@@ -67,6 +73,7 @@ const Search = () => {
           setSearchParams={setSearchParams}
           filterProps={filterProps}
           setFilterProps={setFilterProps}
+          onClearButton={handleClearButton}
         />
       </Stack>
       {!persons ? null : persons?.length === 0 ? (
