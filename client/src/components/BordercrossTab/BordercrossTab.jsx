@@ -6,18 +6,6 @@ import ListScileton from "../listSceleton/ListScileton";
 import PermitsTable from "../PermitsTable/PermitsTable";
 
 const BordercrossTab = ({ documents }) => {
-  // const armPassport = documents?.find(
-  //   (doc) =>
-  //     doc.Document_Status === "PRIMARY_VALID" &&
-  //     doc.Document_Type === "NON_BIOMETRIC_PASSPORT"
-  // );
-
-  // const foreignPassport = documents?.find(
-  //   (doc) =>
-  //     doc.Document_Status === "VALID" &&
-  //     doc.Document_Type === "FOREIGN_PASSPORT"
-  // );
-
   const { data, isLoading, isError, error } =
     useFetchBordercrossData(documents);
 

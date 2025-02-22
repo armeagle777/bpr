@@ -20,9 +20,15 @@ const useFetchBordercrossData = (documents) => {
   const isLoading = queries.some((query) => query.isLoading);
   const isError = queries.some((query) => query.isError);
   const error = queries?.find((q) => q.error);
-  const mergedDatas = documents.map((doc, index) => ({
-    ...(queries[index].data || {}),
-  }));
+  const mergedDatas = queries
+    ?.filter((query) => query.data)
+    ?.map((query) => query.data)
+    ?.reduce((acc, obj) => {
+      Object.entries(obj).forEach(([key, value]) => {
+        acc[key] = acc[key] ? [...acc[key], value] : [value];
+      });
+      return acc;
+    }, {});
   console.log("mergedDatas", mergedDatas);
   return {
     isError,
