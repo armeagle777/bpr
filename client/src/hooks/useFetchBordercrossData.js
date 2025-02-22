@@ -25,7 +25,7 @@ const useFetchBordercrossData = (documents) => {
     ?.map((query) => query.data)
     ?.reduce((acc, obj) => {
       Object.entries(obj).forEach(([key, value]) => {
-        acc[key] = acc[key] ? [...acc[key], value] : [value];
+        acc[key] = acc[key] ? [...acc[key], ...value] : [...value];
       });
       return acc;
     }, {});
