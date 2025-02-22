@@ -6,19 +6,21 @@ import ListScileton from "../listSceleton/ListScileton";
 import PermitsTable from "../PermitsTable/PermitsTable";
 
 const BordercrossTab = ({ documents }) => {
-  const armPassport = documents.find(
-    (doc) =>
-      doc.Document_Status === "PRIMARY_VALID" &&
-      doc.Document_Type === "NON_BIOMETRIC_PASSPORT"
-  );
-  console.log("document>>>>>", armPassport);
-  const { data, isLoading, isError, error } = useFetchBordercrossData({
-    passportNumber: armPassport.Document_Number,
-    citizenship:
-      armPassport.Person?.Citizenship?.Citizenship[0]?.CountryShortName,
-  });
+  // const armPassport = documents?.find(
+  //   (doc) =>
+  //     doc.Document_Status === "PRIMARY_VALID" &&
+  //     doc.Document_Type === "NON_BIOMETRIC_PASSPORT"
+  // );
 
-  console.log("BordercrossTab data", data);
+  // const foreignPassport = documents?.find(
+  //   (doc) =>
+  //     doc.Document_Status === "VALID" &&
+  //     doc.Document_Type === "FOREIGN_PASSPORT"
+  // );
+
+  const { data, isLoading, isError, error } =
+    useFetchBordercrossData(documents);
+
   if (isLoading) {
     return <ListScileton />;
   }
