@@ -5,21 +5,10 @@ import Paper from "@mui/material/Paper";
 
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
+import { getSortedByDateFIeld } from "../../utils/helperFunctions";
 
 const BordercrossTable = ({ title = "", data }) => {
-  // const columns =
-  //   Object.keys(data[0])?.map((key) => ({
-  //     field: key,
-  //     headerName: key.charAt(0).toUpperCase() + key.slice(1), // Capitalize first letter
-  //     width: 180,
-  //     valueGetter: (params) => {
-  //       if (key.includes("date") || key.includes("datetime")) {
-  //         return new Date(params.row[key]).toLocaleString();
-  //       }
-  //       return params.row[key];
-  //     },
-  //   })) || [];
-
+  const sortedData = getSortedByDateFIeld(data, "datetime");
   const columns = [
     "ԱԱՀ",
     "Անձնագիր",
@@ -30,7 +19,7 @@ const BordercrossTable = ({ title = "", data }) => {
   ];
 
   const enrichedRows =
-    data?.map((row, index) => ({
+    sortedData?.map((row, index) => ({
       key: index + 1,
       ...row,
     })) || [];

@@ -303,3 +303,53 @@ export const isPersonJpk = (documents) => {
     ) >= 0
   );
 };
+
+export const filterUniqueDocuments = (documents = []) =>
+  documents.filter(
+    (doc, index, self) =>
+      index ===
+      self.findIndex(
+        (d) =>
+          d.Document_Type === doc.Document_Type &&
+          d.Document_Number === doc.Document_Number
+      )
+  );
+
+export const getFlattenData = (data) => {
+  // Iterate over each key in the data object
+  return Object.keys(data).reduce((result, key) => {
+    // If the value is an array, flatten it
+    if (Array.isArray(data[key])) {
+      result[key] = data[key].flat(); // Flatten the array
+    } else if (typeof data[key] === "object" && data[key] !== null) {
+      // If the value is an object, call flattenData recursively
+      result[key] = getFlattenData(data[key]);
+    } else {
+      // If the value is neither an array nor an object, just keep it
+      result[key] = data[key];
+    }
+    return result;
+  }, {});
+};
+
+export const getSortedByDateFIeld = (data, fieldName) =>
+  data.sort((a, b) => new Date(b[fieldName]) - new Date(a[fieldName]));
+
+export const formatDateTimeString = (datetime, showTime = false) => {
+  const date = new Date(datetime);
+
+  const pad = (num) => String(num).padStart(2, "0");
+
+  const day = pad(date.getDate());
+  const month = pad(date.getMonth() + 1); // Months are zero-indexed
+  const year = date.getFullYear();
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+
+  return showTime
+    ? `${day}/${month}/${year} ${hours}:${minutes}`
+    : `${day}/${month}/${year}`;
+};
+
+export const getDirectionColor = (direction) =>
+  direction === "IN" ? "success" : "error";

@@ -4,10 +4,11 @@ import useFetchRoadpoliceData from "../../hooks/useFetchRoadpoliceData";
 import ListScileton from "../listSceleton/ListScileton";
 import LicenseCard from "../LicenseCard/LicenseCard";
 import VehicleCard from "../VehicleCard/VehicleCard";
+import DocumentNotFound from "../family/DocumentNotFound";
 
 const RoadPoliceTab = ({ pnum }) => {
   const { data, isLoading, isError, error } = useFetchRoadpoliceData(pnum);
-  console.log("RoadPoliceTab data", data);
+
   if (isLoading) {
     return <ListScileton />;
   }
@@ -17,13 +18,20 @@ const RoadPoliceTab = ({ pnum }) => {
   }
 
   const { license, vehicles } = data;
+  const showLicense = license && !!Object.keys(license)?.length;
+  const showVehicleCards = !!vehicles?.length;
+
   return (
     <Stack direction="column" gap={4}>
-      <Grid container>{license && <LicenseCard license={license} />}</Grid>
+      {!showLicense && !showVehicleCards && (
+        <DocumentNotFound notification="Տվյալ անձի վերաբերյալ ՃՈ տվյալներ չեն հայտնաբերվել:" />
+      )}
+      <Grid container>{showLicense && <LicenseCard license={license} />}</Grid>
       <Grid container spacing={2}>
-        {vehicles?.map((vehicleInfo, index) => (
-          <VehicleCard key={index} car={vehicleInfo} />
-        ))}
+        {showVehicleCards &&
+          vehicles?.map((vehicleInfo, index) => (
+            <VehicleCard key={index} car={vehicleInfo} />
+          ))}
       </Grid>
     </Stack>
   );

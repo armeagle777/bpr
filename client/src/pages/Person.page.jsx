@@ -13,7 +13,7 @@ const PersonPage = () => {
   if (isLoading) {
     return <PersonPageSkeleton />;
   }
-  console.log("data>>>>>>>>>", data);
+
   if (isError) {
     return <MuiAlert severity="error">{error.message}</MuiAlert>;
   }

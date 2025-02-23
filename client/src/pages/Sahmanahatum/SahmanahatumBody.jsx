@@ -1,5 +1,4 @@
 import { Stack } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
 import BordercrossTable from "../../components/BordercrossTable/BordercrossTable";
 import PermitsTable from "../../components/PermitsTable/PermitsTable";
 

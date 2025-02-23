@@ -3,6 +3,11 @@ import MuiTableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import TableRow from "@mui/material/TableRow";
+import {
+  formatDateTimeString,
+  getDirectionColor,
+} from "../../utils/helperFunctions";
+import { Chip } from "@mui/material";
 
 const TableBody = ({ rows }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,10 +39,21 @@ const TableBody = ({ rows }) => {
               {`${row.name} ${row.surname ? row.surname : ""}`}
             </StyledTableCell>
             <StyledTableCell align="center">{row.passport}</StyledTableCell>
-            <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
-            <StyledTableCell align="right">{row.datetime}</StyledTableCell>
-            <StyledTableCell align="right">{row.direction}</StyledTableCell>
-            <StyledTableCell align="right">{row.status}</StyledTableCell>
+            <StyledTableCell align="center">
+              {formatDateTimeString(row.birthDate, false)}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {formatDateTimeString(row.datetime, true)}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              <Chip
+                label={row.direction}
+                color={getDirectionColor(row.direction)}
+                variant="outlined"
+                sx={{ fontWeight: "bold" }}
+              />
+            </StyledTableCell>
+            <StyledTableCell align="center">{row.status}</StyledTableCell>
           </StyledTableRow>
         );
       })}

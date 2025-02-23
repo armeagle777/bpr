@@ -5,12 +5,15 @@ import Paper from "@mui/material/Paper";
 
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
+import { getSortedByDateFIeld } from "../../utils/helperFunctions";
 
 const PermitsTable = ({ title = "", data }) => {
+  const sortedPermits = getSortedByDateFIeld(data, "cardIssued");
+
   const columns = ["Տեսակը", "Քարտի N", "Տրման ա/թ", "Վավեր է", "Կարգավիճակ"];
 
   const enrichedRows =
-    data?.map((row, index) => ({
+    sortedPermits?.map((row, index) => ({
       key: index + 1,
       ...row,
     })) || [];

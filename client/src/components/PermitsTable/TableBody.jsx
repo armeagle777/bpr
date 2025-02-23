@@ -3,6 +3,7 @@ import MuiTableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import TableRow from "@mui/material/TableRow";
+import { formatDateTimeString } from "../../utils/helperFunctions";
 
 const TableBody = ({ rows }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,9 +35,13 @@ const TableBody = ({ rows }) => {
               {row.type}
             </StyledTableCell>
             <StyledTableCell align="center">{row.cardNumber}</StyledTableCell>
-            <StyledTableCell align="right">{row.cardIssued}</StyledTableCell>
-            <StyledTableCell align="right">{row.cardValid}</StyledTableCell>
-            <StyledTableCell align="right">{row.status}</StyledTableCell>
+            <StyledTableCell align="center">
+              {formatDateTimeString(row.cardIssued)}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {formatDateTimeString(row.cardValid)}
+            </StyledTableCell>
+            <StyledTableCell align="center">{row.status}</StyledTableCell>
           </StyledTableRow>
         );
       })}
