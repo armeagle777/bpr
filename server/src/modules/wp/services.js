@@ -25,13 +25,11 @@ const getWpDataDB = async (req) => {
       type: Sequelize.QueryTypes.SELECT,
     }
   );
-  console.log("eatmFamilyResponse", eatmFamilyResponse);
   const { cards: wpCards, data: wpData } = extractData(wpResponse);
   const { cards: eatmCards, data: eatmData } = extractData(eatmResponse);
   const { cards: eatmFamilyCards, data: eatmFamilyData } =
     extractData(eatmFamilyResponse);
-  console.log("eatmFamilyCards", eatmFamilyCards);
-  console.log("eatmFamilyData", eatmFamilyData);
+
   return {
     wpData,
     eatmData,

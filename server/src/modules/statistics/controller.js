@@ -77,7 +77,6 @@ const exportExcel = async (req, res, next) => {
     worksheet.addRow(headerRows);
     subHeaderRows && worksheet.addRow(subHeaderRows);
     mergeAndAlignCells(worksheet, mergeCellRanges);
-    console.log("sanitizedData>>>>", sanitizedData);
     sanitizedData.forEach((item, index) => {
       worksheet.addRow(Object.values(item));
     });

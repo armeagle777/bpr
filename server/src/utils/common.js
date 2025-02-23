@@ -283,8 +283,7 @@ const cronUpdateSphereText = async () => {
 
     const companiesTins = unCheckedSpheres.map(({ tin, sphere_code }) => {
       const shortSphereCode = sphere_code.substring(0, sphere_code.length - 2);
-      console.log("shortSphereCode", shortSphereCode);
-      console.log(" sphere_code.slice(-2)", sphere_code.slice(-2));
+
       const sphereName = activityCodes[sphere_code]
         ? activityCodes[sphere_code]
         : sphere_code.slice(-2) === ".0" && activityCodes[shortSphereCode]
