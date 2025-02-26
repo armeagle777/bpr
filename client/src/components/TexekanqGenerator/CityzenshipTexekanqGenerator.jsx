@@ -8,14 +8,20 @@ import {
   DialogTitle,
   TextField,
   Button,
+  Grid,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
-
+  const { PNum, documents } = data;
   const [mulNumber, setMulNumber] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [texekanqPassport, setTexekanqPassport] = useState(
+    documents?.[documents?.length - 1]
+  );
 
   const { firstName, lastName, pashton } = user;
   const userFullName = `${firstName} ${lastName}`;
@@ -24,30 +30,45 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
     return null;
   }
 
-  const { PNum, documents } = data;
   const validDocument = documents.find(
     (doc) => doc.Document_Status === "PRIMARY_VALID"
   );
 
-  const priorityOrder = [
-    {
-      Document_Status: "PRIMARY_VALID",
-      Document_Type: "NON_BIOMETRIC_PASSPORT",
-    },
-    { Document_Status: "PRIMARY_VALID", Document_Type: "ID_CARD" },
-    { Document_Status: "INVALID", Document_Type: "NON_BIOMETRIC_PASSPORT" },
-    { Document_Status: "INVALID", Document_Type: "ID_CARD" },
-  ];
+  // const priorityOrder = [
+  //   {
+  //     Document_Status: "PRIMARY_VALID",
+  //     Document_Type: "NON_BIOMETRIC_PASSPORT",
+  //   },
+  //   { Document_Status: "PRIMARY_VALID", Document_Type: "ID_CARD" },
+  //   { Document_Status: "INVALID", Document_Type: "NON_BIOMETRIC_PASSPORT" },
+  //   { Document_Status: "INVALID", Document_Type: "ID_CARD" },
+  // ];
 
-  const texekanqPassport = priorityOrder
-    .map((priority) =>
-      documents.find(
-        (doc) =>
-          doc.Document_Status === priority.Document_Status &&
-          doc.Document_Type === priority.Document_Type
-      )
-    )
-    .find((doc) => doc);
+  // const texekanqPassport = priorityOrder.map((priority) =>
+  //   documents.find(
+  //     (doc) =>
+  //       doc.Document_Status === priority.Document_Status &&
+  //       doc.Document_Type === priority.Document_Type
+  //   )
+  // );
+
+  const invalidDocument = documents.find(
+    (doc) => doc.Document_Status === "INVALID"
+  );
+  const Person = validDocument?.Person || invalidDocument?.Person;
+  const {
+    Birth_Country,
+    Birth_Date,
+    Birth_Region,
+    First_Name,
+    Last_Name,
+    Patronymic_Name,
+  } = Person;
+
+  const handleDocSelectChange = (e) => {
+    if (!e.target.value) return;
+    setTexekanqPassport(e.target.value);
+  };
 
   const handleCreateTexekanq = () => {
     onCreateTexekanq({
@@ -72,18 +93,8 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
     setDialogOpen(false);
   };
 
-  const invalidDocument = documents.find(
-    (doc) => doc.Document_Status === "INVALID"
-  );
-  const Person = validDocument?.Person || invalidDocument?.Person;
-  const {
-    Birth_Country,
-    Birth_Date,
-    Birth_Region,
-    First_Name,
-    Last_Name,
-    Patronymic_Name,
-  } = Person;
+  documents.reverse();
+
   return (
     <>
       {!texekanqData && (
@@ -98,18 +109,39 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
           >
             Քաղաքացիության տեղեկանք
           </LoadingButton>
-
           <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
             <DialogTitle>Մուտքագրել մալբրի համարը</DialogTitle>
             <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                label="Մալբրի համակարգի N"
-                fullWidth
-                value={mulNumber}
-                onChange={(e) => setMulNumber(e.target.value)}
-              />
+              <Grid container spacing={4}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Մալբրի համակարգի N"
+                    fullWidth
+                    value={mulNumber}
+                    onChange={(e) => setMulNumber(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Select
+                    fullWidth
+                    id="Փաստաթուղթ"
+                    value={texekanqPassport}
+                    placeholder="Փաստաթուղթ"
+                    aria-label="Փաստաթուղթ"
+                    label="Փաստաթուղթ"
+                    onChange={handleDocSelectChange}
+                    style={{ minWidth: 200 }}
+                  >
+                    {documents?.map((passport, index) => (
+                      <MenuItem key={index} value={passport}>
+                        {passport?.Document_Number}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
+              </Grid>
             </DialogContent>
             <DialogActions>
               <Button onClick={() => setDialogOpen(false)} color="secondary">
