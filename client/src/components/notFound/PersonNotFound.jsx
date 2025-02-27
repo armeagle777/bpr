@@ -48,7 +48,7 @@ const PersonNotFound = ({ filterProps }) => {
     const newValue =
       name === "birthDate" || name === "mulNumber"
         ? value
-        : value.trim().toUpperCase();
+        : value.toUpperCase();
     setTexekanqFields({ ...texekanqFields, [name]: newValue });
   };
 

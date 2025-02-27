@@ -71,7 +71,7 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   };
 
   const handleCreateTexekanq = () => {
-    onCreateTexekanq({
+    const texekanqOptions = {
       pnum: PNum,
       person_birth: Birth_Date,
       person_birth_place: Birth_Region || Birth_Country.CountryName,
@@ -89,7 +89,9 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
         texekanqPassport.Document_Type === "ID_CARD"
           ? texekanqPassport.Document_Number
           : texekanqPassport.Document_Number?.slice(2),
-    });
+    };
+    console.log("texekanqOptions", texekanqOptions);
+    onCreateTexekanq(texekanqOptions);
     setDialogOpen(false);
   };
 
