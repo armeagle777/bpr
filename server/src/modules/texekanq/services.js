@@ -267,7 +267,7 @@ const createTexekanqDb = async (req) => {
     const documentText =
       passport_number && passport_issue_date && !passport_series
         ? ` ${passport_issue_date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու թիվ ${passport_number} նույնականացման քարտը:`
-        : passport_number && passport_issue_date && !passport_series
+        : passport_number && passport_issue_date && passport_series
         ? ` ${passport_issue_date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը:`
         : undefined;
     const person_short_name = getShortName(
