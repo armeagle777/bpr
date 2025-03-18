@@ -17,6 +17,8 @@ const {
   generatePdf,
   createPDF,
   formatDate,
+  getShortName,
+  mapDocTextFromPassports,
 } = require("./helpers");
 const { texekanqUidPrefix, permissionTexekanqMap } = require("./constants");
 const { permissionsMap } = require("../../utils/constants");
@@ -191,6 +193,7 @@ const createTexekanqDb = async (req) => {
     passport_number,
     passport_series,
     passport_issue_date,
+    passports,
   } = body;
 
   if (TexekanqtypeId === 1) {
@@ -250,26 +253,10 @@ const createTexekanqDb = async (req) => {
     const qrUrl = await generateQRCode(qrData);
 
     const person_full_name = person_mname
-      ? (
-          person_fname +
-          " " +
-          person_mname +
-          " " +
-          person_lname +
-          "ը"
-        ).toUpperCase()
-      : (person_fname + " " + person_lname + "ը").toUpperCase();
-    function getShortName(fname, lname, mname) {
-      return `${fname.charAt(0)}.${
-        mname ? mname.charAt(0) + "." : ""
-      }${lname}ը`?.toUpperCase();
-    }
-    const documentText =
-      passport_number && passport_issue_date && !passport_series
-        ? ` ${passport_issue_date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու թիվ ${passport_number} նույնականացման քարտը:`
-        : passport_number && passport_issue_date && passport_series
-        ? ` ${passport_issue_date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը:`
-        : undefined;
+      ? (person_fname + " " + person_mname + " " + person_lname).toUpperCase()
+      : (person_fname + " " + person_lname).toUpperCase();
+
+    const documentText = mapDocTextFromPassports(passports);
     const person_short_name = getShortName(
       person_fname,
       person_lname,
@@ -295,6 +282,7 @@ const createTexekanqDb = async (req) => {
         documentText,
         person_short_name,
         createdAt: formatDate(newTexekanq.dataValues.createdAt),
+        passports,
       },
       TexekanqtypeId,
     });

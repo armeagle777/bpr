@@ -11,20 +11,32 @@ import {
   Grid,
   Select,
   MenuItem,
+  OutlinedInput,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
+import { documentStatusesMap } from "../../utils/constants";
+import { texekanqAllowedDocuments } from "./constants";
 
 const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
   const { PNum, documents } = data;
+  const allowedDocuments = documents
+    .filter((doc) => texekanqAllowedDocuments.includes(doc.Document_Type))
+    .map((doc) => {
+      delete doc.Photo_ID;
+      return doc;
+    });
+  const initialTexekanqPassports = allowedDocuments?.length
+    ? [allowedDocuments[allowedDocuments.length - 1]]
+    : [];
   const [mulNumber, setMulNumber] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [texekanqPassport, setTexekanqPassport] = useState(
-    documents?.[documents?.length - 1]
+  const [texekanqPassports, setTexekanqPassports] = useState(
+    initialTexekanqPassports
   );
-
   const { firstName, lastName, pashton } = user;
-  const userFullName = `${firstName} ${lastName}`;
 
   if (!pashton) {
     return null;
@@ -65,9 +77,15 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
     Patronymic_Name,
   } = Person;
 
-  const handleDocSelectChange = (e) => {
-    if (!e.target.value) return;
-    setTexekanqPassport(e.target.value);
+  const handleDocSelectChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    if (!value) return;
+    setTexekanqPassports(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
 
   const handleCreateTexekanq = () => {
@@ -80,22 +98,13 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
       person_mname: Patronymic_Name,
       TexekanqtypeId: 1,
       mul_number: mulNumber,
-      passport_issue_date: texekanqPassport.PassportData.Passport_Issuance_Date,
-      passport_series:
-        texekanqPassport.Document_Type === "ID_CARD"
-          ? undefined
-          : texekanqPassport.Document_Number?.slice(0, 2),
-      passport_number:
-        texekanqPassport.Document_Type === "ID_CARD"
-          ? texekanqPassport.Document_Number
-          : texekanqPassport.Document_Number?.slice(2),
+      passports: texekanqPassports,
     };
-    console.log("texekanqOptions", texekanqOptions);
     onCreateTexekanq(texekanqOptions);
     setDialogOpen(false);
   };
 
-  documents.reverse();
+  // documents.reverse();
 
   return (
     <>
@@ -128,19 +137,59 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
                 <Grid item xs={12}>
                   <Select
                     fullWidth
+                    multiple
                     id="Փաստաթուղթ"
-                    value={texekanqPassport}
+                    value={texekanqPassports}
+                    onChange={handleDocSelectChange}
                     placeholder="Փաստաթուղթ"
                     aria-label="Փաստաթուղթ"
                     label="Փաստաթուղթ"
-                    onChange={handleDocSelectChange}
+                    input={<OutlinedInput label="Tag" />}
+                    renderValue={(selected) =>
+                      selected?.map((doc) => doc.Document_Number)?.join(", ")
+                    }
                     style={{ minWidth: 200 }}
                   >
-                    {documents?.map((passport, index) => (
-                      <MenuItem key={index} value={passport}>
-                        {passport?.Document_Number}
-                      </MenuItem>
-                    ))}
+                    {allowedDocuments?.map((passport, index) => {
+                      const {
+                        Document_Number,
+                        Document_Status,
+                        Document_Type,
+                        PassportData: {
+                          Passport_Issuance_Date,
+                          Passport_Validity_Date,
+                          Passport_Validity_Date_FC,
+                          Passport_Extension_Date,
+                        } = {},
+                      } = {
+                        ...passport,
+                      };
+                      const optionText =
+                        Document_Number +
+                        " - " +
+                        documentStatusesMap[Document_Status] +
+                        " | " +
+                        Passport_Issuance_Date +
+                        " - " +
+                        Passport_Validity_Date;
+                      return (
+                        <MenuItem
+                          key={passport.Document_Number}
+                          value={passport}
+                        >
+                          <Checkbox
+                            checked={
+                              !!texekanqPassports.find(
+                                (doc) =>
+                                  doc.Document_Number ===
+                                  passport.Document_Number
+                              )
+                            }
+                          />
+                          <ListItemText primary={optionText} />
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </Grid>
               </Grid>
@@ -152,7 +201,7 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
               <Button
                 onClick={handleCreateTexekanq}
                 color="primary"
-                disabled={!mulNumber}
+                disabled={!mulNumber || !texekanqPassports.length}
               >
                 Հաստատել
               </Button>

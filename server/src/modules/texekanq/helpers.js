@@ -123,6 +123,42 @@ function formatDate(date) {
   return `${day}/${month}/${year}`;
 }
 
+function getShortName(fname, lname, mname) {
+  return `${fname.charAt(0)}.${
+    mname ? mname.charAt(0) + "." : ""
+  }${lname}`?.toUpperCase();
+}
+
+const mapDocTextFromPassports = (passports) => {
+  if (!passports?.length) return;
+  const paragraphs = passports?.map((passport) => {
+    const {
+      Document_Type,
+      Document_Number,
+      PassportData: { Passport_Issuance_Date },
+    } = { ...passport };
+
+    const passport_series =
+      Document_Type === "ID_CARD" ? undefined : Document_Number?.slice(0, 2);
+    const passport_number =
+      Document_Type === "ID_CARD" ? Document_Number : Document_Number?.slice(2);
+
+    //TODO modify each case's text according to task
+    switch (Document_Type) {
+      case "ID_CARD":
+        return ` ${Passport_Issuance_Date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու թիվ ${passport_number} նույնականացման քարտը:`;
+      case "NON_BIOMETRIC_PASSPORT":
+        return ` ${Passport_Issuance_Date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը:`;
+      case "BIOMETRIC_PASSPORT":
+        return ` ${Passport_Issuance_Date}թ. ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ՀՀ քաղաքացու ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը:`;
+      default:
+        return "";
+    }
+  });
+
+  return paragraphs?.join(", ");
+};
+
 module.exports = {
   createPDF,
   formatDate,
@@ -130,4 +166,6 @@ module.exports = {
   getTexekanqUid,
   getTexekanqTitle,
   encodeUrl,
+  getShortName,
+  mapDocTextFromPassports,
 };

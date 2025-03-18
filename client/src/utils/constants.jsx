@@ -404,3 +404,9 @@ export const MOCK_YEARS = [
   value: year,
   key: year,
 }));
+
+export const documentStatusesMap = {
+  PRIMARY_VALID: "Վավեր",
+  VALID: "Վավեր",
+  INVALID: "Անվավեր",
+};
