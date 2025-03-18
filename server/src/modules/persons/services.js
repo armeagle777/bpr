@@ -1,11 +1,18 @@
 const axios = require("axios");
 const qs = require("qs");
 const path = require("path");
+const xml2js = require("xml2js");
 const { defaultAddress, defaultDocument } = require("../../utils/constants");
 
 const ApiError = require("../../exceptions/api-error");
 const { createPDF } = require("../../utils/common");
 const { createLog } = require("../log/services");
+const {
+  getBordercrossAxiosConfigs,
+  getLicensesAxiosConfigs,
+  getVehiclesAxiosConfigs,
+  searchVehiclesAxiosConfigs,
+} = require("./helpers");
 
 const fakeData = {
   title: "A new Brazilian School",
@@ -61,6 +68,8 @@ const getPersonBySsnDb = async (req) => {
   if (status === "failed") {
     return [];
   }
+  const data = result.filter((res) => res.PNum !== "5201830811");
+  if (!data.length) return [];
   const person = result[0];
 
   const { AVVDocuments, AVVAddresses, ...restInfo } = person;
@@ -135,13 +144,15 @@ const getSearchedPersonsDb = async (req) => {
     return [];
   }
 
-  const persons = result.map((person) => {
-    const { AVVDocuments, AVVAddresses, ...restInfo } = person;
+  const persons = result
+    .filter((p) => p.PNum !== "5201830811")
+    .map((person) => {
+      const { AVVDocuments, AVVAddresses, ...restInfo } = person;
 
-    const addresses = AVVAddresses?.AVVAddress || [];
-    const documents = AVVDocuments?.Document || [];
-    return { addresses, documents, ...restInfo };
-  });
+      const addresses = AVVAddresses?.AVVAddress || [];
+      const documents = AVVDocuments?.Document || [];
+      return { addresses, documents, ...restInfo };
+    });
 
   return persons;
 };
@@ -191,6 +202,53 @@ const getTaxBySsnDb = async (ssn) => {
   } = data;
 
   return taxPayerInfo;
+};
+
+const getRoadpoliceBySsnDb = async (psn) => {
+  const licensesAxiosConfigs = getLicensesAxiosConfigs(psn);
+  const licensesResponse = await axios.request(licensesAxiosConfigs);
+  const license = licensesResponse?.data?.result || null;
+
+  const vehiclesAxiosConfigs = getVehiclesAxiosConfigs(psn);
+  const vehiclesResponse = await axios.request(vehiclesAxiosConfigs);
+  const vehicles = vehiclesResponse?.data?.result?.length
+    ? vehiclesResponse?.data?.result
+    : null;
+
+  return { license, vehicles };
+};
+
+const searchVehiclesDb = async (req) => {
+  const { paramValue } = req.params;
+  const { searchBase } = req.query;
+
+  const vehiclesAxiosConfigs = searchVehiclesAxiosConfigs(
+    searchBase,
+    paramValue
+  );
+  const vehiclesResponse = await axios.request(vehiclesAxiosConfigs);
+  const vehicles = vehiclesResponse?.data?.result?.length
+    ? vehiclesResponse?.data?.result
+    : null;
+
+  return { vehicles };
+};
+
+const getBordercrossBySsnDb = async (passportNumber, citizenship) => {
+  const bordercrossAxiosConfigs = getBordercrossAxiosConfigs({
+    passportNumber,
+    citizenship,
+  });
+
+  const response = await axios.request(bordercrossAxiosConfigs);
+  const xmlData = response.data;
+  const parser = new xml2js.Parser({ explicitArray: false });
+  const jsonData = await parser.parseStringPromise(xmlData);
+  const data = jsonData?.data;
+  if (!data?.status || data.status !== "ok") return {};
+  const { visaList, crossingList, residencePermitList } = data;
+
+  return { visaList, crossingList, residencePermitList };
 };
 
 const getPoliceByPnumDb = async (pnum) => {
@@ -257,4 +315,7 @@ module.exports = {
   getCompanyByHvhhDb,
   createPdfBySsn,
   getPoliceByPnumDb,
+  getBordercrossBySsnDb,
+  getRoadpoliceBySsnDb,
+  searchVehiclesDb,
 };

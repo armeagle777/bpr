@@ -58,6 +58,9 @@ const exportExcel = async (req, res, next) => {
       case STATISTICS_TYPE_MAPS.ASYLUM_YEARS:
         data = await getAsylumYearsDb(filterOptions);
         break;
+      case STATISTICS_TYPE_MAPS.WP_SIMPLE:
+        data = await getSimpleWPStatisticsDb(filterOptions);
+        break;
       default:
         data = [];
     }
@@ -74,7 +77,6 @@ const exportExcel = async (req, res, next) => {
     worksheet.addRow(headerRows);
     subHeaderRows && worksheet.addRow(subHeaderRows);
     mergeAndAlignCells(worksheet, mergeCellRanges);
-
     sanitizedData.forEach((item, index) => {
       worksheet.addRow(Object.values(item));
     });

@@ -36,6 +36,8 @@ import {
   WpOfficial,
   WpReports,
 } from "./pages/Statistics/pages";
+import VehicleSearch from "./pages/VehicleSearch/VehicleSearch.page.jsx";
+import Sahmanahatum from "./pages/Sahmanahatum/Sahmanahatum.jsx";
 
 function App() {
   return (
@@ -137,6 +139,45 @@ function App() {
               ]}
             >
               <KadastrCertificate />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="vehicle-search"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.ROADPOLICE_FULL_SEARCH.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <VehicleSearch />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="bordercross"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.BORDERCROSS.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <Sahmanahatum />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="vehicle-search"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.ROADPOLICE.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <VehicleSearch />
             </RequirePermission>
           }
         />

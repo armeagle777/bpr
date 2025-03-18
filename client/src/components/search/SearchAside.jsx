@@ -73,7 +73,7 @@ const SearchAside = ({
             <Typography sx={{ mb: 1, fontWeight: "bold" }}>Սեռը</Typography>
             <FormGroup>
               <Checkbox
-                disabled={disabled}
+                disabled={disabled || !maleCount}
                 checked={!!filters.gender.male}
                 label={`Արական (${maleCount})`}
                 onChange={() =>
@@ -84,7 +84,7 @@ const SearchAside = ({
                 }
               />
               <Checkbox
-                disabled={disabled}
+                disabled={disabled || !femaleCount}
                 checked={!!filters.gender.female}
                 label={`Իգական (${femaleCount})`}
                 onChange={() => {

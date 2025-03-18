@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import WpClaimCard from "./WpClaimCard";
 
 const WpCaseList = ({ data }) => {
-  console.log("wp data", data);
   return (
     <Stack spacing={2} flexDirection="column" sx={{ py: 3, px: 1 }}>
       {data?.map((claim, index) => {

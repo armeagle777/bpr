@@ -66,7 +66,7 @@ const useAuthData = () => {
 
   const switchServers = () => {
     const newValue = !outerNetwork;
-    setOuterNetwork(newValue);
+    setOuterNetwork((oldNetwork) => !oldNetwork);
     localStorage.setItem("serverSwitch", newValue);
   };
 

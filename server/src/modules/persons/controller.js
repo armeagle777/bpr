@@ -1,4 +1,9 @@
-const { getPoliceByPnumDb } = require("./services");
+const {
+  getPoliceByPnumDb,
+  getBordercrossBySsnDb,
+  getRoadpoliceBySsnDb,
+  searchVehiclesDb,
+} = require("./services");
 
 const {
   getPersonBySsnDb,
@@ -42,6 +47,39 @@ const getTaxBySsn = async (req, res, next) => {
   try {
     const { ssn } = req.params;
     const person = await getTaxBySsnDb(ssn);
+
+    res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getRoadpoliceBySsn = async (req, res, next) => {
+  try {
+    const { ssn } = req.params;
+    const person = await getRoadpoliceBySsnDb(ssn);
+
+    res.status(200).json(person);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const searchVehicle = async (req, res, next) => {
+  try {
+    const vehicles = await searchVehiclesDb(req);
+
+    res.status(200).json(vehicles);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getBordercrossBySsn = async (req, res, next) => {
+  try {
+    const { passportNumber, citizenship } = req.body;
+
+    const person = await getBordercrossBySsnDb(passportNumber, citizenship);
 
     res.status(200).json(person);
   } catch (err) {
@@ -143,4 +181,7 @@ module.exports = {
   getCompanyByHvhh,
   downloadBprInfo,
   getPoliceByPnum,
+  getBordercrossBySsn,
+  getRoadpoliceBySsn,
+  searchVehicle,
 };

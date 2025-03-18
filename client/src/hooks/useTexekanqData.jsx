@@ -11,17 +11,31 @@ import { useState } from "react";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+const initialFilters = {
+  search: "",
+  types: [],
+};
+const initialPagination = { page: 1, pageSize: 10 };
 
 export const useTexekanqData = () => {
   const queryClient = useQueryClient();
-
+  const [filters, setFilters] = useState(initialFilters);
+  const [pagination, setPagination] = useState(initialPagination);
   const [fileName, setFileName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
 
+  const onPaginationChange = (newPage, newPageSize) => {
+    setPagination({ page: newPage, pageSize: newPageSize });
+  };
+
+  const onTextSearch = (event) => {
+    setFilters((filters) => ({ ...filters, search: event.target.value }));
+  };
+
   const { isLoading, isError, error, data } = useQuery(
-    ["texekanqs"],
-    () => getTexekanqs(),
+    ["texekanqs", filters, pagination],
+    () => getTexekanqs({ filters, pagination }),
     {
       keepPreviousData: true,
     }
@@ -37,6 +51,25 @@ export const useTexekanqData = () => {
     keepPreviousData: true,
     enabled: !!fileName,
   });
+
+  const handleTypeFilter = (typeId) => {
+    if (!typeId) return;
+
+    if (Array.isArray(typeId)) {
+      return setFilters((filters) => ({
+        ...filters,
+        types: typeId,
+      }));
+    }
+    const types = filters.types;
+
+    const newTypes = types.includes(typeId)
+      ? types.filter((direction) => direction !== typeId)
+      : [...types, typeId];
+
+    setPagination(initialPagination);
+    setFilters((filters) => ({ ...filters, types: newTypes }));
+  };
 
   const createTexekanqMutation = useMutation((data) => createTexekanq(data), {
     onSuccess: (data) => {
@@ -159,6 +192,7 @@ export const useTexekanqData = () => {
 
   return {
     data: texekanqsWithKeys,
+    onTypeFilter: handleTypeFilter,
     error,
     isTypesLoading,
     isTypesError,
@@ -174,8 +208,12 @@ export const useTexekanqData = () => {
     showDialog,
     setShowDialog,
     anchorEl,
+    filters,
+    onTextSearch,
+    pagination: data?.pagination,
     onCreateTexekanq,
     texekanqData: createTexekanqMutation.data,
     texekanqIsLoading: createTexekanqMutation.isLoading,
+    onPaginationChange,
   };
 };

@@ -13,4 +13,11 @@ const reportTitleLetterMap = {
   4: "Հաշ",
 };
 
-module.exports = { texekanqUidPrefix, templatesMap, reportTitleLetterMap };
+const permissionTexekanqMap = { 10003: 2, 10002: 3, 10001: 1 };
+
+module.exports = {
+  permissionTexekanqMap,
+  texekanqUidPrefix,
+  templatesMap,
+  reportTitleLetterMap,
+};

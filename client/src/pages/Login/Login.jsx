@@ -97,7 +97,7 @@ function Login() {
                 required
                 fullWidth
                 id="email"
-                label="Էլ։ փոստ"
+                label="Էլ. փոստ"
                 name="email"
                 autoComplete="email"
                 autoFocus

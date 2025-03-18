@@ -6,8 +6,20 @@ import SearchPageSkileton from "../components/searchPageSkileton/SearchPageSkile
 import { usePersons } from "../components/context/persons";
 import PersonNotFound from "../components/notFound/PersonNotFound";
 import SearchHeader from "../components/search/SearchHeader";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+
+const initialFilterProps = {
+  ssn: "",
+  firstName: "",
+  lastName: "",
+  birthDate: "",
+  patronomicName: "",
+  documentNumber: "",
+};
 
 const Search = () => {
+  const [filterProps, setFilterProps] = useState(initialFilterProps);
   const {
     persons,
     isInitialLoading,
@@ -21,6 +33,13 @@ const Search = () => {
     setFilters,
     filterCounts,
   } = usePersons();
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    return () => {
+      queryClient.refetchQueries(["search-persons", filters]);
+      setSearchParams({});
+    };
+  }, [setSearchParams, queryClient, filters]);
 
   if (isInitialLoading) {
     return <SearchPageSkileton />;
@@ -34,6 +53,12 @@ const Search = () => {
     );
   }
 
+  const handleClearButton = () => {
+    setFilterProps(initialFilterProps);
+    setSearchParams({});
+    changePage(1);
+  };
+
   return (
     <>
       <Stack
@@ -46,10 +71,13 @@ const Search = () => {
         <SearchHeader
           changePage={changePage}
           setSearchParams={setSearchParams}
+          filterProps={filterProps}
+          setFilterProps={setFilterProps}
+          onClearButton={handleClearButton}
         />
       </Stack>
       {!persons ? null : persons?.length === 0 ? (
-        <PersonNotFound />
+        <PersonNotFound filterProps={filterProps} />
       ) : (
         <SearchBody
           persons={persons}

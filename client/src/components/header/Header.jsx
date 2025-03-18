@@ -109,6 +109,25 @@ const Header = () => {
             )}
             {userHasPermission(
               [
+                permissionsMap.ROADPOLICE_FULL_SEARCH.uid,
+                permissionsMap.ADMIN.uid,
+              ],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="vehicle-search">ՃՈ</Link>
+              </Button>
+            )}
+            {userHasPermission(
+              [permissionsMap.BORDERCROSS.uid, permissionsMap.ADMIN.uid],
+              user.permissions
+            ) && (
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="bordercross">Սահմանահատում</Link>
+              </Button>
+            )}
+            {userHasPermission(
+              [
                 permissionsMap.CITIZENSHIP_REPORT.uid,
                 permissionsMap.PASSPORTS_REPORT.uid,
                 permissionsMap.PNUM_REPORT.uid,

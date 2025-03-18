@@ -1,18 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { PersonSearch, RestartAlt } from "@mui/icons-material";
 import { Box, Button, Stack, TextField } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
-const initialFilterProps = {
-  ssn: "",
-  firstName: "",
-  lastName: "",
-  birthDate: "",
-  patronomicName: "",
-  documentNumber: "",
-};
-
-const SearchHeader = ({ setSearchParams, changePage }) => {
-  const [filterProps, setFilterProps] = useState(initialFilterProps);
+const SearchHeader = ({
+  setSearchParams,
+  changePage,
+  filterProps,
+  setFilterProps,
+  onClearButton,
+}) => {
   const [isNameRowOpen, setIsNameRowOpen] = useState(
     !!filterProps.firstName.length
   );
@@ -69,12 +68,6 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
   const onInputChange = (event) => {
     const { name, value } = event.target;
     setFilterProps({ ...filterProps, [name]: value.trim().toUpperCase() });
-  };
-
-  const handleClearButton = () => {
-    setFilterProps(initialFilterProps);
-    setSearchParams({});
-    changePage(1);
   };
 
   const handleSubmit = (e) => {
@@ -138,7 +131,28 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
             onChange={onInputChange}
             value={filterProps.patronomicName}
           />
-          <TextField
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Ծննդ․ թիվ"
+              value={
+                filterProps.birthDate
+                  ? dayjs(filterProps.birthDate, "DD/MM/YYYY")
+                  : null
+              }
+              onChange={(newValue) => {
+                const formattedDate = newValue
+                  ? dayjs(newValue).format("DD/MM/YYYY")
+                  : "";
+                onInputChange({
+                  target: { name: "birthDate", value: formattedDate },
+                });
+              }}
+              format="DD/MM/YYYY"
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          {/* <TextField
+
             type="date"
             id="birthDate"
             name="birthDate"
@@ -148,7 +162,7 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
             }}
             onChange={onInputChange}
             value={filterProps.birthDate}
-          />
+          /> */}
         </Box>
 
         <TextField
@@ -168,6 +182,7 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
           value={filterProps.ssn}
           onChange={onInputChange}
           disabled={ssnDisabled}
+          inputProps={{ minLength: 10, maxLength: 10 }}
         />
         <Button
           size="large"
@@ -186,7 +201,7 @@ const SearchHeader = ({ setSearchParams, changePage }) => {
           title="Մաքրել"
           variant="contained"
           disabled={isResetBtnDisabled}
-          onClick={handleClearButton}
+          onClick={onClearButton}
         >
           <RestartAlt />
         </Button>

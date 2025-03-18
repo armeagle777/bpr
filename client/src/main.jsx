@@ -10,6 +10,7 @@ import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
 import { CompaniesProvider } from "./components/context/companies";
 import { KadastrCertsProvider } from "./components/context/kadastrCerts";
+import { VehicleSearchProvider } from "./components/context/vehicleSearch";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,9 +34,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <PersonsProvider>
         <CompaniesProvider>
           <KadastrCertsProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <VehicleSearchProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </VehicleSearchProvider>
           </KadastrCertsProvider>
         </CompaniesProvider>
       </PersonsProvider>

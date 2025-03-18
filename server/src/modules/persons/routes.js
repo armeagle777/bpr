@@ -10,9 +10,23 @@ const {
   getCompanyByHvhh,
   downloadBprInfo,
   getPoliceByPnum,
+  getBordercrossBySsn,
+  getRoadpoliceBySsn,
+  searchVehicle,
+  searchBordercrossData,
 } = require("./controller");
 const { permissionsMap } = require("../../utils/constants");
-const { BPR, ADMIN, TAX, ZAQS, POLICE, PETREGISTER } = permissionsMap;
+const {
+  BPR,
+  ADMIN,
+  TAX,
+  ZAQS,
+  POLICE,
+  PETREGISTER,
+  BORDERCROSS,
+  ROADPOLICE,
+  ROADPOLICE_FULL_SEARCH,
+} = permissionsMap;
 
 const personsRoute = express.Router();
 
@@ -35,6 +49,27 @@ personsRoute.get(
   rolesMiddleware([TAX.uid, ADMIN.uid]),
   getTaxBySsn
 );
+personsRoute.get(
+  "/:ssn/roadpolice",
+  authMiddleware,
+  rolesMiddleware([ROADPOLICE.uid, ADMIN.uid]),
+  getRoadpoliceBySsn
+);
+
+personsRoute.get(
+  "/:paramValue/vehicle",
+  authMiddleware,
+  rolesMiddleware([ADMIN.uid, ROADPOLICE_FULL_SEARCH.uid]),
+  searchVehicle
+);
+
+personsRoute.post(
+  "/bordercross",
+  authMiddleware,
+  rolesMiddleware([BORDERCROSS.uid, ADMIN.uid]),
+  getBordercrossBySsn
+);
+
 personsRoute.get(
   "/:pnum/police",
   authMiddleware,

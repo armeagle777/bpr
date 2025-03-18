@@ -2,6 +2,8 @@ import { Table } from "antd";
 
 import { TableButtonRow } from "..";
 
+import "./DataTable.styles.css";
+
 const RowDataTable = ({
   isLoading,
   modifiedData,
@@ -16,6 +18,9 @@ const RowDataTable = ({
         loading={isLoading}
         dataSource={modifiedData}
         columns={controlledColumns}
+        rowClassName={(record, index) =>
+          record.name_am === "Ընդամենը" && index === 0 ? "bold-row" : ""
+        }
         // scroll={{
         //   x: 1000,
         // }}

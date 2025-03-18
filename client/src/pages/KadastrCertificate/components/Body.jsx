@@ -5,7 +5,7 @@ import PropertyInfo from "./PropertyInfo";
 
 const Body = () => {
   const { data, isLoading, isFetching, isError, error } = useKadastrCerts();
-  console.log("data", data);
+
   if (isFetching) {
     return "Loading...";
   }

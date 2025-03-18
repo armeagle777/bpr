@@ -22,7 +22,6 @@ const getRoles = async (req, res, next) => {
 
 const updateRole = async (req, res, next) => {
   try {
-    console.log("In Update Role");
     const role = await updateRoleDB(req);
     res.status(200).json(role);
   } catch (err) {

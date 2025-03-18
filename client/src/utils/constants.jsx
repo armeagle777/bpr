@@ -293,7 +293,7 @@ export const STATISTICS_TYPE_MAPS = {
   ASYLUM_APPLICATIONS: "asylumApplications",
   ASYLUM_DECISIONS: "asylumDecisions",
   ASYLUM_YEARS: "asylumYears",
-  WP_SIMPLE: "asylumYears",
+  WP_SIMPLE: "wpSimple",
 };
 
 export const DOWNLOAD_FILE_TYPES = {
@@ -372,14 +372,29 @@ export const permissionsMap = {
     name: "ՀԾՀ տեղեկանք",
     description: "Տեղեկանք անձի ՀԾՀ վերաբերյալ",
   },
+  BORDERCROSS: {
+    uid: "20000",
+    name: "Սահմանահատումներ",
+    description:
+      "Տեղեկատվություն անձի սահմանահատումների, վիզաների և կացության քարտերի վերաբերյալ",
+  },
+  ROADPOLICE: {
+    uid: "30000",
+    name: "ՃՈ",
+    description:
+      "ՃՈ տեղեկատվություն անձի մեքենաների և վարորդական վկ. վերաբերյալ",
+  },
+  ROADPOLICE_FULL_SEARCH: {
+    uid: "40000",
+    name: "ՃՈ ամբողջական որոնում",
+    description: "ՃՈ տեղեկատվության որոնում բոլոր պարամետրերով",
+  },
   ADMIN: {
     uid: "9999",
     name: "Ադմինիստրատոր",
     description: "Ադմինիստրատոր",
   },
 };
-
-
 
 export const MOCK_YEARS = [
   2000, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
@@ -390,4 +405,8 @@ export const MOCK_YEARS = [
   key: year,
 }));
 
-
+export const documentStatusesMap = {
+  PRIMARY_VALID: "Վավեր",
+  VALID: "Վավեր",
+  INVALID: "Անվավեր",
+};

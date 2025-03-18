@@ -20,67 +20,24 @@ const Reports = () => {
     error,
     data,
     columns,
+    filters,
+    pagination,
     showDialog,
     setShowDialog,
+    onTextSearch,
     base64Data,
     isTypesLoading,
     isTypesError,
+    onPaginationChange,
     typesError,
     types,
+    onTypeFilter,
   } = useTexekanqData();
-
-  const initialFilters = {
-    search: "",
-    types: [],
-  };
-
-  const [filters, setFilters] = useState(initialFilters);
-
   if (isError) return <Alert severity="error">{error}</Alert>;
-
-  const filteredReports = data?.filter((report) => {
-    const searchMatch = filters.search
-      ? report.document_number.includes(filters.search) ||
-        report.mul_number?.includes(filters.search) ||
-        report.person_fname?.includes(filters.search) ||
-        report.person_lname?.includes(filters.search) ||
-        report.person_mname?.includes(filters.search) ||
-        report.pnum?.includes(filters.search)
-      : true;
-
-    const typeMatch =
-      filters.types.length > 0
-        ? filters.types.includes(report.Texekanqtype.id)
-        : true;
-
-    return searchMatch && typeMatch;
-  });
-
-  const cancel = (e) => {
-    console.log(":>");
-  };
 
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
-
-  const handleTypeFilter = (typeId) => {
-    if (!typeId) return;
-
-    if (Array.isArray(typeId)) {
-      return setFilters((filters) => ({
-        ...filters,
-        types: typeId,
-      }));
-    }
-    const types = filters.types;
-
-    const newTypes = types.includes(typeId)
-      ? types.filter((direction) => direction !== typeId)
-      : [...types, typeId];
-
-    setFilters((filters) => ({ ...filters, types: newTypes }));
-  };
 
   return (
     <Grid container spacing={1} sx={{ padding: "30px 10px" }}>
@@ -100,9 +57,7 @@ const Reports = () => {
             type="search"
             fullWidth
             sx={{ mb: 2 }}
-            onChange={(e) =>
-              setFilters((filters) => ({ ...filters, search: e.target.value }))
-            }
+            onChange={onTextSearch}
           />
           <Typography variant="p" component="p">
             Ձևեր
@@ -114,7 +69,7 @@ const Reports = () => {
                   <CheckboxButton
                     text={type.name}
                     value={type.id}
-                    onRoleFilter={handleTypeFilter}
+                    onRoleFilter={onTypeFilter}
                     checked={filters.types.includes(type.id)}
                   />
                 </Grid>
@@ -127,13 +82,17 @@ const Reports = () => {
         <PageTitle>Ստեղծված տեղեկանքներ</PageTitle>
         <Table
           bordered
-          dataSource={filteredReports}
+          dataSource={data}
           columns={columns}
           rowClassName="editable-row"
           pagination={{
-            onChange: cancel,
+            pageSizeOptions: [10, 20, 50],
+            current: pagination?.page,
+            pageSize: pagination?.pageSize,
+            onChange: onPaginationChange,
+            total: pagination?.total,
           }}
-          isLoading={isLoading}
+          loading={isLoading}
         />
         {/* </Box> */}
         {showDialog && (

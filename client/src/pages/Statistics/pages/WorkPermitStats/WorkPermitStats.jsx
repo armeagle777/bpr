@@ -29,7 +29,7 @@ const WorkPermitStats = () => {
   } = useFilterStatistics({ statisticsType: "WP_SIMPLE" });
   const exportExcelFilters = {
     ...filters,
-    statisticsType: STATISTICS_TYPE_MAPS.B_CROSS_TOTAL,
+    statisticsType: STATISTICS_TYPE_MAPS.WP_SIMPLE,
   };
 
   const { PAGE_TITLES } = translations;
@@ -56,7 +56,7 @@ const WorkPermitStats = () => {
           onResetFilters={handleResetFilters}
         >
           <EATMPersons
-            filters={filters}
+            filters={exportExcelFilters}
             data={dataWithTotals}
             isLoading={isFetching}
           />
@@ -76,7 +76,7 @@ const WorkPermitStats = () => {
           onResetFilters={handleResetFilters}
         >
           <EATMFams
-            filters={filters}
+            filters={exportExcelFilters}
             data={dataWithTotals}
             isLoading={isFetching}
           />
@@ -95,7 +95,7 @@ const WorkPermitStats = () => {
           onFilterChange={handleFilterChange}
           onResetFilters={handleResetFilters}
         >
-          <JKK filters={filters} data={dataWithTotals} isLoading={isFetching} />
+          <JKK filters={exportExcelFilters} data={dataWithTotals} isLoading={isFetching} />
         </DealsContainer>
       ),
     },
@@ -112,7 +112,7 @@ const WorkPermitStats = () => {
           onResetFilters={handleResetFilters}
         >
           <Volunteer
-            filters={filters}
+            filters={exportExcelFilters}
             data={dataWithTotals}
             isLoading={isFetching}
           />

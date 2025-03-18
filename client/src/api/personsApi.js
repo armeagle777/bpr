@@ -147,8 +147,15 @@ export const createTexekanq = async (data) => {
   return response.data;
 };
 
-export const getTexekanqs = async () => {
-  const response = await personsApi.get(`/texekanq`);
+export const getTexekanqs = async ({ filters, pagination }) => {
+  const queryParams = new URLSearchParams({
+    search: filters.search,
+    types: filters.types.join(","),
+    page: pagination.page,
+    pageSize: pagination.pageSize,
+  }).toString();
+
+  const response = await personsApi.get(`/texekanq?${queryParams}`);
   return response.data;
 };
 
@@ -255,6 +262,23 @@ export const getDisplacementsBySsn = async (ssn) => {
 
 export const getWpDataBySsn = async (ssn) => {
   const response = await personsApi.get(`/wp/${ssn}`);
+  return response.data;
+};
+
+export const getBordercrossDataBySsn = async (data) => {
+  const response = await personsApi.post(`/persons/bordercross`, data);
+  return response.data;
+};
+
+export const getRoadpoliceDataBySsn = async (ssn) => {
+  const response = await personsApi.get(`/persons/${ssn}/roadpolice`);
+  return response.data;
+};
+
+export const getVehiclesByParams = async (q, searchBase) => {
+  const response = await personsApi.get(
+    `/persons/${q}/vehicle?searchBase=${searchBase}`
+  );
   return response.data;
 };
 
