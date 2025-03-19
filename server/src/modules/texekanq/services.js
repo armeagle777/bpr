@@ -190,9 +190,6 @@ const createTexekanqDb = async (req) => {
     mul_number,
     validDocuments,
     invalidDocuments,
-    passport_number,
-    passport_series,
-    passport_issue_date,
     passports,
   } = body;
 

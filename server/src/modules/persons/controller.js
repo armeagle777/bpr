@@ -1,18 +1,16 @@
 const {
-  getPoliceByPnumDb,
-  getBordercrossBySsnDb,
-  getRoadpoliceBySsnDb,
+  getTaxBySsnDb,
+  createPdfBySsn,
+  getPersonBySsnDb,
   searchVehiclesDb,
+  getPoliceByPnumDb,
+  getCompanyByHvhhDb,
+  getDocumentsBySsnDb,
+  getRoadpoliceBySsnDb,
+  getSearchedPersonsDb,
+  getBordercrossBySsnDb,
 } = require("./services");
 
-const {
-  getPersonBySsnDb,
-  getSearchedPersonsDb,
-  getDocumentsBySsnDb,
-  getTaxBySsnDb,
-  getCompanyByHvhhDb,
-  createPdfBySsn,
-} = require("./services");
 
 const downloadBprInfo = async (req, res, next) => {
   try {

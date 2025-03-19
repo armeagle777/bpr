@@ -1,33 +1,24 @@
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useTexekanqData } from "../../hooks/useTexekanqData";
-import { useState } from "react";
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Button,
   Grid,
-  Select,
-  MenuItem,
-  OutlinedInput,
-  Checkbox,
-  ListItemText,
+  Button,
+  Dialog,
+  TextField,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
-import { documentStatusesMap } from "../../utils/constants";
-import { texekanqAllowedDocuments } from "./constants";
+import { useState } from "react";
+import { useTexekanqData } from "../../hooks/useTexekanqData";
+import CzOrderDocsDropdown from "./CzOrderDocsDropdown";
+import { getAllowedDocuments } from "./helpers";
 
 const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   const { onCreateTexekanq, texekanqData, texekanqIsLoading } =
     useTexekanqData();
   const { PNum, documents } = data;
-  const allowedDocuments = documents
-    .filter((doc) => texekanqAllowedDocuments.includes(doc.Document_Type))
-    .map((doc) => {
-      delete doc.Photo_ID;
-      return doc;
-    });
+  const allowedDocuments = getAllowedDocuments(documents);
+
   const initialTexekanqPassports = allowedDocuments?.length
     ? [allowedDocuments[allowedDocuments.length - 1]]
     : [];
@@ -45,24 +36,6 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
   const validDocument = documents.find(
     (doc) => doc.Document_Status === "PRIMARY_VALID"
   );
-
-  // const priorityOrder = [
-  //   {
-  //     Document_Status: "PRIMARY_VALID",
-  //     Document_Type: "NON_BIOMETRIC_PASSPORT",
-  //   },
-  //   { Document_Status: "PRIMARY_VALID", Document_Type: "ID_CARD" },
-  //   { Document_Status: "INVALID", Document_Type: "NON_BIOMETRIC_PASSPORT" },
-  //   { Document_Status: "INVALID", Document_Type: "ID_CARD" },
-  // ];
-
-  // const texekanqPassport = priorityOrder.map((priority) =>
-  //   documents.find(
-  //     (doc) =>
-  //       doc.Document_Status === priority.Document_Status &&
-  //       doc.Document_Type === priority.Document_Type
-  //   )
-  // );
 
   const invalidDocument = documents.find(
     (doc) => doc.Document_Status === "INVALID"
@@ -104,8 +77,6 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
     setDialogOpen(false);
   };
 
-  // documents.reverse();
-
   return (
     <>
       {!texekanqData && (
@@ -135,62 +106,11 @@ const CityzenshipTexekanqGenerator = ({ disabled, data, fileName, user }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Select
-                    fullWidth
-                    multiple
-                    id="Փաստաթուղթ"
+                  <CzOrderDocsDropdown
                     value={texekanqPassports}
                     onChange={handleDocSelectChange}
-                    placeholder="Փաստաթուղթ"
-                    aria-label="Փաստաթուղթ"
-                    label="Փաստաթուղթ"
-                    input={<OutlinedInput label="Tag" />}
-                    renderValue={(selected) =>
-                      selected?.map((doc) => doc.Document_Number)?.join(", ")
-                    }
-                    style={{ minWidth: 200 }}
-                  >
-                    {allowedDocuments?.map((passport, index) => {
-                      const {
-                        Document_Number,
-                        Document_Status,
-                        Document_Type,
-                        PassportData: {
-                          Passport_Issuance_Date,
-                          Passport_Validity_Date,
-                          Passport_Validity_Date_FC,
-                          Passport_Extension_Date,
-                        } = {},
-                      } = {
-                        ...passport,
-                      };
-                      const optionText =
-                        Document_Number +
-                        " - " +
-                        documentStatusesMap[Document_Status] +
-                        " | " +
-                        Passport_Issuance_Date +
-                        " - " +
-                        Passport_Validity_Date;
-                      return (
-                        <MenuItem
-                          key={passport.Document_Number}
-                          value={passport}
-                        >
-                          <Checkbox
-                            checked={
-                              !!texekanqPassports.find(
-                                (doc) =>
-                                  doc.Document_Number ===
-                                  passport.Document_Number
-                              )
-                            }
-                          />
-                          <ListItemText primary={optionText} />
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
+                    documents={allowedDocuments}
+                  />
                 </Grid>
               </Grid>
             </DialogContent>

@@ -410,3 +410,9 @@ export const documentStatusesMap = {
   VALID: "Վավեր",
   INVALID: "Անվավեր",
 };
+
+export const DOCUMENT_STATUSES = {
+  PRIMARY_VALID: "PRIMARY_VALID",
+  VALID: "VALID",
+  INVALID: "INVALID",
+};
