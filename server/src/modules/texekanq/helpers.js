@@ -152,11 +152,11 @@ const mapDocTextFromPassports = (passports) => {
     //TODO modify each case's text according to task
     switch (Document_Type) {
       case "ID_CARD":
-        return ` ${Passport_Issuance_Date}-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու թիվ ${passport_number} նույնականացման քարտը`;
+        return ` ${Passport_Issuance_Date}թ-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու թիվ ${passport_number} նույնականացման քարտը`;
       case "NON_BIOMETRIC_PASSPORT":
-        return ` ${Passport_Issuance_Date}-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու  ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը`;
+        return ` ${Passport_Issuance_Date}թ-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու  ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը`;
       case "BIOMETRIC_PASSPORT":
-        return ` ${Passport_Issuance_Date}-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու կենսաչափական տվյալներ պարունակող ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը`;
+        return ` ${Passport_Issuance_Date}թ-ին${index === 0 ? ' ՀՀ ՆԳՆ միգրացիայի և քաղաքացիության ծառայությունից  ստացել է ' : '՝ ' }ՀՀ քաղաքացու կենսաչափական տվյալներ պարունակող ${passport_series} սերիայի թիվ ${passport_number} անձնագիրը`;
       default:
         return "";
     }
