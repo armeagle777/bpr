@@ -1,7 +1,26 @@
 import { List, ListItem, ListItemText, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-const OwnerRow = ({ ssn, lastname, firstname }) => {
+const OwnerRow = ({
+  ssn,
+  lastname,
+  firstname,
+  organization_name,
+  tax_number,
+}) => {
+  const getPersonRow = ({ firstname, lastname, ssn }) => {
+    return firstname + " " + lastname + ", ՀԾՀ - " + ssn;
+  };
+
+  const getCompanyRow = ({ organization_name, tax_number }) => {
+    return organization_name + ", ՀՎՀՀ - " + tax_number;
+  };
+
+  const ownerRowText = ssn
+    ? getPersonRow({ firstname, lastname, ssn })
+    : organization_name
+    ? getCompanyRow({ organization_name, tax_number })
+    : "";
   return (
     <List
       sx={{
@@ -11,7 +30,6 @@ const OwnerRow = ({ ssn, lastname, firstname }) => {
     >
       <ListItem alignItems="flex-start">
         <ListItemText
-          // primary={ssn}
           secondary={
             <Typography
               variant="secondary"
@@ -19,7 +37,7 @@ const OwnerRow = ({ ssn, lastname, firstname }) => {
               sx={{ pl: 1 }}
               flexGrow={2}
             >
-              {firstname} {lastname}, ՀԾՀ - {ssn}
+              {ownerRowText}
             </Typography>
           }
         />
