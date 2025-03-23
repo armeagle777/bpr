@@ -57,6 +57,7 @@ import WpTab from "../WpTab/WpTab";
 import BordercrossTab from "../BordercrossTab/BordercrossTab";
 import RoadPoliceTab from "../RoadPoliceTab/RoadPoliceTab";
 import DropdownWithCheckboxes from "../DropdownCheckbox/DropdownCheckbox";
+import useFetchArtsakh from "../../hooks/useFetchArtsakh";
 
 const PersonInfoPage = ({ personInfo }) => {
   const [value, setValue] = useState(0);
@@ -155,6 +156,15 @@ const PersonInfoPage = ({ personInfo }) => {
     Citizenship_StoppedDate,
   });
 
+  const {
+    data,
+    isLoading: displacementDataLoading,
+    isError,
+    error,
+  } = useFetchArtsakh(PNum);
+  if (data?.certificates) {
+    personInfo.certificates = data.certificates;
+  }
   return (
     <>
       <Grid container spacing={2}>

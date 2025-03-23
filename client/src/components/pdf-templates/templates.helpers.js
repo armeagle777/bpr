@@ -113,3 +113,9 @@ export const checkSamePerson = ({ presenter, person, person2 }) => {
       presenter?.base_info?.last_name === person2?.base_info?.last_name)
   );
 };
+
+export function reformatDate(dateString) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}/${month}/${year}`;
+}

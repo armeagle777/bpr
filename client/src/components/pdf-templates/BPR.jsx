@@ -9,6 +9,7 @@ import BoldArial from "../../assets/Fonts/GHEAGpalatBld.otf";
 import { formatBprData, formatDate } from "./templates.helpers";
 import AsideBar from "./components/AsideBar";
 import BprHeader from "./components/BprHeader";
+import JpkDocumentRow from "./components/JpkDocumentRow";
 
 Font.register({
   family: "Arial",
@@ -33,6 +34,7 @@ const BPR = ({ data, userFullName }) => {
     documents,
     addresses = [],
     Citizenship_StoppedDate,
+    certificates,
   } = { ...data };
 
   const {
@@ -79,6 +81,17 @@ const BPR = ({ data, userFullName }) => {
                 invalidDocuments.map((doc) => (
                   <BprDocumentRow key={doc.Document_Number} doc={doc} />
                 ))}
+              {certificates?.length && (
+                <>
+                  <Text style={styles.mainSectionTitle}>ԺՊԿ Վկայականներ</Text>
+                  {certificates.map((certificate) => (
+                    <JpkDocumentRow
+                      key={certificate.id}
+                      certificate={certificate}
+                    />
+                  ))}
+                </>
+              )}
             </View>
             <View style={styles.mainSection}>
               <Text style={styles.mainSectionTitle}>Գրանցման հասցեներ</Text>
