@@ -37,9 +37,13 @@ const getDisplacementCertsQuery = (pnum) => `SELECT C.serial_number,
                                         C.expire_date,
                                         C.actual,
                                         C.printed_at,
-                                        C.handed_at
+                                        C.handed_at,
+                                        L.f_name_arm,
+                                        L.l_name_arm
                                         FROM jkk_certificates C
                                         LEFT JOIN local_offices O ON O.id = C.issue_by_office
+                                        LEFT JOIN jkk_claims CL ON CL.id=C.claim_id
+                                        LEFT JOIN jkk_list L ON L.id = CL.jkk_list_id
                                         WHERE C.pnum = ${pnum}`;
 
 module.exports = { getDisplacementCertsQuery, getDisplacementCasesQuery };
