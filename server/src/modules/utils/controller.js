@@ -1,9 +1,7 @@
 const getRequestIp = (req,res,next)=>{
     try {
-        const ip = req.headers['x-forwarded-for']?.split(',')[0] ||
-            req.connection.remoteAddress ||
-            req.socket.remoteAddress;
-        res.status(200).json({ip});
+        const serverHost = req.headers.host;
+        res.status(200).json({host:serverHost});
     } catch (err) {
         console.log("Error crating User:", err);
         next(err);
