@@ -22,6 +22,7 @@ const texekanqRouter = require("./modules/texekanq/routes");
 const sharesRouter = require("./modules/share/routes");
 const permissionsRouter = require("./modules/permission/routes");
 const rolesRouter = require("./modules/role/routes");
+const utilsRouter = require('./modules/utils/routes');
 const { sphereSequelize } = require("./config/sphereDatabase");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
@@ -83,6 +84,7 @@ app.use("/api/kadastr", kadastrRoutes);
 app.use("/api/artsakh", artsakhRoutes);
 app.use("/api/wp", wpRoutes);
 app.use("/api/sphere", sphereRoute);
+app.use("/api/utils", utilsRouter);
 
 //Statistics Endpoints
 app.use("/api/statistics", statisticsRoute);
