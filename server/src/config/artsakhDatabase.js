@@ -8,7 +8,7 @@ const password = process.env.DATABASE_PASSWORD;
 const artsakhSequelize = new Sequelize(DB, username, password, {
   host: host,
   dialect: "mysql",
-  // logging: (...msg) => console.log(msg),
+  logging: false,
 });
 
 artsakhSequelize.authenticate();

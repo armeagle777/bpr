@@ -8,7 +8,7 @@ const password = process.env.WP_DATABASE_PASSWORD;
 const wpSequelize = new Sequelize(DB, username, password, {
   host: host,
   dialect: "mysql",
-  // logging: (...msg) => console.log(msg),
+  logging: false,
 });
 
 wpSequelize.authenticate();

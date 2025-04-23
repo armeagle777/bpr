@@ -8,7 +8,7 @@ const password = process.env.DATABASE_PASSWORD;
 const sahmanahatumSequelize = new Sequelize(DB, username, password, {
   host: host,
   dialect: "mysql",
-  // logging: (...msg) => console.log(msg),
+  logging: false,
 });
 
 const Cross = sahmanahatumSequelize.define(

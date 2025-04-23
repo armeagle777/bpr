@@ -4,6 +4,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 var CronJob = require("cron").CronJob;
+const morgan = require("morgan");
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ const texekanqRouter = require("./modules/texekanq/routes");
 const sharesRouter = require("./modules/share/routes");
 const permissionsRouter = require("./modules/permission/routes");
 const rolesRouter = require("./modules/role/routes");
-const utilsRouter = require('./modules/utils/routes');
+const utilsRouter = require("./modules/utils/routes");
 const { sphereSequelize } = require("./config/sphereDatabase");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
@@ -54,7 +55,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost",
       "http://192.168.3.179:5173",
-      // "http://192.168.3.179",
+      "http://102.102.100.5",
     ],
     optionsSuccessStatus: 200,
     credentials: true,
@@ -70,6 +71,7 @@ app.use(
   })
 );
 
+app.use(morgan("common"));
 app.use("/api/users", usersRouter);
 app.use("/api/token", tokenRouter);
 app.use("/api/likes", likesRouter);

@@ -1,7 +1,7 @@
 const getRequestIp = (req,res,next)=>{
     try {
-        const serverHost = req.headers.host;
-        res.status(200).json({host:serverHost});
+        const isReachable = true
+        res.status(200).json({isReachable});
     } catch (err) {
         console.log("Error crating User:", err);
         next(err);
