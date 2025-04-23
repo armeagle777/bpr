@@ -1,11 +1,11 @@
 import { Box, Modal as MuiModal } from "@mui/material";
 
-const Modal = ({ children, isOpen, onClose }) => {
+const Modal = ({ children, isOpen, onClose, centered = true }) => {
   const style = {
     position: "absolute",
-    top: "50%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    top: centered ? "50%" : "20%",
+    transform: centered ? "translate(-50%, -50%)" : "translateX(-50%)",
     bgcolor: "background.paper",
     boxShadow: 24,
     pt: 2,

@@ -78,15 +78,6 @@ const BuildingRow = ({
               sx={{ pl: 1 }}
               flexGrow={2}
             >
-              <span
-                style={{
-                  width: "10px",
-                  height: "10px",
-                  borderRadius: "50%",
-                  backgroundColor: AREA_IS_LEGAL == "0" ? "red" : "green",
-                  display: "inline-block",
-                }}
-              ></span>{" "}
               Մակերես։ {AREA || ""}մ² | Հարկ։ {FLOOR_NUMBER || ""}(
               {FLOOR_TITLE || ""}) | Ներքին բարձրություն:{" "}
               {INTERNAL_HEIGHT || ""} | Ավարտվածություն:{" "}

@@ -34,8 +34,11 @@ function Login() {
     setPassword,
     checkErrors,
     switchServers,
-    outerNetwork,
+    // outerNetwork,
     setIdentifier,
+    getServerUrlLoading,
+    getServerIsError,
+    serverUrl,
   } = useAuthData();
 
   const auth = useAuthUser();
@@ -46,6 +49,9 @@ function Login() {
       navigate("/");
     }
   }, [auth]);
+
+  const submitBtnDisabled =
+    !serverUrl || !identifier || !password || isLoading || isError;
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -124,16 +130,18 @@ function Login() {
                   alignItems: "center",
                 }}
               >
-                <FormControlLabel
+                {/* <FormControlLabel
                   onChange={switchServers}
                   control={<Switch defaultChecked={outerNetwork} />}
                   label="Ընտրել ցանցը"
-                />
+                /> */}
                 <LoadingButton
                   type="submit"
                   variant="contained"
-                  sx={{ width: "60%" }}
+                  sx={{ paddingY: "15px" }}
                   loading={isLoading}
+                  disabled={submitBtnDisabled}
+                  fullWidth
                 >
                   Մուտք
                 </LoadingButton>

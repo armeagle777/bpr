@@ -38,6 +38,7 @@ import {
 } from "./pages/Statistics/pages";
 import VehicleSearch from "./pages/VehicleSearch/VehicleSearch.page.jsx";
 import Sahmanahatum from "./pages/Sahmanahatum/Sahmanahatum.jsx";
+import WpPersonSearch from "./pages/WpPersonSearch/WpPersonSearch.jsx";
 
 function App() {
   return (
@@ -191,6 +192,19 @@ function App() {
               ]}
             >
               <Register />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="wp-person-search"
+          element={
+            <RequirePermission
+              permissions={[
+                permissionsMap.WP_PERSON_SEARCH.uid,
+                permissionsMap.ADMIN.uid,
+              ]}
+            >
+              <WpPersonSearch />
             </RequirePermission>
           }
         />

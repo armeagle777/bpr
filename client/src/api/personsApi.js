@@ -1,15 +1,31 @@
 import axios from "axios";
 import { DOWNLOAD_FILE_TYPES, FILE_MIME_TYPES } from "../utils/constants";
 
-const baseUrl =
-  localStorage.getItem("serverSwitch") === "true"
-    ? import.meta.env.VITE_SERVER_URL
-    : import.meta.env.VITE_SERVER_OUT_URL;
+const baseUrl = !!localStorage.getItem("serverUrl")
+  ? localStorage.getItem("serverUrl")
+  : import.meta.env.VITE_SERVER_URL;
 
 const personsApi = axios.create({
   baseURL: baseUrl,
   withCredentials: true,
 });
+
+export const checkMyIp = async () => {
+  const internalUrl = import.meta.env.VITE_SERVER_URL;
+  const ovirNetworkUrl = import.meta.env.VITE_SERVER_OUT_URL;
+  const policeNetworkUrl = import.meta.env.VITE_SERVER_POLICE_NETWORK_URL;
+
+  const urls = [internalUrl, ovirNetworkUrl, policeNetworkUrl];
+
+  const requests = urls.map((url) =>
+    axios
+      .get(url + "/utils/get-ip")
+      .then((res) => ({ url, data: res.data }))
+      .catch((error) => console.log("Error getting server ip"))
+  );
+  const result = await Promise.any(requests);
+  return result.url;
+};
 
 const getCoordsWithAddress = async (address) => {
   const response = await axios.get(
@@ -67,6 +83,28 @@ personsApi.interceptors.response.use(
 //     throw error;
 //   }
 // );
+
+export const getCountriesData = async () => {
+  const response = await personsApi.get(`/wp/countries/all`);
+  return response.data;
+};
+
+export const getWpPersonData = async (filters, page) => {
+  const response = await personsApi.post(`/wp/person/filter`, {
+    filters,
+    page,
+  });
+  return response.data;
+};
+
+export const getWpPersonFullData = async (props) => {
+  const { id, tablename, user_id } = props;
+  const response = await personsApi.post(`/wp/person/${id}/detail`, {
+    tablename,
+    user_id,
+  });
+  return response.data;
+};
 
 export const getStatisticsData = async (filterObj, url) => {
   const response = await personsApi.post(`/statistics${url}`, filterObj);

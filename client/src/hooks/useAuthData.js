@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { login, logOut } from "../api/personsApi";
+import { checkMyIp, login, logOut } from "../api/personsApi";
 
 const useAuthData = () => {
   const [checkErrors, setCheckErrors] = useState(false);
-  const [outerNetwork, setOuterNetwork] = useState(() => {
-    return localStorage.getItem("serverSwitch") === "true";
-  });
+  // const [outerNetwork, setOuterNetwork] = useState(() => {
+  //   return localStorage.getItem("serverSwitch") === "true";
+  // });
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,9 +18,28 @@ const useAuthData = () => {
   const signIn = useSignIn();
   const signOut = useSignOut();
 
+  const serverSavedUrl = localStorage.getItem("serverUrl");
+
   useEffect(() => {
     setCheckErrors(false);
   }, [identifier, password]);
+
+  const {
+    data: serverUrl,
+    isLoading: getServerUrlLoading,
+    isError: getServerIsError,
+    error: getServerUrlError,
+  } = useQuery({
+    queryKey: ["server-url"],
+    queryFn: checkMyIp,
+    enabled: !serverSavedUrl,
+  });
+
+  useEffect(() => {
+    if (serverUrl && !serverSavedUrl) {
+      localStorage.setItem("serverUrl", serverUrl);
+    }
+  }, [serverUrl, serverSavedUrl]);
 
   const redirectPath = location.state?.path || "/";
 
@@ -64,11 +83,11 @@ const useAuthData = () => {
     logoutMutation.mutate();
   };
 
-  const switchServers = () => {
-    const newValue = !outerNetwork;
-    setOuterNetwork((oldNetwork) => !oldNetwork);
-    localStorage.setItem("serverSwitch", newValue);
-  };
+  // const switchServers = () => {
+  //   const newValue = !outerNetwork;
+  //   setOuterNetwork((oldNetwork) => !oldNetwork);
+  //   localStorage.setItem("serverSwitch", newValue);
+  // };
 
   return {
     error,
@@ -77,12 +96,15 @@ const useAuthData = () => {
     isLoading,
     identifier,
     setPassword,
-    switchServers,
-    outerNetwork,
+    // switchServers,
+    // outerNetwork,
     checkErrors,
     setIdentifier,
     onLogout,
     onSubmit: handleSubmit,
+    getServerUrlLoading,
+    getServerIsError,
+    serverUrl: serverUrl || serverSavedUrl,
   };
 };
 
