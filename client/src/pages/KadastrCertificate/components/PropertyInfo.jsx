@@ -179,8 +179,8 @@ const PropertyInfo = ({ property }) => {
               {REGION || ""} <br />
               {COMMUNITY || ""} <br />
               {`${STREET_NAME || ""} ${STREET_TYPE || ""}` || ""} <br />
-              {BUILDING || ""} <br />
               {HOUSE || ""} <br />
+              {BUILDING || ""} <br />
             </Typography>
             <Typography
               align="right"
