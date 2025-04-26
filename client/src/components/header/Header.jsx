@@ -62,7 +62,7 @@ const Header = () => {
             component="a"
             href="/"
             sx={{
-              width: 400,
+              width: 200,
               mr: 2,
               ml: 2,
               display: { xs: "none", md: "flex" },
@@ -77,7 +77,6 @@ const Header = () => {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "flex" },
-              paddingLeft: 20,
             }}
           >
             {userHasPermission(
