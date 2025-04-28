@@ -5,22 +5,30 @@ const OwnerRow = ({
   ssn,
   lastname,
   firstname,
+  secondname,
   organization_name,
   tax_number,
 }) => {
-  const getPersonRow = ({ firstname, lastname, ssn }) => {
-    return firstname + " " + lastname + ", ՀԾՀ - " + ssn;
+  const getPersonRow = ({ firstname, lastname, secondname, ssn }) => {
+    return (
+      firstname +
+      " " +
+      lastname +
+      (secondname ? ` ${secondname}` : "") +
+      `${ssn ? ", ՀԾՀ - " + ssn : ""}`
+    );
   };
 
   const getCompanyRow = ({ organization_name, tax_number }) => {
     return organization_name + ", ՀՎՀՀ - " + tax_number;
   };
 
-  const ownerRowText = ssn
-    ? getPersonRow({ firstname, lastname, ssn })
-    : organization_name
-    ? getCompanyRow({ organization_name, tax_number })
-    : "";
+  const ownerRowText =
+    ssn || (firstname && lastname)
+      ? getPersonRow({ firstname, lastname, secondname, ssn })
+      : organization_name
+      ? getCompanyRow({ organization_name, tax_number })
+      : "";
   return (
     <List
       sx={{
