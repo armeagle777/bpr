@@ -33,9 +33,7 @@ import AppBar from "@mui/material/AppBar";
 import Slide from "@mui/material/Slide";
 import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
-import { v4 } from "uuid";
 
-import OwnerRow from "./OwnerRow";
 import RightsRow from "./RightsRow";
 
 const ExpandMore = styled((props) => {

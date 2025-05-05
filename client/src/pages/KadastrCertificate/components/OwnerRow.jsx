@@ -8,6 +8,8 @@ const OwnerRow = ({
   secondname,
   organization_name,
   tax_number,
+  id_card,
+  passport,
 }) => {
   const getPersonRow = ({ firstname, lastname, secondname, ssn }) => {
     return (
@@ -15,7 +17,9 @@ const OwnerRow = ({
       " " +
       lastname +
       (secondname ? ` ${secondname}` : "") +
-      `${ssn ? ", ՀԾՀ - " + ssn : ""}`
+      `${ssn ? " | ՀԾՀ - " + ssn : ""}` +
+      `${id_card ? " | ID - " + id_card : ""}` +
+      `${passport ? " | Անձնագիր - " + passport : ""}`
     );
   };
 

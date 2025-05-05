@@ -59,24 +59,28 @@ const BuildingRow = ({
       </ListItem>
       <Stack>
         {section.map(
-          ({
-            AREA,
-            FLOOR_TITLE,
-            FLOOR_NUMBER,
-            AREA_IS_LEGAL,
-            INTERNAL_HEIGHT,
-            COMPLETION_LEVEL,
-            CONSTRUCTION_YEAR,
-            DAMAGE_LEVEL_TITLE,
-            ROOF_MATERIAL_TITLE,
-            CONSTRUCTION_MATERIAL,
-            CEILING_MATERIAL_TITLE,
-          }) => (
+          (
+            {
+              AREA,
+              FLOOR_TITLE,
+              FLOOR_NUMBER,
+              AREA_IS_LEGAL,
+              INTERNAL_HEIGHT,
+              COMPLETION_LEVEL,
+              CONSTRUCTION_YEAR,
+              DAMAGE_LEVEL_TITLE,
+              ROOF_MATERIAL_TITLE,
+              CONSTRUCTION_MATERIAL,
+              CEILING_MATERIAL_TITLE,
+            },
+            index
+          ) => (
             <Typography
               variant="secondary"
               color="text.primary"
               sx={{ pl: 1 }}
               flexGrow={2}
+              key={index}
             >
               Մակերես։ {AREA || ""}մ² | Հարկ։ {FLOOR_NUMBER || ""}(
               {FLOOR_TITLE || ""}) | Ներքին բարձրություն:{" "}
