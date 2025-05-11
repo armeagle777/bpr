@@ -625,21 +625,43 @@ const formatEaeuEmployeeQuery = ({
 }) => {
   // claim_type  may be 'total' || 'status_claim' || 'extension'
   // action  may be 'allow' || 'reject' || 'cease' || 'terminate' || 'terminate_citizen'
-  let period_in_where_condition = "";
+  let dateName = "";
   let action = "";
+  let period_where_condition = "";
   const claim_type_where_condion =
     claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
   if (report_type == 1) {
-    period_in_where_condition = "stat_data.claim_date";
+    dateName = "stat_data.claim_date";
     action = "";
   } else {
-    period_in_where_condition = "stat_data.log_date";
+    dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
   }
 
+  if (period == periodsMap.H1) {
+    period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+  } else if (period == periodsMap.H2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+  } else if (period == periodsMap.ANNUAL) {
+    period_where_condition = ` `;
+  } else if (period == periodsMap.Q1) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+  } else if (period == periodsMap.Q2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+  } else if (period == periodsMap.Q3) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+  } else if (period == periodsMap.Q4) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+  } else if (period == periodsMap["9MONTHLY"]) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+  }
+  // else if (period == "9") {
+  //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
+  // }
+
   const monthWhereCondition = month
-    ? ` AND month(${period_in_where_condition}) = '${month}'`
+    ? ` AND month(${dateName}) = '${month}'`
     : "";
 
   return `SELECT  
@@ -686,7 +708,8 @@ const formatEaeuEmployeeQuery = ({
     ON a.id = g.claim_id
   ) as stat_data
   where 
-  year(${period_in_where_condition}) = '${year}' 
+  year(${dateName}) = '${year}' 
+   ${period_where_condition}
    ${claim_type_where_condion}
    ${monthWhereCondition}
    ${action}
@@ -700,21 +723,43 @@ const formatEaeuEmployeeFamQuery = ({
   report_type,
   decType,
 }) => {
-  let period_in_where_condition = "";
+  let dateName = "";
   let action = "";
+  let period_where_condition = "";
 
   if (report_type == 1) {
-    period_in_where_condition = "stat_data.claim_date";
+    dateName = "stat_data.claim_date";
   } else {
-    period_in_where_condition = "stat_data.log_date";
+    dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
   }
+
+  if (period == periodsMap.H1) {
+    period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+  } else if (period == periodsMap.H2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+  } else if (period == periodsMap.ANNUAL) {
+    period_where_condition = ` `;
+  } else if (period == periodsMap.Q1) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+  } else if (period == periodsMap.Q2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+  } else if (period == periodsMap.Q3) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+  } else if (period == periodsMap.Q4) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+  } else if (period == periodsMap["9MONTHLY"]) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+  }
+  // else if (period == "9") {
+  //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
+  // }
 
   const claim_type_where_condion =
     claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
   const monthWhereCondition = month
-    ? ` AND month(${period_in_where_condition}) = '${month}'`
+    ? ` AND month(${dateName}) = '${month}'`
     : "";
 
   return `SELECT 
@@ -760,7 +805,8 @@ const formatEaeuEmployeeFamQuery = ({
     date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id)
    as stat_data
   where  
-   year(${period_in_where_condition}) = '${year}'
+   year(${dateName}) = '${year}'
+   ${period_where_condition}
    ${claim_type_where_condion} 
    ${monthWhereCondition}
    ${action}
@@ -777,21 +823,43 @@ const formatWpQuery = ({
   claim_type,
   report_type,
 }) => {
-  let period_in_where_condition = "";
+  let dateName = "";
   let action = "";
+  let period_where_condition = "";
 
   if (report_type == 1) {
-    period_in_where_condition = "stat_data.claim_date";
+    dateName = "stat_data.claim_date";
   } else {
-    period_in_where_condition = "stat_data.log_date";
+    dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
   }
+
+  if (period == periodsMap.H1) {
+    period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+  } else if (period == periodsMap.H2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+  } else if (period == periodsMap.ANNUAL) {
+    period_where_condition = ` `;
+  } else if (period == periodsMap.Q1) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+  } else if (period == periodsMap.Q2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+  } else if (period == periodsMap.Q3) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+  } else if (period == periodsMap.Q4) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+  } else if (period == periodsMap["9MONTHLY"]) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+  }
+  // else if (period == "9") {
+  //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
+  // }
 
   const claim_type_where_condion =
     claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
   const monthWhereCondition = month
-    ? ` AND month(${period_in_where_condition}) = '${month}'`
+    ? ` AND month(${dateName}) = '${month}'`
     : "";
 
   return `SELECT  stat_data.name_am, 
@@ -826,7 +894,8 @@ const formatWpQuery = ({
     date(f.created_at) as log_date 
     from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
   where   
-   year(${period_in_where_condition}) = '${year}' 
+   year(${dateName}) = '${year}' 
+   ${period_where_condition}
    ${claim_type_where_condion}
    ${monthWhereCondition}
    ${action}
@@ -838,11 +907,41 @@ const formatVolunteerQuery = ({
   month,
   period,
   claim_type,
+  decType,
   report_type,
 }) => {
-  const monthWhereCondition = month
-    ? ` AND month(stat_data.claim_date) < ${month}`
-    : "";
+  let period_where_condition = "";
+  let action = "";
+  let dateName = "";
+
+  if (report_type == 1) {
+    dateName = "stat_data.claim_date";
+  } else {
+    dateName = "stat_data.log_date";
+    action = ` AND stat_data.action = '${decType}' `;
+  }
+
+  if (period == periodsMap.H1) {
+    period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+  } else if (period == periodsMap.H2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+  } else if (period == periodsMap.ANNUAL) {
+    period_where_condition = ` `;
+  } else if (period == periodsMap.Q1) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+  } else if (period == periodsMap.Q2) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+  } else if (period == periodsMap.Q3) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+  } else if (period == periodsMap.Q4) {
+    period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+  } else if (period == periodsMap["9MONTHLY"]) {
+    period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+  }
+  // else if (period == "9") {
+  //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
+  // }
+  const monthWhereCondition = month ? ` AND month(${dateName}) < ${month}` : "";
 
   return `SELECT stat_data.name_am, 
   
@@ -885,7 +984,8 @@ const formatVolunteerQuery = ({
   inner join (select * from vacancies r where r.type = '3') as e on a.vacancy_id = e.id 
   ) as stat_data
   where  
-   year(stat_data.claim_date) = '${year}'
+   year(${dateName}) = '${year}'
+   ${period_where_condition}
    AND stat_data.action = 'allow'
    ${monthWhereCondition}
   group by stat_data.citizenship_id`;
