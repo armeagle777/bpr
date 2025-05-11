@@ -215,7 +215,6 @@ const PersonNotFound = ({ filterProps }) => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                required
                 type="birthPlace"
                 id="birthPlace"
                 name="birthPlace"

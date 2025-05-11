@@ -12,7 +12,9 @@ import {
 import {
   ANT_BTN_TYPES,
   MOCK_PERIODS,
+  MOCK_MONTHS,
   STATISTICS_FILTERS,
+  periodsMap,
 } from "../../../../../utils/constants";
 
 const FilterRow = ({
@@ -73,6 +75,19 @@ const FilterRow = ({
         value={filters.period}
         placeholder={FILTER_ROW.PERIODS_PLACEHOLDER}
       />
+      {filters.period === periodsMap.MONTHLY && (
+        <FilterSelect
+          options={MOCK_MONTHS}
+          onChange={(e) =>
+            onFilterChange({
+              name: STATISTICS_FILTERS.MONTH,
+              value: e,
+            })
+          }
+          value={filters.month}
+          placeholder={FILTER_ROW.MONTHS_PLACEHOLDER}
+        />
+      )}
       <FilterSelect
         options={MOCK_CLAIM_TYPES}
         onChange={(e) =>
