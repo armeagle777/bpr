@@ -77,6 +77,7 @@ const PropertyInfo = ({ property }) => {
     EVALUATION_ZONE,
     SUB_STREET_NAME,
     SUB_STREET_TYPE,
+    ADDRESS_DESCRIPTION,
     PARCEL_CADASTRAL_VALUE,
     PURPOSE_OF_THE_BUILDING,
     BUILDING_CADASTRAL_VALUE,
@@ -176,7 +177,12 @@ const PropertyInfo = ({ property }) => {
             >
               {REGION || ""} <br />
               {COMMUNITY || ""} <br />
-              {`${STREET_NAME || ""} ${STREET_TYPE || ""}` || ""} <br />
+              {STREET_NAME || STREET_TYPE
+                ? `${STREET_NAME || ""} ${STREET_TYPE || ""}`
+                : ADDRESS_DESCRIPTION
+                ? `${ADDRESS_DESCRIPTION}`
+                : ""}{" "}
+              <br />
               {HOUSE || ""} <br />
               {BUILDING || ""} <br />
             </Typography>
