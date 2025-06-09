@@ -825,31 +825,42 @@ const formatWpQuery = ({
 }) => {
   let dateName = "";
   let action = "";
+  let nestedAction = "";
   let period_where_condition = "";
+  let nestedPeriodWhereCondition = "";
 
   if (report_type == 1) {
     dateName = "stat_data.claim_date";
   } else {
     dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
+    nestedAction = ` AND t4.action = '${decType}' `;
   }
 
   if (period == periodsMap.H1) {
     period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (1,2) `;
   } else if (period == periodsMap.H2) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (3,4) `;
   } else if (period == periodsMap.ANNUAL) {
     period_where_condition = ` `;
+    nestedPeriodWhereCondition = ` `;
   } else if (period == periodsMap.Q1) {
     period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =1 `;
   } else if (period == periodsMap.Q2) {
     period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =2 `;
   } else if (period == periodsMap.Q3) {
     period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =3 `;
   } else if (period == periodsMap.Q4) {
     period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =4 `;
   } else if (period == periodsMap["9MONTHLY"]) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN(1,2,3) `;
   }
   // else if (period == "9") {
   //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
@@ -862,7 +873,8 @@ const formatWpQuery = ({
     ? ` AND month(${dateName}) = '${month}'`
     : "";
 
-  return `SELECT  stat_data.name_am, 
+  return `SELECT  
+  stat_data.name_am, 
   
   count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
@@ -882,17 +894,41 @@ const formatWpQuery = ({
 
   from
   (
-  SELECT a.id, a.created_at as claim_date, a.type as claim_type, b.citizenship_id, c.gender_id, d.name_am, d.name_en, d.name_ru, b.birthday_year, year(a.created_at) - b.birthday_year as age, g.action, g.log_date 
+  SELECT 
+    a.id, 
+    a.created_at as claim_date, 
+    a.type as claim_type, 
+    b.citizenship_id, 
+    c.gender_id, 
+    d.name_am, 
+    d.name_en, 
+    d.name_ru, 
+    b.birthday_year, 
+    year(a.created_at) - b.birthday_year as age, 
+    g.action, 
+    g.log_date 
   FROM claims a 
   inner join employees b on a.employee_id = b.id
   inner join users c on b.user_id = c.id
   inner join countries d on b.citizenship_id = d.id 
-  left join 
-  (select 
-    f.claim_id, 
-    f.action, 
-    date(f.created_at) as log_date 
-    from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id) as stat_data
+  INNER join 
+    (
+      select 
+      f.claim_id, 
+      f.action, 
+      date(f.created_at) as log_date 
+      from ms_logs f 
+      where f.id = (
+        SELECT MAX(t4.id) from ms_logs t4 
+        where f.claim_id = t4.claim_id
+        AND t4.type = 6
+        ${nestedAction}
+        AND year(t4.created_at) = '${year}'
+
+      ) 
+      and f.type = 6
+    )  as g ON a.id = g.claim_id
+  ) as stat_data
   where   
    year(${dateName}) = '${year}' 
    ${period_where_condition}
