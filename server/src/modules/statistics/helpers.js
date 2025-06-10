@@ -628,6 +628,8 @@ const formatEaeuEmployeeQuery = ({
   let dateName = "";
   let action = "";
   let period_where_condition = "";
+  let nestedAction = "";
+  let nestedPeriodWhereCondition = "";
   const claim_type_where_condion =
     claim_type == "all" ? "" : ` AND stat_data.claim_type = '${claim_type}'`;
 
@@ -637,24 +639,33 @@ const formatEaeuEmployeeQuery = ({
   } else {
     dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
+    nestedAction = ` AND t4.action = '${decType}' `;
   }
 
   if (period == periodsMap.H1) {
     period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (1,2) `;
   } else if (period == periodsMap.H2) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (3,4) `;
   } else if (period == periodsMap.ANNUAL) {
     period_where_condition = ` `;
+    nestedPeriodWhereCondition = ` `;
   } else if (period == periodsMap.Q1) {
     period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =1 `;
   } else if (period == periodsMap.Q2) {
     period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =2 `;
   } else if (period == periodsMap.Q3) {
     period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =3 `;
   } else if (period == periodsMap.Q4) {
     period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =4 `;
   } else if (period == periodsMap["9MONTHLY"]) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN(1,2,3) `;
   }
   // else if (period == "9") {
   //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
@@ -662,6 +673,9 @@ const formatEaeuEmployeeQuery = ({
 
   const monthWhereCondition = month
     ? ` AND month(${dateName}) = '${month}'`
+    : "";
+  const nestedMonthWhereCondition = month
+    ? ` AND month(t4.created_at) = '${month}'`
     : "";
 
   return `SELECT  
@@ -704,7 +718,11 @@ const formatEaeuEmployeeQuery = ({
   left join 
   (select f.claim_id, f.action, 
     date(f.created_at) as log_date from ms_logs f 
-    where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g 
+    where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id 
+            ${nestedAction}
+        AND year(t4.created_at) = '${year}'
+        ${nestedMonthWhereCondition}
+        ) and f.type = 6 ) as g 
     ON a.id = g.claim_id
   ) as stat_data
   where 
@@ -726,30 +744,41 @@ const formatEaeuEmployeeFamQuery = ({
   let dateName = "";
   let action = "";
   let period_where_condition = "";
+  let nestedAction = "";
+  let nestedPeriodWhereCondition = "";
 
   if (report_type == 1) {
     dateName = "stat_data.claim_date";
   } else {
     dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
+    nestedAction = ` AND t4.action = '${decType}' `;
   }
 
   if (period == periodsMap.H1) {
     period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (1,2) `;
   } else if (period == periodsMap.H2) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (3,4) `;
   } else if (period == periodsMap.ANNUAL) {
     period_where_condition = ` `;
+    nestedPeriodWhereCondition = ` `;
   } else if (period == periodsMap.Q1) {
     period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =1 `;
   } else if (period == periodsMap.Q2) {
     period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =2 `;
   } else if (period == periodsMap.Q3) {
     period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =3 `;
   } else if (period == periodsMap.Q4) {
     period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =4 `;
   } else if (period == periodsMap["9MONTHLY"]) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN(1,2,3) `;
   }
   // else if (period == "9") {
   //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
@@ -760,6 +789,9 @@ const formatEaeuEmployeeFamQuery = ({
 
   const monthWhereCondition = month
     ? ` AND month(${dateName}) = '${month}'`
+    : "";
+  const nestedMonthWhereCondition = month
+    ? ` AND month(t4.created_at) = '${month}'`
     : "";
 
   return `SELECT 
@@ -802,7 +834,11 @@ const formatEaeuEmployeeFamQuery = ({
   (select 
     f.claim_id, 
     f.action, 
-    date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id)
+    date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id
+            ${nestedAction}
+        AND year(t4.created_at) = '${year}'
+        ${nestedMonthWhereCondition}
+        ) and f.type = 6) as g ON a.id = g.claim_id)
    as stat_data
   where  
    year(${dateName}) = '${year}'
@@ -873,6 +909,10 @@ const formatWpQuery = ({
     ? ` AND month(${dateName}) = '${month}'`
     : "";
 
+  const nestedMonthWhereCondition = month
+    ? ` AND month(t4.created_at) = '${month}'`
+    : "";
+
   return `SELECT  
   stat_data.name_am, 
   
@@ -924,7 +964,7 @@ const formatWpQuery = ({
         AND t4.type = 6
         ${nestedAction}
         AND year(t4.created_at) = '${year}'
-
+        ${nestedMonthWhereCondition}
       ) 
       and f.type = 6
     )  as g ON a.id = g.claim_id
@@ -949,35 +989,49 @@ const formatVolunteerQuery = ({
   let period_where_condition = "";
   let action = "";
   let dateName = "";
+  let nestedAction = "";
+  let nestedPeriodWhereCondition = "";
 
   if (report_type == 1) {
     dateName = "stat_data.claim_date";
   } else {
     dateName = "stat_data.log_date";
     action = ` AND stat_data.action = '${decType}' `;
+    nestedAction = ` AND t4.action = '${decType}' `;
   }
 
   if (period == periodsMap.H1) {
     period_where_condition = `   AND QUARTER(${dateName}) IN (1,2) `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (1,2) `;
   } else if (period == periodsMap.H2) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN (3,4)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN (3,4) `;
   } else if (period == periodsMap.ANNUAL) {
     period_where_condition = ` `;
+    nestedPeriodWhereCondition = ` `;
   } else if (period == periodsMap.Q1) {
     period_where_condition = `   AND  QUARTER(${dateName}) =1  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =1 `;
   } else if (period == periodsMap.Q2) {
     period_where_condition = `   AND  QUARTER(${dateName}) =2  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =2 `;
   } else if (period == periodsMap.Q3) {
     period_where_condition = `   AND  QUARTER(${dateName}) =3  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =3 `;
   } else if (period == periodsMap.Q4) {
     period_where_condition = `   AND  QUARTER(${dateName}) =4  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) =4 `;
   } else if (period == periodsMap["9MONTHLY"]) {
     period_where_condition = `   AND  QUARTER(${dateName}) IN(1,2,3)  `;
+    nestedPeriodWhereCondition = `   AND QUARTER(t4.created_at) IN(1,2,3) `;
   }
   // else if (period == "9") {
   //   period_where_condition = `   AND  MONTH(${dateName}) = $month  `;
   // }
-  const monthWhereCondition = month ? ` AND month(${dateName}) < ${month}` : "";
+  const monthWhereCondition = month ? ` AND month(${dateName}) = ${month}` : "";
+  const nestedMonthWhereCondition = month
+    ? ` AND month(t4.created_at) = '${month}'`
+    : "";
 
   return `SELECT stat_data.name_am, 
   
@@ -1016,7 +1070,11 @@ const formatVolunteerQuery = ({
   inner join users c on b.user_id = c.id
   inner join countries d on b.citizenship_id = d.id 
   left join 
-  (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id) and f.type = 6) as g ON a.id = g.claim_id
+  (select f.claim_id, f.action, date(f.created_at) as log_date from ms_logs f where f.id = (SELECT MAX(t4.id) from ms_logs t4 where f.claim_id = t4.claim_id
+          ${nestedAction}
+        AND year(t4.created_at) = '${year}'
+        ${nestedMonthWhereCondition}
+        ) and f.type = 6) as g ON a.id = g.claim_id
   inner join (select * from vacancies r where r.type = '3') as e on a.vacancy_id = e.id 
   ) as stat_data
   where  
