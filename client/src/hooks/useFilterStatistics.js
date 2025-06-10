@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -81,9 +81,7 @@ const useFilterStatistics = ({ statisticsType }) => {
     }
   );
 
-  const handleFilter = () => {
-    refetch();
-  };
+  const handleFilter = useCallback(() => refetch(), [refetch]);
 
   const handleResetFilters = () => {
     setFilters({ ...initialFilters });

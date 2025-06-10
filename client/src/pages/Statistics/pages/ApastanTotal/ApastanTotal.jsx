@@ -15,8 +15,15 @@ import {
 } from "../../../../utils/constants";
 import useStatisticsPeriodsData from "../../../../hooks/useStatisticsPeriodsData";
 import { addTotals } from "../../../../utils/helperFunctions";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ApastanTotal = () => {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["statistics-asylum"]);
+    };
+  }, [queryClient]);
   const {
     data: years,
     isLoading: isYearsLoading,

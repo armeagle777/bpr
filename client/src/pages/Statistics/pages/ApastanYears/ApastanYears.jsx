@@ -7,8 +7,15 @@ import useFilterStatistics from "../../../../hooks/useFilterStatistics";
 import { useEffect } from "react";
 import { STATISTICS_TYPE_MAPS } from "../../../../utils/constants";
 import { addTotals } from "../../../../utils/helperFunctions";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ApastanYears = () => {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["statistics-asylum"]);
+    };
+  }, [queryClient]);
   const {
     data,
     error,

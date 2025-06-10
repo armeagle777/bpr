@@ -26,8 +26,8 @@ export const MOCK_COLUMNS = [
   },
   {
     title: "Դադարեցվել է",
-    dataIndex: "terminate_decisions",
-    key: "terminate_decisions",
+    dataIndex: "cease_decisions",
+    key: "cease_decisions",
     width: 150,
   },
 ];

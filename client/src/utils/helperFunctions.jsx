@@ -262,7 +262,7 @@ export const formatedData = (periods) => {
 };
 
 export const addTotals = (arr) => {
-  if (arr.length === 0) return arr;
+  if (!arr?.length) return arr;
 
   const totals = Object.keys(arr[0]).reduce((acc, key) => {
     if (typeof arr[0][key] === "number") {
