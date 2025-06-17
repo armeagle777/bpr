@@ -165,6 +165,11 @@ const extractData = (row) => {
   return { cards, data: data ?? null };
 };
 
+function convertToMysqlDate(dateStr) {
+  const [day, month, year] = dateStr.split("/");
+  return `${year}-${month}-${day}`;
+}
+
 const filterWpPersonsQuery = (filters) => {
   const {
     card_id,
@@ -240,8 +245,16 @@ const filterWpPersonsQuery = (filters) => {
 	   ) AS ALL_PERSON
 	   WHERE 1  `;
 
-  if (created_at_start && created_at_end) {
-    baseQuery += `AND claim_date >= '${created_at_start}' AND claim_date <= '${created_at_end}' `;
+  if (created_at_start) {
+    const startDate = convertToMysqlDate(created_at_start);
+
+    baseQuery += `AND claim_date >= '${startDate}'  `;
+  }
+
+  if (created_at_end) {
+    const endDate = convertToMysqlDate(created_at_end);
+
+    baseQuery += ` AND claim_date <= '${endDate}' `;
   }
 
   if (birth_date_start && !birth_date_end) {
@@ -275,14 +288,14 @@ const filterWpPersonsQuery = (filters) => {
     baseQuery += ` AND ALL_PERSON.claim_status = '${select_claim_status}' `;
   }
 
-  if (created_at_start && created_at_end) {
-    const createDateArr = created_at_start.split("/");
-    const createDateDay = createDateArr[0];
-    const createDateMonth = createDateArr[1];
-    const createDateYear = createDateArr[2];
-    const formatedCreateDate = `${createDateYear}-${createDateMonth}-${createDateDay}`;
-    baseQuery += `AND claim_date = '${formatedCreateDate}' `;
-  }
+  // if (created_at_start && created_at_end) {
+  //   const createDateArr = created_at_start.split("/");
+  //   const createDateDay = createDateArr[0];
+  //   const createDateMonth = createDateArr[1];
+  //   const createDateYear = createDateArr[2];
+  //   const formatedCreateDate = `${createDateYear}-${createDateMonth}-${createDateDay}`;
+  //   baseQuery += `AND claim_date = '${formatedCreateDate}' `;
+  // }
 
   if (fisrt_name_lat) {
     baseQuery += ` AND first_name_en LIKE '%${fisrt_name_lat}%'`;
