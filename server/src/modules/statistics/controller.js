@@ -17,10 +17,7 @@ const {
   getBorderCrossCountriesDb,
   getBorderCrossPeriodsDb,
   getSimpleWPStatisticsDb,
-} =
-  process.env.NODE_ENV === "local"
-    ? require("./services-local")
-    : require("./services");
+} = require("./services");
 
 const exportPdf = async (req, res, next) => {
   try {

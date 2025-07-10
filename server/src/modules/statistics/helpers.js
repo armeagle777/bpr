@@ -916,17 +916,17 @@ const formatWpQuery = ({
   return `SELECT  
   stat_data.name_am, 
   
-  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
-  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
   count(if(stat_data.gender_id = 2 and stat_data.age < 35, stat_data.id, null)) as female_under_34,
+  count(if(stat_data.gender_id = 1 and stat_data.age < 35, stat_data.id, null)) as male_under_34,
+  count(if(stat_data.age < 35, stat_data.id, null)) as total_under_34,
   
-  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
   count(if(stat_data.gender_id = 2 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as female_35_64,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as male_35_64,
+  count(if(stat_data.age >= 35 and stat_data.age < 65, stat_data.id, null)) as total_35_64,
   
-  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
-  count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
   count(if(stat_data.gender_id = 2 and stat_data.age >= 65, stat_data.id, null)) as female_upper_65,
+  count(if(stat_data.gender_id = 1 and stat_data.age >= 65, stat_data.id, null)) as male_upper_65,
+  count(if(stat_data.age >= 65, stat_data.id, null)) as total_upper_65,
 
   count(if(stat_data.gender_id = 2, stat_data.id, null)) as total_female,
   count(if(stat_data.gender_id = 1, stat_data.id, null)) as total_male,
@@ -951,7 +951,7 @@ const formatWpQuery = ({
   inner join employees b on a.employee_id = b.id
   inner join users c on b.user_id = c.id
   inner join countries d on b.citizenship_id = d.id 
-  INNER join 
+  LEFT join 
     (
       select 
       f.claim_id, 
