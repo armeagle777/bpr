@@ -27,7 +27,7 @@ const getDisplacementCasesQuery = (pnum) => `SELECT
                                         LEFT JOIN un_settlement Stl ON Stl.settlement_id=C.settlement 
                                         LEFT JOIN tb_address_type AT ON AT.address_type_id=C.address_type
                                         LEFT JOIN case_types CT ON CT.id = C.case_type_id
-                                        WHERE P.pnum = ${pnum}`;
+                                        WHERE P.pnum = "${pnum}"`;
 
 const getDisplacementCertsQuery = (pnum) => `SELECT C.serial_number,
                                         C.id,
@@ -44,6 +44,6 @@ const getDisplacementCertsQuery = (pnum) => `SELECT C.serial_number,
                                         LEFT JOIN local_offices O ON O.id = C.issue_by_office
                                         LEFT JOIN jkk_claims CL ON CL.id=C.claim_id
                                         LEFT JOIN jkk_list L ON L.id = CL.jkk_list_id
-                                        WHERE C.pnum = ${pnum}`;
+                                        WHERE C.pnum = "${pnum}"`;
 
 module.exports = { getDisplacementCertsQuery, getDisplacementCasesQuery };

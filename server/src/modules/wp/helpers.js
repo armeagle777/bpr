@@ -45,7 +45,7 @@ const getWpQuery = (pnum) => `SELECT
                 companies h on e.company_id = h.id
                 left join (select path, claim_id from claim_files p where p.active = 1 and p.type = 'photo') as image on image.claim_id = c.id
                 WHERE
-                    a.ssn =${pnum} 
+                    a.ssn ="${pnum}" 
                     and c.status != 'pending_foreigner'`;
 
 const getEatmQuery = (pnum) => `SELECT
@@ -135,7 +135,7 @@ const getEatmFamilyMemberQuery = (pnum) => `SELECT
                         left join
                         ms_cards e on b.id = e.claim_id
                         left join (select path, claim_id from claim_files p where p.active = 1 and p.type = 'photo') as image on image.claim_id = b.id
-                        WHERE a.ssn=${pnum}`;
+                        WHERE a.ssn="${pnum}"`;
 
 const extractData = (row) => {
   const cards = [];

@@ -159,13 +159,14 @@ const getSearchedPersonsDb = async (req) => {
 
 const getDocumentsBySsnDb = async (ssn, firstName, lastName) => {
   const qkagUrl = process.env.QKAG_URL;
-
-  var queryData = qs.stringify({
-    ssn,
-    first_name: firstName,
-    last_name: lastName,
-  });
-
+  var queryData = qs.stringify(
+    {
+      ssn,
+      first_name: firstName,
+      last_name: lastName,
+    },
+    { encode: true }
+  );
   var config = {
     method: "post",
     url: qkagUrl,
@@ -178,7 +179,6 @@ const getDocumentsBySsnDb = async (ssn, firstName, lastName) => {
   const response = await axios(config);
 
   const { status, result } = response.data;
-
   const documents = Object.values(result);
 
   if (documents.length === 0) {

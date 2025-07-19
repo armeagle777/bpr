@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
-import drivingLicense from "../../assets/drivingLicense.png";
+// import drivingLicense from "../../assets/drivingLicense.png";
 import { Box, Grid, Stack } from "@mui/material";
 
 const LicenseCard = ({ license }) => {
@@ -39,7 +39,7 @@ const LicenseCard = ({ license }) => {
           <CardMedia
             height="140"
             width="20"
-            image={drivingLicense}
+            image="/driving-license.png"
             component="img"
             alt="Driving license"
           />
