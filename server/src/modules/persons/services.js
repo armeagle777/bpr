@@ -255,16 +255,16 @@ const getPoliceByPnumDb = async (pnum) => {
   const policeUrl = process.env.POLICE_URL;
 
   const requestBody = {
-    first_name: "",
-    last_name: "",
-    HAYR: "",
-    BDATE: "",
-    SSN: pnum,
     Dzev: 9,
-    USER_ID: "MQC_S",
-    PASSWORD: "mqc123",
-    User: "MQC_S",
-    STUGOX: "EKG",
+    HAYR: "",
+    SSN: pnum,
+    BDATE: "",
+    last_name: "",
+    first_name: "",
+    STUGOX: process.env.POLICE_REQUEST_STUGOX,
+    User: process.env.POLICE_REQUEST_USER_NAME,
+    USER_ID: process.env.POLICE_REQUEST_USER_ID,
+    PASSWORD: process.env.POLICE_REQUEST_USER_PASSWORD,
   };
   const dataString = qs.stringify({ customer: JSON.stringify(requestBody) });
   const { data } = await axios.post(policeUrl, dataString, {
