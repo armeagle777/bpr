@@ -7,7 +7,6 @@ import createStore from "react-auth-kit/createStore";
 
 import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
-import { VehicleSearchProvider } from "./components/context/vehicleSearch";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,11 +28,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider store={store}>
     <QueryClientProvider client={queryClient}>
       <PersonsProvider>
-        <VehicleSearchProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </VehicleSearchProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </PersonsProvider>
     </QueryClientProvider>
   </AuthProvider>

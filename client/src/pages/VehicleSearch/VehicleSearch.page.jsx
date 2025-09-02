@@ -1,21 +1,40 @@
 import { Container } from "@mui/material";
 
 import { Header, Body } from "./components";
+import useVehicleSearch from "../../hooks/useVehicleSearch";
 
 const VehicleSearch = () => {
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     const trimedString = searchString.trim();
-  //     const searchParamsObj = createSearchParamsObject(trimedString);
-
-  //     setSearchParams(searchParamsObj);
-
-  // };
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+    certNumberInput,
+    setCertNumberInput,
+    handleSubmitSearch,
+    SEARCH_BASES,
+    searchBase,
+    handleBaseChange,
+  } = useVehicleSearch();
 
   return (
     <Container>
-      <Header />
-      <Body />
+      <Header
+        isFetching={isFetching}
+        certNumberInput={certNumberInput}
+        setCertNumberInput={setCertNumberInput}
+        handleSubmitSearch={handleSubmitSearch}
+        SEARCH_BASES={SEARCH_BASES}
+        searchBase={searchBase}
+        handleBaseChange={handleBaseChange}
+      />
+      <Body
+        data={data}
+        isFetching={isFetching}
+        isError={isError}
+        error={error}
+      />
     </Container>
   );
 };
