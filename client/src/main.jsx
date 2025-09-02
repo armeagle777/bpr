@@ -8,7 +8,6 @@ import createStore from "react-auth-kit/createStore";
 
 import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
-import { CompaniesProvider } from "./components/context/companies";
 import { KadastrCertsProvider } from "./components/context/kadastrCerts";
 import { VehicleSearchProvider } from "./components/context/vehicleSearch";
 
@@ -32,15 +31,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider store={store}>
     <QueryClientProvider client={queryClient}>
       <PersonsProvider>
-        <CompaniesProvider>
-          <KadastrCertsProvider>
-            <VehicleSearchProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </VehicleSearchProvider>
-          </KadastrCertsProvider>
-        </CompaniesProvider>
+        <KadastrCertsProvider>
+          <VehicleSearchProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </VehicleSearchProvider>
+        </KadastrCertsProvider>
       </PersonsProvider>
     </QueryClientProvider>
   </AuthProvider>
