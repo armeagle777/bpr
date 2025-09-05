@@ -135,6 +135,11 @@ const permissionsMap = {
     name: "Վիճակագրություն",
     description: "Վիճակագրական տվյալներ",
   },
+   MOJ_CES: {
+    uid: "6001",
+    name: "ԴԱՀԿ",
+    description: "ԴԱՀԿ Համակարգի Որոնում",
+  },
   KADASTR: {
     uid: "7000",
     name: "Կադաստր",
