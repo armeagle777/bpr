@@ -1,25 +1,34 @@
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
-import RegisterHead from '../components/register/RegisterHead';
-
-import RegisterBody from '../components/register/RegisterBody';
+import RegisterHead from "../components/register/RegisterHead";
+import RegisterBody from "../components/register/RegisterBody";
+import useCompaniesData from "../hooks/useCompaniesData";
 
 const Register = () => {
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     const trimedString = searchString.trim();
-    //     const searchParamsObj = createSearchParamsObject(trimedString);
+  const {
+    data,
+    isFetching,
+    isError,
+    error,
+    taxIdInputValue,
+    setTaxIdInputValue,
+    handleSubmitSearch,
+  } = useCompaniesData();
 
-    //     setSearchParams(searchParamsObj);
-
-    // };
-
-    return (
-        <Container>
-            <RegisterHead />
-            <RegisterBody />
-        </Container>
-    );
+  return (
+    <Container>
+      <RegisterHead
+        taxIdInputValue={taxIdInputValue}
+        setTaxIdInputValue={setTaxIdInputValue}
+      />
+      <RegisterBody
+        data={data}
+        isFetching={isFetching}
+        isError={isError}
+        error={error}
+      />
+    </Container>
+  );
 };
 
 export default Register;

@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
@@ -8,9 +7,6 @@ import createStore from "react-auth-kit/createStore";
 
 import "./index.css";
 import { PersonsProvider } from "./components/context/persons";
-import { CompaniesProvider } from "./components/context/companies";
-import { KadastrCertsProvider } from "./components/context/kadastrCerts";
-import { VehicleSearchProvider } from "./components/context/vehicleSearch";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,15 +28,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider store={store}>
     <QueryClientProvider client={queryClient}>
       <PersonsProvider>
-        <CompaniesProvider>
-          <KadastrCertsProvider>
-            <VehicleSearchProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </VehicleSearchProvider>
-          </KadastrCertsProvider>
-        </CompaniesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </PersonsProvider>
     </QueryClientProvider>
   </AuthProvider>

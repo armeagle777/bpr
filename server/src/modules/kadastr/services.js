@@ -8,9 +8,9 @@ const { createLog } = require("../log/services");
 
 const getPropertiesBySsnDb = async (ssn) => {
   const kadastrUrl = process.env.KADASTR_URL;
-  const privateKey = fs.readFileSync("./src/migration_am.key", "utf8");
+  const privateKey = fs.readFileSync("./src/certificates/migration_am.key", "utf8");
   const certificate = fs.readFileSync(
-    "./src/32837fe0_26ee_4f51_ac0d_00604a9167b4.pem",
+    "./src/certificates/32837fe0_26ee_4f51_ac0d_00604a9167b4.pem",
     "utf8"
   );
 
@@ -54,9 +54,9 @@ const getPropertyByCertificateDb = async (req) => {
   const { searchBase } = req.query;
 
   const kadastrUrl = process.env.KADASTR_CERTIFICATE_URL;
-  const privateKey = fs.readFileSync("./src/migration_am.key", "utf8");
+  const privateKey = fs.readFileSync("./src/certificates/migration_am.key", "utf8");
   const certificate = fs.readFileSync(
-    "./src/32837fe0_26ee_4f51_ac0d_00604a9167b4.pem",
+    "./src/certificates/32837fe0_26ee_4f51_ac0d_00604a9167b4.pem",
     "utf8"
   );
 

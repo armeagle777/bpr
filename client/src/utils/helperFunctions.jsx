@@ -83,21 +83,27 @@ export const findValidDocument = (documents) => {
 export const searchRowPersonData = (documents) => {
   const avatar = documents.find((doc) => doc.Photo_ID)?.Photo_ID;
   const validDoc = findValidDocument(documents);
+
   const {
     Document_Department,
     Document_Number,
-    PassportData: { Passport_Issuance_Date, Passport_Validity_Date } = {},
-    Person: {
-      Genus,
-      First_Name,
-      Last_Name,
-      Patronymic_Name,
-      English_First_Name,
-      English_Last_Name,
-      English_Patronymic_Name,
-      Birth_Date,
-    } = {},
+    PassportData = {},
+    Person = {},
   } = { ...validDoc };
+
+  const { Passport_Issuance_Date, Passport_Validity_Date } = PassportData || {};
+
+  const {
+    Genus,
+    First_Name,
+    Last_Name,
+    Patronymic_Name,
+    English_First_Name,
+    English_Last_Name,
+    English_Patronymic_Name,
+    Birth_Date,
+  } = Person;
+
   const rowData = {
     avatar,
     gender: Genus,
