@@ -395,6 +395,11 @@ export const permissionsMap = {
     description:
       "Անձի  որոնում աշխ թույլտվության համակարգում բոլոր պարամետրերով",
   },
+  MOJ_CES: {
+    uid: "6001",
+    name: "ԴԱՀԿ",
+    description: "ԴԱՀԿ Համակարգի Որոնում",
+  },
   ADMIN: {
     uid: "9999",
     name: "Ադմինիստրատոր",

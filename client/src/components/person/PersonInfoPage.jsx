@@ -1,32 +1,11 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
-import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import BusinessIcon from "@mui/icons-material/Business";
-import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
-import CastleIcon from "@mui/icons-material/Castle";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Chip,
-  Container,
-  Grid,
-  Stack,
-  Tooltip,
-} from "@mui/material";
+import { Box, Button, Chip, Container, Grid, Stack } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import BPR from "../pdf-templates/BPR";
 import Documents from "../documents/Documents";
 import Family from "../family/Family";
@@ -37,6 +16,7 @@ import PhotoSlider from "../photoSlider/PhotoSlider";
 import SpeedDialButton from "../speedDial/SpeedDial";
 import TabPanel from "../tabPanel/TabPanel";
 import PersonalInfoRow from "./PersonalInfoRow";
+import MojCesDebtorTab from "../MojCesDebtorTab/MojCesDebtorTab";
 
 import {
   filterImageSrcs,
@@ -325,17 +305,6 @@ const PersonInfoPage = ({ personInfo }) => {
                         text={Citizenship_StoppedDate}
                       />
                     )}
-                    {/* <Grid item>
-                  <PDFGenerator
-                    fileName={`bpr_${firstName}_${lastName}.pdf`}
-                    buttonText="Արտահանել"
-                    variant="contained"
-                    Icon={PictureAsPdfIcon}
-                    PDFTemplate={BPR}
-                    data={personInfo}
-                    userFullName={`${user.firstName} ${user.lastName}`}
-                  />
-                </Grid> */}
                   </Stack>
                 </Stack>
                 {isJpk && (
@@ -434,6 +403,14 @@ const PersonInfoPage = ({ personInfo }) => {
                   <RoadPoliceTab pnum={sanitizedPNum} />
                 </TabPanel>
               )}
+              {userHasPermission(
+                [permissionsMap.MOJ_CES.uid, permissionsMap.ADMIN.uid],
+                user.permissions
+              ) && (
+                <TabPanel value={value} index={index++}>
+                  <MojCesDebtorTab psn={sanitizedPNum} />
+                </TabPanel>
+              )}
             </Box>
 
             {!drawerOpen && (
@@ -477,73 +454,35 @@ const PersonInfoPage = ({ personInfo }) => {
               {userHasPermission(
                 [permissionsMap.BPR.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ԲՊՌ տվյալներ">
-                //   <Tab icon={<CoPresentIcon />} aria-label="documents" />
-                // </Tooltip>
-                <Tab label="ԲՊՌ տվյալներ" aria-label="documents" />
-              )}
+              ) && <Tab label="ԲՊՌ տվյալներ" aria-label="documents" />}
               {userHasPermission(
                 [permissionsMap.TAX.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ՊԵԿ տվյալներ">
-                //   <Tab icon={<AttachMoneyIcon />} aria-label="finances" />
-                // </Tooltip>
-                <Tab label="ՊԵԿ տվյալներ" aria-label="finances" />
-              )}
+              ) && <Tab label="ՊԵԿ տվյալներ" aria-label="finances" />}
               {userHasPermission(
                 [permissionsMap.ZAQS.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ՔԿԱԳ տվյալներ">
-                //   <Tab icon={<FamilyRestroomIcon />} aria-label="family" />
-                // </Tooltip>
-                <Tab label="ՔԿԱԳ տվյալներ" aria-label="family" />
-              )}
+              ) && <Tab label="ՔԿԱԳ տվյալներ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.PETREGISTER.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ԻԱՊՌ տվյալներ">
-                //   <Tab icon={<BusinessIcon />} aria-label="business" />
-                // </Tooltip>
-                <Tab label="ԻԱՊՌ տվյալներ" aria-label="family" />
-              )}
+              ) && <Tab label="ԻԱՊՌ տվյալներ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.KADASTR.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="Կադաստրի տվյալներ">
-                //   <Tab icon={<CastleIcon />} aria-label="kadastr" />
-                // </Tooltip>
-                <Tab label="Կադաստրի տվյալներ" aria-label="family" />
-              )}
+              ) && <Tab label="Կադաստրի տվյալներ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.POLICE.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ԻՑ տվյալներ">
-                //   <Tab icon={<LocalPoliceIcon />} aria-label="police" />
-                // </Tooltip>
-                <Tab label="ԻՑ տվյալներ" aria-label="family" />
-              )}
+              ) && <Tab label="ԻՑ տվյալներ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.ARTSAKH.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="Տեղահանումների տվյալներ">
-                //   <Tab icon={<LocalFireDepartmentIcon />} aria-label="artsakh" />
-                // </Tooltip>
-                <Tab label="Տեղահանություններ" aria-label="family" />
-              )}
+              ) && <Tab label="Տեղահանություններ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.WP.uid, permissionsMap.ADMIN.uid],
                 user.permissions
               ) && (
-                // <Tooltip title="Աշխատանքի թույլտվության տվյալներ">
-                //   <Tab icon={<PersonSearchIcon />} aria-label="wp" />
-                // </Tooltip>
                 <Tab
                   label="Աշխատանքի թույլտվության տվյալներ"
                   aria-label="family"
@@ -552,24 +491,15 @@ const PersonInfoPage = ({ personInfo }) => {
               {userHasPermission(
                 [permissionsMap.BORDERCROSS.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="Սահմանահատումներ">
-                //   <Tab
-                //     icon={<AirplanemodeActiveIcon />}
-                //     aria-label="bordercross"
-                //   />
-                // </Tooltip>
-                <Tab label="Սահմանահատումներ" aria-label="family" />
-              )}
+              ) && <Tab label="Սահմանահատումներ" aria-label="family" />}
               {userHasPermission(
                 [permissionsMap.ROADPOLICE.uid, permissionsMap.ADMIN.uid],
                 user.permissions
-              ) && (
-                // <Tooltip title="ՃՈ տվյալներ">
-                //   <Tab icon={<DirectionsCarIcon />} aria-label="roadpolice" />
-                // </Tooltip>
-                <Tab label="ՃՈ տվյալներ" aria-label="family" />
-              )}
+              ) && <Tab label="ՃՈ տվյալներ" aria-label="family" />}
+              {userHasPermission(
+                [permissionsMap.MOJ_CES.uid, permissionsMap.ADMIN.uid],
+                user.permissions
+              ) && <Tab label="ԴԱՀԿ Որոնում" aria-label="moj-ces-debtor" />}
             </Tabs>
           </Box>
         </Grid>

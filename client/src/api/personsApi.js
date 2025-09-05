@@ -330,6 +330,16 @@ export const getCompanyByHvhh = async (tax_id) => {
   return response.data;
 };
 
+export const getCompanyObligations = async (tin) => {
+  const response = await personsApi.get(`/tax/company/${tin}/obligations`);
+  return response.data;
+};
+
+export const getMojCesData = async (params) => {
+  const response = await personsApi.post(`/moj-ces/debtor-info`, params);
+  return response.data;
+};
+
 export const getCompanyForPersonByHvhh = async (tax_id) => {
   const response = await personsApi.get(`/persons/${tax_id}/petregistr`);
   return response.data;
