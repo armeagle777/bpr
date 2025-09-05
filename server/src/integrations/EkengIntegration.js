@@ -3,8 +3,11 @@ const https = require("https");
 const crypto = require("crypto");
 
 class EkengIntegration {
-  privateKey = fs.readFileSync("./src/certificates/migration_am.key", "utf8");
-  certificate = fs.readFileSync("./src/certificates/32837fe0_26ee_4f51_ac0d_00604a9167b4.pem", "utf8");
+  privateKey = fs.readFileSync("./src/certificates/moj-ces.key", "utf8");
+  certificate = fs.readFileSync(
+    "./src/certificates/4af066b1_bb43_4631_962c_1c961b62dd07.pem",
+    "utf8"
+  );
 
   constructor() {
     this.agent = new https.Agent({
