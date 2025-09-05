@@ -9,4 +9,4 @@ const getTaxRequestOptions = (body, path) => {
   return options;
 };
 
-module.exports = { getTaxRequestOptions, mapActivePropToEmployees };
+module.exports = { getTaxRequestOptions };
