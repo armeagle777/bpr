@@ -40,9 +40,12 @@ import PdfViewer from "../pdfViewer/PdfViewer";
 import { activityCodes } from "../../utils/industryCodes";
 import OwnerRow from "./OwnerRow";
 import FullScreenDialog from "../fullscreenModal/FullscreenModal";
-import { companyDocumentNames } from "../../utils/constants";
+import { companyDocumentNames, permissionsMap } from "../../utils/constants";
 import PDFGenerator from "../PDFGenerator/PDFGenerator";
 import Company from "../pdf-templates/Company";
+import { userHasPermission } from "../../utils/helperFunctions";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import MojCesDebtorTab from "../MojCesDebtorTab/MojCesDebtorTab";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -60,6 +63,14 @@ const CompanyInfo = ({ company }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [documentName, setDocumentName] = useState(undefined);
   const [showDialog, setShowDialog] = useState(false);
+
+    const user = useAuthUser();
+
+  const userHasPermissionMojCes =  userHasPermission(
+                  [permissionsMap.MOJ_CES.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                )
+
 
   const open = Boolean(anchorEl);
 
@@ -413,6 +424,9 @@ const CompanyInfo = ({ company }) => {
           </CardContent>
         </Collapse>
       </Card>
+      {
+        userHasPermissionMojCes && <MojCesDebtorTab tax_id={taxid} />
+      }
       {showDialog && (
         <Dialog
           fullScreen
