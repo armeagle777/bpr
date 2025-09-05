@@ -46,6 +46,7 @@ import Company from "../pdf-templates/Company";
 import { userHasPermission } from "../../utils/helperFunctions";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import MojCesDebtorTab from "../MojCesDebtorTab/MojCesDebtorTab";
+import TaxObligationsTab from "../TaxObligationsTab/TaxObligationsTab";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -68,6 +69,10 @@ const CompanyInfo = ({ company }) => {
 
   const userHasPermissionMojCes =  userHasPermission(
                   [permissionsMap.MOJ_CES.uid, permissionsMap.ADMIN.uid],
+                  user.permissions
+                )
+  const userHasPermissionObligations =  userHasPermission(
+                  [permissionsMap.TAX_COMPANY_OBLIGATIONS.uid, permissionsMap.ADMIN.uid],
                   user.permissions
                 )
 
@@ -426,6 +431,9 @@ const CompanyInfo = ({ company }) => {
       </Card>
       {
         userHasPermissionMojCes && <MojCesDebtorTab tax_id={taxid} />
+      }
+      {
+        userHasPermissionObligations && <TaxObligationsTab tin={taxid} />
       }
       {showDialog && (
         <Dialog
