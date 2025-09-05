@@ -356,6 +356,11 @@ function getCurrentDate() {
   return `${day}/${month}/${year}`;
 }
 
+const getEkengRequestsEndDate = () => {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+};
+
 module.exports = {
   createPDF,
   createUserData,
@@ -366,4 +371,5 @@ module.exports = {
   cronUpdateSphereText,
   validateRefreshToken,
   validateAccessToken,
+  getEkengRequestsEndDate,
 };
