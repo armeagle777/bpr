@@ -26,6 +26,7 @@ const rolesRouter = require("./modules/role/routes");
 const utilsRouter = require("./modules/utils/routes");
 const { sphereSequelize } = require("./config/sphereDatabase");
 const mojCesRouter = require("./modules/MojCes/routes");
+const taxRouter = require("./modules/Tax/routes");
 
 const { cronUpdateSphere, cronUpdateSphereText } = require("./utils/common");
 const { sphereCronConfig } = require("./utils/constants");
@@ -87,6 +88,7 @@ app.use("/api/kadastr", kadastrRoutes);
 app.use("/api/artsakh", artsakhRoutes);
 app.use("/api/wp", wpRoutes);
 app.use("/api/moj-ces", mojCesRouter);
+app.use("/api/tax", taxRouter);
 app.use("/api/sphere", sphereRoute);
 app.use("/api/utils", utilsRouter);
 

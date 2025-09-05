@@ -125,6 +125,11 @@ const permissionsMap = {
     name: "ՊԵԿ",
     description: "Հարկային Որոնում",
   },
+    TAX_COMPANY_OBLIGATIONS: {
+    uid: "4400",
+    name: "Ընկերության պարտավորությունները",
+    description: "Ընկերության պարտավորությունները",
+  },
   ZAQS: {
     uid: "5000",
     name: "ՔԿԱԳ",
